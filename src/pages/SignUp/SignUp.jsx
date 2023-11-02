@@ -1,6 +1,7 @@
 import React from 'react';
 import SignLayout from '../../components/SignLayout/SignLayout';
 import { css } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 /** @jsxImportSource @emotion/react */
 
 const inputBox = css`
@@ -24,6 +25,11 @@ const btn = css`
 
 
 function SignUp(props) {
+    const navigete = useNavigate();
+    
+    const handleSignin = () => {
+        navigete("/auth/signin")
+    };
     return (
         <SignLayout>
             <h1>회원가입</h1>
@@ -34,7 +40,10 @@ function SignUp(props) {
             <div css={inputBox}> <label>닉네임</label> <input type="text" name='nickname'  placeholder='닉네임을 입력하세요'/></div>
             <div css={inputBox}> <label>전화번호</label> <input type="text" name='phone'  placeholder='전화번호를 입력하세요'/></div>
             
-            <button css={btn}>회원가입</button>
+            <div>
+                <button css={btn}>회원가입</button> 
+                <button css={btn} onClick={handleSignin}>로그인</button>
+            </div>
 
         </SignLayout>
 
