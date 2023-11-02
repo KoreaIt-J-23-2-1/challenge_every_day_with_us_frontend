@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom/dist';
 
 const Layout = css`
     display: flex;
@@ -48,6 +49,7 @@ const UserCheckBox = css`
 function MyPage(props) {
     const navigete = useNavigate();
     const [isModalOpen, setModalOpen] = useState(false);
+    const [isStoreModalOpen, setIsStoreModalOpen] = useState(false);
     const [password, setPassword] = useState('');
 
     const openModal = () => {
@@ -57,6 +59,14 @@ function MyPage(props) {
     const closeModal = () => {
     setModalOpen(false);
     };
+
+    const openStoreModal = () => {
+        setIsStoreModalOpen(true);
+    }
+
+    const closeStoreModal = () => {
+        setIsStoreModalOpen(false);
+    }
 
     const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -68,6 +78,10 @@ function MyPage(props) {
 
     const handleCancelClick = () => {
         closeModal();
+    }
+
+    const handleStoreCancelClick = () => {
+        closeStoreModal();
     }
 
     return (
@@ -88,7 +102,7 @@ function MyPage(props) {
             <p>참여중인 챌린지List </p>
         </div>
         <div css={BtBox}>
-            <button>상점</button>
+            <button onClick={openStoreModal}>상점</button>
             <button onClick={openModal}>정보변경</button>
         </div>
         {isModalOpen && (
@@ -98,6 +112,16 @@ function MyPage(props) {
                 <div>
                     <button onClick={handleSubmit}>확인</button>
                     <button onClick={handleCancelClick}>취소</button>
+                </div>
+            </div>
+        )}
+        {isStoreModalOpen && (
+            <div css={UserCheckBox}>
+                <h4>상점</h4>
+                <div>
+                    <button onClick={() => {navigete("/point");}}>포인트충전</button>
+                    <button >상점 물품들 조회</button>
+                    <button onClick={handleStoreCancelClick}>취소</button>
                 </div>
             </div>
         )}
