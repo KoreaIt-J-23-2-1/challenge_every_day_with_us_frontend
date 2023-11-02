@@ -1,13 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import MyPage from './pages/MyPage/MyPage';
-import MyPageDetails from './pages/MyPage/MyPageDetails';
+import AccountRoute from './components/Routes/AccountRoute';
 
 function App() {
   return (
     <Routes>
-      <Route path='/account/mypage' element={ <MyPage /> } />
-      <Route path='/account/mypage/details' element={ <MyPageDetails /> } />
+      <Route path='/account/*' element={ <AccountRoute /> } />
     </Routes>
   );
 }
