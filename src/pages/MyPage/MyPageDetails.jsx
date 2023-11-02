@@ -23,6 +23,15 @@ function MyPageDetails(props) {
     const handleCancelClick = () => {
         navegate("/account/mypage");
     }
+
+    const handleIsWithdrawn = () => {
+        if(window.confirm("정말 탈퇴하시겠습니까?")) {
+            if(window.confirm("진짜로 떠나시겠습니까?")) {
+                // delete 요청날림
+            }
+        }
+    }
+
     return (
         <div css={Layout}>
             <div>
@@ -49,6 +58,7 @@ function MyPageDetails(props) {
                 </div>
                 <button>정보변경</button>
                 <button onClick={handleCancelClick}>취소</button>
+                <button onClick={handleIsWithdrawn}>회원탈퇴</button>
             </div>
         </div>
     );
