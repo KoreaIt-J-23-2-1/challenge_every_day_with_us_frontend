@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Navigate } from 'react-router-dom/dist';
+import { instance } from '../../api/config/instanse';
 
 const Layout = css`
     display: flex;
@@ -48,9 +49,11 @@ const UserCheckBox = css`
 
 function MyPage(props) {
     const navigete = useNavigate();
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [isStoreModalOpen, setIsStoreModalOpen] = useState(false);
-    const [password, setPassword] = useState('');
+    const [ isModalOpen, setModalOpen ] = useState(false);
+    const [ isStoreModalOpen, setIsStoreModalOpen ] = useState(false);
+    const [ password, setPassword ] = useState();
+    const [ intro, setIntro ] = useState("");
+    const { userId } = useParams();
 
     const openModal = () => {
     setModalOpen(true);
@@ -62,18 +65,22 @@ function MyPage(props) {
 
     const openStoreModal = () => {
         setIsStoreModalOpen(true);
-    }
+    };
 
     const closeStoreModal = () => {
         setIsStoreModalOpen(false);
-    }
+    };
 
     const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+        setPassword(e.target.value);
+    };
+
+    const handleIntroChange = (e) => {
+        setIntro(e.target.value);
     };
 
     const handleSubmit = () => {
-        navigete("/account/mypage/details")
+        navigete("/account/mypage/detail")
     };
 
     const handleCancelClick = () => {
@@ -82,7 +89,35 @@ function MyPage(props) {
 
     const handleStoreCancelClick = () => {
         closeStoreModal();
-    }
+    };
+
+    const handleIntroSubmit = () => {
+        const option = {
+            params: {
+                userId: userId,
+                intro: intro
+            }
+        }
+        instance.get("/api/account/intro", option)
+            .then(response => {
+                const introData = response.data.intro;
+
+                if (introData) {
+                    instance.put("/api/account/intro", {
+                        userId: userId,
+                        intro: intro
+                    });
+                } else {
+                    return instance.post("/api/account/intro", {
+                        userId: userId,
+                        intro: intro
+                    });
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
 
     return (
     <div css={Layout}>
@@ -93,8 +128,8 @@ function MyPage(props) {
             <p>닉네임: </p>
             <div css={IntroBox}>
                 <h4>자기 소개</h4>
-                <textarea id="introText" rows="3" cols="40" maxLength={50}></textarea>
-                <button>저장</button>
+                <textarea id="introText" rows="3" cols="40" maxLength={50} onChange={handleIntroChange}></textarea>
+                <button onClick={handleIntroSubmit}>저장</button>
                 <button>취소</button>
             </div>
         </div>
