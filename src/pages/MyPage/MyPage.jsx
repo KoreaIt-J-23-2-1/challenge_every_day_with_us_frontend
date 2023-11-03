@@ -92,6 +92,12 @@ function MyPage(props) {
 
     const handleCancelClick = () => {
         closeModal();
+    }
+
+    const handleStoreCancelClick = () => {
+        closeStoreModal();
+    }
+
     };
 
     const handleIntroSubmit = () => {
@@ -114,6 +120,7 @@ function MyPage(props) {
     const handleStoreCancelClick = () => {
         closeStoreModal();
     };
+
 
     return (
     <div css={Layout}>
