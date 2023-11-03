@@ -5,6 +5,7 @@ import SignUp from './pages/SignUp/SignUp';
 import PointStore from './pages/PointStore/PointStore';
 import SignIn from './pages/SignIn/SignIn';
 import NoticeList from './pages/NoticeList/NoticeList';
+import NoticeWrite from './pages/NoticeWrite/NoticeWrite';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path='/auth/signin' element={<SignIn />} />
       
       <Route path='/notice' element={<NoticeList/>} />
+      <Route path='/notice/write' element={<NoticeWrite/>} />
     </Routes>
   );
 }
