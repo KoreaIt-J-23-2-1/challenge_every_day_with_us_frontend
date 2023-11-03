@@ -2,6 +2,7 @@ import React from 'react';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 /** @jsxImportSource @emotion/react */
 
 const listTable = css`
@@ -55,12 +56,20 @@ const btnBox = css`
 
 function NoticeList(props) {
 
-    const navigete = useNavigate();
+    const navigate = useNavigate();
+    const queyrClient = useQueryClient();
+    const principalState = queyrClient.getQueryState("getPrincipal");
+    const principal = principalState.data.data;
+
+    console.log(principal);
 
     const handleNoticeWriteBtn = () => {
-        navigete("/notice/write")
+
+            navigate("/notice/write");
     
-    }
+    };
+
+
     return (
         <BaseLayout>
             <h1> 공지</h1>

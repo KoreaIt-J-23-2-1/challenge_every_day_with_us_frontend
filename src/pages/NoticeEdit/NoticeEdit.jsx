@@ -43,9 +43,9 @@ const btnBox = css`
 `;
 
 
-function NoticeWrite(props) {
+function NoticeEdit(props) {
 
-    const navigete = useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const linkTag = window.document.createElement("link");
@@ -85,7 +85,7 @@ function NoticeWrite(props) {
         try {
             const option = {
                 headers: {
-                    Authorization: localStorage.getItem("accessToken")
+                    Authorization: localStorage.getItem("token")
                 }
             };
             await axios.post("http://localhost:8080/api/notice",noticeContent, option);
@@ -94,15 +94,34 @@ function NoticeWrite(props) {
         }
     };
 
+        const handleEditSubmit = async () => {
+        // try {
+        //     const option = {
+        //         headers: {
+        //             Authorization: localStorage.getItem("token")
+        //         }
+        //     }
+        //     console.log(noticeContent);
+        //     await instance.put(`/notice/${noticeId}`, noticeContent, option);
+        //     alert("게시글 수정완료");
+        //     navigate(`/notice/${noticeId}`);
+        // } catch(error) {
+        //     console.error(error);
+        //     alert("게시글 수정실패");
+        //     navigate(`/board/${noticeId}`);
+        // }
+    }
+
     return (
         <BaseLayout>
             <h1> 공지 작성</h1>
             <div>
-                <div css={inputBox}> <label>제목</label> <input type="text" name='title' placeholder='공지제목'/></div>
+                <div css={inputBox}> <label>제목</label> <input type="text" name='title' placeholder='공지제목' value={noticeContent.title}/></div>
                 <div css={inputBox}>
                     <label>내용</label>
                     {/* <input type="text" name='content' placeholder='공지내용'/> */}
                     <ReactQuill 
+                        value={noticeContent.content}
                         style={{width: "938px", height: "500px"}} 
                         modules={modules}
                         onChange={handleContentInput}
@@ -110,7 +129,7 @@ function NoticeWrite(props) {
                     
                 <div css={btnBox}>
                     <button onClick={handleCancelBtn}>취소</button>
-                    <button onClick={handleWriteSubmit}>등록</button>
+                    <button onClick={handleEditSubmit}>수정</button>
                 </div>
                 </div>
             </div>
@@ -118,4 +137,4 @@ function NoticeWrite(props) {
     );
 }
 
-export default NoticeWrite;
+export default NoticeEdit;
