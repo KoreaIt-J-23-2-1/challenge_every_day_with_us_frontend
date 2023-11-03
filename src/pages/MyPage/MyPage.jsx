@@ -17,7 +17,7 @@ const ImgBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 5px solid #dbdbdb;
+    border: 2px solid #dbdbdb;
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -26,8 +26,8 @@ const ImgBox = css`
     & img {
         max-width: 100%;
         max-height: 100%;
-        width: 30px;
-        height: 30px;
+        width: 50px;
+        height: 50px;
     }
 `;
 
@@ -151,7 +151,7 @@ function MyPage(props) {
     <div css={Layout}>
         <div css={UserBox}>
             <div css={ImgBox}>
-                <img src={principal.profile_url} alt="" />
+                <img src={principal.profileUrl} alt="" />
             </div>
             <div css={ProfileBox}>
                 <p css={ProfileText}>등급: 
