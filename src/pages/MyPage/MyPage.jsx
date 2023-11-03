@@ -136,6 +136,16 @@ function MyPage(props) {
                 </div>
             </div>
         )}
+        {isStoreModalOpen && (
+            <div css={UserCheckBox}>
+                <h4>상점1</h4>
+                <div>
+                    <button onClick={() => {navigete("/point");}}>포인트충전</button>
+                    <button >상점 물품들 조회</button>
+                    <button onClick={handleStoreCancelClick}>취소</button>
+                </div>
+            </div>
+        )}
     </div>
     );
 }
