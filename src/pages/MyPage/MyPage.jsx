@@ -128,7 +128,9 @@ function MyPage(props) {
         closeModal();
     };
 
-    console.log(principal);
+    const handleBackButton = () => {
+        navigete(-1);
+    }
 
     const handleIntroSubmit = () => {
         const option = {
@@ -155,6 +157,7 @@ function MyPage(props) {
 
     return (
     <div css={Layout}>
+        <button onClick={handleBackButton}>뒤로가기</button>
         <div css={UserBox}>
             <div css={ImgBox}>
                 <img src={principal.profileUrl} alt="" />
