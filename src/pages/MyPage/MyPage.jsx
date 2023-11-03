@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Navigate } from 'react-router-dom/dist';
-import { instance } from '../../api/config/instanse';
+import { useNavigate } from 'react-router-dom';
 
 const Layout = css`
     display: flex;
@@ -49,18 +47,8 @@ const UserCheckBox = css`
 
 function MyPage(props) {
     const navigete = useNavigate();
-    const [ isModalOpen, setModalOpen ] = useState(false);
-    const [ isStoreModalOpen, setIsStoreModalOpen ] = useState(false);
-    const [ password, setPassword ] = useState({
-        password: ""
-    });
-    const [ intro, setIntro ] = useState({
-        intro: ""
-    });
-    const { userId } = useParams();
-
-    console.log(intro);
-    console.log(password);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [password, setPassword] = useState('');
 
     const openModal = () => {
     setModalOpen(true);
@@ -70,20 +58,8 @@ function MyPage(props) {
     setModalOpen(false);
     };
 
-    const openStoreModal = () => {
-        setIsStoreModalOpen(true);
-    };
-
-    const closeStoreModal = () => {
-        setIsStoreModalOpen(false);
-    };
-
     const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
-
-    const handleIntroChange = (e) => {
-        setIntro(e.target.value);
+    setPassword(e.target.value);
     };
 
     const handleSubmit = () => {
@@ -94,34 +70,6 @@ function MyPage(props) {
         closeModal();
     }
 
-    const handleStoreCancelClick = () => {
-        closeStoreModal();
-    }
-
-    };
-
-    const handleIntroSubmit = () => {
-        instance.get(`/api/account/${userId}`)
-            .then(response => {
-                const introData = response.data.intro;
-
-                if (introData) {
-                    return instance.put(`/api/account/${userId}`, intro);
-                } else {
-                    return instance.post(`/api/account/${userId}`, intro);
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    };
-    
-
-    const handleStoreCancelClick = () => {
-        closeStoreModal();
-    };
-
-
     return (
     <div css={Layout}>
         <div css={UserBox}>
@@ -131,8 +79,8 @@ function MyPage(props) {
             <p>닉네임: </p>
             <div css={IntroBox}>
                 <h4>자기 소개</h4>
-                <textarea id="introText" rows="3" cols="40" maxLength={50} onChange={handleIntroChange}></textarea>
-                <button onClick={handleIntroSubmit}>저장</button>
+                <textarea id="introText" rows="3" cols="40" maxlength="50"></textarea>
+                <button>저장</button>
                 <button>취소</button>
             </div>
         </div>
@@ -140,7 +88,7 @@ function MyPage(props) {
             <p>참여중인 챌린지List </p>
         </div>
         <div css={BtBox}>
-            <button onClick={openStoreModal}>상점</button>
+            <button>상점</button>
             <button onClick={openModal}>정보변경</button>
         </div>
         {isModalOpen && (
@@ -150,16 +98,6 @@ function MyPage(props) {
                 <div>
                     <button onClick={handleSubmit}>확인</button>
                     <button onClick={handleCancelClick}>취소</button>
-                </div>
-            </div>
-        )}
-        {isStoreModalOpen && (
-            <div css={UserCheckBox}>
-                <h4>상점</h4>
-                <div>
-                    <button onClick={() => {navigete("/point");}}>포인트충전</button>
-                    <button >상점 물품들 조회</button>
-                    <button onClick={handleStoreCancelClick}>취소</button>
                 </div>
             </div>
         )}
