@@ -47,8 +47,11 @@ const UserCheckBox = css`
 
 function MyPage(props) {
     const navigete = useNavigate();
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [password, setPassword] = useState('');
+    const [ isModalOpen, setModalOpen ] = useState(false);
+    const [ isStoreModalOpen, setIsStoreModalOpen ] = useState(false);
+    const [ password, setPassword ] = useState();
+    const [ intro, setIntro ] = useState("");
+    const { userId } = useParams();
 
     const openModal = () => {
     setModalOpen(true);
@@ -69,6 +72,38 @@ function MyPage(props) {
     const handleCancelClick = () => {
         closeModal();
     }
+
+
+    const handleStoreCancelClick = () => {
+        closeStoreModal();
+    };
+
+    const handleIntroSubmit = () => {
+        const option = {
+            params: {
+                userId: userId,
+                intro: intro
+            }
+        }
+        instance.get("/api/account/intro", option)
+            .then(response => {
+                const introData = response.data.intro;
+                if (introData !== null) {
+                    instance.put("/api/account/intro", {
+                        userId: userId,
+                        intro: intro
+                    });
+                } else {
+                    return instance.post("/api/account/intro", {
+                        userId: userId,
+                        intro: intro
+                    });
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
 
     return (
     <div css={Layout}>
