@@ -30,9 +30,8 @@ const noticeTitle = css`
 function NoticeList(props) {
     return (
         <BaseLayout>
+            <h1> 공지</h1>
             <div>
-                <h1> 공지</h1>
-
                 <div>
                     <input type="text" placeholder='검색어를 입력하세요' />
                     <button>검색</button>
