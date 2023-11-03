@@ -59,29 +59,12 @@ function MyPageDetails(props) {
             return;
         }
 
-        for(let file of files){
-            setUploadFiles([...uploadFiles, file]);
-        }
-
         const reader = new FileReader();
         reader.onload = (e) => {
             setProfileImgSrc(e.target.result);
         }
 
         reader.readAsDataURL(files[0])
-    }
-
-    const handleUploadSubmit = () => {
-        try {
-            const option = {
-                headers: {
-                    Authorization: localStorage.getItem("accessToken")
-                }
-            }
-            instance.put(`/api/account/img/${1}`, uploadFiles, option)
-        }catch(error) {
-
-        }    
     }
 
     const handleUploadCancel = () => {
@@ -103,7 +86,7 @@ function MyPageDetails(props) {
                     Authorization: localStorage.getItem("accessToken")
                 }
             }
-            await instance.put(`/api/account/nickname/${1}`, modifyMypageDetail, option);
+            await instance.put(`/api/account/mypage/${1}`, modifyMypageDetail, option);
         }catch(error) {
             console.error(error);
         }
@@ -137,12 +120,7 @@ function MyPageDetails(props) {
                     <img src={profileImgSrc} alt="" />
                 </div>
                 <input css={file} type="file" onChange={handleProfileChange} ref={profileFileRef}/>
-                {!!uploadFiles.length && 
-                    <div>
-                        <button onClick={handleUploadSubmit}>변경</button>
-                        <button onClick={handleUploadCancel}>취소</button>
-                    </div>
-                }
+                
                 <div>
                     <input type="text" name='name' value={principal.name} disabled={true} onChange={handleInputChange} placeholder='이름' />
                 </div>
