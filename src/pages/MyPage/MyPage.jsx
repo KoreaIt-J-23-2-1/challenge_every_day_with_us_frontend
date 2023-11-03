@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { instance } from '../../api/config/instanse';
+import { useQueryClient } from 'react-query';
 
 const Layout = css`
     display: flex;
@@ -13,11 +14,23 @@ const Layout = css`
 `;
 
 const ImgBox = css`
-    border: 5px solid #dbdbdb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #dbdbdb;
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    overflow: hidden;
+
+    & img {
+        max-width: 100%;
+        max-height: 100%;
+        width: 50px;
+        height: 50px;
+    }
 `;
+
 
 const UserBox = css`
     display: flex;
@@ -47,13 +60,34 @@ const UserCheckBox = css`
     border: 5px solid #dbdbdb;
 `;
 
+const ProfileText = css`
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 500;
+
+    & p {
+        margin: 5px 10px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+`;
+
+const ProfileBox = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+`;
+
 function MyPage(props) {
     const navigete = useNavigate();
     const [ isModalOpen, setModalOpen ] = useState(false);
     const [ isStoreModalOpen, setIsStoreModalOpen ] = useState(false);
     const [ password, setPassword ] = useState();
     const [ intro, setIntro ] = useState("");
-    const { userId } = useParams();
+    const queyrClient = useQueryClient();
+    const principalState = queyrClient.getQueryState("getPrincipal");
+    const principal = principalState.data.data;
 
     const openModal = () => {
     setModalOpen(true);
@@ -66,6 +100,10 @@ function MyPage(props) {
     const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     };
+
+    const handleIntroChange = (e) => {
+        setIntro(e.target.value);
+        };
 
     const handleSubmit = () => {
         navigete("/account/mypage/detail")
@@ -80,10 +118,12 @@ function MyPage(props) {
         closeModal();
     };
 
+    console.log(principal);
+
     const handleIntroSubmit = () => {
         const option = {
             params: {
-                userId: userId,
+                nickname: principal.nickname,
                 intro: intro
             }
         }
@@ -92,12 +132,12 @@ function MyPage(props) {
                 const introData = response.data.intro;
                 if (introData !== null) {
                     instance.put("/api/account/intro", {
-                        userId: userId,
+                        nickname: principal.nickname,
                         intro: intro
                     });
                 } else {
                     return instance.post("/api/account/intro", {
-                        userId: userId,
+                        nickname: principal.nickname,
                         intro: intro
                     });
                 }
@@ -110,13 +150,26 @@ function MyPage(props) {
     return (
     <div css={Layout}>
         <div css={UserBox}>
-            <img css={ImgBox} src="" alt="" />
-            <p>등급: </p>
-            <p>포인트: </p>
-            <p>닉네임: </p>
+            <div css={ImgBox}>
+                <img src={principal.profileUrl} alt="" />
+            </div>
+            <div css={ProfileBox}>
+                <div css={ProfileText}>등급: 
+                    <p>{principal.membership}</p>
+                </div>
+                <div css={ProfileText}>포인트: 
+                    <p>{principal.point}</p>
+                    point
+                </div>
+                <div css={ProfileText}>닉네임: 
+                    <p>
+                        {principal.nickname}
+                    </p>
+                </div>
+            </div>
             <div css={IntroBox}>
                 <h4>자기 소개</h4>
-                <textarea id="introText" rows="3" cols="40" maxLength={50}></textarea>
+                <textarea id="introText" rows="3" cols="40" maxLength={50} defaultValue={principal.intro} onChange={handleIntroChange}></textarea>
                 <button onClick={handleIntroSubmit}>저장</button>
                 <button>취소</button>
             </div>
