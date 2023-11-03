@@ -55,6 +55,7 @@ const UserCheckBox = css`
     justify-content: center;
     align-items: center;
     margin-top: 30px;
+    margin-right: 10px;
     width: 300px;
     height: 300px;
     border: 5px solid #dbdbdb;
@@ -79,6 +80,11 @@ const ProfileBox = css`
     justify-content: flex-start;
 `;
 
+const modalStyle = css`
+    display: flex;
+    flex-direction: row;
+`;
+
 function MyPage(props) {
     const navigete = useNavigate();
     const [ isModalOpen, setModalOpen ] = useState(false);
@@ -89,12 +95,17 @@ function MyPage(props) {
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data;
 
-    const openModal = () => {
-    setModalOpen(true);
+    const toggleModal = () => {
+        setModalOpen(!isModalOpen);
+    };
+    
+    const toggleStoreModal = () => {
+        setIsStoreModalOpen(!isStoreModalOpen);
     };
 
     const closeModal = () => {
     setModalOpen(false);
+    setIsStoreModalOpen(false);
     };
 
     const handlePasswordChange = (e) => {
@@ -113,7 +124,6 @@ function MyPage(props) {
         closeModal();
     }
 
-
     const handleStoreCancelClick = () => {
         closeModal();
     };
@@ -123,27 +133,23 @@ function MyPage(props) {
     const handleIntroSubmit = () => {
         const option = {
             params: {
+            nickname: principal.nickname,
+            intro: intro,
+            },
+        };
+        instance.get('/api/account/intro', option)
+            .then((response) => {
+            const introData = response.data.intro;
+            const requestConfig = {
                 nickname: principal.nickname,
-                intro: intro
-            }
-        }
-        instance.get("/api/account/intro", option)
-            .then(response => {
-                const introData = response.data.intro;
-                if (introData !== null) {
-                    instance.put("/api/account/intro", {
-                        nickname: principal.nickname,
-                        intro: intro
-                    });
-                } else {
-                    return instance.post("/api/account/intro", {
-                        nickname: principal.nickname,
-                        intro: intro
-                    });
-                }
+                intro: intro,
+            };
+            const requestMethod = introData !== null ? 'put' : 'post';
+
+            instance[requestMethod]('/api/account/intro', requestConfig);
             })
-            .catch(error => {
-                console.error(error);
+            .catch((error) => {
+            console.error(error);
             });
     };
 
@@ -178,29 +184,31 @@ function MyPage(props) {
             <p>참여중인 챌린지List </p>
         </div>
         <div css={BtBox}>
-            <button>상점</button>
-            <button onClick={openModal}>정보변경</button>
+            <button onClick={toggleStoreModal}>상점</button>
+            <button onClick={toggleModal}>정보변경</button>
         </div>
-        {isModalOpen && (
-            <div css={UserCheckBox}>
-                <h4>본인 확인</h4>
-                <input type="password" placeholder="비밀번호" onChange={handlePasswordChange} />
-                <div>
-                    <button onClick={handleSubmit}>확인</button>
-                    <button onClick={handleCancelClick}>취소</button>
+        <div css={modalStyle}>
+            {isModalOpen && (
+                <div css={UserCheckBox}>
+                    <h4>본인 확인</h4>
+                    <input type="password" placeholder="비밀번호" onChange={handlePasswordChange} />
+                    <div>
+                        <button onClick={handleSubmit}>확인</button>
+                        <button onClick={handleCancelClick}>취소</button>
+                    </div>
                 </div>
-            </div>
-        )}
-        {isStoreModalOpen && (
-            <div css={UserCheckBox}>
-                <h4>상점1</h4>
-                <div>
-                    <button onClick={() => {navigete("/point");}}>포인트충전</button>
-                    <button >상점 물품들 조회</button>
-                    <button onClick={handleStoreCancelClick}>취소</button>
+            )}
+            {isStoreModalOpen && (
+                <div css={UserCheckBox}>
+                    <h4>상점1</h4>
+                    <div>
+                        <button onClick={() => {navigete("/point");}}>포인트충전</button>
+                        <button >상점 물품들 조회</button>
+                        <button onClick={handleStoreCancelClick}>취소</button>
+                    </div>
                 </div>
-            </div>
-        )}
+            )}
+        </div>
     </div>
     );
 }
