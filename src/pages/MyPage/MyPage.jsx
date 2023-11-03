@@ -66,8 +66,8 @@ const ProfileText = css`
     font-size: 12px;
     font-weight: 500;
 
-    & div {
-        margin: 0px 10px;
+    & p {
+        margin: 5px 10px;
         font-size: 20px;
         font-weight: 600;
     }
