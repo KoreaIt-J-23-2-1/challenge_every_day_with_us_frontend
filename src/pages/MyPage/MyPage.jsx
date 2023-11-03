@@ -101,8 +101,7 @@ function MyPage(props) {
         instance.get("/api/account/intro", option)
             .then(response => {
                 const introData = response.data.intro;
-
-                if (introData) {
+                if (introData !== null) {
                     instance.put("/api/account/intro", {
                         userId: userId,
                         intro: intro
