@@ -51,12 +51,8 @@ function MyPage(props) {
     const navigete = useNavigate();
     const [ isModalOpen, setModalOpen ] = useState(false);
     const [ isStoreModalOpen, setIsStoreModalOpen ] = useState(false);
-    const [ password, setPassword ] = useState({
-        password: ""
-    });
-    const [ intro, setIntro ] = useState({
-        intro: ""
-    });
+    const [ password, setPassword ] = useState();
+    const [ intro, setIntro ] = useState("");
     const { userId } = useParams();
 
     console.log(intro);
@@ -95,14 +91,26 @@ function MyPage(props) {
     };
 
     const handleIntroSubmit = () => {
-        instance.get(`/api/account/${userId}`)
+        const option = {
+            params: {
+                userId: userId,
+                intro: intro
+            }
+        }
+        instance.get("/api/account/intro", option)
             .then(response => {
                 const introData = response.data.intro;
 
                 if (introData) {
-                    return instance.put(`/api/account/${userId}`, intro);
+                    instance.put("/api/account/intro", {
+                        userId: userId,
+                        intro: intro
+                    });
                 } else {
-                    return instance.post(`/api/account/${userId}`, intro);
+                    return instance.post("/api/account/intro", {
+                        userId: userId,
+                        intro: intro
+                    });
                 }
             })
             .catch(error => {
