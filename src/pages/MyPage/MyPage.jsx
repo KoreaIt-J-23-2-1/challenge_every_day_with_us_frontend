@@ -154,20 +154,18 @@ function MyPage(props) {
                 <img src={principal.profile_url} alt="" />
             </div>
             <div css={ProfileBox}>
-                <p css={ProfileText}>등급: 
-                    <div>{principal.membership}</div>
-                </p>
-                <p css={ProfileText}>포인트: 
-                    <div>
-                        {principal.point}
-                    </div>
+                <div css={ProfileText}>등급: 
+                    <p>{principal.membership}</p>
+                </div>
+                <div css={ProfileText}>포인트: 
+                    <p>{principal.point}</p>
                     point
-                </p>
-                <p css={ProfileText}>닉네임: 
-                    <div>
+                </div>
+                <div css={ProfileText}>닉네임: 
+                    <p>
                         {principal.nickname}
-                    </div>
-                </p>
+                    </p>
+                </div>
             </div>
             <div css={IntroBox}>
                 <h4>자기 소개</h4>
