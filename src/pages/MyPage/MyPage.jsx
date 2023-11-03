@@ -116,7 +116,7 @@ function MyPage(props) {
             <p>닉네임: </p>
             <div css={IntroBox}>
                 <h4>자기 소개</h4>
-                <textarea id="introText" rows="3" cols="40" maxlength="50"></textarea>
+                <textarea id="introText" rows="3" cols="40" maxLength={50}></textarea>
                 <button onClick={handleIntroSubmit}>저장</button>
                 <button>취소</button>
             </div>
