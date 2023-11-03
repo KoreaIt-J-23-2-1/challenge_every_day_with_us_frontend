@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Navigate } from 'react-router-dom/dist';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { instance } from '../../api/config/instanse';
+import { useQueryClient } from 'react-query';
 
 const Layout = css`
     display: flex;
@@ -13,11 +14,23 @@ const Layout = css`
 `;
 
 const ImgBox = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 5px solid #dbdbdb;
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    overflow: hidden;
+
+    & img {
+        max-width: 100%;
+        max-height: 100%;
+        width: 30px;
+        height: 30px;
+    }
 `;
+
 
 const UserBox = css`
     display: flex;
@@ -47,13 +60,34 @@ const UserCheckBox = css`
     border: 5px solid #dbdbdb;
 `;
 
+const ProfileText = css`
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 500;
+
+    & div {
+        margin: 0px 10px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+`;
+
+const ProfileBox = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+`;
+
 function MyPage(props) {
     const navigete = useNavigate();
     const [ isModalOpen, setModalOpen ] = useState(false);
     const [ isStoreModalOpen, setIsStoreModalOpen ] = useState(false);
     const [ password, setPassword ] = useState();
     const [ intro, setIntro ] = useState("");
-    const { userId } = useParams();
+    const queyrClient = useQueryClient();
+    const principalState = queyrClient.getQueryState("getPrincipal");
+    const principal = principalState.data.data;
 
     const openModal = () => {
     setModalOpen(true);
@@ -63,21 +97,13 @@ function MyPage(props) {
     setModalOpen(false);
     };
 
-    const openStoreModal = () => {
-        setIsStoreModalOpen(true);
-    };
-
-    const closeStoreModal = () => {
-        setIsStoreModalOpen(false);
-    };
-
     const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
+    setPassword(e.target.value);
     };
 
     const handleIntroChange = (e) => {
         setIntro(e.target.value);
-    };
+        };
 
     const handleSubmit = () => {
         navigete("/account/mypage/detail")
@@ -87,29 +113,31 @@ function MyPage(props) {
         closeModal();
     }
 
+
     const handleStoreCancelClick = () => {
-        closeStoreModal();
+        closeModal();
     };
+
+    console.log(principal);
 
     const handleIntroSubmit = () => {
         const option = {
             params: {
-                userId: userId,
+                nickname: principal.nickname,
                 intro: intro
             }
         }
         instance.get("/api/account/intro", option)
             .then(response => {
                 const introData = response.data.intro;
-
-                if (introData) {
+                if (introData !== null) {
                     instance.put("/api/account/intro", {
-                        userId: userId,
+                        nickname: principal.nickname,
                         intro: intro
                     });
                 } else {
                     return instance.post("/api/account/intro", {
-                        userId: userId,
+                        nickname: principal.nickname,
                         intro: intro
                     });
                 }
@@ -122,13 +150,28 @@ function MyPage(props) {
     return (
     <div css={Layout}>
         <div css={UserBox}>
-            <img css={ImgBox} src="" alt="" />
-            <p>등급: </p>
-            <p>포인트: </p>
-            <p>닉네임: </p>
+            <div css={ImgBox}>
+                <img src={principal.profile_url} alt="" />
+            </div>
+            <div css={ProfileBox}>
+                <p css={ProfileText}>등급: 
+                    <div>{principal.membership}</div>
+                </p>
+                <p css={ProfileText}>포인트: 
+                    <div>
+                        {principal.point}
+                    </div>
+                    point
+                </p>
+                <p css={ProfileText}>닉네임: 
+                    <div>
+                        {principal.nickname}
+                    </div>
+                </p>
+            </div>
             <div css={IntroBox}>
                 <h4>자기 소개</h4>
-                <textarea id="introText" rows="3" cols="40" maxLength={50} onChange={handleIntroChange}></textarea>
+                <textarea id="introText" rows="3" cols="40" maxLength={50} defaultValue={principal.intro} onChange={handleIntroChange}></textarea>
                 <button onClick={handleIntroSubmit}>저장</button>
                 <button>취소</button>
             </div>
@@ -137,7 +180,7 @@ function MyPage(props) {
             <p>참여중인 챌린지List </p>
         </div>
         <div css={BtBox}>
-            <button onClick={openStoreModal}>상점</button>
+            <button>상점</button>
             <button onClick={openModal}>정보변경</button>
         </div>
         {isModalOpen && (
@@ -152,7 +195,7 @@ function MyPage(props) {
         )}
         {isStoreModalOpen && (
             <div css={UserCheckBox}>
-                <h4>상점</h4>
+                <h4>상점1</h4>
                 <div>
                     <button onClick={() => {navigete("/point");}}>포인트충전</button>
                     <button >상점 물품들 조회</button>
