@@ -78,7 +78,7 @@ function MyPageDetails(props) {
                     Authorization: localStorage.getItem("accessToken")
                 }
             }
-            instance.put(`/api/account/img/${0}`, uploadFiles, option)
+            instance.put(`/api/account/img/${1}`, uploadFiles, option)
         }catch(error) {
 
         }    
@@ -103,7 +103,7 @@ function MyPageDetails(props) {
                     Authorization: localStorage.getItem("accessToken")
                 }
             }
-            await instance.put(`/api/account/nickname/${0}`, modifyMypageDetail, option);
+            await instance.put(`/api/account/nickname/${1}`, modifyMypageDetail, option);
         }catch(error) {
             console.error(error);
         }
@@ -122,7 +122,7 @@ function MyPageDetails(props) {
                             Authorization: localStorage.removeItem("accessToken")
                         }
                     }
-                    await instance.delete(`/api/account/${0}`, option);
+                    await instance.delete(`/api/account/${1}`, option);
                 }catch(error) {
                     console.error(error);
                 }
@@ -147,7 +147,7 @@ function MyPageDetails(props) {
                     <input type="text" name='name' value={principal.name} onChange={handleInputChange} placeholder='이름' />
                 </div>
                 <div>
-                    <input type="text" name='nickname' value={principal.nickname} onChange={handleInputChange} placeholder='닉네임' />
+                    <input type="text" name='nickname' defaultValue={principal.nickname} onChange={handleInputChange} placeholder='닉네임' />
                 </div>
                 <div>
                     <input type="text" name='email' value={principal.email} onChange={handleInputChange} placeholder='이메일' />
