@@ -55,9 +55,6 @@ function MyPage(props) {
     const [ intro, setIntro ] = useState("");
     const { userId } = useParams();
 
-    console.log(intro);
-    console.log(password);
-
     const openModal = () => {
     setModalOpen(true);
     };
@@ -92,8 +89,6 @@ function MyPage(props) {
 
     const handleStoreCancelClick = () => {
         closeStoreModal();
-    }
-
     };
 
     const handleIntroSubmit = () => {
@@ -123,12 +118,6 @@ function MyPage(props) {
                 console.error(error);
             });
     };
-    
-
-    const handleStoreCancelClick = () => {
-        closeStoreModal();
-    };
-
 
     return (
     <div css={Layout}>
