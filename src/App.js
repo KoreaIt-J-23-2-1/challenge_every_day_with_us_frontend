@@ -8,6 +8,7 @@ import { useQuery } from 'react-query';
 import { instance } from './api/config/instanse';
 import NoticeList from './pages/NoticeList/NoticeList';
 import NoticeWrite from './pages/NoticeWrite/NoticeWrite';
+import ChallengeCreate from './pages/ChallengeCreate/ChallengeCreate';
 
 
 function App() {
@@ -43,6 +44,8 @@ function App() {
       
       <Route path='/notice' element={<NoticeList/>} />
       <Route path='/notice/write' element={<NoticeWrite/>} />
+
+      <Route path='/challenge/create' element={<ChallengeCreate/>} />
     </Routes>
   );
 }
