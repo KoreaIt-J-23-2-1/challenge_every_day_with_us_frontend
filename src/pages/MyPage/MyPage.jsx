@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
+import { instance } from '../../api/config/instanse';
 
 const Layout = css`
     display: flex;
@@ -75,7 +77,7 @@ function MyPage(props) {
 
 
     const handleStoreCancelClick = () => {
-        closeStoreModal();
+        closeModal();
     };
 
     const handleIntroSubmit = () => {
@@ -115,7 +117,7 @@ function MyPage(props) {
             <div css={IntroBox}>
                 <h4>자기 소개</h4>
                 <textarea id="introText" rows="3" cols="40" maxlength="50"></textarea>
-                <button>저장</button>
+                <button onClick={handleIntroSubmit}>저장</button>
                 <button>취소</button>
             </div>
         </div>
