@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Navigate } from 'react-router-dom/dist';
-import { instance } from '../../api/config/instanse';
+import { useNavigate } from 'react-router-dom';
 
 const Layout = css`
     display: flex;
@@ -55,9 +53,6 @@ function MyPage(props) {
     const [ intro, setIntro ] = useState("");
     const { userId } = useParams();
 
-    console.log(intro);
-    console.log(password);
-
     const openModal = () => {
     setModalOpen(true);
     };
@@ -66,20 +61,8 @@ function MyPage(props) {
     setModalOpen(false);
     };
 
-    const openStoreModal = () => {
-        setIsStoreModalOpen(true);
-    };
-
-    const closeStoreModal = () => {
-        setIsStoreModalOpen(false);
-    };
-
     const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
-
-    const handleIntroChange = (e) => {
-        setIntro(e.target.value);
+    setPassword(e.target.value);
     };
 
     const handleSubmit = () => {
@@ -88,6 +71,11 @@ function MyPage(props) {
 
     const handleCancelClick = () => {
         closeModal();
+    }
+
+
+    const handleStoreCancelClick = () => {
+        closeStoreModal();
     };
 
     const handleIntroSubmit = () => {
@@ -100,8 +88,7 @@ function MyPage(props) {
         instance.get("/api/account/intro", option)
             .then(response => {
                 const introData = response.data.intro;
-
-                if (introData) {
+                if (introData !== null) {
                     instance.put("/api/account/intro", {
                         userId: userId,
                         intro: intro
@@ -117,11 +104,6 @@ function MyPage(props) {
                 console.error(error);
             });
     };
-    
-
-    const handleStoreCancelClick = () => {
-        closeStoreModal();
-    };
 
     return (
     <div css={Layout}>
@@ -132,8 +114,8 @@ function MyPage(props) {
             <p>닉네임: </p>
             <div css={IntroBox}>
                 <h4>자기 소개</h4>
-                <textarea id="introText" rows="3" cols="40" maxLength={50} onChange={handleIntroChange}></textarea>
-                <button onClick={handleIntroSubmit}>저장</button>
+                <textarea id="introText" rows="3" cols="40" maxlength="50"></textarea>
+                <button>저장</button>
                 <button>취소</button>
             </div>
         </div>
@@ -141,7 +123,7 @@ function MyPage(props) {
             <p>참여중인 챌린지List </p>
         </div>
         <div css={BtBox}>
-            <button onClick={openStoreModal}>상점</button>
+            <button>상점</button>
             <button onClick={openModal}>정보변경</button>
         </div>
         {isModalOpen && (
