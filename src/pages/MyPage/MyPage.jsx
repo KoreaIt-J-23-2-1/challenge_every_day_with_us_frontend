@@ -51,9 +51,16 @@ function MyPage(props) {
     const navigete = useNavigate();
     const [ isModalOpen, setModalOpen ] = useState(false);
     const [ isStoreModalOpen, setIsStoreModalOpen ] = useState(false);
-    const [ password, setPassword ] = useState("");
-    const [ intro, setIntro ] = useState("");
+    const [ password, setPassword ] = useState({
+        password: ""
+    });
+    const [ intro, setIntro ] = useState({
+        intro: ""
+    });
     const { userId } = useParams();
+
+    console.log(intro);
+    console.log(password);
 
     const openModal = () => {
     setModalOpen(true);
@@ -77,11 +84,10 @@ function MyPage(props) {
 
     const handleIntroChange = (e) => {
         setIntro(e.target.value);
-        console.log(intro);
     };
 
     const handleSubmit = () => {
-        navigete("/account/mypage/details")
+        navigete("/account/mypage/detail")
     };
 
     const handleCancelClick = () => {
@@ -94,9 +100,9 @@ function MyPage(props) {
                 const introData = response.data.intro;
 
                 if (introData) {
-                    return instance.put(`/api/account/${userId}`, { intro });
+                    return instance.put(`/api/account/${userId}`, intro);
                 } else {
-                    return instance.post(`/api/account/${userId}`, { intro });
+                    return instance.post(`/api/account/${userId}`, intro);
                 }
             })
             .catch(error => {
