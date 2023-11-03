@@ -144,16 +144,16 @@ function MyPageDetails(props) {
                     </div>
                 }
                 <div>
-                    <input type="text" name='name' value={principal.name} onChange={handleInputChange} placeholder='이름' />
+                    <input type="text" name='name' value={principal.name} disabled={true} onChange={handleInputChange} placeholder='이름' />
                 </div>
                 <div>
                     <input type="text" name='nickname' defaultValue={principal.nickname} onChange={handleInputChange} placeholder='닉네임' />
                 </div>
                 <div>
-                    <input type="text" name='email' value={principal.email} onChange={handleInputChange} placeholder='이메일' />
+                    <input type="text" name='email' value={principal.email} disabled={true} onChange={handleInputChange} placeholder='이메일' />
                 </div>
                 <div>
-                    <input type="text" name='phone' value={principal.phone} onChange={handleInputChange} placeholder='전화번호' />
+                    <input type="text" name='phone' value={principal.phone} disabled={true} onChange={handleInputChange} placeholder='전화번호' />
                 </div>
                 <button onClick={handleModifyMypageDetailSubmit}>정보변경</button>
                 <button onClick={handleCancelClick}>취소</button>
