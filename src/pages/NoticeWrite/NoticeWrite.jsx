@@ -3,6 +3,7 @@ import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { css } from '@emotion/react';
 import ReactQuill from 'react-quill';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 /** @jsxImportSource @emotion/react */
 
 
@@ -21,16 +22,31 @@ const inputBox = css`
     }
 `;
 
-const buttonContainer = css`
+const btnBox = css`
     display: flex;
     justify-content: flex-end;
     align-items: center;
     margin-top: 50px;
     width: 938px;
+    
+    & > button{
+        cursor: pointer;
+        margin: 0px 5px;
+        width: 80px;
+        height: 30px;
+        background-color: #efefef;
+        border: none;
+    }
+    & > button:hover{
+        background-color: #dbdbdb;
+    }
 `;
 
 
 function NoticeWrite(props) {
+
+    const navigete = useNavigate();
+
     useEffect(() => {
         const linkTag = window.document.createElement("link");
         linkTag.href = "//cdn.quilljs.com/1.3.6/quill.snow.css";
@@ -40,8 +56,7 @@ function NoticeWrite(props) {
 
     const [noticeContent, setNoticeContent] = useState({
         title: "",
-        content: "",
-        nickname:""
+        content: ""
     })
 
     const modules = {
@@ -61,6 +76,11 @@ function NoticeWrite(props) {
         });
     }
 
+    const handleCancelBtn = () => {
+        navigete("/notice")
+    
+    }
+
     const handleWriteSubmit = async () => {
         try {
             const option = {
@@ -77,7 +97,6 @@ function NoticeWrite(props) {
     return (
         <BaseLayout>
             <h1> 공지 작성</h1>
-
             <div>
                 <div css={inputBox}> <label>제목</label> <input type="text" name='title' placeholder='공지제목'/></div>
                 <div css={inputBox}>
@@ -85,10 +104,13 @@ function NoticeWrite(props) {
                     {/* <input type="text" name='content' placeholder='공지내용'/> */}
                     <ReactQuill 
                         style={{width: "938px", height: "500px"}} 
-                        modules={modules} />
+                        modules={modules}
+                        onChange={handleContentInput}
+                    />
                     
-                <div css={buttonContainer}>
-                    <button onClick={handleWriteSubmit}>작성하기</button>
+                <div css={btnBox}>
+                    <button onClick={handleCancelBtn}>취소</button>
+                    <button onClick={handleWriteSubmit}>등록</button>
                 </div>
                 </div>
             </div>
