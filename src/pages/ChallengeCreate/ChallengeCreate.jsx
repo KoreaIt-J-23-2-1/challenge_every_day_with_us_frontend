@@ -4,6 +4,9 @@ import { css } from '@emotion/react';
 import { useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instanse';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
+import ChallengeDefault from '../../components/ChallengeLayout/ChallengeDefault';
+import ChallengeLayout1 from '../../components/ChallengeLayout/ChallengeLayout1';
+import ChallengeLayout2 from '../../components/ChallengeLayout/ChallengeLayout2';
 
 const ChallengeTitle = css`
     display: flex;
@@ -21,14 +24,6 @@ const ChallengeTitle = css`
         width: 70%;
         height: 40px;
     }
-`;
-
-const ChallengeArea = css`
-    display: flex;
-    justify-content: center;
-    height: 700px;
-    margin: 20px;
-    border: 5px solid #dbdbdb;
 `;
 
 const ApplicationBtn = css`
@@ -79,6 +74,46 @@ const DateInput = css`
         height: 25px;
     }
 `;
+const Layout = css`
+
+    & div {
+        margin-top: 50px;
+    }
+
+    & h2 {
+        margin-top: 50px;
+    }
+`;
+
+const CheckBox = css`
+    display: flex;
+
+    & input {
+        margin-right: 5px;
+    }
+`;
+
+const CheckBoxLayout = css`
+    display: flex;
+
+    & div {
+        margin-right: 20px;
+    }
+`;
+
+const ContentLayout = css`
+    border: 5px solid #dbdbdb;
+    margin: 30px;
+
+    & h2 {
+        margin-left: 20px;
+    }
+
+    & div, p, textarea {
+        margin-left: 10px;
+        margin-bottom: 20px;
+    }
+`;
 
 function ChallengeCreate({ children }) {
     const [ challengeTitle, setChallengeTitle ] = useState("");
@@ -87,6 +122,8 @@ function ChallengeCreate({ children }) {
     const [ startDate, setStartDate ] = useState("");
     const [ endDate, setEndDate ] = useState("");
     const [ userId, setUserId ] = useState(""); 
+    const [ selectedLayout, setSelectedLayout ] = useState(1);
+    const [ introduction, setIntroduction ] = useState("");
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data;
@@ -103,6 +140,10 @@ function ChallengeCreate({ children }) {
             setUserId(principal.userId);
         }
     }, [principal.userId]);
+
+    const handleLayoutChange = (e) => {
+        setSelectedLayout(Number(e.target.value));
+    }
 
     const handleTitleChange = (e) => {
         setChallengeTitle(e.target.value);
@@ -126,26 +167,36 @@ function ChallengeCreate({ children }) {
         setEndDate(e.target.value);
     };
 
+    const handleIntroductionChange = (e) => {
+        setIntroduction(e.target.value);
+    }
+
     const handleBackButton = () => {
         navigete(-1);
     }
 
     const handleSubmitButton = () => {
         const requestData = {
-            title: challengeTitle,
-            isPrivate: isPrivate,
+            challengeName: challengeTitle,
+            isOpen: isPrivate,
             isApplicable: applicable,
             startDate: startDate,
             endDate: endDate,
+            layout: selectedLayout,
+            introduction: introduction,
+            categoryName: "일상",
+            userId: userId
         };
+        console.log(requestData);
         if(window.confirm("챌린지 생성시 1000 Point가 소요됩니다. 동의하시나요?")) {
             if(principal.point >= 1000){
                 const principalPoint = {
-                    point: 1000
+                    point: 1000,
+                    userId: userId
                 };
-                instance.post(`/api/challenge/create/${userId}/point`, principalPoint)
+                instance.post(`/api/challenge/create/point`, principalPoint)
                     .then((response) => {
-                        instance.post(`/api/challenge/create/${userId}`, requestData)
+                        instance.post(`/api/challenge/create`, requestData)
                     })
                     .catch((error) => {
                         console.error("챌린지 생성 실패:", error);            
@@ -167,8 +218,30 @@ function ChallengeCreate({ children }) {
                 <p>Challenge Title</p>
                 <input type="text" placeholder='제목을 입력하세요' onChange={handleTitleChange} />
             </div>
-            <div css={ChallengeArea}>
-            {children}
+            <div css={ContentLayout}>
+                <h2>인증 방법</h2>
+                <div css={CheckBoxLayout}>
+                    <div css={CheckBox}>
+                        <input type="radio" id="layout1" name='layout' value={1} onChange={handleLayoutChange}/>
+                        <label htmlFor="layout1">글, 사진인증</label>
+                    </div>
+                    <div css={CheckBox}>
+                        <input type="radio" id="layout2" name='layout' value={2} onChange={handleLayoutChange}/>
+                        <label htmlFor="layout2">글, 사진, 시간인증</label>
+                    </div>
+                    <div css={CheckBox}>
+                        <input type="radio" id="layout3" name='layout' value={3} onChange={handleLayoutChange}/>
+                        <label htmlFor="layout3">글, 사진, 루틴기록</label>
+                    </div>
+                </div>
+                <div css={Layout}>
+                    <div>* 참가자들이 혼란을 겪지 않도록 정확한 기준과 구체적인 인증방법을 적어주세요.</div>
+                    <h2>챌린지 소개</h2>
+                    <textarea id="introText" rows="7" cols="60" maxLength={1000} onChange={handleIntroductionChange}></textarea>
+                    <p>챌린지를 소개해보세요.</p>
+                    <p>혹시 알아요? 리더님의 글에 반해서 의지가 불타오를지!</p>
+                    <div>* 챌린지가 시작되면 챌린지를 수정할 수 없습니다. 신중하게 생성해주세요</div>
+                </div>
             </div>
             <div css={DataBox}>
                 <div css={DateInput}>
