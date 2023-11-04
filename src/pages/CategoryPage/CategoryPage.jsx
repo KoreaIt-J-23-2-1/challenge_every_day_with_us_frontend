@@ -11,7 +11,6 @@ import img7 from '../../img/챌어스.jpeg';
 import { Link } from 'react-router-dom';
 
 const Layout = css`
-    width: 100%;
     padding: 30px;
 `;
 
@@ -19,7 +18,6 @@ const SStoreContainer = css`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 1850px;
     border: 2px solid #dbdbdb;
 `;
 
