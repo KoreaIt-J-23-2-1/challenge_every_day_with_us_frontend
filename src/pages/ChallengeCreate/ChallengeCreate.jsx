@@ -3,15 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import { useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instanse';
-import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
-import ChallengeDefault from '../../components/ChallengeLayout/ChallengeDefault';
-import ChallengeLayout1 from '../../components/ChallengeLayout/ChallengeLayout1';
-import ChallengeLayout2 from '../../components/ChallengeLayout/ChallengeLayout2';
+import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 
 const ChallengeTitle = css`
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     margin-top: 20px;
 
     & p {
@@ -23,6 +21,17 @@ const ChallengeTitle = css`
     & input {
         width: 70%;
         height: 40px;
+    }
+
+    & div {
+        position: relative;
+        left: -40px;
+        top: 40px;
+
+        & b {
+            font-size: 20px;
+            margin-left: 5px;
+        }
     }
 `;
 
@@ -124,6 +133,7 @@ function ChallengeCreate({ children }) {
     const [ userId, setUserId ] = useState(""); 
     const [ selectedLayout, setSelectedLayout ] = useState(1);
     const [ introduction, setIntroduction ] = useState("");
+    const { categoryName } = useParams();
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data;
@@ -214,7 +224,9 @@ function ChallengeCreate({ children }) {
         <div>
             <button onClick={handleBackButton}>뒤로가기</button>
             <div css={ChallengeTitle}>
-                <p>Category : </p>
+                <div>Category : 
+                    <b>{categoryName}</b>
+                </div>
                 <p>Challenge Title</p>
                 <input type="text" placeholder='제목을 입력하세요' onChange={handleTitleChange} />
             </div>

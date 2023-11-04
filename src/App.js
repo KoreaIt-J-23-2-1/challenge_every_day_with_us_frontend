@@ -9,6 +9,7 @@ import { instance } from './api/config/instanse';
 import NoticeList from './pages/NoticeList/NoticeList';
 import NoticeWrite from './pages/NoticeWrite/NoticeWrite';
 import ChallengeCreate from './pages/ChallengeCreate/ChallengeCreate';
+import CategoryPage from './pages/CategoryPage/CategoryPage';
 
 
 function App() {
@@ -45,7 +46,8 @@ function App() {
       <Route path='/notice' element={<NoticeList/>} />
       <Route path='/notice/write' element={<NoticeWrite/>} />
 
-      <Route path='/challenge/create' element={<ChallengeCreate/>} />
+      <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
+      <Route path='/challenge/category' element={<CategoryPage/>} />
     </Routes>
   );
 }
