@@ -22,16 +22,15 @@ const ChallengeTitle = css`
         width: 70%;
         height: 40px;
     }
+`;
 
-    & div {
-        position: relative;
-        left: -40px;
-        top: 40px;
-
-        & b {
-            font-size: 20px;
-            margin-left: 5px;
-        }
+const CategoryBox = css`
+    position: absolute;
+    left: 38px;
+    top: 65px;
+    & b {
+        font-size: 20px;
+        margin-left: 5px;
     }
 `;
 
@@ -224,8 +223,10 @@ function ChallengeCreate({ children }) {
         <div>
             <button onClick={handleBackButton}>뒤로가기</button>
             <div css={ChallengeTitle}>
-                <div>Category : 
-                    <b>{categoryName}</b>
+                <div css={CategoryBox}>
+                    <div>Category : 
+                        <b>{categoryName}</b>
+                    </div>
                 </div>
                 <p>Challenge Title</p>
                 <input type="text" placeholder='제목을 입력하세요' onChange={handleTitleChange} />
