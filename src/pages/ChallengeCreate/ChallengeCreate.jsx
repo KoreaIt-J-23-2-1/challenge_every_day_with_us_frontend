@@ -184,7 +184,7 @@ function ChallengeCreate({ children }) {
             endDate: endDate,
             layout: selectedLayout,
             introduction: introduction,
-            categoryName: "일상",
+            categoryName: categoryName,
             userId: userId
         };
         console.log(requestData);
