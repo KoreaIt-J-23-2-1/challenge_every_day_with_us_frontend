@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SignLayout from '../../components/SignLayout/SignLayout';
 import { css } from '@emotion/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { async } from 'q';
+import { instance } from '../../api/config/instanse';
 /** @jsxImportSource @emotion/react */
 
 const inputBox = css`
@@ -26,8 +28,34 @@ const btn = css`
 
 function SignUp(props) {
     const navigete = useNavigate();
+    const [ searchParams, setSearchParams ] = useSearchParams();
+
+
+    const user = {
+        email: "",
+        password: "",
+        name: "",
+        nickname: "",
+        phone:"",
+        oauth2Id: searchParams.get("oauth2Id"),
+        profileUrl: null
+    }
+
+    const [ signupUser, setSignupUser ] = useState(user);
+
+    const handleSignupSubmit = async() => {
+        try {
+            await instance.post("/auth/signup", signupUser);
+            alert("회원가입 완료");
+            window.location.replace("/auth/signin");
+        }catch(error) {
+            console.error(error);
+            alert("회원가입 실패");
+
+        }    
+    }
     
-    const handleSignin = () => {
+    const handleSigninPage = () => {
         navigete("/auth/signin")
     };
     return (
@@ -41,8 +69,8 @@ function SignUp(props) {
             <div css={inputBox}> <label>전화번호</label> <input type="text" name='phone'  placeholder='전화번호를 입력하세요'/></div>
             
             <div>
-                <button css={btn}>회원가입</button> 
-                <button css={btn} onClick={handleSignin}>로그인</button>
+                <button css={btn} onClick={handleSignupSubmit} >회원가입</button> 
+                <button css={btn} onClick={handleSigninPage}>로그인</button>
             </div>
 
         </SignLayout>

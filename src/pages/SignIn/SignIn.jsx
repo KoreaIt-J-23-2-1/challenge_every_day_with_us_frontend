@@ -22,11 +22,15 @@ function SignIn(props) {
 
 
 
+    const handleNaverSignin = () => {
+        window.location.replace("http://localhost:8080/oauth2/authorization/naver");
+    }
+
     return (
         <SignLayout>
             <h1>로그인</h1>
 
-            <button css={btn}>네이버 연동 로그인</button>
+            <button css={btn} onClick={handleNaverSignin}>네이버 연동 로그인</button>
 
             <div>
                 <a  href="#" >이메일 찾기</a>
