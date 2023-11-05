@@ -10,6 +10,7 @@ import NoticeList from './pages/NoticeList/NoticeList';
 import NoticeWrite from './pages/NoticeWrite/NoticeWrite';
 import ChallengeCreate from './pages/ChallengeCreate/ChallengeCreate';
 import CategoryPage from './pages/CategoryPage/CategoryPage';
+import Main from './pages/Main/Main';
 
 
 function App() {
@@ -38,6 +39,8 @@ function App() {
 
   return (
     <Routes>
+      <Route path='/' element={<Main/>}/>
+
       <Route path='/account/*' element={ <AccountRoute /> } />
       <Route path='/point' element={ <PointStore /> } />
       <Route path='/auth/signup' element={ <SignUp/> } />
