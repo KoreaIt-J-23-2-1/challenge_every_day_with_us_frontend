@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { css } from '@emotion/react';
 import ReactQuill from 'react-quill';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { instance } from '../../api/config/instanse';
 /** @jsxImportSource @emotion/react */
 
 
@@ -47,17 +47,17 @@ function NoticeWrite(props) {
 
     const navigete = useNavigate();
 
+    const [noticeContent, setNoticeContent] = useState({
+        title: "",
+        content: ""
+    })
+
     useEffect(() => {
         const linkTag = window.document.createElement("link");
         linkTag.href = "//cdn.quilljs.com/1.3.6/quill.snow.css";
         linkTag.rel = "stylesheet";
         window.document.head.appendChild(linkTag);
     });
-
-    const [noticeContent, setNoticeContent] = useState({
-        title: "",
-        content: ""
-    })
 
     const modules = {
         toolbar: {
@@ -67,14 +67,24 @@ function NoticeWrite(props) {
                 ["image"]
             ]
         }
-    }        
+    }     
+
+    
+    const handleTitleInput = (e) => {
+        setNoticeContent({
+            ...noticeContent,
+            title: e.target.value
+        });
+    }
 
     const handleContentInput = (value) => {
         setNoticeContent({
             ...noticeContent,
             content: value
+            
         });
     }
+
 
     const handleCancelBtn = () => {
         navigete("/notice")
@@ -88,7 +98,7 @@ function NoticeWrite(props) {
                     Authorization: localStorage.getItem("accessToken")
                 }
             };
-            await axios.post("http://localhost:8080/api/notice",noticeContent, option);
+            await instance.post("/api/notice", noticeContent, option);
         } catch (error) {
             console.error(error);
         }
@@ -98,7 +108,7 @@ function NoticeWrite(props) {
         <BaseLayout>
             <h1> 공지 작성</h1>
             <div>
-                <div css={inputBox}> <label>제목</label> <input type="text" name='title' placeholder='공지제목'/></div>
+                <div css={inputBox}> <label>제목</label> <input type="text" name='title' placeholder='공지제목' onChange={handleTitleInput}/></div>
                 <div css={inputBox}>
                     <label>내용</label>
                     {/* <input type="text" name='content' placeholder='공지내용'/> */}
