@@ -45,7 +45,7 @@ function SignUp(props) {
 
     const handleSignupSubmit = async() => {
         try {
-            await instance.post("/auth/signup", signupUser);
+            await instance.post("/api/auth/sign-up", signupUser);
             alert("회원가입 완료");
             window.location.replace("/auth/signin");
         }catch(error) {

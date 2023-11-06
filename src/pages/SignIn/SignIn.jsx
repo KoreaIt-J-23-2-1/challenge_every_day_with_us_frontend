@@ -38,21 +38,19 @@ const inputBox = css`
 `;
 
 
-
 function SignIn(props) {
     const navigete = useNavigate();
 
-    
     const user = {
         email: "",
-        password: ""
+        password: ""                                               
     }
     
     const [signinUser, setSigninUser] = useState(user);
 
     const handleSigninSubmit = async () => {
         try {
-            const response = await instance.post("/auth/signin", signinUser);
+            const response = await instance.post("/api/auth/sign-in", signinUser);
             localStorage.setItem("accessToken", "Bearer" + response.data);
             alert("로그인 성공");
             window.location.replace("/");
@@ -61,10 +59,14 @@ function SignIn(props) {
             alert("로그인 실패");
         }   
     }
-    
 
-    
-    
+        const handleInputChange = (e) => {
+        setSigninUser({
+            ...signinUser,
+            [e.target.name]: e.target.value
+        });
+    }
+        
     const handleNaverSignin = () => {
         window.location.replace("http://localhost:8080/oauth2/authorization/naver");
     }
@@ -79,14 +81,15 @@ function SignIn(props) {
             <h1>로그인</h1>
 
             <div>
-                <div css={inputBox}> <label>이메일</label> <input type="email" name='email' placeholder='이메일을 입력하세요'/></div>
-                <div css={inputBox}> <label>비밀번호</label> <input type="password" name='password'  placeholder='비밀번호를 입력하세요'/></div>
-                
+                <div>
+                    <div css={inputBox}> <label>이메일</label> <input type="email" name='email' placeholder='이메일을 입력하세요' onChange={handleInputChange}/></div>
+                    <div css={inputBox}> <label>비밀번호</label> <input type="password" name='password'  placeholder='비밀번호를 입력하세요' onChange={handleInputChange}/></div>
+                    <button css={btn} onClick={handleSigninSubmit}>로그인</button>
+                </div>
             </div>
+                <button css={btn} onClick={handleNaverSignin}>네이버 연동 로그인</button>
+                <button css={btn} onClick={handleSignup}>회원가입</button>
 
-            <button css={btn} onClick={handleSigninSubmit}>로그인</button>
-            <button css={btn} onClick={handleNaverSignin}>네이버 연동 로그인</button>
-            <button css={btn} onClick={handleSignup}>회원가입</button>
 
             <div>
                 <a href="#" >이메일 찾기</a>
