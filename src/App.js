@@ -12,6 +12,7 @@ import ChallengeCreate from './pages/ChallengeCreate/ChallengeCreate';
 import CategoryPage from './pages/CategoryPage/CategoryPage';
 import Main from './pages/Main/Main';
 import ChallengeDetails from './pages/ChallengeDetails/ChallengeDetails';
+import ChallengeList from './pages/ChallengeList/ChallengeList';
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
       <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
       <Route path='/challenge/category' element={<CategoryPage/>} />
       <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
+      <Route path='/challenges' element={<ChallengeList/>} />
     </Routes>
   );
 }
