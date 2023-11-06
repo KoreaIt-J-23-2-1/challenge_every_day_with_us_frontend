@@ -64,6 +64,22 @@ function SignUp(props) {
             [e.target.name]: e.target.value
         });
     }
+    
+    const handleCheckEmailDuplicate = async () => {
+        try {
+            const response = await instance.get(`/api/auth/duplicate/${signupUser.email}`);
+            if(response.data === true) {
+                alert("이미 존재하는 이메일 입니다.");
+                return;
+            }
+            alert("사용 가능한 이메일 입니다.");
+
+        }catch(error) {
+            console.error(error);
+            alert("확인 실패");
+
+        }
+    }
 
     return (
         <SignLayout>
