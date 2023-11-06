@@ -6,7 +6,7 @@ import { useQueryClient } from 'react-query';
 /** @jsxImportSource @emotion/react */
 
 const listTable = css`
-    width: 100%;
+    width: 938px;
     border-collapse: collapse;
 
     & th, td {
@@ -64,9 +64,11 @@ function NoticeList(props) {
     console.log(principal);
 
     const handleNoticeWriteBtn = () => {
-
+        if (principal.isAdmin == 1) {
             navigate("/notice/write");
-    
+        } else {
+            alert("공지는 관리자만 작성 가능")
+        }
     };
 
 
