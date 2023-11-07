@@ -44,7 +44,7 @@ function Main(props) {
 
                 <div>
                     <button onClick={() => { navigate("/challenge/category") }}>챌린지카테고리</button>
-                    <button onClick={() => { navigate(`/challenge/22`) }}>챌린지조회</button>
+                    <button onClick={() => { navigate(`/challenge/1`) }}>챌린지조회</button>
 
                 </div>
             </div>

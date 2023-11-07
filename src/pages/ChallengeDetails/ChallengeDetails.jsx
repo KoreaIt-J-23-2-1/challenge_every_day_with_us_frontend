@@ -100,12 +100,12 @@ function ChallengeDetails(props) {
     })
 
     const getLikeState = useQuery(["getLikeState"], async () => {
-        try {
-            const option = {
-                headers: {
-                    Authorization: localStorage.getItem("accessToken")
-                }
+        const option = {
+            headers: {
+                Authorization: localStorage.getItem("accessToken")
             }
+        }
+        try {
             return await instance.get(`/api/challenge/${challengeId}/like`, option);
         }catch(error) {
 
