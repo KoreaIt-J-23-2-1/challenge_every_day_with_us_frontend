@@ -66,7 +66,7 @@ function NoticeList(props) {
     console.log(principal);
 
     const getNoticeList = useQuery(["getBoardList"], async () => {
-        return await instance.get(`/api/notices`)
+        return await instance.get(`/notices`)
 
     });
 

@@ -98,7 +98,7 @@ function NoticeWrite(props) {
                     Authorization: localStorage.getItem("accessToken")
                 }
             };
-            await instance.post("/api/notice", noticeContent, option);
+            await instance.post("/notice", noticeContent, option);
         } catch (error) {
             console.error(error);
         }

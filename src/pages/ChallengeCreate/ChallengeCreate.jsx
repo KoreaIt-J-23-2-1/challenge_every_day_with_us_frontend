@@ -144,7 +144,7 @@ function ChallengeCreate({ children }) {
                 Authorization: localStorage.getItem("accessToken")
             }
             }
-        return await instance.get("/api/account/principal", option);
+        return await instance.get("/account/principal", option);
     
         } catch(error) {
             throw new Error(error)
@@ -220,9 +220,9 @@ function ChallengeCreate({ children }) {
                     point: 1000,
                     userId: userId
                 };
-                instance.post(`/api/challenge/create/point`, principalPoint)
+                instance.post(`/challenge/create/point`, principalPoint)
                     .then((response) => {
-                        instance.post(`/api/challenge/create`, requestData)
+                        instance.post(`/challenge/create`, requestData)
                         getPrincipal.refetch();
                     })
                     .catch((error) => {

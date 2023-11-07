@@ -101,7 +101,7 @@ function MyPage(props) {
                 Authorization: localStorage.getItem("accessToken")
             }
             }
-        return await instance.get("/api/account/principal", option);
+        return await instance.get("/account/principal", option);
     
         } catch(error) {
             throw new Error(error)
@@ -157,7 +157,7 @@ function MyPage(props) {
             intro: intro,
             },
         };
-        instance.get('/api/account/intro', option)
+        instance.get('/account/intro', option)
             .then((response) => {
             getPrincipal.refetch();
             const introData = response.data.intro;
@@ -167,7 +167,7 @@ function MyPage(props) {
             };
             const requestMethod = introData !== null ? 'put' : 'post';
 
-            instance[requestMethod]('/api/account/intro', requestConfig);
+            instance[requestMethod]('/account/intro', requestConfig);
             })
             .catch((error) => {
             console.error(error);

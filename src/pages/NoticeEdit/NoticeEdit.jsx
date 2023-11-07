@@ -44,7 +44,6 @@ const btnBox = css`
 
 
 function NoticeEdit(props) {
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -77,7 +76,7 @@ function NoticeEdit(props) {
     }
 
     const handleCancelBtn = () => {
-        navigete("/notice")
+        navigate("/notice")
     
     }
 

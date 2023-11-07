@@ -122,7 +122,7 @@ function MyPageDetails(props) {
                         Authorization: localStorage.getItem("accessToken")
                     }
                 }
-                instance.put(`/api/account/mypage/${principal.userId}`, modifyMypageDetail, option);
+                instance.put(`/account/mypage/${principal.userId}`, modifyMypageDetail, option);
                 alert("프로필 정보가 변경되었습니다.");
                 window.location.reload();
             }catch(error) {
@@ -147,7 +147,7 @@ function MyPageDetails(props) {
                             Authorization: localStorage.removeItem("accessToken")
                         }
                     }
-                    await instance.delete(`/api/account/${1}`, option);
+                    await instance.delete(`/account/${1}`, option);
                 }catch(error) {
                     console.error(error);
                 }

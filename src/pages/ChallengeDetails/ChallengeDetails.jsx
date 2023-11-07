@@ -85,7 +85,7 @@ function ChallengeDetails(props) {
                     Authorization: localStorage.getItem("accessToken")
                 }
             }
-            return await instance.get(`/api/challenge/${challengeId}`, option);
+            return await instance.get(`/challenge/${challengeId}`, option);
 
         }catch(error) {
             alert("해당 챌린지를 불러올 수 없습니다.");
@@ -106,7 +106,7 @@ function ChallengeDetails(props) {
             }
         }
         try {
-            return await instance.get(`/api/challenge/${challengeId}/like`, option);
+            return await instance.get(`/challenge/${challengeId}/like`, option);
         }catch(error) {
 
         }
@@ -127,15 +127,23 @@ function ChallengeDetails(props) {
                 Authorization: localStorage.getItem("accessToken")
             }
         }
-        const data = {
-            challengeId: challengeId,
-            userId: principal.data.data.userId
-        }
+        const userId = principal.data.data.userId;
+
+        const requestData = {
+            userId: userId
+        };
+
         try {
-            if(!!getLikeState?.data?.data) {
-                await instance.delete(`/api/challenge/${challengeId}/like`, option, data);
-            }else {
-                await instance.post(`/api/challenge/${challengeId}/like`, option, data);
+            console.log(!!getLikeState?.data?.data)
+            if (!!getLikeState?.data?.data) {
+                await instance.delete(`/challenge/${challengeId}/like`, {
+                    ...option,
+                    data: requestData
+                });
+            } else {
+                await instance.post(`/challenge/${challengeId}/like`, option,{
+                    userId: principal.data.data.userId
+                });
             }
             getLikeState.refetch();
             getChallenge.refetch();
