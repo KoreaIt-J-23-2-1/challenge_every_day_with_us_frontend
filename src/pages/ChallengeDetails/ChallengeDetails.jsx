@@ -58,7 +58,12 @@ function ChallengeDetails(props) {
 
     const getChallenge = useQuery(["getChallenge"], async () => {
         try {
-            return await instance.get(`/api/challenge/${21}`)
+            const option = {
+                headers: {
+                    Authorization: localStorage.getItem("accessToken")
+                }
+            }
+            return await instance.get(`/api/challenge/${challengeId}`, option);
         }catch(error) {
             alert("해당 챌린지를 불러올 수 없습니다.");
             navigate("/");
