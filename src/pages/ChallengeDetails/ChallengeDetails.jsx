@@ -80,7 +80,13 @@ function ChallengeDetails(props) {
 
     const getChallenge = useQuery(["getChallenge"], async () => {
         try {
-            return await instance.get(`/api/challenge/${challengeId}`)
+            const option = {
+                headers: {
+                    Authorization: localStorage.getItem("accessToken")
+                }
+            }
+            return await instance.get(`/api/challenge/${challengeId}`, option);
+
         }catch(error) {
             alert("해당 챌린지를 불러올 수 없습니다.");
             navigate("/");
@@ -94,12 +100,12 @@ function ChallengeDetails(props) {
     })
 
     const getLikeState = useQuery(["getLikeState"], async () => {
-        try {
-            const option = {
-                headers: {
-                    Authorization: localStorage.getItem("accessToken")
-                }
+        const option = {
+            headers: {
+                Authorization: localStorage.getItem("accessToken")
             }
+        }
+        try {
             return await instance.get(`/api/challenge/${challengeId}/like`, option);
         }catch(error) {
 
@@ -121,15 +127,21 @@ function ChallengeDetails(props) {
                 Authorization: localStorage.getItem("accessToken")
             }
         }
-        const data = {
-            challengeId: challengeId,
-            userId: principal.data.data.userId
+        console.log(principal)
+        const userId = principal.data.data.userId;
+        const result = {
+            userId: userId
         }
+        console.log(result)
+        
         try {
-            if(!!getLikeState?.data?.data) {
-                await instance.delete(`/api/challenge/${challengeId}/like`, option, data);
+            const response = instance.get("/api/challenge/{challengeId}/userlike")
+            console.log(response)
+            if(response) {
+                await instance.delete(`/api/challenge/${challengeId}/like`, option, result);
+                console.log(option)
             }else {
-                await instance.post(`/api/challenge/${challengeId}/like`, option, data);
+                await instance.post(`/api/challenge/${challengeId}/like`, option, result);
             }
             getLikeState.refetch();
             getChallenge.refetch();
@@ -142,7 +154,7 @@ function ChallengeDetails(props) {
 
     return (
         <BaseLayout>
-            
+            {queryClient.data}
             <h1 css={challengeTitle}>{challenge.challengeName}</h1>
             <div css={categoryDetail}>
                 <div css={categoryLeftBox}>
