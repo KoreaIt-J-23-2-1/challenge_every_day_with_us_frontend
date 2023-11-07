@@ -14,7 +14,6 @@ import Main from './pages/Main/Main';
 import ChallengeDetails from './pages/ChallengeDetails/ChallengeDetails';
 import SigninOauth2 from './pages/SignIn/SigninOauth2';
 
-
 function App() {
 
   const getPrincipal = useQuery(["getPrincipal"], async () => {

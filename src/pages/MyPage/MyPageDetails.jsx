@@ -86,7 +86,7 @@ function MyPageDetails(props) {
 
     const handleModifyMypageDetailSubmit = async () => {
         let promise = null;
-        
+
         if(uploadFiles.length > 0) {
             promise = new Promise((resolve, reject) => {
                 const storageRef = ref(storage, `files/profile/${uploadFiles[0].name}`);
