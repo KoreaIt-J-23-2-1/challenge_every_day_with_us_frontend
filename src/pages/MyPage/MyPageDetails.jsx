@@ -4,6 +4,9 @@ import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import {instance} from '../../api/config/instanse';
 import { useQueryClient } from 'react-query';
+import { ref, getDownloadURL, uploadBytes, uploadBytesResumable } from "firebase/storage";
+import { storage } from '../../api/firebase/firebase';
+import { useRecoilStateLoadable } from 'recoil';
 
 const layout = css`
     display: flex;
@@ -51,6 +54,7 @@ function MyPageDetails(props) {
     }
 
     const handleProfileChange = (e) => {
+        setUploadFiles(e.target.files);
         const files = e.target.files;
 
         if(!files.length) {
@@ -73,6 +77,7 @@ function MyPageDetails(props) {
     }
 
     const handleInputChange = (e) => {
+        console.log(modifyMypageDetail)
         setModifyMypageDetail({
             ...modifyMypageDetail,
             [e.target.name]: e.target.value
@@ -80,16 +85,53 @@ function MyPageDetails(props) {
     }
 
     const handleModifyMypageDetailSubmit = async () => {
-        try{
-            const option = {
-                headers: {
-                    Authorization: localStorage.getItem("accessToken")
-                }
-            }
-            await instance.put(`/api/account/mypage/${1}`, modifyMypageDetail, option);
-        }catch(error) {
-            console.error(error);
+        let promise = null;
+
+        if(uploadFiles.length > 0) {
+            promise = new Promise((resolve, reject) => {
+                const storageRef = ref(storage, `files/profile/${uploadFiles[0].name}`);
+                const uploadTask = uploadBytesResumable(storageRef, uploadFiles[0]);
+    
+                uploadTask.on(
+                    "state_changed",
+                    (snapshot) => {
+                        
+                    },
+                    (error) => {
+                        console.error(error);
+                    },
+                    () => {
+                        getDownloadURL(storageRef).then(downloadUrl => {
+                            modifyMypageDetail.profileUrl = downloadUrl;   
+                            resolve(downloadUrl)
+                        })
+                    }
+                )
+                
+            });
+        }else {
+            promise = new Promise((resolve, reject) => {
+                resolve(true);
+            })
         }
+
+        promise.then((result) => {
+            try{
+                const option = {
+                    headers: {
+                        Authorization: localStorage.getItem("accessToken")
+                    }
+                }
+                instance.put(`/api/account/mypage/${principal.userId}`, modifyMypageDetail, option);
+                alert("프로필 정보가 변경되었습니다.");
+                window.location.reload();
+            }catch(error) {
+                console.error(error);
+            }
+        })
+        
+
+        
     }
 
     const handleCancelClick = () => {

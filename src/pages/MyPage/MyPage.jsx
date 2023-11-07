@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { instance } from '../../api/config/instanse';
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 const Layout = css`
     display: flex;
@@ -18,16 +18,16 @@ const ImgBox = css`
     justify-content: center;
     align-items: center;
     border: 2px solid #dbdbdb;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     overflow: hidden;
 
     & img {
         max-width: 100%;
         max-height: 100%;
-        width: 50px;
-        height: 50px;
+        width: 70px;
+        height: 70px;
     }
 `;
 
@@ -94,6 +94,23 @@ function MyPage(props) {
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data;
+    const getPrincipal = useQuery(["getPrincipal"], async () => {
+        try {
+            const option = {
+            headers: {
+                Authorization: localStorage.getItem("accessToken")
+            }
+            }
+        return await instance.get("/api/account/principal", option);
+    
+        } catch(error) {
+            throw new Error(error)
+        }
+        }, {
+        retry: 0,
+        refetchInterval: 1000 * 60 * 10,
+        refetchOnWindowFocus: false
+        });
 
     const toggleModal = () => {
         setModalOpen(!isModalOpen);
@@ -133,6 +150,7 @@ function MyPage(props) {
     }
 
     const handleIntroSubmit = () => {
+        console.log(principal);
         const option = {
             params: {
             nickname: principal.nickname,
@@ -141,6 +159,7 @@ function MyPage(props) {
         };
         instance.get('/api/account/intro', option)
             .then((response) => {
+            getPrincipal.refetch();
             const introData = response.data.intro;
             const requestConfig = {
                 nickname: principal.nickname,
