@@ -14,6 +14,7 @@ import Main from './pages/Main/Main';
 import ChallengeDetails from './pages/ChallengeDetails/ChallengeDetails';
 import SigninOauth2 from './pages/SignIn/SigninOauth2';
 import Store from './pages/Store/Store';
+import StampPage from './pages/StampPage/StampPage';
 
 function App() {
 
@@ -57,6 +58,8 @@ function App() {
       <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
       <Route path='/challenge/category' element={<CategoryPage/>} />
       <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
+
+      <Route path='/stamp' element={<StampPage/>} />
     </Routes>
   );
 }
