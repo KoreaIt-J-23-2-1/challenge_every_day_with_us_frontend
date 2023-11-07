@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { instance } from '../../api/config/instanse';
+import { instance } from '../../api/config/instance';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 

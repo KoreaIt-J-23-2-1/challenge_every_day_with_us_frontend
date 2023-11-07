@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
-import { instance } from '../../api/config/instanse';
+import { instance } from '../../api/config/instance';
 import { useQueryClient } from 'react-query';
 
 const Layout = css`

@@ -3,7 +3,7 @@ import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { css } from '@emotion/react';
 import ReactQuill from 'react-quill';
 import { useNavigate } from 'react-router-dom';
-import { instance } from '../../api/config/instanse';
+import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 
 

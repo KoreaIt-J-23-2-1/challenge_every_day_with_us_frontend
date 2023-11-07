@@ -3,7 +3,7 @@ import SignLayout from '../../components/SignLayout/SignLayout';
 import { css } from '@emotion/react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { async } from 'q';
-import { instance } from '../../api/config/instanse';
+import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 
 const inputBox = css`

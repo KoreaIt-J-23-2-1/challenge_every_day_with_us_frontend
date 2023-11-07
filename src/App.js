@@ -5,7 +5,7 @@ import SignUp from './pages/SignUp/SignUp';
 import PointStore from './pages/PointStore/PointStore';
 import SignIn from './pages/SignIn/SignIn';
 import { useQuery } from 'react-query';
-import { instance } from './api/config/instanse';
+import { instance } from './api/config/instance';
 import NoticeList from './pages/NoticeList/NoticeList';
 import NoticeWrite from './pages/NoticeWrite/NoticeWrite';
 import ChallengeCreate from './pages/ChallengeCreate/ChallengeCreate';
