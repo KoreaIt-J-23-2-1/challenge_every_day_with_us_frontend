@@ -80,7 +80,7 @@ function PointStore(props) {
                         Authorization: localStorage.getItem("accessToken"),
                     },
                 };
-                instance.post("/api/point", orderData).then((response) => {
+                instance.post("/api/point", orderData, option).then((response) => {
                     alert(`포인트 충전이 완료되었습니다. +${product.points} Point 지급됨`);
                     queryClient.refetchQueries(["getProducts"]);
                     navigate("/account/mypage");
