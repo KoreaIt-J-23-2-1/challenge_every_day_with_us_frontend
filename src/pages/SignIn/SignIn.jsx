@@ -51,7 +51,7 @@ function SignIn(props) {
     const handleSigninSubmit = async () => {
         try {
             const response = await instance.post("/api/auth/sign-in", signinUser);
-            localStorage.setItem("accessToken", "Bearer" + response.data);
+            localStorage.setItem("accessToken", "Bearer " + response.data);
             alert("로그인 성공");
             window.location.replace("/");
             

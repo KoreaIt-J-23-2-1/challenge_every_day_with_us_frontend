@@ -48,7 +48,7 @@ function PointStore(props) {
         { name: "2000 Point", price: 20000, points: 2500 },
         { name: "3000 Point", price: 30000, points: 4000 },
     ];
-
+    
     const handlePaymentSubmit = (product) => {
         const principal = queryClient.getQueryState("getPrincipal");
         if (!window.IMP) {
@@ -56,7 +56,7 @@ function PointStore(props) {
         }
         const { IMP } = window;
         IMP.init("imp55744845");
-
+        
         const paymentData = {
             pg: "kakaopay",
             pay_method: "kakaopay",
@@ -68,11 +68,12 @@ function PointStore(props) {
         };
         
         IMP.request_pay(paymentData, (response) => {
+            console.log(principal);
             const { success, error_msg } = response;
             if (success) {
                 const orderData = {
                     point: product.points,
-                    userId: 1
+                    userId: principal.data.data.userId
                 };
                 const option = {
                     headers: {
