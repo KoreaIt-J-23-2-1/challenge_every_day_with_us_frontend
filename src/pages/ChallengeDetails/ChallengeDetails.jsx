@@ -121,11 +121,15 @@ function ChallengeDetails(props) {
                 Authorization: localStorage.getItem("accessToken")
             }
         }
+        const data = {
+            challengeId: challengeId,
+            userId: principal.data.data.userId
+        }
         try {
             if(!!getLikeState?.data?.data) {
-                await instance.delete(`/api/challenge/${challengeId}/like`, option);
+                await instance.delete(`/api/challenge/${challengeId}/like`, option, data);
             }else {
-                await instance.post(`/api/challenge/${challengeId}/like`, {}, option);
+                await instance.post(`/api/challenge/${challengeId}/like`, option, data);
             }
             getLikeState.refetch();
             getChallenge.refetch();
