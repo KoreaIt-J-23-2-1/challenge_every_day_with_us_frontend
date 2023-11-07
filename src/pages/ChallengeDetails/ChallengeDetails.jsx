@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { css } from '@emotion/react';
-import { instance } from '../../api/config/instanse';
+import { instance } from '../../api/config/instance';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import {AiOutlineLike, AiTwotoneLike} from 'react-icons/ai';
 /** @jsxImportSource @emotion/react */

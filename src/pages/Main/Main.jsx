@@ -5,15 +5,24 @@ import { css } from '@emotion/react';
 /** @jsxImportSource @emotion/react */
 
 const btn = css`
+    display: flex;
+    flex-direction: column;
 
-    & > button{
+    &> div > button{
         margin: 10px;
+        height: 30px;
     }
 `;
 
 
 function Main(props) {
     const navigate = useNavigate();
+
+    const handleLogoutButton = async () => {
+        localStorage.removeItem("accessToken");
+        window.location.replace("/");
+
+    };
 
     return (
         <BaseLayout>
@@ -27,6 +36,7 @@ function Main(props) {
                 <button onClick={() => { navigate("/notice") }}>공지목록</button>
                 <button onClick={() => { navigate("/challenge/category") }}>챌린지카테고리</button>
                 <button onClick={() => { navigate(`/challenge/1`) }}>챌린지조회</button>
+
             </div>
         </BaseLayout>
     );

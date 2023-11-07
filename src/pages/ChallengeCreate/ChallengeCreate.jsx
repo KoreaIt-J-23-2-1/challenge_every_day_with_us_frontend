@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useQueryClient } from 'react-query';
-import { instance } from '../../api/config/instanse';
+import { useQuery, useQueryClient } from 'react-query';
+import { instance } from '../../api/config/instance';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 
 const ChallengeTitle = css`
@@ -137,6 +137,23 @@ function ChallengeCreate({ children }) {
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data;
     const navigete = useNavigate();
+    const getPrincipal = useQuery(["getPrincipal"], async () => {
+        try {
+            const option = {
+            headers: {
+                Authorization: localStorage.getItem("accessToken")
+            }
+            }
+        return await instance.get("/account/principal", option);
+    
+        } catch(error) {
+            throw new Error(error)
+        }
+        }, {
+        retry: 0,
+        refetchInterval: 1000 * 60 * 10,
+        refetchOnWindowFocus: false
+        });
 
     useEffect(() => {
         const today = new Date();
@@ -196,7 +213,7 @@ function ChallengeCreate({ children }) {
             categoryName: categoryName,
             userId: userId
         };
-        console.log(requestData);
+        console.log(principal);
         if(window.confirm("챌린지 생성시 1000 Point가 소요됩니다. 동의하시나요?")) {
             if(principal.point >= 1000){
                 const principalPoint = {
@@ -206,17 +223,17 @@ function ChallengeCreate({ children }) {
                 instance.post(`/api/challenge/create/point`, principalPoint)
                     .then((response) => {
                         instance.post(`/api/challenge/create`, requestData)
+                        getPrincipal.refetch();
                     })
                     .catch((error) => {
                         console.error("챌린지 생성 실패:", error);            
                     });
-                }else {
-                    if(window.confirm("해당 잔여 포인트가 부족합니다. Point 충전소로 이동하시겠습니까?")) {
-                        navigete("/point");
-                    }
-                }
+            }else {
+                window.confirm("해당 잔여 포인트가 부족합니다. Point 충전소로 이동하시겠습니까?")
+                navigete("/point");
             }
-            console.log(requestData);
+        }
+        console.log(requestData);
     };
 
     return (
