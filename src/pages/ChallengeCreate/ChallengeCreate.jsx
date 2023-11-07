@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
-
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 
 const ChallengeTitle = css`
@@ -146,7 +144,7 @@ function ChallengeCreate({ children }) {
                 Authorization: localStorage.getItem("accessToken")
             }
             }
-        return await instance.get("/api/account/principal", option);
+        return await instance.get("/account/principal", option);
     
         } catch(error) {
             throw new Error(error)
