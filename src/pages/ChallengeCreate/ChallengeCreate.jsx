@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useQuery, useQueryClient } from 'react-query';
-import { instance } from '../../api/config/instanse';
+
+import { useQueryClient } from 'react-query';
+import { instance } from '../../api/config/instance';
+
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 
 const ChallengeTitle = css`

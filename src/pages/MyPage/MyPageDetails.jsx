@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import {instance} from '../../api/config/instanse';
+import {instance} from '../../api/config/instance';
 import { useQueryClient } from 'react-query';
 import { ref, getDownloadURL, uploadBytes, uploadBytesResumable } from "firebase/storage";
 import { storage } from '../../api/firebase/firebase';

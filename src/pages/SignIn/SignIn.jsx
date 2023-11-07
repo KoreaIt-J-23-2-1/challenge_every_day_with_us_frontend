@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SignLayout from '../../components/SignLayout/SignLayout';
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { instance } from '../../api/config/instanse';
+import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 
 
@@ -54,6 +54,7 @@ function SignIn(props) {
             localStorage.setItem("accessToken", "Bearer " + response.data);
             alert("로그인 성공");
             window.location.replace("/");
+            
         }catch(error) {
             console.error(error);
             alert("로그인 실패");

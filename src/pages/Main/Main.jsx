@@ -34,6 +34,9 @@ function Main(props) {
                     <button onClick={handleLogoutButton}>로그아웃</button>
                 </div>
                 <div>
+                    <button onClick={() => { navigate("/store/items") }}>상점 물품들 조회</button>
+                </div>
+                <div>
                     <button onClick={() => { navigate("/account/mypage") }}>마이페이지</button>
                     <button onClick={() => { navigate("/account/mypage/detail") }}>내정보수정</button>
                 </div>
