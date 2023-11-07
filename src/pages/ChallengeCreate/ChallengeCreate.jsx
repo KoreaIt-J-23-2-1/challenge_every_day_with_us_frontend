@@ -144,7 +144,7 @@ function ChallengeCreate({ children }) {
                 Authorization: localStorage.getItem("accessToken")
             }
             }
-        return await instance.get("/account/principal", option);
+        return await instance.get("/api/account/principal", option);
     
         } catch(error) {
             throw new Error(error)

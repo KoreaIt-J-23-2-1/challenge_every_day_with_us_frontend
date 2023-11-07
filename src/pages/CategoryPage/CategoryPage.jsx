@@ -74,16 +74,16 @@ function CategoryPage(props) {
             <h2>카테고리 선택</h2>
             <div css={SStoreContainer}>
                 {categoryData.map((category) => (
-                    <button css={SProductContainer}>
-                        <Link key={category.name} to={`/challenge/create/${category.value}`}>
+                    <button css={SProductContainer} key={category.name}>
+                        <Link to={`/challenge/create/${category.value}`}>
                             <p>{category.name}</p>
-                            <img src={category.image} />
+                            <img src={category.image} alt={category.name} />
                         </Link>
                     </button>
                 ))}
             </div>
         </div>
-    );
+    );    
 }
 
 export default CategoryPage;

@@ -6,7 +6,6 @@ import {instance} from '../../api/config/instance';
 import { useQueryClient } from 'react-query';
 import { ref, getDownloadURL, uploadBytes, uploadBytesResumable } from "firebase/storage";
 import { storage } from '../../api/firebase/firebase';
-import { useRecoilStateLoadable } from 'recoil';
 
 const layout = css`
     display: flex;
