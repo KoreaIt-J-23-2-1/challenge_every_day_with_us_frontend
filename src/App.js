@@ -13,6 +13,7 @@ import CategoryPage from './pages/CategoryPage/CategoryPage';
 import Main from './pages/Main/Main';
 import ChallengeDetails from './pages/ChallengeDetails/ChallengeDetails';
 import SigninOauth2 from './pages/SignIn/SigninOauth2';
+import Store from './pages/Store/Store';
 
 function App() {
 
@@ -48,6 +49,8 @@ function App() {
       <Route path='/auth/signin' element={<SignIn />} />
       <Route path='/auth/oauth2/login' element={<SigninOauth2 />} />
       
+      <Route path='/store/items' element={<Store/>} />
+
       <Route path='/notice' element={<NoticeList/>} />
       <Route path='/notice/write' element={<NoticeWrite/>} />
 
