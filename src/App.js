@@ -12,6 +12,7 @@ import ChallengeCreate from './pages/ChallengeCreate/ChallengeCreate';
 import CategoryPage from './pages/CategoryPage/CategoryPage';
 import Main from './pages/Main/Main';
 import ChallengeDetails from './pages/ChallengeDetails/ChallengeDetails';
+import SigninOauth2 from './pages/SignIn/SigninOauth2';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
       <Route path='/point' element={ <PointStore /> } />
       <Route path='/auth/signup' element={ <SignUp/> } />
       <Route path='/auth/signin' element={<SignIn />} />
+      <Route path='/auth/oauth2/login' element={<SigninOauth2 />} />
       
       <Route path='/notice' element={<NoticeList/>} />
       <Route path='/notice/write' element={<NoticeWrite/>} />

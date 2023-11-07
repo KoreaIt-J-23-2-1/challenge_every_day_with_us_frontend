@@ -138,7 +138,7 @@ function ChallengeDetails(props) {
 
     return (
         <BaseLayout>
-            
+            {queryClient.data}
             <h1 css={challengeTitle}>{challenge.challengeName}</h1>
             <div css={categoryDetail}>
                 <div css={categoryLeftBox}>
