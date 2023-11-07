@@ -79,6 +79,11 @@ function ChallengeDetails(props) {
     const [isLike, setIsLike] = useState(false);
     const { challengeId } = useParams();
     const [ challenge, setChallenge ] = useState({});
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
+    }
     const getChallenge = useQuery(["getChallenge"], async () => {
         try {
             const option = {
@@ -97,16 +102,10 @@ function ChallengeDetails(props) {
         refetchOnWindowFocus: false,
         onSuccess: response => {
             setChallenge(response.data);
-            console.log(response.data);
         }
     })
 
     const getLikeState = useQuery(["getLikeState"], async () => {
-        const option = {
-            headers: {
-                Authorization: localStorage.getItem("accessToken")
-            }
-        }
         try {
             return await instance.get(`/api/challenge/${challengeId}/like`, option);
         }catch(error) {
@@ -124,11 +123,6 @@ function ChallengeDetails(props) {
     
 
     const handleLikebuttonClick = async () => {
-        const option = {
-            headers: {
-                Authorization: localStorage.getItem("accessToken")
-            }
-        }
         console.log(principal)
         const userId = principal.data.data.userId;
         const result = {
@@ -158,6 +152,18 @@ function ChallengeDetails(props) {
             console.error(error);
         }
     }
+
+    const handleDeleteClick = async () => {
+        if(principal.data.data.name === challenge.name){
+            await instance.delete(`/api/challenge/${challengeId}`, option)
+            alert("삭제완료!");
+            navigate("/");
+        }else {
+            alert("작성자만 삭제할 수 있습니다.");
+        }
+        getLikeState.refetch();
+        getChallenge.refetch();
+    }
     
 
     return (
@@ -182,6 +188,9 @@ function ChallengeDetails(props) {
             </div>
             <div css={line}></div>
             <div css={contentContainer} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
+            <div>
+                <button onClick={handleDeleteClick}>삭제</button>
+            </div>
         </BaseLayout>
     );
 }
