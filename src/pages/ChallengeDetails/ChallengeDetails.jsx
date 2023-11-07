@@ -16,8 +16,8 @@ const SLikeButton = (isLike) => css`
     top: 150px;
     border: 1px solid #dbdbdb;
     border-radius: 50%;
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     background-color: ${isLike ? "#7bbdff" : "#fff"};
     cursor: pointer;
 `;
@@ -66,7 +66,10 @@ const contentContainer = css`
     }
 `;
 
-
+const LikeBox = css`
+    width: 50px;
+    height: 50px;
+`;
 
 function ChallengeDetails(props) {
 
@@ -74,10 +77,8 @@ function ChallengeDetails(props) {
     const queryClient = useQueryClient();
     const principal = queryClient.getQueryState("getPrincipal");
     const [isLike, setIsLike] = useState(false);
-
     const { challengeId } = useParams();
     const [ challenge, setChallenge ] = useState({});
-
     const getChallenge = useQuery(["getChallenge"], async () => {
         try {
             const option = {
@@ -92,6 +93,7 @@ function ChallengeDetails(props) {
             navigate("/");
         }
     }, {
+        retry: 0,
         refetchOnWindowFocus: false,
         onSuccess: response => {
             setChallenge(response.data);
@@ -132,25 +134,31 @@ function ChallengeDetails(props) {
         const result = {
             userId: userId
         }
-        console.log(result)
-        
         try {
-            const response = instance.get("/api/challenge/{challengeId}/userlike")
-            console.log(response)
-            if(response) {
-                await instance.delete(`/api/challenge/${challengeId}/like`, option, result);
-                console.log(option)
-            }else {
-                await instance.post(`/api/challenge/${challengeId}/like`, option, result);
+            const response = await instance.get(`/api/challenge/${challengeId}/userlike`, {
+                headers: {
+                    Authorization: localStorage.getItem("accessToken")
+                },
+                params: {
+                    userId: userId
+                }
+            });
+            if (response.data) {
+                await instance.delete(`/api/challenge/${challengeId}/like`, {
+                    ...option,
+                    data: result
+                });
+            } else {
+                await instance.post(`/api/challenge/${challengeId}/like`, result, option);
             }
             getLikeState.refetch();
             getChallenge.refetch();
             setIsLike(!isLike);
-        }catch(error) {
+        } catch (error) {
             console.error(error);
         }
-        
     }
+    
 
     return (
         <BaseLayout>
@@ -163,14 +171,10 @@ function ChallengeDetails(props) {
                 <div css={categoryRightBox}>
                     <div>작성자: <b>{challenge.name}</b> 기간: {challenge.startDate} ~ {challenge.endDate}</div>
                     <div css={likeOption}>
-                        {!getLikeState.isLoading && 
-                            <button 
-                                css={SLikeButton(isLike)} 
-                                onClick={handleLikebuttonClick}
-                            >
-                                <div>
-                                    {isLike ? <AiTwotoneLike/> : <AiOutlineLike/>}
-                                </div>
+                        {!getLikeState.isLoading &&
+                            <button css={SLikeButton(getLikeState?.data?.data)} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
+                                <div>{isLike ? <AiTwotoneLike/> : <AiOutlineLike/>}</div>
+                                <div>{challenge.challengeLikeCount}</div>
                             </button>
                         }
                     </div>
