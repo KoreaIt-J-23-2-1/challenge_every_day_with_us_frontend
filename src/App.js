@@ -54,7 +54,7 @@ function App() {
       <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
       <Route path='/challenge/category' element={<CategoryPage/>} />
       <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
-      <Route path='/challenges' element={<ChallengeList/>} />
+      <Route path='/challenges/:page' element={<ChallengeList/>} />
     </Routes>
   );
 }
