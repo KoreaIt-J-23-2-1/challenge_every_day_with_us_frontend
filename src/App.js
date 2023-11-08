@@ -61,7 +61,7 @@ function App() {
       <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
       <Route path='/challenge/category' element={<CategoryPage/>} />
       <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
-      <Route path='/challenge/feed' element={<Feed/>} />
+      <Route path='/challenge/feed/:challengeId' element={<Feed/>} />
 
       <Route path='/stamp' element={<StampPage/>} />
     </Routes>

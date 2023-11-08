@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Challengedefault from '../../components/ChallengeLayout/ChallengeDefault';
-import ChallengeLayout1 from '../../components/ChallengeLayout/ChallengeLayout1';
-import ChallengeLayout2 from '../../components/ChallengeLayout/ChallengeLayout2';
+import ChallengeTimeLayout from '../../components/ChallengeLayout/ChallengeTimeLayout';
+import ChallengeRoutineLayout from '../../components/ChallengeLayout/ChallengeRoutineLayout';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
@@ -9,7 +9,7 @@ const ChallengeArea = css`
     position: relative;
     display: flex;
     justify-content: center;
-    height: 700px;
+    height: 800px;
     margin: 20px;
     border: 5px solid #dbdbdb;
     font-weight: 600;
@@ -31,10 +31,10 @@ function Feed(props) {
     const handleComponentChange = (e) => {
         const value = e.target.value;
         console.log(value);
-        if (value === 'component1') {
-            setSelectedComponent(<ChallengeLayout1 />);
-        } else if (value === 'component2') {
-            setSelectedComponent(<ChallengeLayout2 />);
+        if (value === 'Timelayout') {
+            setSelectedComponent(<ChallengeTimeLayout />);
+        } else if (value === 'RoutineLayout') {
+            setSelectedComponent(<ChallengeRoutineLayout />);
         } else {
             setSelectedComponent(<Challengedefault />);
         }
@@ -47,9 +47,9 @@ function Feed(props) {
                 <label>
                     Select Layout
                     <select onChange={handleComponentChange}>
-                        <option value="default">Challengedefault</option>
-                        <option value="component1">Component1</option>
-                        <option value="component2">Component2</option>
+                        <option value="Default">Default</option>
+                        <option value="Timelayout">Timelayout</option>
+                        <option value="RoutineLayout">RoutineLayout</option>
                     </select>
                 </label>
             </div>
