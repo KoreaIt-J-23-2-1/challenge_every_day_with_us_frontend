@@ -26,7 +26,7 @@ const ChallengeArea = css`
     }
 `;
 
-function ChallengeApplication(props) {
+function Feed(props) {
     const [ selectedComponent, setSelectedComponent ] = useState(<Challengedefault />);
     const handleComponentChange = (e) => {
         const value = e.target.value;
@@ -57,4 +57,4 @@ function ChallengeApplication(props) {
     );
 }
 
-export default ChallengeApplication;
+export default Feed;

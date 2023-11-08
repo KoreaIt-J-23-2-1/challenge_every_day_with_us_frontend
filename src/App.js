@@ -16,6 +16,7 @@ import SigninOauth2 from './pages/SignIn/SigninOauth2';
 import Store from './pages/Store/Store';
 import StampPage from './pages/StampPage/StampPage';
 import LogoPage from './pages/LogoPage/LogoPage';
+import Feed from './pages/Feed/Feed';
 
 function App() {
 
@@ -60,6 +61,7 @@ function App() {
       <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
       <Route path='/challenge/category' element={<CategoryPage/>} />
       <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
+      <Route path='/challenge/feed' element={<Feed/>} />
 
       <Route path='/stamp' element={<StampPage/>} />
     </Routes>

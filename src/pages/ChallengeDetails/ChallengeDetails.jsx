@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { css } from '@emotion/react';
@@ -7,92 +7,160 @@ import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import {AiOutlineLike, AiTwotoneLike} from 'react-icons/ai';
 /** @jsxImportSource @emotion/react */
 
-const likeOption = css`
-    margin-left: 20px;
+const Layout = css`
+    display: flex;
+    flex-direction: column;
+`;
+
+const HeaderLayout = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 150px;
+    margin: 0px 30px;
+
+    & b {
+        font-size: 30px;
+    }
+
+    & p {
+        margin: 0px;
+        margin-top: 20px;
+    }
+`;
+
+const Box = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+`;
+
+const DeleteButton = css`
+    width: 50px;
+    height: 30px;
+    border: 1px solid #eee;
+    background-color: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    
+    &:active {
+        background-color: #eee;
+    }
+`;
+
+const Writer = css`
+    font-size: 14px;
+
+    & b {
+        margin-left: 5px;
+        font-size: 20px;
+    }
+`;
+
+const BodyLayout = css`
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 30px;
+    
+    & img {
+        
+    }
+
+    & button {
+        width: 100px;
+    }
+`;
+
+const BodyLeftBox = css`
+
+`;
+
+const BodyRightBox = css`
+    display: flex;
+    flex-direction: column;
+
+    & div {
+        width: 400px;
+        height: 100px;
+        border: 2px solid #dbdbdb;
+        margin: 20px 0px;
+    }
+
+    & button {
+        margin-top: 20px;
+        width: 400px;
+        height: 40px;
+        background-color: transparent;
+        border: 1px solid #dbdbdb;
+        border-radius: 10px;
+        cursor: pointer;
+
+        &:active {
+            background-color: #eee;
+        }
+    }
 `;
 
 const SLikeButton = (isLike) => css`
     position: sticky;
-    top: 150px;
+    margin: 0px 40px;
     border: 1px solid #dbdbdb;
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     background-color: ${isLike ? "#7bbdff" : "#fff"};
     cursor: pointer;
 `;
 
-const challengeTitle = css`
-    width: 100%;
-    font-size: 50px;
-    word-wrap: break-word;
-`;
-
-const categoryDetail = css`
-    display: flex;
-    justify-content: space-between;
-    & p {
-        font-size: 16px;
-        margin-left: 5px;
-    }
-`;
-
-const categoryLeftBox = css`
-    & b {
-        font-size: 16px;
-        margin-left: 5px;
-    }
-`;
-
-const categoryRightBox = css`
-    display: flex;
-`;
-
-
 const line = css`
-    width: 100%;
-    margin: 30px 0px;
+    margin: 10px 20px;
     border-bottom: 2px solid #dbdbdb;
 `;
 
-const contentContainer = css`
-    width: 100%;
-    word-wrap: break-word;
-    & * {
-        word-wrap: break-word;
-    }
-    & img {
-        max-width: 100%;
-    }
-`;
-
-const LikeBox = css`
-    width: 50px;
-    height: 50px;
-`;
-
 function ChallengeDetails(props) {
-
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const principal = queryClient.getQueryState("getPrincipal");
-    const [isLike, setIsLike] = useState(false);
+    const [ isLike, setIsLike ] = useState(false);
     const { challengeId } = useParams();
     const [ challenge, setChallenge ] = useState({});
+    const [ dateDifference, setDateDifference ] = useState(null);
+    const [ todayDifference, setTodayDifference ] = useState(null);
+    const [ isJoined, setIsJoined ] = useState("");
+    const [ button, setButton ] = useState(false);
+
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
         }
     }
+
+    const checkUserJoinStatus = useQuery(["checkUserJoinStatus"], async () => {
+        try {
+            const joinResponse = await instance.get(`/api/challenge/join/${challengeId}`, option);
+            if (!joinResponse.data) {
+                const atmospherResponse = await instance.get(`/api/challenge/atmospher/${challengeId}`, option);
+                if (atmospherResponse.data) {
+                    setIsJoined("대기중");
+                } else {
+                    setIsJoined("챌린지 신청 하기");
+                }
+            } else {
+                setIsJoined("챌린지 인증하기");
+            }
+            return isJoined;
+        } catch (error) {
+            console.log(error);
+        }
+    }, {
+        retry: 0,
+        refetchOnWindowFocus: false
+    });
+
     const getChallenge = useQuery(["getChallenge"], async () => {
         try {
-            const option = {
-                headers: {
-                    Authorization: localStorage.getItem("accessToken")
-                }
-            }
             return await instance.get(`/api/challenge/${challengeId}`, option);
-
         }catch(error) {
             alert("해당 챌린지를 불러올 수 없습니다.");
             navigate("/");
@@ -109,18 +177,29 @@ function ChallengeDetails(props) {
         try {
             return await instance.get(`/api/challenge/${challengeId}/like`, option);
         }catch(error) {
-
+            console.erroe(error);
         }
     }, {
         refetchOnWindowFocus: false,
         retry: 0
     })
 
+    useEffect(() => {
+        const startDate = new Date(challenge.startDate);
+        const endDate = new Date(challenge.endDate);
+        const today = new Date();
+        const timeDifference = endDate - startDate;
+        const dayDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const todayTimeDifference = today - startDate;
+        const todayDifference = Math.floor(todayTimeDifference / (1000 * 60 * 60 * 24));
+
+        setDateDifference(dayDifference);
+        setTodayDifference(todayDifference)
+    }, [challenge.startDate, challenge.endDate]);
+
     if(getChallenge.isLoading) {
         return <></>
     }
-
-    
 
     const handleLikebuttonClick = async () => {
         console.log(principal)
@@ -165,33 +244,69 @@ function ChallengeDetails(props) {
         getChallenge.refetch();
     }
     
+    const handleParticipationButton = () => {
+        if(isJoined === "챌린지 인증하기") {
+            navigate("/challenge/feed")
+        }else if(isJoined === "대기중") {
+            setButton(true);
+        }else {
+            if(challenge.isApplicable === "0"){
+                const response = instance.post(`/api/challenge/join/${challengeId}`, {}, option);
+                if(response) {
+                    alert("챌린지 참여가 가능합니다!")
+                }
+            }else {
+                const response = instance.post(`/api/challenge/join/${challengeId}`, {}, option);
+                if(response) {
+                    alert("신청완료! 승인까지 1~2일이 소요됩니다.");
+                }
+            }
+            checkUserJoinStatus.refetch();
+        }
+    }
 
     return (
-        <BaseLayout>
-            {queryClient.data}
-            <h1 css={challengeTitle}>{challenge.challengeName}</h1>
-            <div css={categoryDetail}>
-                <div css={categoryLeftBox}>
-                    <div>Category : <b>{challenge.categoryName}</b></div>
+        <div css={Layout}>
+            <div css={HeaderLayout}>
+                <div>
+                    <b>[{challenge.categoryName}]</b>
+                    {dateDifference !== null && (
+                        <p>{dateDifference+1}일 중 {todayDifference+1}일차</p>
+                    )}
                 </div>
-                <div css={categoryRightBox}>
-                    <div>작성자: <b>{challenge.name}</b> 기간: {challenge.startDate} ~ {challenge.endDate}</div>
-                    <div css={likeOption}>
-                        {!getLikeState.isLoading &&
-                            <button css={SLikeButton(getLikeState?.data?.data)} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
-                                <div>{isLike ? <AiTwotoneLike/> : <AiOutlineLike/>}</div>
-                                <div>{challenge.challengeLikeCount}</div>
-                            </button>
-                        }
+                {queryClient.data}
+                <h1>{challenge.challengeName}</h1>
+                <div>
+                    <div css={Box}>
+                        <div css={Writer}>작성자: <b>{challenge.name}</b> </div>
+                        <div>
+                            {!getLikeState.isLoading &&
+                                <button css={SLikeButton(getLikeState?.data?.data)} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
+                                    <div>{isLike ? <AiTwotoneLike/> : <AiOutlineLike/>}</div>
+                                    <div>{challenge.challengeLikeCount}</div>
+                                </button>
+                            }
+                        </div>
+                        <button css={DeleteButton} onClick={handleDeleteClick}>삭제</button>
                     </div>
                 </div>
             </div>
             <div css={line}></div>
-            <div css={contentContainer} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
-            <div>
-                <button onClick={handleDeleteClick}>삭제</button>
+            <div css={BodyLayout}>
+                <div css={BodyLeftBox}>
+                    이미지
+                    <img src="" alt="" />
+                </div>
+                <div css={BodyRightBox}>
+                    <p>기간: {challenge.startDate} ~ {challenge.endDate}</p>
+                    <div dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
+                    <b>참여인원</b>
+                    <button onClick={handleParticipationButton} disabled={button}>
+                        {isJoined}
+                    </button>
+                </div>
             </div>
-        </BaseLayout>
+        </div>
     );
 }
 
