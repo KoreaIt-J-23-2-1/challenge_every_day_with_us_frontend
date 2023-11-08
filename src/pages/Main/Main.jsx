@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { css } from '@emotion/react';
@@ -21,9 +21,8 @@ function Main(props) {
     const handleLogoutButton = async () => {
         localStorage.removeItem("accessToken");
         window.location.replace("/");
-
     };
-
+    
     return (
         <BaseLayout>
             <h1>임시 메인페이지(버튼이동용...)</h1>
