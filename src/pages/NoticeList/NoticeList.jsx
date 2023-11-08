@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { css } from '@emotion/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { instance } from '../../api/config/instance';
@@ -57,17 +57,30 @@ const btnBox = css`
 `;
 
 function NoticeList(props) {
+    const option = {
+        headers: {
+        Authorization: localStorage.getItem("accessToken")
+        }
+    }
 
     const navigate = useNavigate();
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data;
+    const [ searchParams ] = useSearchParams();
 
     console.log(principal);
 
     const getNoticeList = useQuery(["getBoardList"], async () => {
-        return await instance.get(`/api/notices`)
+        return await instance.get(`/api/notices/${searchParams.get("page")}`,option)
+    }, {
+        retry: 0,
+        onSuccess: (response) => {
 
+            console.log("공지목록");
+            console.log(response);
+            console.log("공지목록");
+        }
     });
 
 
