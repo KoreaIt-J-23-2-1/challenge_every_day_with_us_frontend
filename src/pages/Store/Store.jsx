@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { css } from '@emotion/react';
@@ -32,13 +32,28 @@ const itemImg = css`
 function Store(props) {
     const navigate = useNavigate();
 
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
+    }
+
+    const getPrincipal = useQuery(["getPrincipal"], async () => {
+        try{
+            return await instance.get("/api/account/principal", option);
+
+        }catch(error) {
+            // throw new Error(error);
+        }
+        }, {
+            retry: 0,
+            refetchInterval: 1000 * 60 * 10,
+            refetchOnWindowFocus: false
+        }
+    );
+
     const getItems = useQuery(["getItems"], async () => {
         try{
-            const option = {
-                headers: {
-                    Authorization: localStorage.getItem("accessToken")
-                }
-            }
             return await instance.get("/api/store/items", option);
 
         }catch(error) {
@@ -53,13 +68,27 @@ function Store(props) {
         }
     );
 
+    const handlePurchaseButton = async (itemId) => {
+        try{
+
+            await instance.post("/api/store/item", {itemId}, option);
+            alert("구매 성공");
+            getPrincipal.refetch();
+
+        }catch(error) {
+            console.error(error);
+            alert("구매 실패");
+        }
+    };
+
     if(getItems.isLoading){
         return <></>
-    }    
+    };
 
     return (
         <BaseLayout>
             <h1>상점 물품 조회</h1>
+            <h3>{!getPrincipal.isLoading && getPrincipal.data.data.nickname} 님의 포인트 : {!getPrincipal.isLoading && getPrincipal.data.data.point}</h3>
             {!getItems.isLoading &&
                 getItems?.data?.data.map(item => {
                     return <div css={SItemLayout} key={item.itemId}>
@@ -70,7 +99,7 @@ function Store(props) {
                             </div>
                             <div>상품명 : {item.itemName}</div>
                             <div>가격 : {item.itemPrice} point</div>
-                            <button>구매 버튼(미구현)</button>
+                            <button onClick={() => {handlePurchaseButton(item.itemId)}}>구매 버튼</button>
                         </div>
             })}
             <button onClick={() => { navigate("/") }}>메인으로</button>

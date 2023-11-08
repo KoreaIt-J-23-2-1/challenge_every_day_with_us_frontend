@@ -29,6 +29,7 @@ function Main(props) {
             <p>주소 매번 입력하기...귀찮았다...미안하다...</p>
             <div css={btn}>
                 <button onClick={() => { navigate("/auth/signin") }}>로그인</button>
+                <button onClick={() => { navigate("/store/items") }}>상점</button>
                 <button onClick={() => { navigate("/account/mypage") }}>마이페이지</button>
                 <button onClick={() => { navigate("/account/mypage/detail") }}>내정보수정</button>
                 <button onClick={() => { navigate("/point") }}>포인트상점</button>
