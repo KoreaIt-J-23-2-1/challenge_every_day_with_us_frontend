@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { instance } from '../../api/config/instanse';
+import { instance } from '../../api/config/instance';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 
@@ -48,7 +48,7 @@ function PointStore(props) {
         { name: "2000 Point", price: 20000, points: 2500 },
         { name: "3000 Point", price: 30000, points: 4000 },
     ];
-
+    
     const handlePaymentSubmit = (product) => {
         const principal = queryClient.getQueryState("getPrincipal");
         if (!window.IMP) {
@@ -56,7 +56,7 @@ function PointStore(props) {
         }
         const { IMP } = window;
         IMP.init("imp55744845");
-
+        
         const paymentData = {
             pg: "kakaopay",
             pay_method: "kakaopay",
@@ -68,18 +68,19 @@ function PointStore(props) {
         };
         
         IMP.request_pay(paymentData, (response) => {
+            console.log(principal);
             const { success, error_msg } = response;
             if (success) {
                 const orderData = {
                     point: product.points,
-                    userId: 1
+                    userId: principal.data.data.userId
                 };
                 const option = {
                     headers: {
                         Authorization: localStorage.getItem("accessToken"),
                     },
                 };
-                instance.post("/api/point", orderData).then((response) => {
+                instance.post("/api/point", orderData, option).then((response) => {
                     alert(`포인트 충전이 완료되었습니다. +${product.points} Point 지급됨`);
                     queryClient.refetchQueries(["getProducts"]);
                     navigate("/account/mypage");

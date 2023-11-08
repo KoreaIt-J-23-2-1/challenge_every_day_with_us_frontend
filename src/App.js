@@ -5,15 +5,22 @@ import SignUp from './pages/SignUp/SignUp';
 import PointStore from './pages/PointStore/PointStore';
 import SignIn from './pages/SignIn/SignIn';
 import { useQuery } from 'react-query';
-import { instance } from './api/config/instanse';
+import { instance } from './api/config/instance';
 import NoticeList from './pages/NoticeList/NoticeList';
 import NoticeWrite from './pages/NoticeWrite/NoticeWrite';
 import ChallengeCreate from './pages/ChallengeCreate/ChallengeCreate';
 import CategoryPage from './pages/CategoryPage/CategoryPage';
 import Main from './pages/Main/Main';
 import ChallengeDetails from './pages/ChallengeDetails/ChallengeDetails';
+<<<<<<< HEAD
 import ChallengeList from './pages/ChallengeList/ChallengeList';
 
+=======
+import SigninOauth2 from './pages/SignIn/SigninOauth2';
+import Store from './pages/Store/Store';
+import StampPage from './pages/StampPage/StampPage';
+import LogoPage from './pages/LogoPage/LogoPage';
+>>>>>>> main
 
 function App() {
 
@@ -41,13 +48,17 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<Main/>}/>
-
+      <Route path='/main' element={<Main/>}/>
+      <Route path='/' element={<LogoPage/>}/>
+      
       <Route path='/account/*' element={ <AccountRoute /> } />
       <Route path='/point' element={ <PointStore /> } />
       <Route path='/auth/signup' element={ <SignUp/> } />
       <Route path='/auth/signin' element={<SignIn />} />
+      <Route path='/auth/oauth2/login' element={<SigninOauth2 />} />
       
+      <Route path='/store/items' element={<Store/>} />
+
       <Route path='/notice' element={<NoticeList/>} />
       <Route path='/notice/write' element={<NoticeWrite/>} />
 
@@ -55,6 +66,8 @@ function App() {
       <Route path='/challenge/category' element={<CategoryPage/>} />
       <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
       <Route path='/challenges/:page' element={<ChallengeList/>} />
+
+      <Route path='/stamp' element={<StampPage/>} />
     </Routes>
   );
 }

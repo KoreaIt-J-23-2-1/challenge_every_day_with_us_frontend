@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import ReactQuill from 'react-quill';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 
 
@@ -77,7 +78,7 @@ function NoticeEdit(props) {
     }
 
     const handleCancelBtn = () => {
-        navigete("/notice")
+        navigate("/notice")
     
     }
 
@@ -88,7 +89,7 @@ function NoticeEdit(props) {
                     Authorization: localStorage.getItem("token")
                 }
             };
-            await axios.post("http://localhost:8080/api/notice",noticeContent, option);
+            await instance.post("/notice",noticeContent, option);
         } catch (error) {
             console.error(error);
         }

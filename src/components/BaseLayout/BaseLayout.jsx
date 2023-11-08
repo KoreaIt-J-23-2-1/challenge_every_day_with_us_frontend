@@ -5,6 +5,7 @@ import { css } from '@emotion/react';
 const Layout = css`
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin: 50px;
 `;
 
