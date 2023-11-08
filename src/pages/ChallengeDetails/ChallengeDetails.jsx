@@ -127,7 +127,8 @@ function ChallengeDetails(props) {
     const [ challenge, setChallenge ] = useState({});
     const [ dateDifference, setDateDifference ] = useState(null);
     const [ todayDifference, setTodayDifference ] = useState(null);
-    const [ isJoined, setIsJoined ] = useState(false);
+    const [ isJoined, setIsJoined ] = useState("");
+    const [ button, setButton ] = useState(false);
 
     const option = {
         headers: {
@@ -137,11 +138,19 @@ function ChallengeDetails(props) {
 
     const checkUserJoinStatus = useQuery(["checkUserJoinStatus"], async () => {
         try {
-            const response = await instance.get(`/api/challenge/join/${challengeId}`, option)
-            setIsJoined(response.data)
-            console.log(response.data);
-            return response.data;
-        }catch(error) {
+            const joinResponse = await instance.get(`/api/challenge/join/${challengeId}`, option);
+            if (!joinResponse.data) {
+                const atmospherResponse = await instance.get(`/api/challenge/atmospher/${challengeId}`, option);
+                if (atmospherResponse.data) {
+                    setIsJoined("대기중");
+                } else {
+                    setIsJoined("챌린지 신청 하기");
+                }
+            } else {
+                setIsJoined("챌린지 인증하기");
+            }
+            return isJoined;
+        } catch (error) {
             console.log(error);
         }
     }, {
@@ -236,18 +245,20 @@ function ChallengeDetails(props) {
     }
     
     const handleParticipationButton = () => {
-        if(isJoined) {
+        if(isJoined === "챌린지 인증하기") {
             navigate("/challenge/feed")
+        }else if(isJoined === "대기중") {
+            setButton(true);
         }else {
             if(challenge.isApplicable === "0"){
                 const response = instance.post(`/api/challenge/join/${challengeId}`, {}, option);
                 if(response) {
-                    alert("요청성공!")
+                    alert("챌린지 참여가 가능합니다!")
                 }
             }else {
                 const response = instance.post(`/api/challenge/join/${challengeId}`, {}, option);
                 if(response) {
-                    alert("승인까지 1~2일이 소요됩니다.");
+                    alert("신청완료! 승인까지 1~2일이 소요됩니다.");
                 }
             }
             checkUserJoinStatus.refetch();
@@ -290,8 +301,8 @@ function ChallengeDetails(props) {
                     <p>기간: {challenge.startDate} ~ {challenge.endDate}</p>
                     <div dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
                     <b>참여인원</b>
-                    <button onClick={handleParticipationButton}>
-                        {isJoined ? '참여 인증하기' : '챌린지 참여하기'}
+                    <button onClick={handleParticipationButton} disabled={button}>
+                        {isJoined}
                     </button>
                 </div>
             </div>
