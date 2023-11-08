@@ -15,6 +15,7 @@ import ChallengeDetails from './pages/ChallengeDetails/ChallengeDetails';
 import SigninOauth2 from './pages/SignIn/SigninOauth2';
 import Store from './pages/Store/Store';
 import StampPage from './pages/StampPage/StampPage';
+import LogoPage from './pages/LogoPage/LogoPage';
 
 function App() {
 
@@ -43,7 +44,8 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<Main/>}/>
-
+      <Route path='/logo' element={<LogoPage/>}/>
+      
       <Route path='/account/*' element={ <AccountRoute /> } />
       <Route path='/point' element={ <PointStore /> } />
       <Route path='/auth/signup' element={ <SignUp/> } />
