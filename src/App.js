@@ -43,8 +43,8 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<Main/>}/>
-      <Route path='/logo' element={<LogoPage/>}/>
+      <Route path='/main' element={<Main/>}/>
+      <Route path='/' element={<LogoPage/>}/>
       
       <Route path='/account/*' element={ <AccountRoute /> } />
       <Route path='/point' element={ <PointStore /> } />

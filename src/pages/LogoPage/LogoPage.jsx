@@ -25,13 +25,13 @@ function LogoPage(props) {
     const navigate = useNavigate();
 
     const GoMainPage = () => {
-        navigate("/");
+        navigate("/main");
     };
 
     useEffect(() => {
         const autoGoMainPage = setTimeout(() => {
             navigate("/main");
-        }, 8000);
+        }, 5000);
         return () => clearTimeout(autoGoMainPage);
     }, [navigate]);
 
