@@ -72,20 +72,18 @@ const BodyLayout = css`
     }
 `;
 
-const BodyLeftBox = css`
-
+const BodyFeedLayout = css`
+    display: flex;
+    flex-grow: 1;
+    height: 700px;
+    border: 2px solid #dbdbdb;
+    border-radius: 10px;
 `;
 
 const BodyRightBox = css`
     display: flex;
     flex-direction: column;
-
-    & div {
-        width: 400px;
-        height: 100px;
-        border: 2px solid #dbdbdb;
-        margin: 20px 0px;
-    }
+    margin-left: 20px;
 
     & button {
         margin-top: 20px;
@@ -102,6 +100,13 @@ const BodyRightBox = css`
     }
 `;
 
+const textBox = css`
+    width: 400px;
+    height: 100px;
+    border: 2px solid #dbdbdb;
+    margin: 20px 0px;
+`;
+
 const SLikeButton = (isLike) => css`
     position: sticky;
     margin: 0px 40px;
@@ -116,6 +121,28 @@ const SLikeButton = (isLike) => css`
 const line = css`
     margin: 10px 20px;
     border-bottom: 2px solid #dbdbdb;
+`;
+
+const ListBox = css`
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    height: 425px;
+    overflow: auto;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    
+    & scrollable-container {
+        height: 100%;
+    }
+
+    & b {
+        margin: 5px;
+    }
+
+    & p {
+        margin: 5px;
+    }
 `;
 
 function ChallengeDetails(props) {
@@ -293,17 +320,34 @@ function ChallengeDetails(props) {
             </div>
             <div css={line}></div>
             <div css={BodyLayout}>
-                <div css={BodyLeftBox}>
-                    이미지
-                    <img src="" alt="" />
+                <div css={BodyFeedLayout}>
+                    챌린지별 피드 띄우기
                 </div>
                 <div css={BodyRightBox}>
                     <p>기간: {challenge.startDate} ~ {challenge.endDate}</p>
-                    <div dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
+                    <div css={textBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
                     <b>참여인원</b>
                     <button onClick={handleParticipationButton} disabled={button}>
                         {isJoined}
                     </button>
+                    <div css={ListBox}>
+                        <b>참여인원</b>
+                        <p>박지영</p>
+                        <p>정혜성</p>
+                        <p>김영훈</p>
+                        <p>문근해</p>
+                        <p>문근해</p>
+                        <p>문근해</p>
+                        <p>문근해</p>
+                        <p>문근해</p>
+                        <p>문근해</p>
+                        <p>문근해</p>
+                        <p>문근해</p>
+                        <p>문근해</p>
+                        <p>문근해</p>
+                        <p>문근해</p>
+                        <p>문근해</p>
+                    </div>
                 </div>
             </div>
         </div>
