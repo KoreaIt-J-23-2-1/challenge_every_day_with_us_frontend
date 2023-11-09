@@ -37,20 +37,8 @@ function Store(props) {
             Authorization: localStorage.getItem("accessToken")
         }
     }
-
-    const getPrincipal = useQuery(["getPrincipal"], async () => {
-        try{
-            return await instance.get("/api/account/principal", option);
-
-        }catch(error) {
-            // throw new Error(error);
-        }
-        }, {
-            retry: 0,
-            refetchInterval: 1000 * 60 * 10,
-            refetchOnWindowFocus: false
-        }
-    );
+    const queryClient = useQueryClient();
+    const getPrincipal = queryClient.getQueryState(["getPrincipal"]);
 
     const getItems = useQuery(["getItems"], async () => {
         try{
@@ -73,7 +61,7 @@ function Store(props) {
 
             await instance.post("/api/store/item", {itemId}, option);
             alert("구매 성공");
-            getPrincipal.refetch();
+            await queryClient.refetchQueries(["getPrincipal"]);
 
         }catch(error) {
             console.error(error);
@@ -88,7 +76,7 @@ function Store(props) {
     return (
         <BaseLayout>
             <h1>상점 물품 조회</h1>
-            <h3>{!getPrincipal.isLoading && getPrincipal.data.data.nickname} 님의 포인트 : {!getPrincipal.isLoading && getPrincipal.data.data.point}</h3>
+            <h3>{getPrincipal.data.data.nickname} 님의 포인트 : {getPrincipal.data.data.point}</h3>
             {!getItems.isLoading &&
                 getItems?.data?.data.map(item => {
                     return <div css={SItemLayout} key={item.itemId}>
@@ -102,7 +90,7 @@ function Store(props) {
                             <button onClick={() => {handlePurchaseButton(item.itemId)}}>구매 버튼</button>
                         </div>
             })}
-            <button onClick={() => { navigate("/") }}>메인으로</button>
+            <button onClick={() => { navigate("/main") }}>메인으로</button>
         </BaseLayout>
     );
 }
