@@ -94,23 +94,27 @@ function ChallengeTimeLayout() {
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const { challengeId } = useParams();
+    const [ challenge, setChallenge ] = useState({});
+    const [ selectedImage, setSelectedImage ] = useState(null);
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
         }
     };
 
-    const [selectedImage, setSelectedImage] = useState(null);
-
-    const { data: challengeData } = useQuery(["challengeData"], async () => {
+    const getChallenge = useQuery(["getChallenge"], async () => {
             try {
-                const response = await instance.get(`/api/challenge/${challengeId}`, option);
-                return response.data;
+                return await instance.get(`/api/challenge/${challengeId}`, option);
             } catch (error) {
                 throw new Error('챌린지 데이터를 가져올 수 없습니다.');
             }
-        }
-    );
+        }, {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+                setChallenge(response.data);
+            }
+    });
 
     useEffect(() => {
         let timerInterval;
@@ -125,6 +129,10 @@ function ChallengeTimeLayout() {
             clearInterval(timerInterval);
         };
     }, [isRunning]);
+
+    if(getChallenge.isLoading) {
+        return <></>
+    }
 
     const startTimer = () => {
         setIsRunning(true);
@@ -160,7 +168,9 @@ function ChallengeTimeLayout() {
             time: time,
             text: document.getElementById('challengeText').value,
             image: selectedImage,
-            categoryName: challengeData.categoryName
+            categoryName: challenge.categoryName,
+            challengeLayout: challenge.layout,
+            layout: 2
         }
         try {
             const response = await instance.post(`/api/challenge/feed/${challengeId}`, data, {
@@ -178,8 +188,8 @@ function ChallengeTimeLayout() {
     return (
         <div css={Layout}>
             <div css={TitleLayout}>
-                {challengeData ? (
-                    <h1>Title: <b>{challengeData.challengeName}</b>[{challengeData.categoryName}]</h1>
+                {challenge ? (
+                    <h1>Title: <b>{challenge.challengeName}</b>[{challenge.categoryName}]</h1>
                 ) : (
                     <h1>Loading...</h1>
                 )}
