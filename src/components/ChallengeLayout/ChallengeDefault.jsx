@@ -32,7 +32,7 @@ const textLayout = css`
     position: absolute;
     left: 50px;
     top: 100px;
-    width: 1100px;
+    width: 95%;
 `;
 
 const textareaBox = css`
@@ -41,6 +41,7 @@ const textareaBox = css`
     resize: none;
     border-radius: 10px;
     transition: width 0.3s;
+    width: 100%;
 `;
 
 const imagePreview = css`
@@ -99,19 +100,6 @@ function Challengedefault(props) {
         }
     })
 
-    useEffect(() => {
-        if (selectedImage) {
-            const img = document.getElementById('myImage');
-            img.onload = function () {
-                const imgWidth = img.width;
-                console.log(img.width)
-                const textareaWidth = 1550 - (imgWidth + 50);
-                textareaRef.current.style.width = `${textareaWidth}px`;
-            };
-        }
-    }, [selectedImage]);
-    
-
     if(getChallenge.isLoading) {
         return <></>
     }
@@ -120,28 +108,7 @@ function Challengedefault(props) {
         const file = e.target.files[0];
         const blobUrl = URL.createObjectURL(file);
         setSelectedImage(blobUrl);
-        imageCompress(file);
     };
-
-    const imageCompress = async (file) => {
-        const options = {
-          maxSizeMB: 0.2, // 이미지 최대 용량
-          maxWidthOrHeight: 1920, // 최대 넓이(혹은 높이)
-          useWebWorker: true,
-        };
-        try {
-          const compressedFile = await imageCompression(file, options);
-          console.log(compressedFile)
-        //   setBoardImage(compressedFile);
-        //   const promise = imageCompression.getDataUrlFromFile(compressedFile);
-        //   promise.then((result) => {
-        //     setUploadPreview(result);
-        //   })
-        } catch (error) {
-          console.log(error)
-        }
-      };
-    console.log(selectedImage)
 
     console.log(challenge);
 
@@ -177,11 +144,11 @@ function Challengedefault(props) {
             </div>
             <div css={textLayout}>
                 <div>
-                    <textarea ref={textareaRef} css={textareaBox} id="challengeText" rows="32" cols="88" maxLength={1000}></textarea>
+                    <textarea ref={textareaRef} css={textareaBox} id="challengeText" rows="32" cols="200" maxLength={1000}></textarea>
                     <input css={FileBox} type="file" accept="image/*" onChange={handleImageChange} />
                 </div>
                 {selectedImage && (
-                    <img id="myImage" src={selectedImage} css={imagePreview} alt="Selected" />
+                    <img src={selectedImage} css={imagePreview} alt="Selected" />
                 )}
             </div>
             <button css={SaveButton} onClick={handleSave}>인증하기</button>
