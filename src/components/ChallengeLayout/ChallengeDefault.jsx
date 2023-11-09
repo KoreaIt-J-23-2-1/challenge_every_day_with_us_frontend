@@ -32,7 +32,7 @@ const textLayout = css`
     position: absolute;
     left: 50px;
     top: 100px;
-    width: 1100px;
+    width: 95%;
 `;
 
 const textareaBox = css`
@@ -41,6 +41,7 @@ const textareaBox = css`
     resize: none;
     border-radius: 10px;
     transition: width 0.3s;
+    width: 100%;
 `;
 
 const imagePreview = css`
@@ -98,20 +99,6 @@ function Challengedefault(props) {
             setChallenge(response.data);
         }
     })
-
-    useEffect(() => {
-        if (selectedImage) {
-            const img = new Image();
-            img.src = selectedImage;
-            img.onload = function () {
-                const imgWidth = img.width;
-                console.log(img.width)
-                const textareaWidth = 1100 - (imgWidth + 50);
-                textareaRef.current.style.width = `${textareaWidth}px`;
-            };
-        }
-    }, [selectedImage]);
-    
 
     if(getChallenge.isLoading) {
         return <></>
@@ -179,7 +166,7 @@ function Challengedefault(props) {
             </div>
             <div css={textLayout}>
                 <div>
-                    <textarea ref={textareaRef} css={textareaBox} id="challengeText" rows="32" cols="88" maxLength={1000}></textarea>
+                    <textarea ref={textareaRef} css={textareaBox} id="challengeText" rows="32" cols="200" maxLength={1000}></textarea>
                     <input css={FileBox} type="file" accept="image/*" onChange={handleImageChange} />
                 </div>
                 {selectedImage && (
