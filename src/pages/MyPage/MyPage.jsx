@@ -90,6 +90,7 @@ function MyPage(props) {
     const [ isModalOpen, setModalOpen ] = useState(false);
     const [ isStoreModalOpen, setIsStoreModalOpen ] = useState(false);
     const [ password, setPassword ] = useState();
+    const [ myChallenge, setMyChallenge ] = useState();
     const [ intro, setIntro ] = useState("");
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
@@ -111,6 +112,30 @@ function MyPage(props) {
         refetchInterval: 1000 * 60 * 10,
         refetchOnWindowFocus: false
         });
+
+    const getMyChallenges = useQuery(["getMyChallenges"], async () => {
+        try {
+            const option = {
+            headers: {
+                Authorization: localStorage.getItem("accessToken")
+            }
+            }
+        return await instance.get("/api/account/mychallenges", option);
+    
+        } catch(error) {
+            throw new Error(error)
+        }
+        }, {
+        retry: 0,
+        refetchOnWindowFocus: false,
+        onSuccess: response => {
+            setMyChallenge(response.data);
+        }
+        });
+
+    if(getMyChallenges.isLoading) {
+        return <></>
+    }
 
     const toggleModal = () => {
         setModalOpen(!isModalOpen);
@@ -174,6 +199,8 @@ function MyPage(props) {
             });
     };
 
+    console.log(getMyChallenges);
+
     return (
     <div css={Layout}>
         <button onClick={handleBackButton}>뒤로가기</button>
@@ -198,12 +225,19 @@ function MyPage(props) {
             <div css={IntroBox}>
                 <h4>자기 소개</h4>
                 <textarea id="introText" rows="3" cols="40" maxLength={50} defaultValue={principal.intro} onChange={handleIntroChange}></textarea>
-                <button onClick={handleIntroSubmit}>저장</button>
-                <button>취소</button>
+                <div>
+                    <button onClick={handleIntroSubmit}>저장</button>
+                    <button>취소</button>
+                </div>
             </div>
         </div>
         <div>
-            <p>참여중인 챌린지List </p>
+            <p>참여중인 챌린지 List</p>
+            <ul>
+                {getMyChallenges.data.data.map((myChallenge, index) => (
+                    <li key={index}>{myChallenge.challengeName}</li>
+                ))}
+            </ul>
         </div>
         <div css={BtBox}>
             <button onClick={toggleStoreModal}>상점</button>
