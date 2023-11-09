@@ -12,6 +12,8 @@ import ChallengeCreate from './pages/ChallengeCreate/ChallengeCreate';
 import CategoryPage from './pages/CategoryPage/CategoryPage';
 import Main from './pages/Main/Main';
 import ChallengeDetails from './pages/ChallengeDetails/ChallengeDetails';
+import ChallengeList from './pages/ChallengeList/ChallengeList';
+
 import SigninOauth2 from './pages/SignIn/SigninOauth2';
 import Store from './pages/Store/Store';
 import StampPage from './pages/StampPage/StampPage';
@@ -63,7 +65,9 @@ function App() {
       <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
       <Route path='/challenge/category' element={<CategoryPage/>} />
       <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
+      <Route path='/challenges/:page' element={<ChallengeList/>} />
       <Route path='/challenge/feed/:challengeId' element={<Feed/>} />
+
 
       <Route path='/stamp' element={<StampPage/>} />
     </Routes>
