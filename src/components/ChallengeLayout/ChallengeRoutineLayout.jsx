@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ChallengeLayout2(props) {
+function ChallengeRoutinLayout(props) {
     return (
         <div>
             
@@ -8,4 +8,4 @@ function ChallengeLayout2(props) {
     );
 }
 
-export default ChallengeLayout2;
+export default ChallengeRoutinLayout;
