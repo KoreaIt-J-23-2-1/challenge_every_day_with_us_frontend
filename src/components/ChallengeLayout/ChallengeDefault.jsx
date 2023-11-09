@@ -5,6 +5,7 @@ import { instance } from '../../api/config/instance';
 import { useQuery } from 'react-query';
 import { Navigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 /** @jsxImportSource @emotion/react */
+import imageCompression from "browser-image-compression";
 
 const Layout = css`
     display: flex;
@@ -100,12 +101,11 @@ function Challengedefault(props) {
 
     useEffect(() => {
         if (selectedImage) {
-            const img = new Image();
-            img.src = selectedImage;
+            const img = document.getElementById('myImage');
             img.onload = function () {
                 const imgWidth = img.width;
                 console.log(img.width)
-                const textareaWidth = 1100 - (imgWidth + 50);
+                const textareaWidth = 1550 - (imgWidth + 50);
                 textareaRef.current.style.width = `${textareaWidth}px`;
             };
         }
@@ -120,7 +120,28 @@ function Challengedefault(props) {
         const file = e.target.files[0];
         const blobUrl = URL.createObjectURL(file);
         setSelectedImage(blobUrl);
+        imageCompress(file);
     };
+
+    const imageCompress = async (file) => {
+        const options = {
+          maxSizeMB: 0.2, // 이미지 최대 용량
+          maxWidthOrHeight: 1920, // 최대 넓이(혹은 높이)
+          useWebWorker: true,
+        };
+        try {
+          const compressedFile = await imageCompression(file, options);
+          console.log(compressedFile)
+        //   setBoardImage(compressedFile);
+        //   const promise = imageCompression.getDataUrlFromFile(compressedFile);
+        //   promise.then((result) => {
+        //     setUploadPreview(result);
+        //   })
+        } catch (error) {
+          console.log(error)
+        }
+      };
+    console.log(selectedImage)
 
     console.log(challenge);
 
@@ -160,7 +181,7 @@ function Challengedefault(props) {
                     <input css={FileBox} type="file" accept="image/*" onChange={handleImageChange} />
                 </div>
                 {selectedImage && (
-                    <img src={selectedImage} css={imagePreview} alt="Selected" />
+                    <img id="myImage" src={selectedImage} css={imagePreview} alt="Selected" />
                 )}
             </div>
             <button css={SaveButton} onClick={handleSave}>인증하기</button>
