@@ -17,6 +17,7 @@ import Store from './pages/Store/Store';
 import StampPage from './pages/StampPage/StampPage';
 import LogoPage from './pages/LogoPage/LogoPage';
 import Feed from './pages/Feed/Feed';
+import StoreMyOrder from './pages/StoreMyOrder/StoreMyOrder';
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
       <Route path='/auth/oauth2/login' element={<SigninOauth2 />} />
       
       <Route path='/store/items' element={<Store/>} />
+      <Route path='/store/:userId/orders' element={<StoreMyOrder/>} />
 
       <Route path='/notice' element={<NoticeList/>} />
       <Route path='/notice/write' element={<NoticeWrite/>} />
