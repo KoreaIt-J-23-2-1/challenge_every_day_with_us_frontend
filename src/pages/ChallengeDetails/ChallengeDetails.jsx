@@ -152,6 +152,7 @@ function ChallengeDetails(props) {
     const [ isLike, setIsLike ] = useState(false);
     const { challengeId } = useParams();
     const [ challenge, setChallenge ] = useState({});
+    const [ challengers, setChallengers ] = useState({});
     const [ dateDifference, setDateDifference ] = useState(null);
     const [ todayDifference, setTodayDifference ] = useState(null);
     const [ isJoined, setIsJoined ] = useState("");
@@ -200,6 +201,24 @@ function ChallengeDetails(props) {
         }
     })
 
+    const getChallengers = useQuery(["getChallengers"], async () => {
+        try {
+            const challengersResponse = await instance.get(`/api/challengers/${challengeId}`, option);
+            return challengersResponse.data;
+        }catch(error) {
+            console.log(error);
+            throw new Error("Error fetching challengers");
+        }
+    }, {
+        retry: 0,
+        refetchOnWindowFocus: false,
+        onSuccess: data => {
+            if (data) {
+                setChallengers(data);
+            }
+        }
+    })
+
     const getLikeState = useQuery(["getLikeState"], async () => {
         try {
             return await instance.get(`/api/challenge/${challengeId}/like`, option);
@@ -226,6 +245,10 @@ function ChallengeDetails(props) {
 
     if(getChallenge.isLoading) {
         return <></>
+    }
+
+    if(getChallengers.isLoading) {
+        return<></>
     }
 
     const handleLikebuttonClick = async () => {
@@ -292,6 +315,17 @@ function ChallengeDetails(props) {
         }
     }
 
+    const isOwner = (userId, challengerId) => {
+        return userId === challengerId;
+    };
+
+    const handleDeleteChallenger = (userId) => {
+        console.log(userId)
+        instance.delete(`/api/challenger/${challengeId}`, {...option, params: {"userId": userId}});
+    };
+
+    console.log(challenge)
+
     return (
         <div css={Layout}>
             <div css={HeaderLayout}>
@@ -330,23 +364,15 @@ function ChallengeDetails(props) {
                     <button onClick={handleParticipationButton} disabled={button}>
                         {isJoined}
                     </button>
+                    
                     <div css={ListBox}>
                         <b>참여인원</b>
-                        <p>박지영</p>
-                        <p>정혜성</p>
-                        <p>김영훈</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
+                        {Object.values(challengers).map((item, index) => (
+                            <div key={index}>
+                                <p>{item.nickname}</p>
+                                {isOwner && <button onClick={() => handleDeleteChallenger(item.userId)}>삭제</button>}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

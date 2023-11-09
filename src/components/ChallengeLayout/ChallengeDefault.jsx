@@ -105,7 +105,7 @@ function Challengedefault(props) {
             img.onload = function () {
                 const imgWidth = img.width;
                 console.log(img.width)
-                const textareaWidth = 1100 - (imgWidth + 50);
+                const textareaWidth = 1500 - (imgWidth + 50);
                 textareaRef.current.style.width = `${textareaWidth}px`;
             };
         }
