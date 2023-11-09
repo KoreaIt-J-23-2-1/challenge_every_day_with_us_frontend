@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import ReactSelect from 'react-select';
 import { useQuery } from 'react-query';
-import { instance } from '../../api/config/instanse';
+import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 
 const table = css`
@@ -68,7 +68,6 @@ function ChallengeList(props) {
 
     const navigate = useNavigate();
     const { page } = useParams();
-    console.log(page);
 
     const options = [
         {value: "전체", label: "전체"},
@@ -116,7 +115,7 @@ function ChallengeList(props) {
     }
 
     const handleSearchButtonClick = () => {
-        navigate(`/challenges`);
+        navigate("/challenges/1");
         getChallengeList.refetch();
     }
 
@@ -126,11 +125,11 @@ function ChallengeList(props) {
             return <></>
         }
 
-        const totalBoardCount = getChallengeCount.data.data;
+        const totalChallengeCount = getChallengeCount.data.data;
 
-        const lastPage = totalBoardCount % 10 === 0
-            ?   totalBoardCount / 10
-            :   Math.floor(totalBoardCount / 10) + 1
+        const lastPage = totalChallengeCount % 10 === 0
+            ?   totalChallengeCount / 10
+            :   Math.floor(totalChallengeCount / 10) + 1
     
         const startIndex = parseInt(page) % 5 === 0 ? parseInt(page) - 4 : parseInt(page) - (parseInt(page) % 5) + 1;
         const endIndex = startIndex + 4 <= lastPage ? startIndex + 4 : lastPage;

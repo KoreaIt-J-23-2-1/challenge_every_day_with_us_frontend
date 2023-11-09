@@ -12,15 +12,12 @@ import ChallengeCreate from './pages/ChallengeCreate/ChallengeCreate';
 import CategoryPage from './pages/CategoryPage/CategoryPage';
 import Main from './pages/Main/Main';
 import ChallengeDetails from './pages/ChallengeDetails/ChallengeDetails';
-<<<<<<< HEAD
 import ChallengeList from './pages/ChallengeList/ChallengeList';
 
-=======
 import SigninOauth2 from './pages/SignIn/SigninOauth2';
 import Store from './pages/Store/Store';
 import StampPage from './pages/StampPage/StampPage';
 import LogoPage from './pages/LogoPage/LogoPage';
->>>>>>> main
 
 function App() {
 
