@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Challengedefault from '../../components/ChallengeLayout/ChallengeDefault';
 import ChallengeTimeLayout from '../../components/ChallengeLayout/ChallengeTimeLayout';
-import ChallengeRoutineLayout from '../../components/ChallengeLayout/ChallengeRoutineLayout';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
@@ -33,8 +32,6 @@ function Feed(props) {
         console.log(value);
         if (value === 'Timelayout') {
             setSelectedComponent(<ChallengeTimeLayout />);
-        } else if (value === 'RoutineLayout') {
-            setSelectedComponent(<ChallengeRoutineLayout />);
         } else {
             setSelectedComponent(<Challengedefault />);
         }
@@ -49,7 +46,6 @@ function Feed(props) {
                     <select onChange={handleComponentChange}>
                         <option value="Default">Default</option>
                         <option value="Timelayout">Timelayout</option>
-                        <option value="RoutineLayout">RoutineLayout</option>
                     </select>
                 </label>
             </div>
