@@ -106,31 +106,9 @@ function Challengedefault(props) {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        
-        setSelectedImage(file);
-
-        imageCompress(file);
+        const blobUrl = URL.createObjectURL(file);
+        setSelectedImage(blobUrl);
     };
-
-    const imageCompress = async (file) => {
-        const options = {
-          maxSizeMB: 0.2, // 이미지 최대 용량
-          maxWidthOrHeight: 1920, // 최대 넓이(혹은 높이)
-          useWebWorker: true,
-        };
-        try {
-          const compressedFile = await imageCompression(file, options);
-          console.log(compressedFile)
-        //   setBoardImage(compressedFile);
-        //   const promise = imageCompression.getDataUrlFromFile(compressedFile);
-        //   promise.then((result) => {
-        //     setUploadPreview(result);
-        //   })
-        } catch (error) {
-          console.log(error)
-        }
-      };
-    console.log(selectedImage)
 
     console.log(challenge);
 
