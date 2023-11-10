@@ -20,6 +20,7 @@ import StampPage from './pages/StampPage/StampPage';
 import LogoPage from './pages/LogoPage/LogoPage';
 import Feed from './pages/Feed/Feed';
 import StoreMyOrder from './pages/StoreMyOrder/StoreMyOrder';
+import NoticeDetails from './pages/NoticeDetails/NoticeDetails';
 
 function App() {
 
@@ -59,8 +60,10 @@ function App() {
       <Route path='/store/items' element={<Store/>} />
       <Route path='/store/:userId/orders' element={<StoreMyOrder/>} />
 
-      <Route path='/notice' element={<NoticeList/>} />
-      <Route path='/notice/write' element={<NoticeWrite/>} />
+      <Route path='/notice/page/:page' element={<NoticeList/>} />
+      <Route path='/notice/write' element={<NoticeWrite />} />
+        <Route path="/notice/:noticeId" element={ <NoticeDetails/> } />
+      
 
       <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
       <Route path='/challenge/category' element={<CategoryPage/>} />
