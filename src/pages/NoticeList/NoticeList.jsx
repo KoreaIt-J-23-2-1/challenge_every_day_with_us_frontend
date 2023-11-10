@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
+import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 /** @jsxImportSource @emotion/react */
 
 const listTable = css`
@@ -66,19 +67,15 @@ function NoticeList(props) {
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data;
-    const [ searchParams ] = useSearchParams();
+    const { page } = useParams();
 
     console.log(principal);
 
     const getNoticeList = useQuery(["getBoardList"], async () => {
-        return await instance.get(`/api/notices/${searchParams.get("page")}`,option)
+        return await instance.get(`/api/notices/${page}`,option)
     }, {
         retry: 0,
         onSuccess: (response) => {
-
-            console.log("공지목록");
-            console.log(response);
-            console.log("공지목록");
         }
     });
 
@@ -113,14 +110,6 @@ function NoticeList(props) {
                 </thead>
                 
                 <tbody>
-                    <tr>
-                        <td>notice.noticeId</td>
-                        <td css={noticeTitle}>notice.noticeTitle</td>
-                        <td>notice.nickname</td>
-                        <td>notice.noticeDate</td>
-
-                    </tr>
-
                     {!getNoticeList.isLoading && getNoticeList?.data?.data.map(notice => {
                         return (
                             <tr key={notice.noticeId} onClick={() => { navigate(`/notice/${notice.noticeId}`) }}>

@@ -16,6 +16,22 @@ const Layout = css`
     width: 100%;
     height: 80px;
 `;
+const btnBox = css`
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+`;
+
+const headerTitleBox = css`
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 70%;
+    border: 1px solid #dbdbdb;
+    border-radius: 50px;
+`;
 const Icon = css`
     cursor: pointer;
     display: flex;
@@ -43,21 +59,17 @@ const LetterCountBox = css`
     background-color: #ffe292;
 `;
 
-const btnBox = css`
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-`;
 
 const LetterSideBarCss = css`
+    z-index: 10;
     right: -400px;
     overflow: hidden;
     display: flex;
-    position: absolute;
+    position: fixed;
     background-color: white;
     border-left: 2px solid #dbdbdb;
     width: 400px;
-    height: 100%;
+    height: 90vh;
     transition: right 0.5s ease-in;
 `;
 
@@ -97,7 +109,8 @@ function Header() {
     
     return (
         <>
-            <div css={Layout}>                
+            <div css={Layout}>
+                <div css={headerTitleBox}>rse</div>
                 <div css={btnBox}>
                     <div css={Icon} onClick={handleStampOpen}><BsCalendarCheck/></div>
                     {(!getLettersCount.isLoading && principal ) && (
