@@ -165,7 +165,7 @@ function LetterSideBar(props) {
             <div>
                 <h2>알림</h2>
                 <div>
-                    {getLetterList?.data?.data.map(letter => (
+                    {getLetterList?.data.map(letter => (
                         <div css={miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                             <h3>{letter.title}</h3>
                             <div css={lettersHeader}>{letter.sendDateTime}</div>
