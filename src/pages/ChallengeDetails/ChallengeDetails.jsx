@@ -273,6 +273,7 @@ function ChallengeDetails(props) {
         return<></>
     }
 
+
     const handleLikebuttonClick = async () => {
         console.log(principal)
         const userId = principal.data.data.userId;
@@ -315,10 +316,18 @@ function ChallengeDetails(props) {
         getLikeState.refetch();
         getChallenge.refetch();
     }
+
+    const requestData = {
+        senderUserId: principal.data.data.userId,
+        receiverUserId: challenge.userId,
+        title: "챌린지 승인 요청",
+        content: `${challenge.challengeName} 챌린지의 승인 요청이 들어왔습니다.`,
+        targetUrl: principal.data.data.profileUrl
+    };
     
     const handleParticipationButton = () => {
         if(isJoined === "챌린지 인증하기") {
-            navigate(`/challenge/feed/${challengeId}`)
+            navigate(`/challenge/certification/${challengeId}`)
         }else if(isJoined === "대기중") {
             setButton(true);
         }else {
@@ -331,6 +340,7 @@ function ChallengeDetails(props) {
                 const response = instance.post(`/api/challenge/join/${challengeId}`, {}, option);
                 if(response) {
                     alert("신청완료! 승인까지 1~2일이 소요됩니다.");
+                    instance.post("/api/challenge/atmosphere/letter", requestData, option);
                 }
             }
             checkUserJoinStatus.refetch();

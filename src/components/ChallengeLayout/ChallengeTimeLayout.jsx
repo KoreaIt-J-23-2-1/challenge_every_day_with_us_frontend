@@ -162,6 +162,7 @@ function ChallengeTimeLayout() {
         setSelectedImage(blobUrl);
     };
 
+    console.log(challenge)
     
     const handleSave = async () => {
         const data = {
