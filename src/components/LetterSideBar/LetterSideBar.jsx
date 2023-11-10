@@ -46,8 +46,6 @@ function LetterSideBar(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedLetter, setSelectedLetter] = useState(null);
 
-
-
     const openModal = (letter) => {
         setSelectedLetter(letter);
         setIsModalOpen(true);
@@ -85,7 +83,6 @@ function LetterSideBar(props) {
         
     }
 
-
     if (getLetterList.isLoading) {
         return <></>;
     }
@@ -95,7 +92,7 @@ function LetterSideBar(props) {
             <div>
                 <h2>알림</h2>
                 <div>
-                    {getLetterList.data.data.map(letter => (
+                    {getLetterList?.data?.data.map(letter => (
                         <div css={miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                             <h3>{letter.title}</h3>
                             <div css={lettersHeader}>{letter.sendDateTime}</div>
@@ -106,7 +103,6 @@ function LetterSideBar(props) {
                     ))}
                 </div>
             </div>
-
 
             <LetterModal isOpen={isModalOpen} onClose={closeModal} selectedLetter={selectedLetter}>
                 <div css={modalCloseBtn} onClick={closeModal}>닫기</div>
