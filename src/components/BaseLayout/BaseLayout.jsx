@@ -6,7 +6,7 @@ const Layout = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 50px;
+    margin: 20px 50px ;
 `;
 
 
