@@ -175,7 +175,7 @@ function ChallengeDetails(props) {
                     <div>Category : <b>{challenge.categoryName}</b></div>
                 </div>
                 <div css={categoryRightBox}>
-                    <div>작성자: <b>{challenge.name}</b> 기간: {challenge.startDate} ~ {challenge.endDate}</div>
+                    <div>작성자: <b>{challenge.name}</b> 기간: {challenge.startDate} ~ {!challenge.endDate ? "마감 없음": challenge.endDate}</div>
                     <div css={likeOption}>
                         {!getLikeState.isLoading &&
                             <button css={SLikeButton(getLikeState?.data?.data)} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
