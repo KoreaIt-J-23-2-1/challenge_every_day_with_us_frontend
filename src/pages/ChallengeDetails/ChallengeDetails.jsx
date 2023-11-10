@@ -66,10 +66,6 @@ const BodyLayout = css`
     & img {
         
     }
-
-    & button {
-        width: 100px;
-    }
 `;
 
 const BodyFeedLayout = css`
@@ -84,19 +80,19 @@ const BodyRightBox = css`
     display: flex;
     flex-direction: column;
     margin-left: 20px;
+`;
 
-    & button {
-        margin-top: 20px;
-        width: 400px;
-        height: 40px;
-        background-color: transparent;
-        border: 1px solid #dbdbdb;
-        border-radius: 10px;
-        cursor: pointer;
+const ParticipationButton = css`
+    margin-top: 20px;
+    width: 400px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    cursor: pointer;
 
-        &:active {
-            background-color: #eee;
-        }
+    &:active {
+        background-color: #eee;
     }
 `;
 
@@ -142,6 +138,32 @@ const ListBox = css`
 
     & p {
         margin: 5px;
+    }
+`;
+
+const ListContainer = css`
+    display: flex;
+    align-items: center;
+
+    & p {
+        margin: 5px;
+    }
+
+    & button {
+        
+    }
+`;
+
+const DeleteChallengerButton = css`
+    width: 50px;
+    height: 20px;
+    background-color: transparent;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:active {
+        background-color: #eee;
     }
 `;
 
@@ -319,12 +341,23 @@ function ChallengeDetails(props) {
         return userId === challengerId;
     };
 
-    const handleDeleteChallenger = (userId) => {
+    const handleDeleteChallenger = async (userId) => {
         console.log(userId)
-        instance.delete(`/api/challenger/${challengeId}`, {...option, params: {"userId": userId}});
+        if(userId !== challenge.userId) {
+            instance.delete(`/api/challenger/${challengeId}`, {...option, params: {"userId": userId}});
+            await queryClient.refetchQueries(["getChallengers"]);
+            alert("삭제완료!");
+        } else {
+
+        }
+        getChallengers.refetch();
     };
 
     console.log(challenge)
+    console.log(challengers)
+    console.log("isOwner")
+    console.log(isOwner())
+
 
     return (
         <div css={Layout}>
@@ -361,16 +394,16 @@ function ChallengeDetails(props) {
                     <p>기간: {challenge.startDate} ~ {challenge.endDate}</p>
                     <div css={textBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
                     <b>참여인원</b>
-                    <button onClick={handleParticipationButton} disabled={button}>
+                    <button css={ParticipationButton} onClick={handleParticipationButton} disabled={button}>
                         {isJoined}
                     </button>
                     
                     <div css={ListBox}>
                         <b>참여인원</b>
                         {Object.values(challengers).map((item, index) => (
-                            <div key={index}>
+                            <div key={index} css={ListContainer}>
                                 <p>{item.nickname}</p>
-                                {isOwner && <button onClick={() => handleDeleteChallenger(item.userId)}>삭제</button>}
+                                {(item.userId !== challenge.userId && isOwner(principal.data.data.userId, challenge.userId))  && <button css={DeleteChallengerButton} onClick={() => handleDeleteChallenger(item.userId)}>삭제</button>}
                             </div>
                         ))}
                     </div>
