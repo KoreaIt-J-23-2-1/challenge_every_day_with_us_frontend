@@ -139,6 +139,8 @@ function ChallengeList(props) {
         for (let i = startIndex; i <= endIndex; i++) {
             pageNumbers.push(i);
         }
+
+        
     
         return (
             <>
@@ -158,6 +160,8 @@ function ChallengeList(props) {
             </>
         );
     };
+
+
     
 
     return (
@@ -181,14 +185,14 @@ function ChallengeList(props) {
                 </thead>
                 <tbody>
                     {!getChallengeList.isLoading && getChallengeList?.data?.data.map(challenge => {
-                        return <tr key={challenge.challengeId} 
+                        return (<tr key={challenge.challengeId} 
                                 onClick={() => {navigate(`/challenge/${challenge.challengeId}`)}}>
                                     <td>{challenge.challengeId}</td>
                                     <td css={SChallengeTitle}>{challenge.title}</td>
                                     <td>{challenge.categoryname}</td>
                                     <td>{challenge.startDate}</td>
                                     <td>{challenge.likeCount}</td>
-                                </tr>
+                                </tr>);
                     })}
                 </tbody>
             </table>

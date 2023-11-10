@@ -28,6 +28,8 @@ function Main(props) {
         localStorage.removeItem("accessToken");
         window.location.replace("/");
     };
+
+
     
     return (
         <>
@@ -44,7 +46,6 @@ function Main(props) {
                 <button onClick={() => { navigate("/point") }}>포인트상점</button>
                 <button onClick={() => { navigate("/notice") }}>공지목록</button>
                 <button onClick={() => { navigate("/challenge/category") }}>챌린지카테고리</button>
-                <button onClick={() => { navigate("/challenge/5") }}>챌린지조회</button>
                 <button onClick={() => { navigate("/challenges/1") }}>챌린지리스트조회</button>
                 </div>
             </BaseLayout>

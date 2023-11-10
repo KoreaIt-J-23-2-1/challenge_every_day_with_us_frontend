@@ -401,12 +401,14 @@ function ChallengeDetails(props) {
                     챌린지별 피드 띄우기
                 </div>
                 <div css={BodyRightBox}>
-                    <p>기간: {challenge.startDate} ~ {challenge.endDate}</p>
+                    <p>기간: {challenge.startDate} ~ {!challenge.endDate ? "마감 없음": challenge.endDate}</p>
+
                     <div css={textBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
                     <b>참여인원</b>
                     <button css={ParticipationButton} onClick={handleParticipationButton} disabled={button}>
                         {isJoined}
                     </button>
+
                     
                     <div css={ListBox}>
                         <b>참여인원</b>
