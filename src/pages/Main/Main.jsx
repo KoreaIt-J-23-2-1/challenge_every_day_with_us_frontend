@@ -21,8 +21,8 @@ const btn = css`
 function Main(props) {
     const navigate = useNavigate();
     const queryClient = useQueryClient().getQueryState("getPrincipal");
-    const principal = queryClient.data.data;
-    const userId = principal.userId;
+    const principal = queryClient?.data?.data;
+    const userId = principal?.userId;
 
     const handleLogoutButton = async () => {
         localStorage.removeItem("accessToken");

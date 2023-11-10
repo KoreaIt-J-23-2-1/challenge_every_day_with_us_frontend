@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import {BsBell, BsBellFill,BsCalendarCheck} from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import LetterSideBar from '../LetterSideBar/LetterSideBar';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 
 
@@ -66,7 +66,8 @@ function Header() {
     const navigate = useNavigate();
     const [isRead, setIsRead] = useState(false);
     const [isLetterSideBarOpen, setLetterSideBarOpen] = useState(false);
-    
+    const queryClient = useQueryClient().getQueryState("getPrincipal");
+    const principal = queryClient?.data?.data;
 
     const handleStampOpen = () => {
         navigate("/stamp");
@@ -93,14 +94,19 @@ function Header() {
         retry: 0,
         refetchOnWindowFocus: false
     });
-
+    
     return (
         <>
             <div css={Layout}>                
                 <div css={btnBox}>
                     <div css={Icon} onClick={handleStampOpen}><BsCalendarCheck/></div>
-                    <div css={Icon} onClick={handleLetterOpen}>{isRead ? <BsBellFill /> : <BsBell/>}</div>
-                    <div css={LetterCountBox}>{!getLettersCount.isLoading && getLettersCount.data}</div>
+                    {(!getLettersCount.isLoading && principal ) && (
+                        <>
+                            <div css={Icon} onClick={handleLetterOpen}>{isRead ? <BsBellFill /> : <BsBell/>}</div>
+                            <div css={LetterCountBox}>{getLettersCount.data}</div>
+                        </>
+                        )
+                    }
                 </div>
             </div>
             <div css={[LetterSideBarCss, isLetterSideBarOpen && { right: 0 }]}>
