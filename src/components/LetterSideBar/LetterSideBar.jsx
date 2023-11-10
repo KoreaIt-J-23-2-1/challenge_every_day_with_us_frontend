@@ -48,6 +48,12 @@ function LetterSideBar(props) {
     const principal = queryClient.getQueryState("getPrincipal");
     const [ buttonDisabled, setButtonDisabled ] = useState(false);
 
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
+    };
+
     useEffect(() => {
         const storedButtonDisabled = localStorage.getItem('buttonDisabled');
         if (storedButtonDisabled) {
@@ -55,21 +61,23 @@ function LetterSideBar(props) {
         }
     }, []);
 
-
-    const openModal = (letter) => {
+    const openModal = async (letter) => {
         setSelectedLetter(letter);
         setIsModalOpen(true);
+        if(!letter.isRead) {
+            try {
+                await instance.put(`/api/letter/${letter.letterId}/is-read`, {}, option);
+                await queryClient.refetchQueries(["getLetters"]);
+                
+            }catch(error) {
+                console.error(error);
+            }
+        }
     };
 
     const closeModal = () => {
         setSelectedLetter(null);
         setIsModalOpen(false);
-    };
-
-    const option = {
-        headers: {
-            Authorization: localStorage.getItem("accessToken")
-        }
     };
 
     const getLetterList = useQuery(["getLetters"], async () => {
@@ -169,7 +177,7 @@ function LetterSideBar(props) {
                         <div css={miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                             <h3>{letter.title}</h3>
                             <div css={lettersHeader}>{letter.sendDateTime}</div>
-                            <div css={lettersHeader}>{letter.senderUserId}</div>
+                            <div css={lettersHeader}>발신자: {letter.senderNickname}</div>
                             <div></div>
                             <div css={letterContent}>{letter.content}</div>
                         </div>
