@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
+import Header from '../../components/Header/Header';
 /** @jsxImportSource @emotion/react */
 
 const listTable = css`
@@ -90,47 +91,50 @@ function NoticeList(props) {
     };
 
     return (
-        <BaseLayout>
-            <h1>공지</h1>
-            <div css={btnBox}>
-                <button onClick={handleNoticeWriteBtn}>공지 작성</button>
+        <>
+            <Header/>
+            <BaseLayout>
+                <h1>공지</h1>
                 <div css={btnBox}>
-                    <input type="text" placeholder='검색어를 입력하세요' />
-                    <button>검색</button>
+                    <button onClick={handleNoticeWriteBtn}>공지 작성</button>
+                    <div css={btnBox}>
+                        <input type="text" placeholder='검색어를 입력하세요' />
+                        <button>검색</button>
+                    </div>
                 </div>
-            </div>
-            <table css={listTable}>
-                <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>작성일</th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    {!getNoticeList.isLoading && getNoticeList?.data?.data.map(notice => {
-                        return (
-                            <tr key={notice.noticeId} onClick={() => { navigate(`/notice/${notice.noticeId}`) }}>
-                                <td>{notice.noticeId}</td>
-                                <td>{notice.noticeTitle}</td>
-                                <td>{notice.nickname}</td>
-                                <td>{notice.noticeDate}</td>
-                            </tr>
-                        );
-                    })}
+                <table css={listTable}>
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                        </tr>
+                    </thead>
                     
-                </tbody>
-            </table>
+                    <tbody>
+                        {!getNoticeList.isLoading && getNoticeList?.data?.data.map(notice => {
+                            return (
+                                <tr key={notice.noticeId} onClick={() => { navigate(`/notice/${notice.noticeId}`) }}>
+                                    <td>{notice.noticeId}</td>
+                                    <td>{notice.noticeTitle}</td>
+                                    <td>{notice.nickname}</td>
+                                    <td>{notice.noticeDate}</td>
+                                </tr>
+                            );
+                        })}
+                        
+                    </tbody>
+                </table>
 
-            <div css={btnBox}>
+                <div css={btnBox}>
 
-            </div>
+                </div>
 
 
-        
-        </BaseLayout>
+            
+            </BaseLayout>
+        </>
     );
 }
 
