@@ -3,9 +3,7 @@ import { css } from '@emotion/react';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
-import Modal from 'react-modal';
 import LetterModal from '../LetterModal/LetterModal';
-import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 
 const LetterSideBarLayout = css`
     overflow: hidden;
