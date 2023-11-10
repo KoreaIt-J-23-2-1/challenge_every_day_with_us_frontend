@@ -228,6 +228,8 @@ function ChallengeDetails(props) {
         return <></>
     }
 
+    console.log(challenge)
+
     const handleLikebuttonClick = async () => {
         console.log(principal)
         const userId = principal.data.data.userId;
