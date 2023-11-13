@@ -8,6 +8,9 @@ import LetterModal from '../LetterModal/LetterModal';
 const LetterSideBarLayout = css`
     overflow: hidden;
     position: relative;
+    width: 400px;
+    box-shadow: 0px 3px 6px 0px #ededed;
+    /* background-color: #ffffff80; */
 `;
 
 const miniLetter = css`
@@ -40,6 +43,8 @@ const modalCloseBtn = css`
 const modalTitle = css`
     cursor: pointer;
 `;
+
+
 
 function LetterSideBar(props) {
     const [ isModalOpen, setIsModalOpen] = useState(false);
@@ -185,7 +190,7 @@ function LetterSideBar(props) {
                 </div>
             </div>
 
-            <LetterModal isOpen={isModalOpen} onClose={closeModal} selectedLetter={selectedLetter}>
+            <LetterModal  isOpen={isModalOpen} onClose={closeModal} selectedLetter={selectedLetter}>
                 <div css={modalCloseBtn} onClick={closeModal}>닫기</div>
                 {!getLetterList.isLoading && selectedLetter && (
                     <div>

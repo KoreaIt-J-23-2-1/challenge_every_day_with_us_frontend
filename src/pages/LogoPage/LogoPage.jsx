@@ -7,15 +7,18 @@ import BaseLayout from '../../components/BaseLayout/BaseLayout';
 
 const imgbox = css`
     cursor: pointer;
-    margin: 0px auto;
+    margin:  100px auto;
     width: 500px;
     height: 500px;
-    position: relative;
+    /* position: relative; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 
     &:hover{
         img {
-            opacity: 0.2;
+            opacity: 0.5;
         }
     }
 `;
@@ -37,10 +40,10 @@ function LogoPage(props) {
 
     return (
         <BaseLayout>
+            <div css={imgbox}>
+                <img src={logoimg} alt="로고 이미지" onClick={GoMainPage} />
+            </div>
             <div >
-                <div css={imgbox}>
-                    <img src={logoimg} alt="로고 이미지" onClick={GoMainPage} />
-                </div>
 
             </div>
         </BaseLayout>
