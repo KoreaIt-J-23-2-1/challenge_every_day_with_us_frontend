@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import MyPage from '../../pages/MyPage/MyPage';
-import MyPageDetails from '../../pages/MyPage/MyPageDetails';
+import MyPageDetails from '../../pages/MyPage/MyPageDetails/MyPageDetails';
 
 function AccountRoute(props) {
 

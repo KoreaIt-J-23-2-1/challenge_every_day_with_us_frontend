@@ -2,26 +2,56 @@ import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import {instance} from '../../api/config/instance';
+import {instance} from '../../../api/config/instance';
 import { useQueryClient } from 'react-query';
 import { ref, getDownloadURL, uploadBytes, uploadBytesResumable } from "firebase/storage";
-import { storage } from '../../api/firebase/firebase';
+import { storage } from '../../../api/firebase/firebase';
+import * as S from "./Style";
+import BaseLayout from '../../../components/BaseLayout/BaseLayout';
 
 const layout = css`
     display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+`;
+
+const sideBox = css`
+    display: flex;
     flex-direction: column;
+    
+    width: 395px;
+    background-color: #fff;
+    box-shadow: 5px 1px 8px 0 rgba(0,0,0,.06);
+    border-left: 1px solid rgba(0,0,0,.08);
+    vertical-align: top;
+    z-index: 1;
+`;
+
+const leftHeader = css`
+    display: flex;
+`;
+
+const leftMenu = css`
+    margin-top: 20px;
+    list-style: none;
+    padding-left: 0px;
+`;
+
+const imgContainer = css`
+    display: flex;
     justify-content: center;
     align-items: center;
 `;
-
-
 
 const imgBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     border: 2px solid #dbdbdb;
     overflow: hidden;
@@ -32,20 +62,30 @@ const imgBox = css`
     }
 `;
 
-const UserBox = css`
+const userBox = css`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-left: 20px;
+    width: 400px;
 
     & button {
-        width: 100%;
+        width: 200px;
+        margin: 5px;
+    }
+    & > input {
+
     }
 `;
 
-const modify = css`
-    background-color: #6495ED;
-    border: none;
+const inputBox = css`
+    display: flex;
+    height: 20px;
+
+    & > p {
+        font-size: 12px;
+    }
 `;
 
 const file = css`
@@ -176,30 +216,42 @@ function MyPageDetails(props) {
     }
 
     return (
-        <div css={layout}>
-            <div css={UserBox}>
-                <div css={imgBox} onClick={handleProfileUploadClick}>
-                    <img src={profileImgSrc} alt="" />
+        <BaseLayout>
+            <div css={layout}>
+                <div css={sideBox}>
+                    <div css={imgContainer}>
+                        <div css={imgBox} onClick={handleProfileUploadClick}>
+                            <img src={profileImgSrc} alt="" />
+                            <input css={file} type="file" onChange={handleProfileChange} ref={profileFileRef}/>
+                        </div>
+                    </div>
+                    <div css={leftHeader}>
+                        <ul css={leftMenu}>
+                            <li>내 정보수정</li>
+                            <li>참여 현황</li>
+                        </ul>
+                    </div>
                 </div>
-                <input css={file} type="file" onChange={handleProfileChange} ref={profileFileRef}/>
-                
-                <div>
-                    <input type="text" name='name' value={principal.name} disabled={true} onChange={handleInputChange} placeholder='이름' />
+                <div css={userBox}>
+                    <div css={inputBox}>
+                        <p>이름:</p>
+                        <input type="text" name='name' value={principal.name} disabled={true} onChange={handleInputChange} placeholder='이름' />
+                    </div>
+                    <div>
+                        <input type="text" name='nickname' defaultValue={principal.nickname} onChange={handleInputChange} placeholder='닉네임' />
+                    </div>
+                    <div>
+                        <input type="text" name='email' value={principal.email} disabled={true} onChange={handleInputChange} placeholder='이메일' />
+                    </div>
+                    <div>
+                        <input type="text" name='phone' value={principal.phone} disabled={true} onChange={handleInputChange} placeholder='전화번호' />
+                    </div>
+                    <button css={S.SModify} onClick={handleModifyMypageDetailSubmit}>정보변경</button>
+                    <button css={S.SCancel} onClick={handleCancelClick}>취소</button>
+                    <button css={S.SWithdrawn} onClick={handleIsWithdrawn}>회원탈퇴</button>
                 </div>
-                <div>
-                    <input type="text" name='nickname' defaultValue={principal.nickname} onChange={handleInputChange} placeholder='닉네임' />
-                </div>
-                <div>
-                    <input type="text" name='email' value={principal.email} disabled={true} onChange={handleInputChange} placeholder='이메일' />
-                </div>
-                <div>
-                    <input type="text" name='phone' value={principal.phone} disabled={true} onChange={handleInputChange} placeholder='전화번호' />
-                </div>
-                <button css={modify} onClick={handleModifyMypageDetailSubmit}>정보변경</button>
-                <button onClick={handleCancelClick}>취소</button>
-                <button onClick={handleIsWithdrawn}>회원탈퇴</button>
             </div>
-        </div>
+        </BaseLayout>
     );
 }
 
