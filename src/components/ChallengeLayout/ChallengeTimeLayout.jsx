@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../../api/firebase/firebase';
 
 const Layout = css`
     display: flex;
@@ -96,6 +98,8 @@ function ChallengeTimeLayout() {
     const { challengeId } = useParams();
     const [ challenge, setChallenge ] = useState({});
     const [ selectedImage, setSelectedImage ] = useState(null);
+    const [ uploadFiles, setUploadFiles ] = useState([]);
+    const [ profileImgSrc, setProfileImgSrc ] = useState("");
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
@@ -156,19 +160,50 @@ function ChallengeTimeLayout() {
 
     const formattedTime = formatTime(time);
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        const blobUrl = URL.createObjectURL(file);
-        setSelectedImage(blobUrl);
+    const uploadImageToFirebase = async (file) => {
+        const storageRef = ref(storage, `images/${file.name}`);
+        await uploadBytes(storageRef, file);
+        const downloadURL = await getDownloadURL(storageRef);
+        return downloadURL;
+    };
+
+    const handleProfileChange = (e) => {
+        setUploadFiles(e.target.files);
+        const files = e.target.files;
+    
+        if (!files.length) {
+            setUploadFiles([]);
+            setProfileImgSrc("");
+            return;
+        }
+    
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const imageDataUrl = e.target.result;
+            setProfileImgSrc(imageDataUrl);
+            setSelectedImage(imageDataUrl);
+        };
+    
+        reader.readAsDataURL(files[0]);
     };
 
     console.log(challenge)
     
     const handleSave = async () => {
+        const textValue = document.getElementById('challengeText').value;
+        let imageUrl = "";
+        if (uploadFiles.length > 0) {
+            try {
+                imageUrl = await uploadImageToFirebase(uploadFiles[0]);
+            } catch (error) {
+                console.error("Error uploading image:", error);
+                return;
+            }
+        }
         const data = {
             time: time,
-            text: document.getElementById('challengeText').value,
-            image: selectedImage,
+            text: textValue,
+            image: imageUrl,
             categoryName: challenge.categoryName,
             challengeLayout: challenge.layout,
             layout: 2
@@ -204,7 +239,7 @@ function ChallengeTimeLayout() {
             <div css={textLayout}>
                 <div>
                     <textarea css={textareaBox} id="challengeText" rows="12" cols="70" maxLength={1000}></textarea>
-                    <input css={FileBox} type="file" accept="image/*" onChange={handleImageChange} />
+                    <input css={FileBox} type="file" accept="image/*" onChange={handleProfileChange} />
                 </div>
                 {selectedImage && (
                     <img src={selectedImage} css={imagePreview} alt="Selected" />
