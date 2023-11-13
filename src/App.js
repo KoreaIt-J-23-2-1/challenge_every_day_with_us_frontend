@@ -21,6 +21,9 @@ import LogoPage from './pages/LogoPage/LogoPage';
 import Certification from './pages/Certification/Certification';
 import StoreMyOrder from './pages/StoreMyOrder/StoreMyOrder';
 import Feed from './pages/Feed/Feed';
+import NoticeDetails from './pages/NoticeDetails/NoticeDetails';
+import { Global } from '@emotion/react';
+import { SReset } from './styles/reset';
 
 function App() {
 
@@ -47,33 +50,38 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route path='/main' element={<Main/>}/>
-      <Route path='/' element={<LogoPage/>}/>
-      
-      <Route path='/account/*' element={ <AccountRoute /> } />
-      <Route path='/point' element={ <PointStore /> } />
-      <Route path='/auth/signup' element={ <SignUp/> } />
-      <Route path='/auth/signin' element={<SignIn />} />
-      <Route path='/auth/oauth2/login' element={<SigninOauth2 />} />
-      
-      <Route path='/store/items' element={<Store/>} />
-      <Route path='/store/:userId/orders' element={<StoreMyOrder/>} />
+    <>
+      <Global styles={SReset}/>
+      <Routes>
+        <Route path='/main' element={<Main/>}/>
+        <Route path='/' element={<LogoPage/>}/>
+        
+        <Route path='/account/*' element={ <AccountRoute /> } />
+        <Route path='/point' element={ <PointStore /> } />
+        <Route path='/auth/signup' element={ <SignUp/> } />
+        <Route path='/auth/signin' element={<SignIn />} />
+        <Route path='/auth/oauth2/login' element={<SigninOauth2 />} />
+        
+        <Route path='/store/items' element={<Store/>} />
+        <Route path='/store/:userId/orders' element={<StoreMyOrder/>} />
 
-      <Route path='/notice' element={<NoticeList/>} />
-      <Route path='/notice/write' element={<NoticeWrite/>} />
+        <Route path='/notice/page/:page' element={<NoticeList/>} />
+        <Route path='/notice/write' element={<NoticeWrite />} />
+        <Route path="/notice/:noticeId" element={ <NoticeDetails/> } />
+        
 
-      <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
-      <Route path='/challenge/category' element={<CategoryPage/>} />
-      <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
-      <Route path='/challenges/:page' element={<ChallengeList/>} />
-      <Route path='/challenge/certification/:challengeId' element={<Certification/>} />
+        <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
+        <Route path='/challenge/category' element={<CategoryPage/>} />
+        <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
+        <Route path='/challenges' element={<ChallengeList/>} />
+        <Route path='/challenge/certification/:challengeId' element={<Certification/>} />
 
 
-      <Route path='/challenge/feed' element={<Feed/>} />
+        <Route path='/challenge/feed' element={<Feed/>} />
 
-      <Route path='/stamp' element={<StampPage/>} />
-    </Routes>
+        <Route path='/stamp' element={<StampPage/>} />
+      </Routes>
+    </>
   );
 }
 

@@ -66,10 +66,6 @@ const BodyLayout = css`
     & img {
         
     }
-
-    & button {
-        width: 100px;
-    }
 `;
 
 const BodyFeedLayout = css`
@@ -84,19 +80,19 @@ const BodyRightBox = css`
     display: flex;
     flex-direction: column;
     margin-left: 20px;
+`;
 
-    & button {
-        margin-top: 20px;
-        width: 400px;
-        height: 40px;
-        background-color: transparent;
-        border: 1px solid #dbdbdb;
-        border-radius: 10px;
-        cursor: pointer;
+const ParticipationButton = css`
+    margin-top: 20px;
+    width: 400px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    cursor: pointer;
 
-        &:active {
-            background-color: #eee;
-        }
+    &:active {
+        background-color: #eee;
     }
 `;
 
@@ -145,6 +141,32 @@ const ListBox = css`
     }
 `;
 
+const ListContainer = css`
+    display: flex;
+    align-items: center;
+
+    & p {
+        margin: 5px;
+    }
+
+    & button {
+        
+    }
+`;
+
+const DeleteChallengerButton = css`
+    width: 50px;
+    height: 20px;
+    background-color: transparent;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:active {
+        background-color: #eee;
+    }
+`;
+
 function ChallengeDetails(props) {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
@@ -152,6 +174,7 @@ function ChallengeDetails(props) {
     const [ isLike, setIsLike ] = useState(false);
     const { challengeId } = useParams();
     const [ challenge, setChallenge ] = useState({});
+    const [ challengers, setChallengers ] = useState({});
     const [ dateDifference, setDateDifference ] = useState(null);
     const [ todayDifference, setTodayDifference ] = useState(null);
     const [ isJoined, setIsJoined ] = useState("");
@@ -200,6 +223,24 @@ function ChallengeDetails(props) {
         }
     })
 
+    const getChallengers = useQuery(["getChallengers"], async () => {
+        try {
+            const challengersResponse = await instance.get(`/api/challengers/${challengeId}`, option);
+            return challengersResponse.data;
+        }catch(error) {
+            console.log(error);
+            throw new Error("Error fetching challengers");
+        }
+    }, {
+        retry: 0,
+        refetchOnWindowFocus: false,
+        onSuccess: data => {
+            if (data) {
+                setChallengers(data);
+            }
+        }
+    })
+
     const getLikeState = useQuery(["getLikeState"], async () => {
         try {
             return await instance.get(`/api/challenge/${challengeId}/like`, option);
@@ -227,6 +268,11 @@ function ChallengeDetails(props) {
     if(getChallenge.isLoading) {
         return <></>
     }
+
+    if(getChallengers.isLoading) {
+        return<></>
+    }
+
 
     const handleLikebuttonClick = async () => {
         console.log(principal)
@@ -301,6 +347,28 @@ function ChallengeDetails(props) {
         }
     }
 
+    const isOwner = (userId, challengerId) => {
+        return userId === challengerId;
+    };
+
+    const handleDeleteChallenger = async (userId) => {
+        console.log(userId)
+        if(userId !== challenge.userId) {
+            instance.delete(`/api/challenger/${challengeId}`, {...option, params: {"userId": userId}});
+            await queryClient.refetchQueries(["getChallengers"]);
+            alert("삭제완료!");
+        } else {
+
+        }
+        getChallengers.refetch();
+    };
+
+    console.log(challenge)
+    console.log(challengers)
+    console.log("isOwner")
+    console.log(isOwner())
+
+
     return (
         <div css={Layout}>
             <div css={HeaderLayout}>
@@ -333,29 +401,23 @@ function ChallengeDetails(props) {
                     챌린지별 피드 띄우기
                 </div>
                 <div css={BodyRightBox}>
-                    <p>기간: {challenge.startDate} ~ {challenge.endDate}</p>
+                    <p>기간: {challenge.startDate} ~ {!challenge.endDate ? "마감 없음": challenge.endDate}</p>
+
                     <div css={textBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
                     <b>참여인원</b>
-                    <button onClick={handleParticipationButton} disabled={button}>
+                    <button css={ParticipationButton} onClick={handleParticipationButton} disabled={button}>
                         {isJoined}
                     </button>
+
+                    
                     <div css={ListBox}>
                         <b>참여인원</b>
-                        <p>박지영</p>
-                        <p>정혜성</p>
-                        <p>김영훈</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
-                        <p>문근해</p>
+                        {Object.values(challengers).map((item, index) => (
+                            <div key={index} css={ListContainer}>
+                                <p>{item.nickname}</p>
+                                {(item.userId !== challenge.userId && isOwner(principal.data.data.userId, challenge.userId))  && <button css={DeleteChallengerButton} onClick={() => handleDeleteChallenger(item.userId)}>삭제</button>}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

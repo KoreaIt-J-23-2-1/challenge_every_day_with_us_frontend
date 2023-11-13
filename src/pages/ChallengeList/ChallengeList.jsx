@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import ReactSelect from 'react-select';
@@ -6,21 +6,7 @@ import { useQuery } from 'react-query';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 
-const table = css`
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #dbdbdb;
 
-    & th, td {
-        border: 1px solid #dbdbdb;
-        height: 30px;
-        text-align: center;
-    }
-
-    & td {
-        cursor: pointer;
-    }
-`;
 
 const searchContainer = css`
     display: flex;
@@ -45,6 +31,58 @@ const SChallengeTitle = css`
     white-space: nowrap;
 `;
 
+const SChallengeList = css`
+    width: 100%;
+    border: 1px solid #dbdbdb;
+`;
+
+const SChallengeListHeader = css`
+    overflow-y: auto;
+
+    & > li {
+        display: flex;
+        & > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #dbdbdb;
+            height: 50px;
+        }
+        & > div:nth-of-type(1) {width: 7%;}
+        & > div:nth-of-type(2) {width: 53%;}
+        & > div:nth-of-type(3) {width: 15%;}
+        & > div:nth-of-type(4) {width: 20%;}
+        & > div:nth-of-type(5) {width: 5%;}
+    }
+`;
+
+const SChallengeListBody = css`
+    height: 300px;
+    overflow-y: auto;
+
+    & > li {
+        display: flex;
+        cursor: pointer;
+        & > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40px;
+            border: 1px solid #dbdbdb;
+        }
+        & > div:nth-of-type(1) {width: 7%;}
+        & > div:nth-of-type(2) {
+            width: 53%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        & > div:nth-of-type(3) {width: 15%;}
+        & > div:nth-of-type(4) {width: 20%;}
+        & > div:nth-of-type(5) {width: 5%;}
+    }
+`;
+
 const SPageNumbers = css`
     display: flex;
     align-items: center;
@@ -64,10 +102,15 @@ const SPageNumbers = css`
 `;
 
 
+
+
 function ChallengeList(props) {
 
     const navigate = useNavigate();
-    const { page } = useParams();
+    const [ page, setPage ] = useState(1);
+    const lastChallengeRef = useRef();
+    const [ isChallengeListRefetch, setIsChallengeListRefetch ] = useState(false);
+    const [ challengeList, setChallengeList ] = useState([]);
 
     const options = [
         {value: "전체", label: "전체"},
@@ -88,7 +131,13 @@ function ChallengeList(props) {
         }
         return await instance.get(`/api/challenges/${page}`, option);
     }, {
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        enabled: isChallengeListRefetch,
+        onSuccess: (response) => {
+            setChallengeList([...challengeList].concat(response.data));
+            setIsChallengeListRefetch(false);
+            setPage(page + 1);
+        }
     });
 
     const getChallengeCount = useQuery(["getChallengeCount", page], async () => {
@@ -99,6 +148,19 @@ function ChallengeList(props) {
     }, {
         refetchOnWindowFocus: false
     });
+
+    useEffect(() => {
+        const observerService = (entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    setIsChallengeListRefetch(true);
+                }
+            });
+        }
+
+        const observer = new IntersectionObserver(observerService, {threshold: 1});
+        observer.observe(lastChallengeRef.current);
+    }, []);
 
     const handleSearchInputChange = (e) => {
         setSearchParams({
@@ -119,45 +181,49 @@ function ChallengeList(props) {
         getChallengeList.refetch();
     }
 
-    const pagination = () => {
+    // const pagination = () => {
 
-        if(getChallengeCount.isLoading) {
-            return <></>
-        }
+    //     if(getChallengeCount.isLoading) {
+    //         return <></>
+    //     }
 
-        const totalChallengeCount = getChallengeCount.data.data;
+    //     const totalChallengeCount = getChallengeCount.data.data;
 
-        const lastPage = totalChallengeCount % 10 === 0
-            ?   totalChallengeCount / 10
-            :   Math.floor(totalChallengeCount / 10) + 1
+    //     const lastPage = totalChallengeCount % 10 === 0
+    //         ?   totalChallengeCount / 10
+    //         :   Math.floor(totalChallengeCount / 10) + 1
     
-        const startIndex = parseInt(page) % 5 === 0 ? parseInt(page) - 4 : parseInt(page) - (parseInt(page) % 5) + 1;
-        const endIndex = startIndex + 4 <= lastPage ? startIndex + 4 : lastPage;
+    //     const startIndex = parseInt(page) % 5 === 0 ? parseInt(page) - 4 : parseInt(page) - (parseInt(page) % 5) + 1;
+    //     const endIndex = startIndex + 4 <= lastPage ? startIndex + 4 : lastPage;
     
-        const pageNumbers = [];
+    //     const pageNumbers = [];
     
-        for (let i = startIndex; i <= endIndex; i++) {
-            pageNumbers.push(i);
-        }
+    //     for (let i = startIndex; i <= endIndex; i++) {
+    //         pageNumbers.push(i);
+    //     }
+
+        
     
-        return (
-            <>
-                <button disabled={parseInt(page) === 1} onClick={() => {
-                    navigate(`/challenges/${parseInt(page) - 1}`);
-                }}>&#60;</button>
+    //     return (
+    //         <>
+    //             <button disabled={parseInt(page) === 1} onClick={() => {
+    //                 navigate(`/challenges/${parseInt(page) - 1}`);
+    //             }}>&#60;</button>
     
-                {pageNumbers.map(num => {
-                    return <button key={num} onClick={() => {
-                        navigate(`/challenges/${num}`);
-                    }}>{num}</button>;
-                })}
+    //             {pageNumbers.map(num => {
+    //                 return <button key={num} onClick={() => {
+    //                     navigate(`/challenges/${num}`);
+    //                 }}>{num}</button>;
+    //             })}
     
-                <button disabled={parseInt(page) === lastPage} onClick={() => {
-                    navigate(`/challenges/${parseInt(page) + 1}`);
-                }}>&#62;</button>
-            </>
-        );
-    };
+    //             <button disabled={parseInt(page) === lastPage} onClick={() => {
+    //                 navigate(`/challenges/${parseInt(page) + 1}`);
+    //             }}>&#62;</button>
+    //         </>
+    //     );
+    // };
+
+    // console.log(challengeList)
     
 
     return (
@@ -169,33 +235,34 @@ function ChallengeList(props) {
                 <input type="text" onChange={handleSearchInputChange} />
                 <button onClick={handleSearchButtonClick}>검색</button>
             </div>
-            <table css={table}>
-                <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>챌린지제목</th>
-                        <th>카테고리이름</th>
-                        <th>시작일</th>
-                        <th>좋아요 수</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {!getChallengeList.isLoading && getChallengeList?.data?.data.map(challenge => {
-                        return <tr key={challenge.challengeId} 
+            <ul css={SChallengeList}>
+                <div css={SChallengeListHeader}>
+                    <li>
+                        <div>번호</div>
+                        <div>챌린지제목</div>
+                        <div>카테고리이름</div>
+                        <div>시작일</div>
+                        <div>좋아요 수</div>
+                    </li>
+                </div>
+                <div css={SChallengeListBody}>
+                    {challengeList.map(challenge => {
+                        return (<li key={challenge.challengeId} 
                                 onClick={() => {navigate(`/challenge/${challenge.challengeId}`)}}>
-                                    <td>{challenge.challengeId}</td>
-                                    <td css={SChallengeTitle}>{challenge.title}</td>
-                                    <td>{challenge.categoryname}</td>
-                                    <td>{challenge.startDate}</td>
-                                    <td>{challenge.likeCount}</td>
-                                </tr>
+                                    <div>{challenge.challengeId}</div>
+                                    <div>{challenge.title}</div>
+                                    <div>{challenge.categoryname}</div>
+                                    <div>{challenge.startDate}</div>
+                                    <div>{challenge.likeCount}</div>
+                                </li>);
                     })}
-                </tbody>
-            </table>
+                    <li ref={lastChallengeRef}></li>
+                </div>
+            </ul>
 
-            <div css={SPageNumbers}>
+            {/* <div css={SPageNumbers}>
                 {pagination()}
-            </div>
+            </div> */}
         </div>
     );
 }

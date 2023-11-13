@@ -3,6 +3,7 @@ import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
+import Header from '../../components/Header/Header';
 import { css } from '@emotion/react';
 /** @jsxImportSource @emotion/react */
 
@@ -74,24 +75,27 @@ function Store(props) {
     };
 
     return (
-        <BaseLayout>
-            <h1>상점 물품 조회</h1>
-            <h3>{getPrincipal.data.data.nickname} 님의 포인트 : {getPrincipal.data.data.point}</h3>
-            {!getItems.isLoading &&
-                getItems?.data?.data.map(item => {
-                    return <div css={SItemLayout} key={item.itemId}>
-                            <div css={SItemImgLayout}>
-                                <div css={SItemImgContainer}>
-                                    <img css={itemImg} src={item.itemImgUrl} alt="상품의 이미지" />
+        <>
+            <Header />
+            <BaseLayout>
+                <h1>상점 물품 조회</h1>
+                <h3>{getPrincipal.data.data.nickname} 님의 포인트 : {getPrincipal.data.data.point}</h3>
+                {!getItems.isLoading &&
+                    getItems?.data?.data.map(item => {
+                        return <div css={SItemLayout} key={item.itemId}>
+                                <div css={SItemImgLayout}>
+                                    <div css={SItemImgContainer}>
+                                        <img css={itemImg} src={item.itemImgUrl} alt="상품의 이미지" />
+                                    </div>
                                 </div>
+                                <div>상품명 : {item.itemName}</div>
+                                <div>가격 : {item.itemPrice} point</div>
+                                <button onClick={() => {handlePurchaseButton(item.itemId)}}>구매 버튼</button>
                             </div>
-                            <div>상품명 : {item.itemName}</div>
-                            <div>가격 : {item.itemPrice} point</div>
-                            <button onClick={() => {handlePurchaseButton(item.itemId)}}>구매 버튼</button>
-                        </div>
-            })}
-            <button onClick={() => { navigate("/main") }}>메인으로</button>
-        </BaseLayout>
+                })}
+                <button onClick={() => { navigate("/main") }}>메인으로</button>
+            </BaseLayout>
+        </>
     );
 }
 

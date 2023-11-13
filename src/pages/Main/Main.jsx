@@ -7,6 +7,7 @@ import LetterSideBar from '../../components/LetterSideBar/LetterSideBar';
 import { useQueryClient } from 'react-query';
 /** @jsxImportSource @emotion/react */
 
+
 const btn = css`
     display: flex;
     flex-direction: column;
@@ -28,9 +29,11 @@ function Main(props) {
         localStorage.removeItem("accessToken");
         window.location.replace("/");
     };
+
+
     
     return (
-        <>
+        <div>
             <Header />
             <BaseLayout>
                 <h1>임시 메인페이지(버튼이동용...)</h1>
@@ -49,7 +52,7 @@ function Main(props) {
                 <button onClick={() => { navigate("/challenge/feed") }}>Feed</button>
                 </div>
             </BaseLayout>
-        </>
+        </div>
     );
 }
 
