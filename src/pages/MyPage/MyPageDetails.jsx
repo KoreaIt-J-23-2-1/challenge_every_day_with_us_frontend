@@ -14,9 +14,14 @@ const layout = css`
     align-items: center;
 `;
 
+
+
 const imgBox = css`
-    width: 50px;
-    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     border: 2px solid #dbdbdb;
     overflow: hidden;
@@ -25,6 +30,22 @@ const imgBox = css`
     & > img {
         width: 100%;
     }
+`;
+
+const UserBox = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & button {
+        width: 100%;
+    }
+`;
+
+const modify = css`
+    background-color: #6495ED;
+    border: none;
 `;
 
 const file = css`
@@ -156,7 +177,7 @@ function MyPageDetails(props) {
 
     return (
         <div css={layout}>
-            <div>
+            <div css={UserBox}>
                 <div css={imgBox} onClick={handleProfileUploadClick}>
                     <img src={profileImgSrc} alt="" />
                 </div>
@@ -174,7 +195,7 @@ function MyPageDetails(props) {
                 <div>
                     <input type="text" name='phone' value={principal.phone} disabled={true} onChange={handleInputChange} placeholder='전화번호' />
                 </div>
-                <button onClick={handleModifyMypageDetailSubmit}>정보변경</button>
+                <button css={modify} onClick={handleModifyMypageDetailSubmit}>정보변경</button>
                 <button onClick={handleCancelClick}>취소</button>
                 <button onClick={handleIsWithdrawn}>회원탈퇴</button>
             </div>
