@@ -49,4 +49,16 @@ export const SReset = css`
         border-collapse: collapse;
         border-spacing: 0;
     }
+    * {
+        box-sizing: border-box;
+    }
+
+    *::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        width: 5px;
+        background-color: black;
+    }
 `;
