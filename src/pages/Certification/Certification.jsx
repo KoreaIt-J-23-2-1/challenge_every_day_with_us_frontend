@@ -25,7 +25,7 @@ const ChallengeArea = css`
     }
 `;
 
-function Feed(props) {
+function Certification(props) {
     const [ selectedComponent, setSelectedComponent ] = useState(<Challengedefault />);
     const handleComponentChange = (e) => {
         const value = e.target.value;
@@ -53,4 +53,4 @@ function Feed(props) {
     );
 }
 
-export default Feed;
+export default Certification;
