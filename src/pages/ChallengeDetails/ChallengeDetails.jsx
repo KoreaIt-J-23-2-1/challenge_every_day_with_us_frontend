@@ -281,7 +281,7 @@ function ChallengeDetails(props) {
     
     const handleParticipationButton = () => {
         if(isJoined === "챌린지 인증하기") {
-            navigate(`/challenge/feed/${challengeId}`)
+            navigate(`/challenge/certification/${challengeId}`)
         }else if(isJoined === "대기중") {
             setButton(true);
         }else {

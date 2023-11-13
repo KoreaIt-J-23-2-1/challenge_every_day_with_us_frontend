@@ -18,8 +18,9 @@ import SigninOauth2 from './pages/SignIn/SigninOauth2';
 import Store from './pages/Store/Store';
 import StampPage from './pages/StampPage/StampPage';
 import LogoPage from './pages/LogoPage/LogoPage';
-import Feed from './pages/Feed/Feed';
+import Certification from './pages/Certification/Certification';
 import StoreMyOrder from './pages/StoreMyOrder/StoreMyOrder';
+import Feed from './pages/Feed/Feed';
 
 function App() {
 
@@ -66,8 +67,10 @@ function App() {
       <Route path='/challenge/category' element={<CategoryPage/>} />
       <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
       <Route path='/challenges/:page' element={<ChallengeList/>} />
-      <Route path='/challenge/feed/:challengeId' element={<Feed/>} />
+      <Route path='/challenge/certification/:challengeId' element={<Certification/>} />
 
+
+      <Route path='/challenge/feed' element={<Feed/>} />
 
       <Route path='/stamp' element={<StampPage/>} />
     </Routes>

@@ -21,8 +21,8 @@ const btn = css`
 function Main(props) {
     const navigate = useNavigate();
     const queryClient = useQueryClient().getQueryState("getPrincipal");
-    const principal = queryClient.data.data;
-    const userId = principal.userId;
+    const principal = queryClient?.data?.data;
+    const userId = principal?.userId;
 
     const handleLogoutButton = async () => {
         localStorage.removeItem("accessToken");
@@ -46,6 +46,7 @@ function Main(props) {
                 <button onClick={() => { navigate("/challenge/category") }}>챌린지카테고리</button>
                 <button onClick={() => { navigate("/challenge/5") }}>챌린지조회</button>
                 <button onClick={() => { navigate("/challenges/1") }}>챌린지리스트조회</button>
+                <button onClick={() => { navigate("/challenge/feed") }}>Feed</button>
                 </div>
             </BaseLayout>
         </>
