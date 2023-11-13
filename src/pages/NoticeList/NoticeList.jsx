@@ -147,6 +147,7 @@ function NoticeList(props) {
     };
 
     return (
+        <>
             <Header/>
             <BaseLayout>
                 <h1>공지</h1>
@@ -185,6 +186,7 @@ function NoticeList(props) {
                   {pagination()}
               </ul>
             </BaseLayout>
+        </>
     );
 }
 
