@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { css } from '@emotion/react';
@@ -6,6 +6,7 @@ import { instance } from '../../api/config/instance';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import {AiOutlineLike, AiTwotoneLike} from 'react-icons/ai';
 /** @jsxImportSource @emotion/react */
+import * as S from './Style';
 
 const Layout = css`
     display: flex;
@@ -74,6 +75,16 @@ const BodyFeedLayout = css`
     height: 700px;
     border: 2px solid #dbdbdb;
     border-radius: 10px;
+    overflow: hidden;
+    overflow-y: auto;
+
+    ::-webkit-scrollbar {
+    width: 2px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+    background-color: #dbdbdb
+    }
 `;
 
 const BodyRightBox = css`
@@ -123,7 +134,7 @@ const ListBox = css`
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-    height: 425px;
+    height: 445px;
     overflow: auto;
     border: 1px solid #dbdbdb;
     border-radius: 5px;
@@ -179,6 +190,10 @@ function ChallengeDetails(props) {
     const [ todayDifference, setTodayDifference ] = useState(null);
     const [ isJoined, setIsJoined ] = useState("");
     const [ button, setButton ] = useState(false);
+    const [ isChallengeFeedRefetch, setIsChallengeFeedRefetch ] = useState(false);
+    const [ feedList, setFeedList ] = useState([]);
+    const [ page, setPage ] = useState(1);
+    const lastChallengeRef = useRef();
 
     const option = {
         headers: {
@@ -252,6 +267,31 @@ function ChallengeDetails(props) {
         retry: 0
     })
 
+    const getFeedList = useQuery(["getFeedList"], async () => {
+        return await instance.get(`/api/challenge/certification/feed/${page}`, option);
+    }, {
+        refetchOnWindowFocus: false,
+        enabled: isChallengeFeedRefetch,
+        onSuccess: (response) => {
+            setFeedList([...feedList].concat(response.data));
+            setIsChallengeFeedRefetch(false);
+            setPage(page + 1);
+        }
+    });
+
+    useEffect(() => {
+        const observerService = (entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    setIsChallengeFeedRefetch(true);
+                }
+            });
+        }
+
+        const observer = new IntersectionObserver(observerService, {threshold: 1});
+        observer.observe(lastChallengeRef.current);
+    }, []);
+
     useEffect(() => {
         const startDate = new Date(challenge.startDate);
         const endDate = new Date(challenge.endDate);
@@ -264,15 +304,6 @@ function ChallengeDetails(props) {
         setDateDifference(dayDifference);
         setTodayDifference(todayDifference)
     }, [challenge.startDate, challenge.endDate]);
-
-    if(getChallenge.isLoading) {
-        return <></>
-    }
-
-    if(getChallengers.isLoading) {
-        return<></>
-    }
-
 
     const handleLikebuttonClick = async () => {
         console.log(principal)
@@ -354,7 +385,10 @@ function ChallengeDetails(props) {
     const handleDeleteChallenger = async (userId) => {
         console.log(userId)
         if(userId !== challenge.userId) {
-            instance.delete(`/api/challenger/${challengeId}`, {...option, params: {"userId": userId}});
+            instance.delete(`/api/challenger/${challengeId}`, {
+                ...option,
+                params: {"userId": userId}
+            });
             await queryClient.refetchQueries(["getChallengers"]);
             alert("삭제완료!");
         } else {
@@ -363,11 +397,7 @@ function ChallengeDetails(props) {
         getChallengers.refetch();
     };
 
-    console.log(challenge)
-    console.log(challengers)
-    console.log("isOwner")
-    console.log(isOwner())
-
+    console.log(feedList)
 
     return (
         <div css={Layout}>
@@ -398,7 +428,48 @@ function ChallengeDetails(props) {
             <div css={line}></div>
             <div css={BodyLayout}>
                 <div css={BodyFeedLayout}>
-                    챌린지별 피드 띄우기
+                    <div css={S.SLayout}>
+                        {feedList.map(feed => (
+                            <div key={feed.feedId} css={S.SFeedContainer}>
+                                <div css={S.SFeedLayout}>
+                                    <div css={S.SFeedHeader}>
+                                        <div>
+                                            <img src={feed.profileUrl} alt="" />
+                                            <b>{feed.nickname}</b>
+                                        </div>
+                                    </div>
+                                    <div css={S.SFeedBody}>
+                                        <div>
+                                            <p>[{feed.categoryName}]</p>
+                                            <div><b>{feed.challengeName}</b> Challenge</div>
+                                        </div>
+                                        {feed.stopWatch !== 0 ? (
+                                            <div>{convertSecondsToTime(feed.stopWatch)}</div>
+                                        ) : (null)}
+                                        <img src={feed.img} alt="" />
+                                    </div>
+                                    <div css={S.SText}>
+                                        <div>{feed.feedContent}</div>
+                                    </div>
+                                    <div css={S.SInfo}>
+                                        <p>{getTimeDifference(feed.dateTime)}</p>
+                                    </div>
+
+                                <div css={S.SFeedBottomLayout}>
+                                    <div css={S.SFeedBottomHeader}>
+                                        <b>좋아요</b>
+                                        <b>댓글</b>
+                                    </div>
+                                    <div css={S.SFeedBottomBody}>
+                                        <div>이미지</div>
+                                        <div><p>{principal.data.data.nickname}</p>댓글</div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        ))}
+                    <div ref={lastChallengeRef}></div>
+                    </div>
                 </div>
                 <div css={BodyRightBox}>
                     <p>기간: {challenge.startDate} ~ {!challenge.endDate ? "마감 없음": challenge.endDate}</p>
@@ -408,8 +479,6 @@ function ChallengeDetails(props) {
                     <button css={ParticipationButton} onClick={handleParticipationButton} disabled={button}>
                         {isJoined}
                     </button>
-
-                    
                     <div css={ListBox}>
                         <b>참여인원</b>
                         {Object.values(challengers).map((item, index) => (
@@ -426,3 +495,32 @@ function ChallengeDetails(props) {
 }
 
 export default ChallengeDetails;
+
+function getTimeDifference(feedDateTime) {
+    const currentDateTime = new Date();
+    const feedDate = new Date(feedDateTime);
+
+    const timeDifferenceInSeconds = Math.floor((currentDateTime - feedDate) / 1000);
+
+    if (timeDifferenceInSeconds < 60) {
+        return `${timeDifferenceInSeconds}초 전`;
+    } else if (timeDifferenceInSeconds < 3600) {
+        const minutes = Math.floor(timeDifferenceInSeconds / 60);
+        return `${minutes}분 전`;
+    } else if (timeDifferenceInSeconds < 86400) {
+        const hours = Math.floor(timeDifferenceInSeconds / 3600);
+        return `${hours}시간 전`;
+    } else {
+        const days = Math.floor(timeDifferenceInSeconds / 86400);
+        return `${days}일 전`;
+    }
+}
+
+function convertSecondsToTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedTime = `${hours > 0 ? hours + '시간 ' : ''}${minutes > 0 ? minutes + '분 ' : ''}${remainingSeconds}초`;
+    return formattedTime.trim();
+}
