@@ -7,6 +7,7 @@ import { instance } from '../../api/config/instance';
 import { useQuery, useQueryClient } from 'react-query';
 import Header from '../../components/Header/Header';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
+import Store from '../../components/Store/Store';
 
 const Layout = css`
     display: flex;
@@ -58,7 +59,7 @@ const UserCheckBox = css`
     align-items: center;
     margin-top: 30px;
     margin-right: 10px;
-    width: 300px;
+    width: 400px;
     height: 300px;
     border: 5px solid #dbdbdb;
 `;
@@ -85,6 +86,13 @@ const ProfileBox = css`
 const modalStyle = css`
     display: flex;
     flex-direction: row;
+`;
+
+const SStore = css`
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    background-color: #dbdbdb;
 `;
 
 function MyPage(props) {
@@ -261,11 +269,12 @@ function MyPage(props) {
                     )}
                     {isStoreModalOpen && (
                         <div css={UserCheckBox}>
-                            <h4>상점1</h4>
                             <div>
                                 <button onClick={() => {navigete("/point");}}>포인트충전</button>
-                                <button >상점 물품들 조회</button>
                                 <button onClick={handleStoreCancelClick}>취소</button>
+                            </div>
+                            <div css={SStore}>
+                                <Store/>
                             </div>
                         </div>
                     )}
