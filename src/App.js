@@ -15,7 +15,6 @@ import ChallengeDetails from './pages/ChallengeDetails/ChallengeDetails';
 import ChallengeList from './pages/ChallengeList/ChallengeList';
 
 import SigninOauth2 from './pages/SignIn/SigninOauth2';
-import Store from './pages/Store/Store';
 import StampPage from './pages/StampPage/StampPage';
 import LogoPage from './pages/LogoPage/LogoPage';
 import Certification from './pages/Certification/Certification';
@@ -24,6 +23,7 @@ import Feed from './pages/Feed/Feed';
 import NoticeDetails from './pages/NoticeDetails/NoticeDetails';
 import { Global } from '@emotion/react';
 import { SReset } from './styles/reset';
+import Store from './components/Store/Store';
 
 function App() {
 

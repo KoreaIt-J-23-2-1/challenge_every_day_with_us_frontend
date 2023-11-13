@@ -75,27 +75,23 @@ function Store(props) {
     };
 
     return (
-        <>
-            <Header />
-            <BaseLayout>
-                <h1>상점 물품 조회</h1>
-                <h3>{getPrincipal.data.data.nickname} 님의 포인트 : {getPrincipal.data.data.point}</h3>
-                {!getItems.isLoading &&
-                    getItems?.data?.data.map(item => {
-                        return <div css={SItemLayout} key={item.itemId}>
-                                <div css={SItemImgLayout}>
-                                    <div css={SItemImgContainer}>
-                                        <img css={itemImg} src={item.itemImgUrl} alt="상품의 이미지" />
-                                    </div>
+        <BaseLayout>
+            <h1>상점 물품 조회</h1>
+            <h3>{getPrincipal.data.data.nickname} 님의 포인트 : {getPrincipal.data.data.point}</h3>
+            {!getItems.isLoading &&
+                getItems?.data?.data.map(item => {
+                    return <div css={SItemLayout} key={item.itemId}>
+                            <div css={SItemImgLayout}>
+                                <div css={SItemImgContainer}>
+                                    <img css={itemImg} src={item.itemImgUrl} alt="상품의 이미지" />
                                 </div>
-                                <div>상품명 : {item.itemName}</div>
-                                <div>가격 : {item.itemPrice} point</div>
-                                <button onClick={() => {handlePurchaseButton(item.itemId)}}>구매 버튼</button>
                             </div>
-                })}
-                <button onClick={() => { navigate("/main") }}>메인으로</button>
-            </BaseLayout>
-        </>
+                            <div>상품명 : {item.itemName}</div>
+                            <div>가격 : {item.itemPrice} point</div>
+                            <button onClick={() => {handlePurchaseButton(item.itemId)}}>구매 버튼</button>
+                        </div>
+            })}
+        </BaseLayout>
     );
 }
 
