@@ -91,7 +91,6 @@ function Store(props) {
                             <button onClick={() => {handlePurchaseButton(item.itemId)}}>구매 버튼</button>
                         </div>
             })}
-            <button onClick={() => { navigate("/main") }}>메인으로</button>
         </BaseLayout>
     );
 }
