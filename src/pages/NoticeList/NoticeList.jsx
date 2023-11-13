@@ -30,7 +30,6 @@ const noticeTitle = css`
     white-space: nowrap;
 `;
 
-
 const btnBox = css`
     display: flex;
     justify-content: end;
@@ -56,6 +55,23 @@ const btnBox = css`
     }
 `;
 
+const SPageNumbers = css`
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    width: 200px;
+    
+    & button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px 3px;
+        width: 20px;
+        border: 1px solid #dbdbdb;
+        cursor: pointer;
+    }
+`;
+
 function NoticeList(props) {
     const option = {
         headers: {
@@ -69,17 +85,19 @@ function NoticeList(props) {
     const principal = principalState.data.data;
     const { page } = useParams();
 
-    console.log(principal);
-
-    const getNoticeList = useQuery(["getBoardList"], async () => {
-        return await instance.get(`/api/notices/${page}`,option)
+    const getNoticeList = useQuery(["getBoardList", page], async () => {
+        return await instance.get(`/api/notices/${page}`, option)
     }, {
         retry: 0,
-        onSuccess: (response) => {
-        }
+        refetchOnWindowFocus: false
     });
 
-
+    const getNoticesCount = useQuery(["getNoticesCount"], async () => {
+        return await instance.get(`/api/notices/count`, option)
+    }, {
+        retry: 0,
+        refetchOnWindowFocus: false
+    });
 
     const handleNoticeWriteBtn = () => {
         if (principal.isAdmin == 1) {
@@ -89,8 +107,47 @@ function NoticeList(props) {
         }
     };
 
+    const pagination = () => {
+        if(getNoticesCount.isLoading) {
+            return <></>;
+        }
+
+        const totalNoticeCount = getNoticesCount.data.data;
+        
+        const lastPage = totalNoticeCount % 10 === 0
+            ? totalNoticeCount / 10
+            : Math.floor(totalNoticeCount / 10) + 1;
+        
+        const startIndex = parseInt(page) % 5 === 0 ? parseInt(page) - 4 : parseInt(page) - (parseInt(page) % 5) + 1;
+        
+        const endIndex = startIndex + 4 <= lastPage ? startIndex + 4 : lastPage;
+
+        const pageNumbers = [];
+
+        for(let i = startIndex; i <= endIndex; i++) {
+            pageNumbers.push(i);
+        }
+
+        return (
+            <>
+                <button disabled={parseInt(page) === 1} onClick={() => {
+                    navigate(`/notice/page/${parseInt(page) - 1}`);
+                }}>&#60;</button>
+                {pageNumbers.map(page => {
+                    return <button key={page} onClick={() => {
+                        return navigate(`/notice/page/${page}`);
+                    }}>{page}</button>
+                })}
+                <button disabled={parseInt(page) === lastPage} onClick={() => {
+                    navigate(`/notice/page/${parseInt(page) + 1}`);
+                }}>&#62;</button> 
+            </>
+        )
+    };
+
     return (
         <BaseLayout>
+            {!getNoticesCount.isLoading && getNoticesCount.data.data}
             <h1>공지</h1>
             <div css={btnBox}>
                 <button onClick={handleNoticeWriteBtn}>공지 작성</button>
@@ -124,12 +181,9 @@ function NoticeList(props) {
                 </tbody>
             </table>
 
-            <div css={btnBox}>
-
-            </div>
-
-
-        
+            <ul css={SPageNumbers}>
+                {pagination()}
+            </ul>
         </BaseLayout>
     );
 }
