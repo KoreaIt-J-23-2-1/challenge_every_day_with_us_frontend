@@ -69,13 +69,11 @@ function App() {
         <Route path='/notice/write' element={<NoticeWrite />} />
         <Route path="/notice/:noticeId" element={ <NoticeDetails/> } />
         
-
         <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
         <Route path='/challenge/category' element={<CategoryPage/>} />
         <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
         <Route path='/challenges' element={<ChallengeList/>} />
         <Route path='/challenge/certification/:challengeId' element={<Certification/>} />
-
 
         <Route path='/challenge/feed' element={<Feed/>} />
 

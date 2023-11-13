@@ -6,31 +6,11 @@ import { instance } from '../../api/config/instance';
 
 function Feed(props) {
     const principalState = useQueryClient().getQueryState("getPrincipal");
-    const [ isChallengeFeed, setIsChallengeFeedRefetch ] = useState(false);
+    const [ isChallengeFeedRefetch, setIsChallengeFeedRefetch ] = useState(false);
     const [ feedList, setFeedList ] = useState([]);
     const [ page, setPage ] = useState(1);
     const lastChallengeRef = useRef();
     
-    const option = {
-        headers: {
-            Authorization: localStorage.getItem("accessToken")
-        }
-    }
-
-    const getFeedList = useQuery(["getFeedList"], async () => {
-        return await instance.get("/api/challenge/certification/feed", option);
-    }, {
-        refetchOnWindowFocus: false,
-        enabled: isChallengeFeed,
-        onSuccess: (response) => {
-            setFeedList([...feedList].concat(response.data));
-            setIsChallengeFeedRefetch(false);
-            setPage(page + 1);
-        }
-    });
-
-    console.log(feedList);
-
     useEffect(() => {
         const observerService = (entries, observer) => {
             entries.forEach(entry => {
@@ -44,9 +24,24 @@ function Feed(props) {
         observer.observe(lastChallengeRef.current);
     }, []);
 
-    if(getFeedList.isLoading) {
-        return <></>
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
     }
+
+    const getFeedList = useQuery(["getFeedList"], async () => {
+        return await instance.get(`/api/challenge/certification/feed/${page}`, option);
+    }, {
+        refetchOnWindowFocus: false,
+        enabled: isChallengeFeedRefetch,
+        onSuccess: (response) => {
+            setFeedList([...feedList].concat(response.data));
+            setIsChallengeFeedRefetch(false);
+            setPage(page + 1);
+        }
+    });
+    
 
     const handleReportClick = async (feedId, feedChallengeId) => {
         const data = {
@@ -68,44 +63,44 @@ function Feed(props) {
                 <button>인기</button>
                 <button>실시간</button>
             </div>
-            {getFeedList?.data?.data.map(feed => (
-                <div key={feed.feedId} css={S.SFeedContainer}>
-                    <div css={S.SFeedLayout}>
-                        <div css={S.SFeedHeader}>
-                            <div>
-                                <img src={feed.profileUrl} alt="" />
-                                <b>{feed.nickname}</b>
+                {feedList.map(feed => (
+                    <div key={feed.feedId} css={S.SFeedContainer}>
+                        <div css={S.SFeedLayout}>
+                            <div css={S.SFeedHeader}>
+                                <div>
+                                    <img src={feed.profileUrl} alt="" />
+                                    <b>{feed.nickname}</b>
+                                </div>
+                                <button onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
                             </div>
-                            <button onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
-                        </div>
-                        <div css={S.SFeedBody}>
-                            <div>
-                                <p>[{feed.categoryName}]</p>
-                                <div><b>{feed.challengeName}</b> Challenge</div>
+                            <div css={S.SFeedBody}>
+                                <div>
+                                    <p>[{feed.categoryName}]</p>
+                                    <div><b>{feed.challengeName}</b> Challenge</div>
+                                </div>
+                                <img src={feed.img} alt="" />
                             </div>
-                            <img src={feed.img} alt="" />
-                        </div>
-                        <div css={S.SText}>
-                            <div>{feed.feedContent}</div>
-                        </div>
-                        <div css={S.SInfo}>
-                            <p>{getTimeDifference(feed.dateTime)}</p>
-                        </div>
+                            <div css={S.SText}>
+                                <div>{feed.feedContent}</div>
+                            </div>
+                            <div css={S.SInfo}>
+                                <p>{getTimeDifference(feed.dateTime)}</p>
+                            </div>
 
-                    <div css={S.SFeedBottomLayout}>
-                        <div css={S.SFeedBottomHeader}>
-                            <b>좋아요</b>
-                            <b>댓글</b>
+                        <div css={S.SFeedBottomLayout}>
+                            <div css={S.SFeedBottomHeader}>
+                                <b>좋아요</b>
+                                <b>댓글</b>
+                            </div>
+                            <div css={S.SFeedBottomBody}>
+                                <div>이미지</div>
+                                <div><p>{principalState.data.data.nickname}</p>댓글</div>
+                            </div>
                         </div>
-                        <div css={S.SFeedBottomBody}>
-                            <div>이미지</div>
-                            <div><p>{principalState.data.data.nickname}</p>댓글</div>
                         </div>
                     </div>
-                    </div>
-                </div>
-            ))}
-            <li ref={lastChallengeRef}></li>
+                ))}
+                <div ref={lastChallengeRef}></div>
         </div>
     );
 }
