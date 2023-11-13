@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { instance } from '../../api/config/instance';
 import { useQuery, useQueryClient } from 'react-query';
+import Header from '../../components/Header/Header';
+import BaseLayout from '../../components/BaseLayout/BaseLayout';
 
 const Layout = css`
     display: flex;
@@ -202,70 +204,75 @@ function MyPage(props) {
     console.log(getMyChallenges);
 
     return (
-    <div css={Layout}>
-        <button onClick={handleBackButton}>뒤로가기</button>
-        <div css={UserBox}>
-            <div css={ImgBox}>
-                <img src={principal.profileUrl} alt="" />
-            </div>
-            <div css={ProfileBox}>
-                <div css={ProfileText}>등급: 
-                    <p>{principal.membership}</p>
+        <>
+            <Header />
+            <BaseLayout>
+            <div css={Layout}>
+                <button onClick={handleBackButton}>뒤로가기</button>
+                <div css={UserBox}>
+                    <div css={ImgBox}>
+                        <img src={principal.profileUrl} alt="" />
+                    </div>
+                    <div css={ProfileBox}>
+                        <div css={ProfileText}>등급: 
+                            <p>{principal.membership}</p>
+                        </div>
+                        <div css={ProfileText}>포인트: 
+                            <p>{principal.point}</p>
+                            point
+                        </div>
+                        <div css={ProfileText}>닉네임: 
+                            <p>
+                                {principal.nickname}
+                            </p>
+                        </div>
+                    </div>
+                    <div css={IntroBox}>
+                        <h4>자기 소개</h4>
+                        <textarea id="introText" rows="3" cols="40" maxLength={50} defaultValue={principal.intro} onChange={handleIntroChange}></textarea>
+                        <div>
+                            <button onClick={handleIntroSubmit}>저장</button>
+                            <button>취소</button>
+                        </div>
+                    </div>
                 </div>
-                <div css={ProfileText}>포인트: 
-                    <p>{principal.point}</p>
-                    point
-                </div>
-                <div css={ProfileText}>닉네임: 
-                    <p>
-                        {principal.nickname}
-                    </p>
-                </div>
-            </div>
-            <div css={IntroBox}>
-                <h4>자기 소개</h4>
-                <textarea id="introText" rows="3" cols="40" maxLength={50} defaultValue={principal.intro} onChange={handleIntroChange}></textarea>
                 <div>
-                    <button onClick={handleIntroSubmit}>저장</button>
-                    <button>취소</button>
+                    <p>참여중인 챌린지 List</p>
+                    <ul>
+                        {getMyChallenges.data.data.map((myChallenge, index) => (
+                            <li key={index}>{myChallenge.challengeName}</li>
+                        ))}
+                    </ul>
                 </div>
-            </div>
-        </div>
-        <div>
-            <p>참여중인 챌린지 List</p>
-            <ul>
-                {getMyChallenges.data.data.map((myChallenge, index) => (
-                    <li key={index}>{myChallenge.challengeName}</li>
-                ))}
-            </ul>
-        </div>
-        <div css={BtBox}>
-            <button onClick={toggleStoreModal}>상점</button>
-            <button onClick={toggleModal}>정보변경</button>
-        </div>
-        <div css={modalStyle}>
-            {isModalOpen && (
-                <div css={UserCheckBox}>
-                    <h4>본인 확인</h4>
-                    <input type="password" placeholder="비밀번호" onChange={handlePasswordChange} />
-                    <div>
-                        <button onClick={handleSubmit}>확인</button>
-                        <button onClick={handleCancelClick}>취소</button>
-                    </div>
+                <div css={BtBox}>
+                    <button onClick={toggleStoreModal}>상점</button>
+                    <button onClick={toggleModal}>정보변경</button>
                 </div>
-            )}
-            {isStoreModalOpen && (
-                <div css={UserCheckBox}>
-                    <h4>상점1</h4>
-                    <div>
-                        <button onClick={() => {navigete("/point");}}>포인트충전</button>
-                        <button >상점 물품들 조회</button>
-                        <button onClick={handleStoreCancelClick}>취소</button>
-                    </div>
+                <div css={modalStyle}>
+                    {isModalOpen && (
+                        <div css={UserCheckBox}>
+                            <h4>본인 확인</h4>
+                            <input type="password" placeholder="비밀번호" onChange={handlePasswordChange} />
+                            <div>
+                                <button onClick={handleSubmit}>확인</button>
+                                <button onClick={handleCancelClick}>취소</button>
+                            </div>
+                        </div>
+                    )}
+                    {isStoreModalOpen && (
+                        <div css={UserCheckBox}>
+                            <h4>상점1</h4>
+                            <div>
+                                <button onClick={() => {navigete("/point");}}>포인트충전</button>
+                                <button >상점 물품들 조회</button>
+                                <button onClick={handleStoreCancelClick}>취소</button>
+                            </div>
+                        </div>
+                    )}
                 </div>
-            )}
-        </div>
-    </div>
+                </div>
+            </BaseLayout>
+        </>
     );
 }
 

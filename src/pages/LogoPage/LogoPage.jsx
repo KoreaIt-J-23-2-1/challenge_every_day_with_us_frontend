@@ -31,7 +31,7 @@ function LogoPage(props) {
     useEffect(() => {
         const autoGoMainPage = setTimeout(() => {
             navigate("/main");
-        }, 5000);
+        }, 2000);
         return () => clearTimeout(autoGoMainPage);
     }, [navigate]);
 
