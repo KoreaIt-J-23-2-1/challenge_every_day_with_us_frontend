@@ -6,12 +6,12 @@ export const SModify = css`
     font-size: 13px;
     text-transform: uppercase!important;
     letter-spacing: 2px;
-    color: #6495ED;
+    color: #49c6dd;
     cursor: hand;
     text-align: center;
     text-transform: capitalize;
-    border: 1px solid #6495ED;
-    border-radius:50px;
+    border: 1px solid #49c6dd;
+    border-radius: 20px;
     position: relative;
     overflow: hidden!important;
     -webkit-transition: all .3s ease-in-out;
@@ -22,7 +22,7 @@ export const SModify = css`
     z-index:10;
 
     &:hover {
-        border: 1px solid #6495ED;
+        border: 1px solid #49c6dd;
         color: #ffffff!important;
     }
 
@@ -31,7 +31,7 @@ export const SModify = css`
         width: 0%;
         height: 100%;
         display: block;
-        background: #6495ED;
+        background: #49c6dd;
         position: absolute;
         -ms-transform: skewX(-20deg);
         -webkit-transform: skewX(-20deg); 
@@ -77,11 +77,11 @@ export const SCancel = css`
     font-size: 13px;
     text-transform: uppercase!important;
     letter-spacing: 2px;
-    color: #FF7F50;
+    color: #03c75a;
     cursor: hand;
     text-align: center;
     text-transform: capitalize;
-    border: 1px solid #FF7F50;
+    border: 1px solid #03c75a;
     border-radius:50px;
     position: relative;
     overflow: hidden!important;
@@ -93,7 +93,7 @@ export const SCancel = css`
     z-index:10;
 
     &:hover {
-        border: 1px solid #FF7F50;
+        border: 1px solid #03c75a;
         color: #ffffff!important;
     }
 
@@ -102,7 +102,7 @@ export const SCancel = css`
         width: 0%;
         height: 100%;
         display: block;
-        background: #FF7F50;
+        background: #03c75a;
         position: absolute;
         -ms-transform: skewX(-20deg);
         -webkit-transform: skewX(-20deg); 
@@ -148,11 +148,11 @@ export const SWithdrawn = css`
     font-size: 13px;
     text-transform: uppercase!important;
     letter-spacing: 2px;
-    color: #DE3163;
+    color: #DE3180;
     cursor: hand;
     text-align: center;
     text-transform: capitalize;
-    border: 1px solid #DE3163;
+    border: 1px solid #DE3180;
     border-radius:50px;
     position: relative;
     overflow: hidden!important;
@@ -164,7 +164,7 @@ export const SWithdrawn = css`
     z-index:10;
 
     &:hover {
-        border: 1px solid #DE3163;
+        border: 1px solid #DE3180;
         color: #ffffff!important;
     }
 
@@ -173,7 +173,7 @@ export const SWithdrawn = css`
         width: 0%;
         height: 100%;
         display: block;
-        background: #DE3163;
+        background: #DE3180;
         position: absolute;
         -ms-transform: skewX(-20deg);
         -webkit-transform: skewX(-20deg); 

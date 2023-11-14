@@ -17,34 +17,23 @@ import logoimg from '../../../img/로고이미지2.png';
 const layout = css`
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 1200px;
+    align-items: stretch;
+    width: 100%;
     height: 100%;
     margin: 0 auto;
+    overflow: hidden;
 `;
 
 const sideBox = css`
     display: flex;
     flex-direction: column;
-    
-    width: 395px;
+    justify-content: center;
+    width: 350px;
     background-color: #fff;
     box-shadow: 5px 1px 8px 0 rgba(0,0,0,.06);
     border-left: 1px solid rgba(0,0,0,.08);
     vertical-align: top;
     z-index: 1;
-`;
-
-const logoBtn = css`
-    cursor: pointer;
-    width: 60px;
-    height: 60px;
-    padding: 18px 24px;
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
 `;
 
 const imgContainer = css`
@@ -53,18 +42,6 @@ const imgContainer = css`
     align-items: center;
     text-align: center;
 `;
-
-const leftHeader = css`
-    display: flex;
-`;
-
-const leftMenu = css`
-    margin-top: 20px;
-    list-style: none;
-    padding: 0 39px;
-`;
-
-
 
 const imgBox = css`
     display: flex;
@@ -82,36 +59,90 @@ const imgBox = css`
     }
 `;
 
+const file = css`
+    display: none;
+`;
+
+const profile = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & > b {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: 900;
+    }
+
+    & > p {
+        font-size: 12px;
+        color: #777
+    }
+`;
+
+const line = css`
+    margin-top: 40px;
+    border-top: 1px solid rgba(146,146,148,.3);
+`;
+
+const leftHeader = css`
+    display: flex;
+    
+`;
+
+const leftMenu = css`
+    margin-top: 50px;
+    list-style: none;
+    padding: 0 39px;
+    font-size: 16px;
+    cursor: pointer;
+
+    & > li {
+        margin-bottom: 20px;
+    }
+`;
+
 const userBox = css`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: 20px;
-    width: 400px;
+    margin-left: 50px;
+    max-width: 400px;
 
     & button {
+        margin-top: 25px;
         width: 200px;
-        margin: 5px;
     }
+`;
+
+const userInfoHeader = css`
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 15px 38px 13px 18px;
+    border-radius: 12px 12px 0 0;
+    background-image: linear-gradient(98deg,#03c75a,#49c6dd);
+    color: #FFFFFF;
 `;
 
 const inputBox = css`
     display: flex;
-    height: 20px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 0 17px;
+    height: 50px;
 
     & > input {
         border: none;
-        border-bottom: 1px solid black;
+        margin-left: 10px;
+        
         &:focus {
             outline: none;
         }
-        margin-left: 10px;
     }
-`;
-
-const file = css`
-    display: none;
 `;
 
 function MyPageDetails(props) {
@@ -237,21 +268,21 @@ function MyPageDetails(props) {
         }
     }
 
-    const GoStartPage = () => {
-        window.location.replace("/");
-    }
-
     return (
         <BaseLayout>
             <div css={layout}>
                 <div css={sideBox}>
-                    <div css={logoBtn} onClick={GoStartPage}><img src={logoimg} alt="로고 이미지"/></div>
                     <div css={imgContainer}>
                         <div css={imgBox} onClick={handleProfileUploadClick}>
                             <img src={profileImgSrc} alt="" />
                             <input css={file} type="file" onChange={handleProfileChange} ref={profileFileRef}/>
                         </div>
                     </div>
+                    <div css={profile}>
+                        <b>{principal.nickname}</b>
+                        <p>{principal.email}</p>
+                    </div>
+                    <div css={line}></div>
                     <div css={leftHeader}>
                         <ul css={leftMenu}>
                             <li>내 정보수정</li>
@@ -260,6 +291,7 @@ function MyPageDetails(props) {
                     </div>
                 </div>
                 <div css={userBox}>
+                    <div css={userInfoHeader}>내 정보수정</div>
                     <div css={inputBox}>
                         <div><FaRegUser /></div>
                         <input type="text" name='name' value={principal.name} disabled={true} onChange={handleInputChange} placeholder='이름' />
