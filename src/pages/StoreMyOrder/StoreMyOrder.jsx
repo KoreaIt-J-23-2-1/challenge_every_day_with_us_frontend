@@ -65,6 +65,7 @@ function StoreMyOrder(props) {
                                 <div>상품 번호 : {order.itemId}</div>
                                 <div>상품 이름 : {order.itemName}</div>
                                 <div>가격 : {order.itemPrice}</div>
+                                <div>주문 시각 : {order.orderTime}</div>
                             </div>
                 })}
             </div>

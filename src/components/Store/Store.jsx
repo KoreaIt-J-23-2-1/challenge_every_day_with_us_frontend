@@ -3,6 +3,7 @@ import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
+import Header from '../../components/Header/Header';
 import { css } from '@emotion/react';
 /** @jsxImportSource @emotion/react */
 
@@ -90,7 +91,6 @@ function Store(props) {
                             <button onClick={() => {handlePurchaseButton(item.itemId)}}>구매 버튼</button>
                         </div>
             })}
-            <button onClick={() => { navigate("/main") }}>메인으로</button>
         </BaseLayout>
     );
 }
