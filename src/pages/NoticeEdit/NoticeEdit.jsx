@@ -2,23 +2,33 @@ import React, { useEffect, useState } from 'react';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { css } from '@emotion/react';
 import ReactQuill from 'react-quill';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { instance } from '../../api/config/instance';
+import { useQuery } from 'react-query';
 /** @jsxImportSource @emotion/react */
 
 
+const noticeLayout = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
+
 const inputBox = css`
     margin: 5px;
+
     &> label{
         display: flex;
         align-items: center;
         width: 100px;
         font-size: 12px;
     }
+
     & > input {
         margin-top: 4px;
-        width: 930px;
+        width: 100%;
         height: 25px;
     }
 `;
@@ -28,7 +38,7 @@ const btnBox = css`
     justify-content: flex-end;
     align-items: center;
     margin-top: 50px;
-    width: 938px;
+    width: auto;
     
     & > button{
         cursor: pointer;
@@ -46,7 +56,37 @@ const btnBox = css`
 
 function NoticeEdit(props) {
 
-    const navigate = useNavigate();
+    const navigete = useNavigate();
+    const { noticeId } = useParams();
+
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
+    }
+    
+    const [noticeContent, setNoticeContent] = useState({
+        title: "",
+        content: ""
+    })
+
+    const getNotice = useQuery(["getNotice"], async () => {
+        try {
+            return await instance.get(`/api/notice/${noticeId}`,option);
+        }catch(error) {
+            alert("해당 게시글을 불러올 수 없습니다.");
+        }
+    }, {
+        refetchOnWindowFocus: false,
+        onSuccess: response => {
+            console.log(response)
+            setNoticeContent({
+                ...noticeContent,
+                title: response.data.noticeTitle,
+                content: response.data.noticeContent
+            })
+        } 
+    })
 
     useEffect(() => {
         const linkTag = window.document.createElement("link");
@@ -54,11 +94,6 @@ function NoticeEdit(props) {
         linkTag.rel = "stylesheet";
         window.document.head.appendChild(linkTag);
     });
-
-    const [noticeContent, setNoticeContent] = useState({
-        title: "",
-        content: ""
-    })
 
     const modules = {
         toolbar: {
@@ -68,7 +103,14 @@ function NoticeEdit(props) {
                 ["image"]
             ]
         }
-    }        
+    }     
+
+    const handleTitleInput = (e) => {
+        setNoticeContent({
+            ...noticeContent,
+            title: e.target.value
+        });
+    }
 
     const handleContentInput = (value) => {
         setNoticeContent({
@@ -78,60 +120,49 @@ function NoticeEdit(props) {
     }
 
     const handleCancelBtn = () => {
-        navigate("/notice")
-    
+        navigete("/notice/page/1")
     }
 
-    const handleWriteSubmit = async () => {
+        const handleEditSubmit = async () => {
         try {
             const option = {
                 headers: {
-                    Authorization: localStorage.getItem("token")
+                    Authorization: localStorage.getItem("accessToken")
                 }
-            };
-            await instance.post("/notice",noticeContent, option);
-        } catch (error) {
+            }
+            console.log(noticeContent);
+            await instance.put(`/api/notice/${noticeId}`, noticeContent, option);
+            alert("게시글 수정 완료.");
+            window.history.back();
+        } catch(error) {
             console.error(error);
+            alert("게시글 수정 오류.");
+            window.history.back();
         }
-    };
-
-        const handleEditSubmit = async () => {
-        // try {
-        //     const option = {
-        //         headers: {
-        //             Authorization: localStorage.getItem("token")
-        //         }
-        //     }
-        //     console.log(noticeContent);
-        //     await instance.put(`/notice/${noticeId}`, noticeContent, option);
-        //     alert("게시글 수정완료");
-        //     navigate(`/notice/${noticeId}`);
-        // } catch(error) {
-        //     console.error(error);
-        //     alert("게시글 수정실패");
-        //     navigate(`/board/${noticeId}`);
-        // }
     }
+    
+    console.log(getNotice.noticeTitle)
 
     return (
         <BaseLayout>
-            <h1> 공지 작성</h1>
-            <div>
-                <div css={inputBox}> <label>제목</label> <input type="text" name='title' placeholder='공지제목' value={noticeContent.title}/></div>
+            <div css={noticeLayout}>
+                <h1> 공지 수정</h1>
                 <div css={inputBox}>
+                    <label>제목</label>
+                    <input type="text" name='title' onChange={handleTitleInput} defaultValue={noticeContent.title} />
                     <label>내용</label>
                     {/* <input type="text" name='content' placeholder='공지내용'/> */}
                     <ReactQuill 
-                        value={noticeContent.content}
-                        style={{width: "938px", height: "500px"}} 
+                        style={{width: "700px", height: "500px"}} 
                         modules={modules}
+                        value={noticeContent.content}
                         onChange={handleContentInput}
-                    />
+                        />
                     
-                <div css={btnBox}>
-                    <button onClick={handleCancelBtn}>취소</button>
-                    <button onClick={handleEditSubmit}>수정</button>
-                </div>
+                    <div css={btnBox}>
+                        <button onClick={handleCancelBtn}>취소</button>
+                        <button onClick={handleEditSubmit}>수정</button>
+                    </div>
                 </div>
             </div>
         </BaseLayout>
