@@ -1,109 +1,22 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
 /** @jsxImportSource @emotion/react */
+import * as S from './HeaderStyle';
 import {BsBell, BsBellFill,BsCalendarCheck} from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import LetterSideBar from '../LetterSideBar/LetterSideBar';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
-import logoimg from '../../img/로고이미지2.png';
-
-
-
-const Layout = css`
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 80px;
-`;
-// const HeaderBox = css`
-//     position: relative;
-//     display: flex;
-//     align-items: center;
-//     justify-content: flex-end;
-// `;
-
-const HeaderBox = css`
-    position: fixed;
-    top: 0;
-    width: 99%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    background-color: white;
-    z-index: 100;
-    padding: 10px;
-    box-shadow: 0 10px 10px -5px #dbdbdbdb;
-    
-`;
-
-const headerTitleBox = css`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0px auto;
-    height: 60px;
-    width: 70%;
-    border: 1px solid #dbdbdb;
-    border-radius: 50px;
-`;
-
-const logoBtn = css`
-    cursor: pointer;
-    margin: 0px 10px;
-    width: 60px;
-    height: 60px;
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-`;
-const Icon = css`
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2px;
-    padding: 2px;
-    height: 60px;
-    width: 60px;
-    font-size: 40px;
-`;
-
-const LetterCountBox = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: 10px;
-    bottom: 15px;
-    border-radius: 50%;
-    padding: 3px;
-    width: 13px;
-    height: 13px;
-    color: red;
-    background-color: #ffe292;
-`;
-
-
-const LetterSideBarCss = css`
-    z-index: 10;
-    right: -400px;
-    overflow: hidden;
-    display: flex;
-    position: fixed;
-    background-color: white;
-    border-left: 2px solid #dbdbdb;
-    width: 400px;
-    height: 90vh;
-    transition: right 0.5s ease-in;
-`;
+import logoimg1 from '../../img/로고이미지3.png';
+import logoimg2 from '../../img/로고이미지2.png';
+import MenuBtn from '../MenuBtn/MenuBtn';
 
 
 function Header() {
     const navigate = useNavigate();
-    const [isRead, setIsRead] = useState(false);
+    const [getLetter, setGetLetter] = useState(false);
+    const [onLogo, setOnLogo] = useState(false);
+    const [isActive, setIsActive] = useState(false);
     const [isLetterSideBarOpen, setLetterSideBarOpen] = useState(false);
     const queryClient = useQueryClient().getQueryState("getPrincipal");
     const principal = queryClient?.data?.data;
@@ -137,27 +50,41 @@ function Header() {
     const GoStartPage = () => {
         window.location.replace("/");
     }
+
+    const handleClick = () => {
+        setIsActive(isActive);
+    };
     
     return (
         <>
-            <div css={Layout}>
-                <div css={HeaderBox}>                    
-                    <div css={logoBtn} onClick={GoStartPage} ><img src={logoimg} alt="로고 이미지"/></div>
-                    <div css={headerTitleBox}>PAGENAME</div>
-                    <div css={Icon} onClick={handleStampOpen}><BsCalendarCheck/></div>
+            <div css={S.Layout}>
+                <div css={S.HeaderBox}>     
+                    
+                    <div css={S.LogoBtn} onClick={GoStartPage}
+                        onMouseOver={() => setOnLogo(true)} onMouseOut={() => setOnLogo(false)}>
+                        <img src={onLogo ? logoimg1 : logoimg2} alt="로고 이미지" />
+                    </div>
+                    <div css={S.HeaderTitleBox}></div>
+                    <div css={S.Icon} onClick={handleStampOpen}><BsCalendarCheck/></div>
                     {(!getLettersCount.isLoading && principal ) && (
                         <>
-                            <div css={Icon} onClick={handleLetterOpen}>{isRead ? <BsBellFill /> : <BsBell/>}</div>
-                            <div css={LetterCountBox}>{getLettersCount.data}</div>
+                            <div css={S.Icon} onClick={handleLetterOpen} >
+                                {getLetter ? <BsBellFill /> : <BsBell />}
+                            </div>
+                            <div css={S.LetterCountBox}>{getLettersCount.data}</div>
                         </>
                         )
                     }
+                    {/* <MenuBtn/> */}
                 </div>
             </div>
-            <div css={[LetterSideBarCss, isLetterSideBarOpen && { right: 0 }]}>
+
+
+            <div css={[S.LetterSideBarCss, isLetterSideBarOpen && { right: 0 }]}>
                 <LetterSideBar />
             </div>
         </>
+
     );
 }
 

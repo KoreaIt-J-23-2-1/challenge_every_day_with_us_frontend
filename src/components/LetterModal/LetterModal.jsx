@@ -10,7 +10,6 @@ const modalContainer = css`
     left: 0;
     width: 100%;
     height: 100%;
-    background:#dbdbdb50;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,23 +17,23 @@ const modalContainer = css`
 `;
 
 const modalContent = css`
-    
     background: #fff;
     padding: 20px;
     border-radius: 8px;
     width: 400px;
     max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     
 `;
 
-const LetterModal = ({ isOpen, onClose, selectedLetter, children }) => {
+const LetterModal = ({ isOpen,selectedLetter, children }) => {
     if (!isOpen) return null;
     if (!isOpen || !selectedLetter) return null;
 
     return (
         <div css={modalContainer}>
-            <div onClick={onClose}>닫기</div>
             <div css={modalContent}>
+                {/* <div onClick={onClose}>닫기</div> */}
                 {children}
             </div>
         </div>
