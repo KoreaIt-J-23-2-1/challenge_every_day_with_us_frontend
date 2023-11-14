@@ -12,6 +12,7 @@ const Layout = css`
     width: 70%;
     border-radius: 10px;
     box-shadow: 5px 5px 10px 1px #c0c0c0;
+    overflow: hidden;
     /* background:#ffffffb0; */
 `;
 
