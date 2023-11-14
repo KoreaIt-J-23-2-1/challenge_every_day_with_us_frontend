@@ -177,7 +177,7 @@ function ChallengeList(props) {
     }
 
     const handleSearchButtonClick = () => {
-        navigate("/challenges/1");
+        navigate("/challenges");
         getChallengeList.refetch();
     }
 
