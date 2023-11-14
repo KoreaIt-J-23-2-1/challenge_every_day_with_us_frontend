@@ -12,6 +12,7 @@ function Feed(props) {
     const [ page, setPage ] = useState(1);
     const lastChallengeRef = useRef();
     const [ commentInputList, setCommentInputList ] = useState();
+    const [ latestComments, setLatestComments ] = useState({});
     
     useEffect(() => {
 
@@ -62,7 +63,7 @@ function Feed(props) {
         })
     };
 
-    const handleCommnetSubmit = async (feedId) => {
+    const handleCommentSubmit = async (feedId) => {
         try {
             await instance.post(`/api/feed/${feedId}/comment`, {commentContent: commentInputList[`commentInput${feedId}`]}, option);
             alert("댓글 등록 성공! -> " + feedId + "피드");
@@ -71,6 +72,16 @@ function Feed(props) {
             console.error(error);
         }
     };
+
+    const getLatestComment = (feedId) => {
+        instance.get(`/api/feed/${feedId}/comment/latest`, option)
+        .then((response) => {
+            setLatestComments({
+                ...latestComments,
+                [feedId]: response.data
+            });
+        })
+    }
 
     return (
         <div css={S.SLayout}>
@@ -111,13 +122,29 @@ function Feed(props) {
                                 <div css={S.SFeedBottomLayout}>
                                     <div css={S.SFeedBottomHeader}>
                                         <button>좋아요</button>
-                                        <button>댓글</button>
+                                        <button onClick={async () => {const result = await instance.get(`/api/feed/${feed.feedId}/comments`, option); console.log(result)}}>댓글 펼치기</button>
                                     </div>
                                     <div css={S.SFeedBottomBody}>
                                         <div css={S.SFeedBottomProfileImgContainer}>
                                             <input css={S.SFeedBottomProfileImg} type="image" src={principal.profileUrl}/>
                                         </div>
-                                        <div><p>{principal.nickname}</p><input type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput}/><button onClick={() => {handleCommnetSubmit(feed.feedId)}}>댓글달기</button></div>
+                                        <p>{principal.nickname}</p>
+                                        <div><input type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput}/><button onClick={() => {handleCommentSubmit(feed.feedId)}}>댓글달기</button></div>
+                                    </div>
+                                    <div css={S.SFeedBottomFooter}>
+                                        {
+                                            (() => {
+                                                getLatestComment(feed.feedId);
+                                                return (
+                                                    <>
+                                                        <div>번호: {latestComments[feed.feedId]?.commentId}</div>
+                                                        <div>작성자: {latestComments[feed.feedId]?.userNickname}</div>
+                                                        <div>내용: {latestComments[feed.feedId]?.commentContent}</div>
+                                                        <div>작성 시각: {latestComments[feed.feedId]?.commentDatetime}</div>
+                                                    </>
+                                                );
+                                            })()
+                                        }
                                     </div>
                                 </div>
                             }
