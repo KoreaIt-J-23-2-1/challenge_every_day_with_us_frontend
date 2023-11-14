@@ -11,12 +11,10 @@ import Header from '../../components/Header/Header';
 const listTable = css`
     width: 938px;
     border-collapse: collapse;
-
     & th, td {
         height: 30px;
         text-align: center;
     }
-
     & td {
         cursor: pointer;
     }
@@ -148,7 +146,6 @@ function NoticeList(props) {
 
     return (
         <>
-            <Header/>
             <BaseLayout>
                 <h1>공지</h1>
                 <div css={btnBox}>
@@ -182,9 +179,9 @@ function NoticeList(props) {
                         
                     </tbody>
                 </table>
-              <ul css={SPageNumbers}>
-                  {pagination()}
-              </ul>
+                <ul css={SPageNumbers}>
+                    {pagination()}
+                </ul>
             </BaseLayout>
         </>
     );

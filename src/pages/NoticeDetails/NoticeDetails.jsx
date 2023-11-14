@@ -13,10 +13,9 @@ function NoticeDetails(props) {
 
     const option = {
         headers: {
-        Authorization: localStorage.getItem("accessToken")
+            Authorization: localStorage.getItem("accessToken")
         }
     }
-
     
 
     const getNotice = useQuery(["getNotice"], async () => {
@@ -32,13 +31,29 @@ function NoticeDetails(props) {
         }
     })
 
-    if(getNotice.isLoading) {
+
+
+    const deleteNoticeBtn = async () => {
+        /* eslint-disable no-restricted-globals */ 
+        const deleteNotice = confirm("삭제하시겠습니까?");
+
+        try {
+            await instance.delete(`/api/notice/${noticeId}`, option);
+            alert("게시글 삭제 완료.");
+            window.location.replace("/notice/page/1");
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    if(setNotice.isLoading) {
         return <></>
     }
 
+    
     return (
         <>
-            <Header />
             <BaseLayout>
                 <div >
                     <h1>{notice.noticeTitle}</h1>
@@ -46,8 +61,11 @@ function NoticeDetails(props) {
                     
                     <div dangerouslySetInnerHTML={{ __html: notice.noticeContent }}></div>
                     <div >
-                        <button onClick={()=>{navigate(`/notice/edit/${noticeId}`)}}>수정</button>
-                        <button >삭제</button>
+                        
+                        <button onClick={()=>{navigate(`/notice/${noticeId}/edit`)}}>수정</button>
+                        
+                        <button onClick={deleteNoticeBtn} >삭제</button>
+                        
                     </div>
             </div>
             
