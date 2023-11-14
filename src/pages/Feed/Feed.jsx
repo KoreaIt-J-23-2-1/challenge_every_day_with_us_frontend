@@ -6,6 +6,7 @@ import { instance } from '../../api/config/instance';
 
 function Feed(props) {
     const principalState = useQueryClient().getQueryState("getPrincipal");
+    const principal = principalState.data.data;
     const [ isChallengeFeedRefetch, setIsChallengeFeedRefetch ] = useState(false);
     const [ feedList, setFeedList ] = useState([]);
     const [ page, setPage ] = useState(1);
@@ -13,6 +14,7 @@ function Feed(props) {
     const [ commentInputList, setCommentInputList ] = useState();
     
     useEffect(() => {
+
         const observerService = (entries, observer) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
@@ -105,16 +107,20 @@ function Feed(props) {
                                 <p>{getTimeDifference(feed.dateTime)}</p>
                             </div>
 
-                        <div css={S.SFeedBottomLayout}>
-                            <div css={S.SFeedBottomHeader}>
-                                <button>좋아요</button>
-                                <button>댓글</button>
-                            </div>
-                            <div css={S.SFeedBottomBody}>
-                                <div>이미지</div>
-                                <div><p>{principalState.data.data.nickname}</p><input type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput}/><button onClick={() => {handleCommnetSubmit(feed.feedId)}}>댓글달기</button></div>
-                            </div>
-                        </div>
+                            {principalState && 
+                                <div css={S.SFeedBottomLayout}>
+                                    <div css={S.SFeedBottomHeader}>
+                                        <button>좋아요</button>
+                                        <button>댓글</button>
+                                    </div>
+                                    <div css={S.SFeedBottomBody}>
+                                        <div css={S.SFeedBottomProfileImgContainer}>
+                                            <input css={S.SFeedBottomProfileImg} type="image" src={principal.profileUrl}/>
+                                        </div>
+                                        <div><p>{principal.nickname}</p><input type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput}/><button onClick={() => {handleCommnetSubmit(feed.feedId)}}>댓글달기</button></div>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 ))}

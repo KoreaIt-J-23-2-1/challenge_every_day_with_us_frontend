@@ -127,3 +127,13 @@ export const SFeedBottomBody = css`
     justify-content: center;
     align-items: center;
 `;
+
+export const SFeedBottomProfileImgContainer = css`
+    width: 50px;
+    height: 50px;
+`;
+
+export const SFeedBottomProfileImg = css`
+    width: 100%;
+    height: 100%;
+`;
