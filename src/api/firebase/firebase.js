@@ -8,13 +8,13 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyD8nPIsb-FsPABn4HfPTtSQI5PEp25V9cA",
-    authDomain: "board-def75.firebaseapp.com",
-    projectId: "board-def75",
-    storageBucket: "board-def75.appspot.com",
-    messagingSenderId: "430481023941",
-    appId: "1:430481023941:web:8cd92682ac7e0bf051a1ac",
-    measurementId: "G-YPNV435KK9"
+    apiKey: "AIzaSyD-UuxsGRvBZ_jxzT7vBqoAMvs2PnxJ_hw",
+    authDomain: "challengewithus-1ffef.firebaseapp.com",
+    projectId: "challengewithus-1ffef",
+    storageBucket: "challengewithus-1ffef.appspot.com",
+    messagingSenderId: "813972652691",
+    appId: "1:813972652691:web:7818dba929b3b66e848366",
+    measurementId: "G-X612HV3368"
 };
 
 // Initialize Firebase

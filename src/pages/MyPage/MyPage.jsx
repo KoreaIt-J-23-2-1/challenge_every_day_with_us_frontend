@@ -212,9 +212,7 @@ function MyPage(props) {
     console.log(getMyChallenges);
 
     return (
-        <>
-            <Header />
-            <BaseLayout>
+        <BaseLayout>
             <div css={Layout}>
                 <button onClick={handleBackButton}>뒤로가기</button>
                 <div css={UserBox}>
@@ -223,6 +221,7 @@ function MyPage(props) {
                     </div>
                     <div css={ProfileBox}>
                         <div css={ProfileText}>등급: 
+                            <img src="" ></img>
                             <p>{principal.membership}</p>
                         </div>
                         <div css={ProfileText}>포인트: 
@@ -280,8 +279,7 @@ function MyPage(props) {
                     )}
                 </div>
                 </div>
-            </BaseLayout>
-        </>
+        </BaseLayout>
     );
 }
 

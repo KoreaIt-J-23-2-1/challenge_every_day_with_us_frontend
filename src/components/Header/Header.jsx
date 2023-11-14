@@ -10,6 +10,7 @@ import { instance } from '../../api/config/instance';
 import logoimg1 from '../../img/로고이미지3.png';
 import logoimg2 from '../../img/로고이미지2.png';
 import MenuBtn from '../MenuBtn/MenuBtn';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 
 
 function Header() {
@@ -54,17 +55,22 @@ function Header() {
     const handleClick = () => {
         setIsActive(isActive);
     };
+
+    const handlebackClick = () => {
+        navigate(-1);
+    }
     
     return (
         <>
             <div css={S.Layout}>
-                <div css={S.HeaderBox}>     
-                    
-                    <div css={S.LogoBtn} onClick={GoStartPage}
-                        onMouseOver={() => setOnLogo(true)} onMouseOut={() => setOnLogo(false)}>
-                        <img src={onLogo ? logoimg1 : logoimg2} alt="로고 이미지" />
+                <div css={S.HeaderBox}>
+                    <IoMdArrowRoundBack onClick={handlebackClick} css={S.BackBtn}/>
+                    <div css={S.HeaderTitleBox}>
+                        <div css={S.LogoBtn} onClick={GoStartPage}
+                            onMouseOver={() => setOnLogo(true)} onMouseOut={() => setOnLogo(false)}>
+                            <img src={onLogo ? logoimg1 : logoimg2} alt="로고 이미지" />
+                        </div>
                     </div>
-                    <div css={S.HeaderTitleBox}></div>
                     <div css={S.Icon} onClick={handleStampOpen}><BsCalendarCheck/></div>
                     {(!getLettersCount.isLoading && principal ) && (
                         <>
