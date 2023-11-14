@@ -9,12 +9,14 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import logoimg1 from '../../img/로고이미지3.png';
 import logoimg2 from '../../img/로고이미지2.png';
+import MenuBtn from '../MenuBtn/MenuBtn';
 
 
 function Header() {
     const navigate = useNavigate();
     const [getLetter, setGetLetter] = useState(false);
     const [onLogo, setOnLogo] = useState(false);
+    const [isActive, setIsActive] = useState(false);
     const [isLetterSideBarOpen, setLetterSideBarOpen] = useState(false);
     const queryClient = useQueryClient().getQueryState("getPrincipal");
     const principal = queryClient?.data?.data;
@@ -48,6 +50,10 @@ function Header() {
     const GoStartPage = () => {
         window.location.replace("/");
     }
+
+    const handleClick = () => {
+        setIsActive(isActive);
+    };
     
     return (
         <>
@@ -69,8 +75,11 @@ function Header() {
                         </>
                         )
                     }
+                    {/* <MenuBtn/> */}
                 </div>
             </div>
+
+
             <div css={[S.LetterSideBarCss, isLetterSideBarOpen && { right: 0 }]}>
                 <LetterSideBar />
             </div>

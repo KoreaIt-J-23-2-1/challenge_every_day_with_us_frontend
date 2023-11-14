@@ -27,10 +27,10 @@ export const Common = css`
     
     
     html{
-        /* background-color: white; */
-        background-image: url(${img3});
+        background-color: white;
+        /* background-image: url(${img3});
         background-size: cover; 
-        background-repeat: no-repeat;
+        background-repeat: no-repeat; */
         height: 100vh;
     }
 

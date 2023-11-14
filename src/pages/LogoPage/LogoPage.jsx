@@ -5,16 +5,19 @@ import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.developm
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 /** @jsxImportSource @emotion/react */
 
+const layout = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+
+`;
+
 const imgbox = css`
     cursor: pointer;
-    margin:  100px auto;
+    margin:  120px auto;
     width: 500px;
     height: 500px;
-    /* position: relative; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
 
     &:hover{
         img {
@@ -24,7 +27,7 @@ const imgbox = css`
 `;
 
 
-function LogoPage(props) {
+function LogoPage(s) {
     const navigate = useNavigate();
 
     const GoMainPage = () => {
@@ -39,14 +42,11 @@ function LogoPage(props) {
     }, [navigate]);
 
     return (
-        <BaseLayout>
+        <div css={layout}>
             <div css={imgbox}>
                 <img src={logoimg} alt="로고 이미지" onClick={GoMainPage} />
             </div>
-            <div >
-
-            </div>
-        </BaseLayout>
+        </div>
     );
 }
 export default LogoPage;

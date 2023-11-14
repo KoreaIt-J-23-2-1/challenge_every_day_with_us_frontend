@@ -34,9 +34,8 @@ function Main(props) {
     
     return (
         <div>
-            <Header />
+            {/* <Header /> */}
             <BaseLayout>
-                {/* <Header/> */}
                 <h1>임시 메인페이지(버튼이동용...)</h1>
                 <p>주소 매번 입력하기...귀찮았다...미안하다...</p>
                 <div css={btn}>

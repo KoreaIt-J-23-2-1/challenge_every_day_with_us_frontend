@@ -13,7 +13,7 @@ export const Layout = css`
 export const HeaderBox = css`
     position: fixed;
     top: 0;
-    width: 100%;
+    width: 99%;
     height: 70px;
     display: flex;
     align-items: center;
@@ -82,8 +82,12 @@ export const LetterSideBarCss = css`
     overflow: hidden;
     display: flex;
     position: fixed;
-    /* background-color: white; */
+    background-color: white;
     width: 400px;
     height: 92vh;
-    transition: right 0.5s ease-in;
+    transition: right 0.8s ease;
+    
 `;
+
+
+

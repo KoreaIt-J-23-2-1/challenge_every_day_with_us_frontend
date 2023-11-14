@@ -10,7 +10,6 @@ const modalContainer = css`
     left: 0;
     width: 100%;
     height: 100%;
-    background:#ededed50;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -23,6 +22,7 @@ const modalContent = css`
     border-radius: 8px;
     width: 400px;
     max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     
 `;
 
