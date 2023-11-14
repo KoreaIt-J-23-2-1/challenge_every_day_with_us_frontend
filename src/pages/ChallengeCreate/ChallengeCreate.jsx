@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
+import BaseLayout from '../../components/BaseLayout/BaseLayout';
 
 const ChallengeTitle = css`
     display: flex;
@@ -237,7 +238,7 @@ function ChallengeCreate({ children }) {
     };
 
     return (
-        <div>
+        <>
             <button onClick={handleBackButton}>뒤로가기</button>
             <div css={ChallengeTitle}>
                 <div css={CategoryBox}>
@@ -312,7 +313,7 @@ function ChallengeCreate({ children }) {
             <div css={ApplicationBtn}>
                 <button onClick={handleSubmitButton}>생성하기</button>
             </div>
-        </div>
+        </>
     );
 }
 

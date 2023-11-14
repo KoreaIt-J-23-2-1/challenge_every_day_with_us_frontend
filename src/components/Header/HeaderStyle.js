@@ -48,6 +48,7 @@ export const LogoBtn = css`
         object-fit: contain;
     }
 `;
+
 export const Icon = css`
     cursor: pointer;
     display: flex;
@@ -89,5 +90,7 @@ export const LetterSideBarCss = css`
     
 `;
 
-
+export const BackBtn = css`
+    cursor: pointer;
+`;
 
