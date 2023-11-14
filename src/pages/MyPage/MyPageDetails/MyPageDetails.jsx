@@ -8,6 +8,11 @@ import { ref, getDownloadURL, uploadBytes, uploadBytesResumable } from "firebase
 import { storage } from '../../../api/firebase/firebase';
 import * as S from "./Style";
 import BaseLayout from '../../../components/BaseLayout/BaseLayout';
+import { FaRegUser } from "react-icons/fa";
+import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
+import { HiOutlineMail } from "react-icons/hi";
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
+import logoimg from '../../../img/로고이미지2.png';
 
 const layout = css`
     display: flex;
@@ -30,6 +35,25 @@ const sideBox = css`
     z-index: 1;
 `;
 
+const logoBtn = css`
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    padding: 18px 24px;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+`;
+
+const imgContainer = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+`;
+
 const leftHeader = css`
     display: flex;
 `;
@@ -37,14 +61,10 @@ const leftHeader = css`
 const leftMenu = css`
     margin-top: 20px;
     list-style: none;
-    padding-left: 0px;
+    padding: 0 39px;
 `;
 
-const imgContainer = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
+
 
 const imgBox = css`
     display: flex;
@@ -74,17 +94,19 @@ const userBox = css`
         width: 200px;
         margin: 5px;
     }
-    & > input {
-
-    }
 `;
 
 const inputBox = css`
     display: flex;
     height: 20px;
 
-    & > p {
-        font-size: 12px;
+    & > input {
+        border: none;
+        border-bottom: 1px solid black;
+        &:focus {
+            outline: none;
+        }
+        margin-left: 10px;
     }
 `;
 
@@ -215,10 +237,15 @@ function MyPageDetails(props) {
         }
     }
 
+    const GoStartPage = () => {
+        window.location.replace("/");
+    }
+
     return (
         <BaseLayout>
             <div css={layout}>
                 <div css={sideBox}>
+                    <div css={logoBtn} onClick={GoStartPage}><img src={logoimg} alt="로고 이미지"/></div>
                     <div css={imgContainer}>
                         <div css={imgBox} onClick={handleProfileUploadClick}>
                             <img src={profileImgSrc} alt="" />
@@ -234,16 +261,19 @@ function MyPageDetails(props) {
                 </div>
                 <div css={userBox}>
                     <div css={inputBox}>
-                        <p>이름:</p>
+                        <div><FaRegUser /></div>
                         <input type="text" name='name' value={principal.name} disabled={true} onChange={handleInputChange} placeholder='이름' />
                     </div>
-                    <div>
+                    <div css={inputBox}>
+                        <div><MdOutlineDriveFileRenameOutline /></div>
                         <input type="text" name='nickname' defaultValue={principal.nickname} onChange={handleInputChange} placeholder='닉네임' />
                     </div>
-                    <div>
+                    <div css={inputBox}>
+                        <div><HiOutlineMail /></div>
                         <input type="text" name='email' value={principal.email} disabled={true} onChange={handleInputChange} placeholder='이메일' />
                     </div>
-                    <div>
+                    <div css={inputBox}>
+                        <div><HiOutlineDevicePhoneMobile /></div>
                         <input type="text" name='phone' value={principal.phone} disabled={true} onChange={handleInputChange} placeholder='전화번호' />
                     </div>
                     <button css={S.SModify} onClick={handleModifyMypageDetailSubmit}>정보변경</button>
