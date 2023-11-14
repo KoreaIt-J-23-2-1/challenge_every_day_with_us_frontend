@@ -25,6 +25,7 @@ import { Global } from '@emotion/react';
 import { Common } from "./styles/common";
 import { SReset } from './styles/reset';
 import Store from './components/Store/Store';
+import NoticeEdit from './pages/NoticeEdit/NoticeEdit';
 
 function App() {
 
@@ -70,7 +71,10 @@ function App() {
 
         <Route path='/notice/page/:page' element={<NoticeList/>} />
         <Route path='/notice/write' element={<NoticeWrite />} />
-         <Route path="/notice/:noticeId" element={ <NoticeDetails/> } />
+        <Route path="/notice/:noticeId" element={<NoticeDetails />} />
+        <Route path="/notice/:noticeId/edit" element={<NoticeEdit />} />
+        
+
         <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
         <Route path='/challenge/category' element={<CategoryPage/>} />
         <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
