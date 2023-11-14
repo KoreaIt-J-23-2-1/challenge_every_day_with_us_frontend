@@ -118,14 +118,20 @@ export const SFeedBottomLayout = css`
 
 export const SFeedBottomHeader = css`
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    width: 100%;
 `;
 
 export const SFeedBottomBody = css`
     display: flex;
-    justify-content: center;
-    align-items: center;
+    & > div:nth-of-type(2) > input {
+        outline: none;
+        border: 1px solid #dbdbdb;
+        border-radius: 10px;
+        height: 30px;
+        
+    }
 `;
 
 export const SFeedBottomProfileImgContainer = css`
@@ -136,4 +142,8 @@ export const SFeedBottomProfileImgContainer = css`
 export const SFeedBottomProfileImg = css`
     width: 100%;
     height: 100%;
+`;
+
+export const SFeedBottomFooter = css`
+    display: flex;
 `;
