@@ -1,171 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { instance } from '../../api/config/instance';
-import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import {AiOutlineLike, AiTwotoneLike} from 'react-icons/ai';
 /** @jsxImportSource @emotion/react */
-
-const Layout = css`
-    display: flex;
-    flex-direction: column;
-`;
-
-const HeaderLayout = css`
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    height: 150px;
-    margin: 0px 30px;
-
-    & b {
-        font-size: 30px;
-    }
-
-    & p {
-        margin: 0px;
-        margin-top: 20px;
-    }
-`;
-
-const Box = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-`;
-
-const DeleteButton = css`
-    width: 50px;
-    height: 30px;
-    border: 1px solid #eee;
-    background-color: transparent;
-    border-radius: 10px;
-    cursor: pointer;
-    
-    &:active {
-        background-color: #eee;
-    }
-`;
-
-const Writer = css`
-    font-size: 14px;
-
-    & b {
-        margin-left: 5px;
-        font-size: 20px;
-    }
-`;
-
-const BodyLayout = css`
-    display: flex;
-    justify-content: space-between;
-    margin: 0px 30px;
-    
-    & img {
-        
-    }
-`;
-
-const BodyFeedLayout = css`
-    display: flex;
-    flex-grow: 1;
-    height: 700px;
-    border: 2px solid #dbdbdb;
-    border-radius: 10px;
-`;
-
-const BodyRightBox = css`
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-`;
-
-const ParticipationButton = css`
-    margin-top: 20px;
-    width: 400px;
-    height: 40px;
-    background-color: transparent;
-    border: 1px solid #dbdbdb;
-    border-radius: 10px;
-    cursor: pointer;
-
-    &:active {
-        background-color: #eee;
-    }
-`;
-
-const textBox = css`
-    width: 400px;
-    height: 100px;
-    border: 2px solid #dbdbdb;
-    margin: 20px 0px;
-`;
-
-const SLikeButton = (isLike) => css`
-    position: sticky;
-    margin: 0px 40px;
-    border: 1px solid #dbdbdb;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background-color: ${isLike ? "#7bbdff" : "#fff"};
-    cursor: pointer;
-`;
-
-const line = css`
-    margin: 10px 20px;
-    border-bottom: 2px solid #dbdbdb;
-`;
-
-const ListBox = css`
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    height: 425px;
-    overflow: auto;
-    border: 1px solid #dbdbdb;
-    border-radius: 5px;
-    
-    & scrollable-container {
-        height: 100%;
-    }
-
-    & b {
-        margin: 5px;
-    }
-
-    & p {
-        margin: 5px;
-    }
-`;
-
-const ListContainer = css`
-    display: flex;
-    align-items: center;
-
-    & p {
-        margin: 5px;
-    }
-
-    & button {
-        
-    }
-`;
-
-const DeleteChallengerButton = css`
-    width: 50px;
-    height: 20px;
-    background-color: transparent;
-    border: 1px solid #dbdbdb;
-    border-radius: 10px;
-    cursor: pointer;
-
-    &:active {
-        background-color: #eee;
-    }
-`;
+import * as S from './Style';
 
 function ChallengeDetails(props) {
     const navigate = useNavigate();
@@ -179,6 +19,10 @@ function ChallengeDetails(props) {
     const [ todayDifference, setTodayDifference ] = useState(null);
     const [ isJoined, setIsJoined ] = useState("");
     const [ button, setButton ] = useState(false);
+    const [ isChallengeFeedRefetch, setIsChallengeFeedRefetch ] = useState(false);
+    const [ feedList, setFeedList ] = useState([]);
+    const [ page, setPage ] = useState(1);
+    const lastChallengeRef = useRef();
 
     const option = {
         headers: {
@@ -252,6 +96,31 @@ function ChallengeDetails(props) {
         retry: 0
     })
 
+    const getFeedList = useQuery(["getFeedList"], async () => {
+        return await instance.get(`/api/challenge/certification/feed/${page}`, option);
+    }, {
+        refetchOnWindowFocus: false,
+        enabled: isChallengeFeedRefetch,
+        onSuccess: (response) => {
+            setFeedList([...feedList].concat(response.data));
+            setIsChallengeFeedRefetch(false);
+            setPage(page + 1);
+        }
+    });
+
+    useEffect(() => {
+        const observerService = (entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    setIsChallengeFeedRefetch(true);
+                }
+            });
+        }
+
+        const observer = new IntersectionObserver(observerService, {threshold: 1});
+        observer.observe(lastChallengeRef.current);
+    }, []);
+
     useEffect(() => {
         const startDate = new Date(challenge.startDate);
         const endDate = new Date(challenge.endDate);
@@ -264,15 +133,6 @@ function ChallengeDetails(props) {
         setDateDifference(dayDifference);
         setTodayDifference(todayDifference)
     }, [challenge.startDate, challenge.endDate]);
-
-    if(getChallenge.isLoading) {
-        return <></>
-    }
-
-    if(getChallengers.isLoading) {
-        return<></>
-    }
-
 
     const handleLikebuttonClick = async () => {
         console.log(principal)
@@ -354,7 +214,10 @@ function ChallengeDetails(props) {
     const handleDeleteChallenger = async (userId) => {
         console.log(userId)
         if(userId !== challenge.userId) {
-            instance.delete(`/api/challenger/${challengeId}`, {...option, params: {"userId": userId}});
+            instance.delete(`/api/challenger/${challengeId}`, {
+                ...option,
+                params: {"userId": userId}
+            });
             await queryClient.refetchQueries(["getChallengers"]);
             alert("삭제완료!");
         } else {
@@ -363,15 +226,11 @@ function ChallengeDetails(props) {
         getChallengers.refetch();
     };
 
-    console.log(challenge)
-    console.log(challengers)
-    console.log("isOwner")
-    console.log(isOwner())
-
+    console.log(feedList)
 
     return (
-        <div css={Layout}>
-            <div css={HeaderLayout}>
+        <div css={S.Layout}>
+            <div css={S.HeaderLayout}>
                 <div>
                     <b>[{challenge.categoryName}]</b>
                     {dateDifference !== null && (
@@ -381,41 +240,78 @@ function ChallengeDetails(props) {
                 {queryClient.data}
                 <h1>{challenge.challengeName}</h1>
                 <div>
-                    <div css={Box}>
-                        <div css={Writer}>작성자: <b>{challenge.name}</b> </div>
+                    <div css={S.Box}>
+                        <div css={S.Writer}>작성자: <b>{challenge.name}</b> </div>
                         <div>
                             {!getLikeState.isLoading &&
-                                <button css={SLikeButton(getLikeState?.data?.data)} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
+                                <button css={S.SLikeButton(getLikeState?.data?.data)} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
                                     <div>{isLike ? <AiTwotoneLike/> : <AiOutlineLike/>}</div>
                                     <div>{challenge.challengeLikeCount}</div>
                                 </button>
                             }
                         </div>
-                        <button css={DeleteButton} onClick={handleDeleteClick}>삭제</button>
+                        <button css={S.DeleteButton} onClick={handleDeleteClick}>삭제</button>
                     </div>
                 </div>
             </div>
-            <div css={line}></div>
-            <div css={BodyLayout}>
-                <div css={BodyFeedLayout}>
-                    챌린지별 피드 띄우기
+            <div css={S.line}></div>
+            <div css={S.BodyLayout}>
+                <div css={S.BodyFeedLayout}>
+                    <div css={S.SLayout}>
+                        {feedList.map(feed => (
+                            <div key={feed.feedId} css={S.SFeedContainer}>
+                                <div css={S.SFeedLayout}>
+                                    <div css={S.SFeedHeader}>
+                                        <div>
+                                            <img src={feed.profileUrl} alt="" />
+                                            <b>{feed.nickname}</b>
+                                        </div>
+                                    </div>
+                                    <div css={S.SFeedBody}>
+                                        <div>
+                                            <p>[{feed.categoryName}]</p>
+                                            <div><b>{feed.challengeName}</b> Challenge</div>
+                                        </div>
+                                        {feed.stopWatch !== 0 ? (
+                                            <div>{convertSecondsToTime(feed.stopWatch)}</div>
+                                        ) : (null)}
+                                        <img src={feed.img} alt="" />
+                                    </div>
+                                    <div css={S.SText}>
+                                        <div>{feed.feedContent}</div>
+                                    </div>
+                                    <div css={S.SInfo}>
+                                        <p>{getTimeDifference(feed.dateTime)}</p>
+                                    </div>
+                                <div css={S.SFeedBottomLayout}>
+                                    <div css={S.SFeedBottomHeader}>
+                                        <b>좋아요</b>
+                                        <b>댓글</b>
+                                    </div>
+                                    <div css={S.SFeedBottomBody}>
+                                        <div>이미지</div>
+                                        <div><p>{principal.data.data.nickname}</p>댓글</div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        ))}
+                    <div ref={lastChallengeRef}></div>
+                    </div>
                 </div>
-                <div css={BodyRightBox}>
+                <div css={S.BodyRightBox}>
                     <p>기간: {challenge.startDate} ~ {!challenge.endDate ? "마감 없음": challenge.endDate}</p>
-
-                    <div css={textBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
+                    <div css={S.textBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
                     <b>참여인원</b>
-                    <button css={ParticipationButton} onClick={handleParticipationButton} disabled={button}>
+                    <button css={S.ParticipationButton} onClick={handleParticipationButton} disabled={button}>
                         {isJoined}
                     </button>
-
-                    
-                    <div css={ListBox}>
+                    <div css={S.ListBox}>
                         <b>참여인원</b>
                         {Object.values(challengers).map((item, index) => (
-                            <div key={index} css={ListContainer}>
+                            <div key={index} css={S.ListContainer}>
                                 <p>{item.nickname}</p>
-                                {(item.userId !== challenge.userId && isOwner(principal.data.data.userId, challenge.userId))  && <button css={DeleteChallengerButton} onClick={() => handleDeleteChallenger(item.userId)}>삭제</button>}
+                                {(item.userId !== challenge.userId && isOwner(principal.data.data.userId, challenge.userId))  && <button css={S.DeleteChallengerButton} onClick={() => handleDeleteChallenger(item.userId)}>삭제</button>}
                             </div>
                         ))}
                     </div>
@@ -426,3 +322,32 @@ function ChallengeDetails(props) {
 }
 
 export default ChallengeDetails;
+
+function getTimeDifference(feedDateTime) {
+    const currentDateTime = new Date();
+    const feedDate = new Date(feedDateTime);
+
+    const timeDifferenceInSeconds = Math.floor((currentDateTime - feedDate) / 1000);
+
+    if (timeDifferenceInSeconds < 60) {
+        return `${timeDifferenceInSeconds}초 전`;
+    } else if (timeDifferenceInSeconds < 3600) {
+        const minutes = Math.floor(timeDifferenceInSeconds / 60);
+        return `${minutes}분 전`;
+    } else if (timeDifferenceInSeconds < 86400) {
+        const hours = Math.floor(timeDifferenceInSeconds / 3600);
+        return `${hours}시간 전`;
+    } else {
+        const days = Math.floor(timeDifferenceInSeconds / 86400);
+        return `${days}일 전`;
+    }
+}
+
+function convertSecondsToTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedTime = `${hours > 0 ? hours + '시간 ' : ''}${minutes > 0 ? minutes + '분 ' : ''}${remainingSeconds}초`;
+    return formattedTime.trim();
+}

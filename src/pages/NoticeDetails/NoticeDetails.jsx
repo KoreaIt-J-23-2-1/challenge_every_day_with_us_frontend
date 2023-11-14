@@ -38,7 +38,6 @@ function NoticeDetails(props) {
 
     return (
         <>
-            <Header />
             <BaseLayout>
                 <div >
                     <h1>{notice.noticeTitle}</h1>

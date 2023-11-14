@@ -4,10 +4,18 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 import LetterModal from '../LetterModal/LetterModal';
+import img3 from '../../img/배경3.jpg'
+
 
 const LetterSideBarLayout = css`
     overflow: hidden;
     position: relative;
+    width: 400px;
+    border-radius: 10px 0px 0px 10px;
+    border-left:5px solid #dfdfdf;
+    padding: 0px 10px;
+    
+
 `;
 
 const miniLetter = css`
@@ -40,6 +48,8 @@ const modalCloseBtn = css`
 const modalTitle = css`
     cursor: pointer;
 `;
+
+
 
 function LetterSideBar(props) {
     const [ isModalOpen, setIsModalOpen] = useState(false);
@@ -185,14 +195,14 @@ function LetterSideBar(props) {
                 </div>
             </div>
 
-            <LetterModal isOpen={isModalOpen} onClose={closeModal} selectedLetter={selectedLetter}>
+            <LetterModal  isOpen={isModalOpen} onClose={closeModal} selectedLetter={selectedLetter}>
                 <div css={modalCloseBtn} onClick={closeModal}>닫기</div>
                 {!getLetterList.isLoading && selectedLetter && (
                     <div>
                         <h3 css={modalTitle} onClick={GoTargetLetterUrl}>{selectedLetter.title}</h3>
                         <div><b>Sender: </b>{selectedLetter.senderNickname}</div>
-                        <div><b>Content: </b>{selectedLetter.content}</div>
                         <div><b>Date: </b>{selectedLetter.sendDateTime}</div>
+                        <div><b>Content: </b>{selectedLetter.content}</div>
                         {selectedLetter.title === "챌린지 승인 요청" && (
                             <div>
                                 <button onClick={handleAcceptChallenge} disabled={buttonDisabled}>수락</button>
