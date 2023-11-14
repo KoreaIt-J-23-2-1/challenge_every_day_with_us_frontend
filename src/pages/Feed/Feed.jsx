@@ -78,6 +78,9 @@ function Feed(props) {
                                     <p>[{feed.categoryName}]</p>
                                     <div><b>{feed.challengeName}</b> Challenge</div>
                                 </div>
+                                    {feed.stopWatch !== 0 ? (
+                                        <div>{convertSecondsToTime(feed.stopWatch)}</div>
+                                    ) : (null)}
                                 <img src={feed.img} alt="" />
                             </div>
                             <div css={S.SText}>
@@ -125,4 +128,13 @@ function getTimeDifference(feedDateTime) {
         const days = Math.floor(timeDifferenceInSeconds / 86400);
         return `${days}일 전`;
     }
+}
+
+function convertSecondsToTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedTime = `${hours > 0 ? hours + '시간 ' : ''}${minutes > 0 ? minutes + '분 ' : ''}${remainingSeconds}초`;
+    return formattedTime.trim();
 }

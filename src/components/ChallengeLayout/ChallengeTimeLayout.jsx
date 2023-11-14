@@ -100,6 +100,7 @@ function ChallengeTimeLayout() {
     const [ selectedImage, setSelectedImage ] = useState(null);
     const [ uploadFiles, setUploadFiles ] = useState([]);
     const [ profileImgSrc, setProfileImgSrc ] = useState("");
+    const [ refetch, setRefetch ] = useState(false);
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
@@ -115,14 +116,20 @@ function ChallengeTimeLayout() {
         }, {
             retry: 0,
             refetchOnWindowFocus: false,
+            enabled: refetch,
             onSuccess: response => {
                 setChallenge(response.data);
+                setRefetch(false);
             }
     });
 
     useEffect(() => {
-        let timerInterval;
+        setRefetch(true);
+    }, [])
 
+    useEffect(() => {
+        let timerInterval;
+        
         if (isRunning) {
             timerInterval = setInterval(() => {
                 setTime((prevTime) => prevTime + 1);
@@ -186,8 +193,6 @@ function ChallengeTimeLayout() {
     
         reader.readAsDataURL(files[0]);
     };
-
-    console.log(challenge)
     
     const handleSave = async () => {
         const textValue = document.getElementById('challengeText').value;
@@ -196,7 +201,7 @@ function ChallengeTimeLayout() {
             try {
                 imageUrl = await uploadImageToFirebase(uploadFiles[0]);
             } catch (error) {
-                console.error("Error uploading image:", error);
+                console.error(error);
                 return;
             }
         }
@@ -209,11 +214,7 @@ function ChallengeTimeLayout() {
             layout: 2
         }
         try {
-            const response = await instance.post(`/api/challenge/feed/${challengeId}`, data, {
-                headers: {
-                    Authorization: localStorage.getItem('accessToken')
-                },
-            });
+            const response = await instance.post(`/api/challenge/feed/${challengeId}`, data, option);
 
             console.log(response.data);
         } catch (error) {
