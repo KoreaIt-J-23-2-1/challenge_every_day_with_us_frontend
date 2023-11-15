@@ -3,12 +3,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { instance } from '../../api/config/instance';
 import { useQuery, useQueryClient } from 'react-query';
 import * as S from './AdminStyle';
-import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import AdminModal from '../AdminModal/AdminModal';
+import BaseLayout from '../BaseLayout/BaseLayout';
 import ReactSelect from 'react-select';
+import { MdDeleteOutline } from "react-icons/md";
+import { IoStopCircleOutline } from "react-icons/io5";
 
 function Admin() {
-    const navigate = useNavigate();
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState?.data?.data;
@@ -18,7 +19,7 @@ function Admin() {
     const [ challengeList, setChallengeList ] = useState([]);
     const [ isChallengeListRefetch, setIsChallengeListRefetch ] = useState(false);
     const lastChallengeRef = useRef();
-    const [orderBy, setOrderBy] = useState('latest');
+    const [sort, setSort] = useState('latest');
 
     const options = [
         {value: "전체", label: "전체"},
@@ -35,8 +36,9 @@ function Admin() {
 
     const getChallengeList = useQuery(["getChallengeList"], async () => {
         const option = {
-            params: { ...searchParams, orderBy }
+            params: { ...searchParams, sort }
         }
+
         return await instance.get(`/api/challenges/${page}`, option);
     }, {
         retry: 0,
@@ -61,7 +63,7 @@ function Admin() {
     useEffect(() => {
         setPage(1);
         setChallengeList([]);
-    }, [orderBy])
+    }, [sort])
 
     useEffect(() => {
         const observerService = (entries, observer) => {
@@ -72,17 +74,53 @@ function Admin() {
             });
         }
 
-        const observer = new IntersectionObserver(observerService, {threshold: 1});
+        const observer = new IntersectionObserver(observerService, {threshold: 0.1});
         observer.observe(lastChallengeRef.current);
     }, []);
-
-    if(getChallengeList.isLoading) {
-        return <></>
-    };
 
     const handleChallengeClick = (challenge) => {
         setSelectedChallenge(challenge);
         setModalOpen(true);
+    };
+
+    const handleChallengeStopClick = async (challenge) => {
+        setSelectedChallenge(challenge);
+
+        setSelectedChallenge(prevChallenge => {
+            const challengeId = prevChallenge
+            console.log(challengeId);
+            const stop = window.confirm(`${challengeId}번 챌린지를 정말 중단 시키겠습니까?`);
+            
+            if(stop){
+                const response = instance.put(`/api/challenge/stop/${challengeId}`)
+                if(response){
+                    alert("중단 되었습니다.");
+                }else {
+                    alert("error")
+                }
+            }
+
+        });    
+    };
+
+    const handleChallengeDeleteClick = (challenge) => {
+        setSelectedChallenge(challenge);
+
+        setSelectedChallenge(prevChallenge => {
+            const challengeId = prevChallenge
+            console.log(challengeId);
+            const stop = window.confirm(`${challengeId}번 챌린지를 삭제 시키겠습니까?`);
+            
+            if(stop){
+                const response = instance.put(`/api/challenge/hidden/${challengeId}`)
+                if(response){
+                    alert("삭제 되었습니다.");
+                }else {
+                    alert("error")
+                }
+            }
+            
+        });    
     };
     
     const handleCloseModal = () => {
@@ -116,8 +154,8 @@ function Admin() {
         })
     }
 
-    const handleCheckboxChange = (event) => {
-        setOrderBy(event.target.value);
+    const handleCheckboxChange = async (event) => {
+        setSort(event.target.value);
         setPage(1);
     };
 
@@ -139,14 +177,20 @@ function Admin() {
                 </div>
             </div>
                 <div css={S.Alignment}>
-                    <input type="radio" name="radioGroup" id="radio1" checked={orderBy === 'latest'} onChange={handleCheckboxChange} value="latest"/>
-                    <label htmlFor="radio1">최신순</label>
-                    <input type="radio" name="radioGroup" id="radio2" checked={orderBy === 'oldest'} onChange={handleCheckboxChange} value="oldest"/>
-                    <label htmlFor="radio2">오래된순</label>
-                    <input type="radio" name="radioGroup" id="radio3" checked={orderBy === 'popular'} onChange={handleCheckboxChange} value="popular"/>
-                    <label htmlFor="radio3">인기순</label>
-                    <input type="radio" name="radioGroup" id="radio4" checked={orderBy === 'participants'} onChange={handleCheckboxChange} value="participants"/>
-                    <label htmlFor="radio4">참여자많은순</label>
+                    <div>
+                        <input type="radio" name="radioGroup" id="radio1" onChange={handleCheckboxChange} value="latest" defaultChecked={true}/>
+                        <label htmlFor="radio1">최신순</label>
+                        <input type="radio" name="radioGroup" id="radio2" onChange={handleCheckboxChange} value="oldest"/>
+                        <label htmlFor="radio2">오래된순</label>
+                        <input type="radio" name="radioGroup" id="radio3" onChange={handleCheckboxChange} value="popular"/>
+                        <label htmlFor="radio3">인기순</label>
+                        <input type="radio" name="radioGroup" id="radio4" onChange={handleCheckboxChange} value="participants"/>
+                        <label htmlFor="radio4">참여자많은순</label>
+                        <input type="radio" name="radioGroup" id="radio5" onChange={handleCheckboxChange} value="hidden"/>
+                        <label htmlFor="radio5">삭제된 챌린지</label>
+                        <input type="radio" name="radioGroup" id="radio6" onChange={handleCheckboxChange} value="stop"/>
+                        <label htmlFor="radio6">중단된 챌린지</label>
+                    </div>
                     <div css={S.searchContainer}>
                         <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect}/>
                         <input type="text" onChange={handleSearchInputChange} />
@@ -165,12 +209,14 @@ function Admin() {
                 </div>
                 <div css={S.SChallengeListBody}>
                     {challengeList?.map((myChallenge) => (
-                        <li key={myChallenge.challengeId} onClick={() => handleChallengeClick(myChallenge.challengeId)}>
-                            <div>{myChallenge.challengeName}</div>
-                            <div>{myChallenge.categoryName}</div>
-                            <div>{myChallenge.name}</div>
-                            <div>{calculateDaysElapsed(myChallenge.startDate) + 1}일차</div>
-                            <div>{myChallenge.likeCount}</div>
+                        <li key={myChallenge.challengeId}>
+                            <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.challengeName}</div>
+                            <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.categoryName}</div>
+                            <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.name}</div>
+                            <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{calculateDaysElapsed(myChallenge.startDate) + 1}일차</div>
+                            <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.likeCount}</div>
+                            <button css={S.StopButton} onClick={() => handleChallengeStopClick(myChallenge.challengeId)}><IoStopCircleOutline /></button>
+                            <button css={S.Deletebutton} onClick={() => handleChallengeDeleteClick(myChallenge.challengeId)}><MdDeleteOutline /></button>
                         </li>
                     ))}
                     <li ref={lastChallengeRef}></li>
@@ -183,6 +229,12 @@ function Admin() {
                     </div>
                 </div>
             )}
+            <div>
+                <p>전체 회원수</p>
+                <p>전체 챌린지수</p>
+                <p>정상종료된 챌린지수</p>
+                <p>삭제된 챌린지수</p>
+            </div>
         </div>
     );
 }

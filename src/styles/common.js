@@ -28,9 +28,9 @@ export const Common = css`
     
     html{
         background-color: white;
-        /* background-image: url(${img3});
+        background-image: url(${img2});
         background-size: cover; 
-        background-repeat: no-repeat; */
+        background-repeat: no-repeat;
         height: 100vh;
         box-sizing: border-box;
     }
