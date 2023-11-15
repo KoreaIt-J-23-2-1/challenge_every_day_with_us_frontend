@@ -46,7 +46,9 @@ function User() {
     };
     
     const toggleStoreModal = () => {
-        setIsStoreModalOpen(!isStoreModalOpen);
+        
+        navigete("/store/items")
+        // setIsStoreModalOpen(!isStoreModalOpen);
     };
 
     const closeModal = () => {
