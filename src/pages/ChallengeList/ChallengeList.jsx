@@ -99,6 +99,7 @@ function ChallengeList(props) {
     const lastChallengeRef = useRef();
     const [ isChallengeListRefetch, setIsChallengeListRefetch ] = useState(false);
     const [ challengeList, setChallengeList ] = useState([]);
+    const [sort, setSort] = useState('latest');
 
     const options = [
         {value: "전체", label: "전체"},
@@ -115,7 +116,7 @@ function ChallengeList(props) {
 
     const getChallengeList = useQuery(["getChallengeList", page], async () => {
         const option = {
-            params: searchParams
+            params: { ...searchParams, sort }
         }
         return await instance.get(`/api/challenges/${page}`, option);
     }, {
@@ -153,6 +154,13 @@ function ChallengeList(props) {
         observer.observe(lastChallengeRef.current);
     }, []);
 
+    useEffect(() => {
+        if(page === 1) {
+            setChallengeList([]);
+            getChallengeList.refetch();
+        }
+    }, [page])
+
     const handleSearchInputChange = (e) => {
         setSearchParams({
             ...searchParams,
@@ -168,8 +176,7 @@ function ChallengeList(props) {
     }
 
     const handleSearchButtonClick = () => {
-        navigate("/challenges");
-        getChallengeList.refetch();
+        setPage(1);
     }
 
     return (
