@@ -23,14 +23,6 @@ const selectBox = css`
     width: 100px;
 `;
 
-const SChallengeTitle = css`
-    max-width: 500px;
-    width: 500px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-`;
-
 const SChallengeList = css`
     width: 100%;
     border: 1px solid #dbdbdb;
@@ -101,11 +93,7 @@ const SPageNumbers = css`
 
 `;
 
-
-
-
 function ChallengeList(props) {
-
     const navigate = useNavigate();
     const [ page, setPage ] = useState(1);
     const lastChallengeRef = useRef();
@@ -131,10 +119,13 @@ function ChallengeList(props) {
         }
         return await instance.get(`/api/challenges/${page}`, option);
     }, {
+        retry: 0,
         refetchOnWindowFocus: false,
         enabled: isChallengeListRefetch,
         onSuccess: (response) => {
-            setChallengeList([...challengeList].concat(response.data));
+            setChallengeList([
+                ...challengeList
+            ].concat(response.data));
             setIsChallengeListRefetch(false);
             setPage(page + 1);
         }
@@ -181,51 +172,6 @@ function ChallengeList(props) {
         getChallengeList.refetch();
     }
 
-    // const pagination = () => {
-
-    //     if(getChallengeCount.isLoading) {
-    //         return <></>
-    //     }
-
-    //     const totalChallengeCount = getChallengeCount.data.data;
-
-    //     const lastPage = totalChallengeCount % 10 === 0
-    //         ?   totalChallengeCount / 10
-    //         :   Math.floor(totalChallengeCount / 10) + 1
-    
-    //     const startIndex = parseInt(page) % 5 === 0 ? parseInt(page) - 4 : parseInt(page) - (parseInt(page) % 5) + 1;
-    //     const endIndex = startIndex + 4 <= lastPage ? startIndex + 4 : lastPage;
-    
-    //     const pageNumbers = [];
-    
-    //     for (let i = startIndex; i <= endIndex; i++) {
-    //         pageNumbers.push(i);
-    //     }
-
-        
-    
-    //     return (
-    //         <>
-    //             <button disabled={parseInt(page) === 1} onClick={() => {
-    //                 navigate(`/challenges/${parseInt(page) - 1}`);
-    //             }}>&#60;</button>
-    
-    //             {pageNumbers.map(num => {
-    //                 return <button key={num} onClick={() => {
-    //                     navigate(`/challenges/${num}`);
-    //                 }}>{num}</button>;
-    //             })}
-    
-    //             <button disabled={parseInt(page) === lastPage} onClick={() => {
-    //                 navigate(`/challenges/${parseInt(page) + 1}`);
-    //             }}>&#62;</button>
-    //         </>
-    //     );
-    // };
-
-    // console.log(challengeList)
-    
-
     return (
         <div>
             <div css={searchContainer}>
@@ -250,8 +196,8 @@ function ChallengeList(props) {
                         return (<li key={challenge.challengeId} 
                                 onClick={() => {navigate(`/challenge/${challenge.challengeId}`)}}>
                                     <div>{challenge.challengeId}</div>
-                                    <div>{challenge.title}</div>
-                                    <div>{challenge.categoryname}</div>
+                                    <div>{challenge.challengeName}</div>
+                                    <div>{challenge.categoryName}</div>
                                     <div>{challenge.startDate}</div>
                                     <div>{challenge.likeCount}</div>
                                 </li>);
@@ -259,10 +205,6 @@ function ChallengeList(props) {
                     <li ref={lastChallengeRef}></li>
                 </div>
             </ul>
-
-            {/* <div css={SPageNumbers}>
-                {pagination()}
-            </div> */}
         </div>
     );
 }

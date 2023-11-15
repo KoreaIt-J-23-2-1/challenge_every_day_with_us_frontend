@@ -28,16 +28,17 @@ export const HeaderTitleBox = css`
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     margin: 5px auto;
-    height: 35px;
+    height: 50x;
     width: 70%;
-    /* border: 1px solid #ededed; */
     border-radius: 50px;
     box-shadow: 0px 3px 6px 0px #ededed;
 
 `;
 
 export const LogoBtn = css`
+    position: absolute;
     cursor: pointer;
     margin: 0px 10px;
     width: 50px;
@@ -91,6 +92,11 @@ export const LetterSideBarCss = css`
 `;
 
 export const BackBtn = css`
+    width: 85px;
     cursor: pointer;
+
+    &:active {
+        color: #dbdbdb;
+    }
 `;
 
