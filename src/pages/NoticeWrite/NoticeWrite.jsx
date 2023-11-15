@@ -7,17 +7,28 @@ import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 
 
+
+const noticeLayout = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
+
 const inputBox = css`
     margin: 5px;
+
     &> label{
         display: flex;
         align-items: center;
         width: 100px;
         font-size: 12px;
     }
+
     & > input {
         margin-top: 4px;
-        width: 930px;
+        width: 100%;
         height: 25px;
     }
 `;
@@ -27,7 +38,7 @@ const btnBox = css`
     justify-content: flex-end;
     align-items: center;
     margin-top: 50px;
-    width: 938px;
+    width: auto;
     
     & > button{
         cursor: pointer;
@@ -41,7 +52,6 @@ const btnBox = css`
         background-color: #dbdbdb;
     }
 `;
-
 
 function NoticeWrite(props) {
 
@@ -87,7 +97,7 @@ function NoticeWrite(props) {
 
 
     const handleCancelBtn = () => {
-        navigete("/notice")
+        navigete("/notice/page/1")
     
     }
 
@@ -99,29 +109,33 @@ function NoticeWrite(props) {
                 }
             };
             await instance.post("/api/notice", noticeContent, option);
+            alert("공지가 작성되었습니다.");
+            window.history.back();
         } catch (error) {
             console.error(error);
+            alert("작성에 실패하였습니다.");
         }
     };
 
     return (
         <BaseLayout>
-            <h1> 공지 작성</h1>
-            <div>
-                <div css={inputBox}> <label>제목</label> <input type="text" name='title' placeholder='공지제목' onChange={handleTitleInput}/></div>
+            <div css={noticeLayout}>
+                <h1> 공지 작성</h1>
                 <div css={inputBox}>
+                    <label>제목</label>
+                    <input type="text" name='title' placeholder='공지제목' onChange={handleTitleInput} />
                     <label>내용</label>
                     {/* <input type="text" name='content' placeholder='공지내용'/> */}
                     <ReactQuill 
-                        style={{width: "938px", height: "500px"}} 
+                        style={{width: "700px", height: "500px"}} 
                         modules={modules}
                         onChange={handleContentInput}
-                    />
+                        />
                     
-                <div css={btnBox}>
-                    <button onClick={handleCancelBtn}>취소</button>
-                    <button onClick={handleWriteSubmit}>등록</button>
-                </div>
+                    <div css={btnBox}>
+                        <button onClick={handleCancelBtn}>취소</button>
+                        <button onClick={handleWriteSubmit}>등록</button>
+                    </div>
                 </div>
             </div>
         </BaseLayout>

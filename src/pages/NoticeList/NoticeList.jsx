@@ -179,9 +179,9 @@ function NoticeList(props) {
                         
                     </tbody>
                 </table>
-              <ul css={SPageNumbers}>
-                  {pagination()}
-              </ul>
+                <ul css={SPageNumbers}>
+                    {pagination()}
+                </ul>
             </BaseLayout>
         </>
     );
