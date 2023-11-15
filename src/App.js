@@ -25,6 +25,7 @@ import { Common } from "./styles/common";
 import { SReset } from './styles/reset';
 import Store from './components/Store/Store';
 import NoticeEdit from './pages/NoticeEdit/NoticeEdit';
+import RealMain from './pages/Main/RealMain';
 
 function App() {
 
@@ -56,7 +57,8 @@ function App() {
       <Global styles={SReset, Common}/>
 
       <Routes>
-        <Route path='/main' element={<Main/>}/>
+        <Route path='/maain' element={<RealMain/>}/>
+        <Route path='/main' element={<Main />} />
         <Route path='/' element={<LogoPage/>}/>
         
         <Route path='/account/*' element={ <AccountRoute /> } />
