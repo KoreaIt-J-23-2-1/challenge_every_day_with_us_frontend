@@ -135,14 +135,17 @@ function Feed(props) {
                                         {
                                             (() => {
                                                 getLatestComment(feed.feedId);
-                                                return (
+                                                return latestComments[feed.feedId] ? (
                                                     <>
                                                         <div>번호: {latestComments[feed.feedId]?.commentId}</div>
                                                         <div>작성자: {latestComments[feed.feedId]?.userNickname}</div>
                                                         <div>내용: {latestComments[feed.feedId]?.commentContent}</div>
                                                         <div>작성 시각: {latestComments[feed.feedId]?.commentDatetime}</div>
                                                     </>
-                                                );
+                                                ) : 
+                                                <div>
+                                                    댓글이 없습니다.
+                                                </div>;
                                             })()
                                         }
                                     </div>
