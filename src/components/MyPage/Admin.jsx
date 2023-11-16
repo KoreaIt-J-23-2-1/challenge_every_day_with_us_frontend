@@ -21,6 +21,7 @@ function Admin() {
     const [ chartData, setChartData ] = useState([]);
     const lastChallengeRef = useRef();
     const [ sort, setSort ] = useState('latest');
+    const [ dateDifference, setDateDifference ] = useState(null);
 
     const option = {
         headers: {
@@ -205,7 +206,7 @@ function Admin() {
         const today = new Date();
         const start = new Date(startDate);
         const timeDifference = today.getTime() - start.getTime();
-        const daysElapsed = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const daysElapsed = Math.floor(timeDifference / (1000 * 60 * 60 * 24) + 1) + 1;
         return daysElapsed;
     };
 
@@ -300,6 +301,8 @@ function Admin() {
         )
     }
 
+    console.log(getChallengeList)
+
     return (
         <div css={S.Layout}>
             <div css={S.UserBox}>
@@ -356,7 +359,7 @@ function Admin() {
                             <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.challengeName}</div>
                             <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.categoryName}</div>
                             <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.name}</div>
-                            <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{calculateDaysElapsed(myChallenge.startDate) + 1}일차</div>
+                            <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{calculateDaysElapsed(myChallenge.startDate)}일차</div>
                             <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.likeCount}</div>
                             <button css={S.StopButton} onClick={() => handleChallengeStopClick(myChallenge.challengeId)}><IoStopCircleOutline /></button>
                             <button css={S.Deletebutton} onClick={() => handleChallengeDeleteClick(myChallenge.challengeId)}><MdDeleteOutline /></button>
@@ -381,3 +384,4 @@ function Admin() {
 }
 
 export default Admin;
+
