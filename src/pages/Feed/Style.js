@@ -1,7 +1,18 @@
 import { css } from '@emotion/react';
 
 export const SLayout = css`
-    margin: 100px 300px;
+    
+    margin: 50px auto;
+    width: 45%;
+    min-width: 480px;
+    *::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        width: 5px;
+        background-color: black;
+    }
 `;
 
 export const SHeaderLayout = css`
@@ -24,6 +35,12 @@ export const SAlignment = css`
     justify-content: flex-end;
     align-items: center;
     margin-top: 30px;
+`;
+
+export const SScroll = css`
+    overflow-y: auto;
+    max-height: 600px;
+    padding-right: 15px;
 `;
 
 export const SFeedContainer = css`
@@ -145,5 +162,5 @@ export const SFeedBottomProfileImg = css`
 `;
 
 export const SFeedBottomFooter = css`
-    display: flex;
+
 `;
