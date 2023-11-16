@@ -135,7 +135,6 @@ function ChallengeDetails(props) {
     }, [challenge.startDate, challenge.endDate]);
 
     const handleLikebuttonClick = async () => {
-        console.log(principal)
         const userId = principal.data.data.userId;
         const result = {
             userId: userId
@@ -182,7 +181,7 @@ function ChallengeDetails(props) {
         receiverUserId: challenge.userId,
         title: "챌린지 승인 요청",
         content: `${challenge.challengeName} 챌린지의 승인 요청이 들어왔습니다.`,
-        targetUrl: principal.data.data.profileUrl
+        targetUrl: "http://localhost:3000/challenge/1"
     };
     
     const handleParticipationButton = () => {
@@ -212,7 +211,6 @@ function ChallengeDetails(props) {
     };
 
     const handleDeleteChallenger = async (userId) => {
-        console.log(userId)
         if(userId !== challenge.userId) {
             instance.delete(`/api/challenger/${challengeId}`, {
                 ...option,
@@ -225,8 +223,6 @@ function ChallengeDetails(props) {
         }
         getChallengers.refetch();
     };
-
-    console.log(feedList)
 
     return (
         <div css={S.Layout}>

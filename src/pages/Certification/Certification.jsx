@@ -29,7 +29,6 @@ function Certification(props) {
     const [ selectedComponent, setSelectedComponent ] = useState(<Challengedefault />);
     const handleComponentChange = (e) => {
         const value = e.target.value;
-        console.log(value);
         if (value === 'Timelayout') {
             setSelectedComponent(<ChallengeTimeLayout />);
         } else {

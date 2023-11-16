@@ -2,7 +2,7 @@
 import { css } from '@emotion/react';
 
 export const menuBtn = css`
-    position: relative;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,6 +10,7 @@ export const menuBtn = css`
     height: 27px;
     cursor: pointer;
     transition: all 1s;
+    z-index: 10;
 
     & > span {
         display: flex;
@@ -23,15 +24,15 @@ export const menuBtn = css`
         transition: all 0.7s;
     }
 
-    & > span:nth-child(1) {
+    & > span:nth-of-type(1) {
         top: 0;
     }
 
-    & > span:nth-child(2) {
+    & > span:nth-of-type(2) {
         top: 12px;
     }
 
-    & > span:nth-child(3) {
+    & > span:nth-of-type(3) {
         bottom: 0;
     }
 `;
@@ -39,15 +40,29 @@ export const menuBtn = css`
 export const active = css`
     & > span {
         left: 2px;
-        
     }
-    & > span:nth-child(1) {
+    & > span:nth-of-type(1) {
         transform: rotate(45deg) translate(5px, 12px);
     }
-    & > span:nth-child(2) {
+    & > span:nth-of-type(2) {
         opacity: 0;
     }
-    & > span:nth-child(3) {
+    & > span:nth-of-type(3) {
         transform: rotate(-45deg) translate(5px, -13px);
     }
+`;
+
+export const background = (isActive) => css`
+    top: 10px;
+    right: 3px;
+    width: ${isActive ? '800px' : '0'};
+    height: ${isActive ? '500px' : '0'};
+    background-color: #F7F4EC;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    z-index: 3;
+    border-radius: 400px 20px 400px 400px;
+    transition: all 0.7s ease-in;
+    display: flex;
+    justify-content: end;
 `;
