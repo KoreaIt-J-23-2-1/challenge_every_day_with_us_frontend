@@ -15,8 +15,10 @@ function Header() {
     const navigate = useNavigate();
     const [getLetter, setGetLetter] = useState(false);
     const [isLetterSideBarOpen, setLetterSideBarOpen] = useState(false);
-    const queryClient = useQueryClient().getQueryState("getPrincipal");
-    const principal = queryClient?.data?.data;
+
+    const queryClient = useQueryClient();
+    const principalState = queryClient.getQueryState("getPrincipal");
+    const principal = principalState.data;
 
     const handleStampOpen = () => {
         navigate("/stamp");
@@ -50,6 +52,10 @@ function Header() {
 
 
     const GoStorePage = () => {
+        if(!principal) {
+            alert("로그인을 먼저 진행해주세요");
+            return;
+        }
         navigate("/store/items");
     }
     
