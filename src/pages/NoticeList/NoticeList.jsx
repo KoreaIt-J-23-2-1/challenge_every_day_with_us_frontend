@@ -7,69 +7,9 @@ import { instance } from '../../api/config/instance';
 import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import Header from '../../components/Header/Header';
 /** @jsxImportSource @emotion/react */
+import * as S from './NoticeListStyle';
 
-const listTable = css`
-    width: 938px;
-    border-collapse: collapse;
-    & th, td {
-        height: 30px;
-        text-align: center;
-    }
-    & td {
-        cursor: pointer;
-    }
 
-`;
-
-const noticeTitle = css`
-    max-width: 500px;
-    width: 500px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-`;
-
-const btnBox = css`
-    display: flex;
-    justify-content: end;
-    width: 938px;
-    
-    & > button{
-        cursor: pointer;
-        margin: 5px;
-        width: 150px;
-        height: 30px;
-        background-color: #efefef;
-        border: none;
-    }
-
-    & > button:hover{
-        background-color: #dbdbdb;
-    }
-    
-    & > input {
-        margin:5px;
-        width: 300px;
-        height: 25px;
-    }
-`;
-
-const SPageNumbers = css`
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    width: 200px;
-    
-    & button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0px 3px;
-        width: 20px;
-        border: 1px solid #dbdbdb;
-        cursor: pointer;
-    }
-`;
 
 function NoticeList(props) {
     const option = {
@@ -148,14 +88,14 @@ function NoticeList(props) {
         <>
             <BaseLayout>
                 <h1>공지</h1>
-                <div css={btnBox}>
+                <div css={S.btnBox}>
                     <button onClick={handleNoticeWriteBtn}>공지 작성</button>
-                    <div css={btnBox}>
+                    <div css={S.btnBox}>
                         <input type="text" placeholder='검색어를 입력하세요' />
                         <button>검색</button>
                     </div>
                 </div>
-                <table css={listTable}>
+                <table css={S.listTable}>
                     <thead>
                         <tr>
                             <th>번호</th>
@@ -179,7 +119,7 @@ function NoticeList(props) {
                         
                     </tbody>
                 </table>
-                <ul css={SPageNumbers}>
+                <ul css={S.SPageNumbers}>
                     {pagination()}
                 </ul>
             </BaseLayout>

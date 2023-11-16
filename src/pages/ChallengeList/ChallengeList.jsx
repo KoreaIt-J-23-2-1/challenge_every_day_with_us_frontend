@@ -5,93 +5,10 @@ import ReactSelect from 'react-select';
 import { useQuery } from 'react-query';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
+import * as S from './ChallengeListStyle';
+import BaseLayout from '../../components/BaseLayout/BaseLayout';
 
 
-
-const searchContainer = css`
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-    width: 100%;
-    
-    & > * {
-        margin-left: 5px;
-    }
-`;
-
-const selectBox = css`
-    width: 100px;
-`;
-
-const SChallengeList = css`
-    width: 100%;
-    border: 1px solid #dbdbdb;
-`;
-
-const SChallengeListHeader = css`
-    overflow-y: auto;
-
-    & > li {
-        display: flex;
-        & > div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #dbdbdb;
-            height: 50px;
-        }
-        & > div:nth-of-type(1) {width: 7%;}
-        & > div:nth-of-type(2) {width: 53%;}
-        & > div:nth-of-type(3) {width: 15%;}
-        & > div:nth-of-type(4) {width: 20%;}
-        & > div:nth-of-type(5) {width: 5%;}
-    }
-`;
-
-const SChallengeListBody = css`
-    height: 300px;
-    overflow-y: auto;
-
-    & > li {
-        display: flex;
-        cursor: pointer;
-        & > div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 40px;
-            border: 1px solid #dbdbdb;
-        }
-        & > div:nth-of-type(1) {width: 7%;}
-        & > div:nth-of-type(2) {
-            width: 53%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        & > div:nth-of-type(3) {width: 15%;}
-        & > div:nth-of-type(4) {width: 20%;}
-        & > div:nth-of-type(5) {width: 5%;}
-    }
-`;
-
-const SPageNumbers = css`
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    width: 200px;
-
-    & button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0px 3px;
-        width: 20px;
-        border: 1px solid #dbdbdb;
-        cursor: pointer;
-    }
-
-`;
 
 function ChallengeList(props) {
     const navigate = useNavigate();
@@ -180,39 +97,40 @@ function ChallengeList(props) {
     }
 
     return (
-        <div>
-            <div css={searchContainer}>
-                <div css={selectBox}>
+        <BaseLayout>
+            <h1>챌린지리스트</h1>
+        
+            <div css={S.searchContainer}>
+                <div css={S.selectBox}>
                     <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect} />
                 </div>
                 <input type="text" onChange={handleSearchInputChange} />
                 <button onClick={handleSearchButtonClick}>검색</button>
             </div>
-            <ul css={SChallengeList}>
-                <div css={SChallengeListHeader}>
-                    <li>
-                        <div>번호</div>
-                        <div>챌린지제목</div>
-                        <div>카테고리이름</div>
-                        <div>시작일</div>
-                        <div>좋아요 수</div>
-                    </li>
-                </div>
-                <div css={SChallengeListBody}>
-                    {challengeList.map(challenge => {
-                        return (<li key={challenge.challengeId} 
-                                onClick={() => {navigate(`/challenge/${challenge.challengeId}`)}}>
-                                    <div>{challenge.challengeId}</div>
-                                    <div>{challenge.challengeName}</div>
-                                    <div>{challenge.categoryName}</div>
-                                    <div>{challenge.startDate}</div>
-                                    <div>{challenge.likeCount}</div>
-                                </li>);
-                    })}
-                    <li ref={lastChallengeRef}></li>
-                </div>
-            </ul>
-        </div>
+            <table css={S.listTable}>
+                <thead >
+                    <tr>
+                        <th>번호</th>
+                        <th>챌린지 제목</th>
+                        <th>카테고리 이름</th>
+                        <th>시작일</th>
+                        <th>좋아요 수</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    {challengeList.map(challenge => (
+                        <tr key={challenge.challengeId} onClick={() => { navigate(`/challenge/${challenge.challengeId}`) }}>
+                            <td>{challenge.challengeId}</td>
+                            <td>{challenge.challengeName}</td>
+                            <td>{challenge.categoryName}</td>
+                            <td>{challenge.startDate}</td>
+                            <td>{challenge.likeCount}</td>
+                        </tr>
+                    ))}
+                    <tr ref={lastChallengeRef}></tr>
+                </tbody>
+            </table>            
+        </BaseLayout>
     );
 }
 
