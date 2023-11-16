@@ -149,7 +149,7 @@ function Feed(props) {
             // 좋아요를 했는가?
             const isLike = isLikeList[feedId];
             let newState = null;
-            alert(isLike === 1)
+
             if (isLike === 1) { // 했으면
                 // 삭제
                 await instance.delete(`/api/feed/${feedId}/like`, option);
