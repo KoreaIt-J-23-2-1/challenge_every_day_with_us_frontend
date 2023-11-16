@@ -225,6 +225,7 @@ function Feed(props) {
                                 </div>
                                     <div css={S.SFeedBottomLayout}>
                                         <div css={S.SFeedBottomHeader}>
+                                            <div>좋아요 {feed.likeCount}개</div>
                                             {principal &&
                                                 <div onClick={() => {handleLikebuttonClick(feed.feedId);}}>
                                                     {
