@@ -4,12 +4,14 @@ import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 /** @jsxImportSource @emotion/react */
+import Logo from '../../img/Start.png';
 
 const layout = css`
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-    margin: 30px auto;
+    height: 85vh;
+    margin-left: 20px;
 
 `;
 
@@ -26,8 +28,21 @@ const imgbox = css`
     }
 `;
 
+const LogoImg = css`
+    cursor: pointer;
+    background-image: url(${Logo});
+    background-size: cover;
+    top: 0px;
+    left: 0px;
+    width: 500px;
+    height: 500px;
+        &:hover{
+            opacity: 0.5;       
+    }
+`;
 
-function LogoPage(s) {
+
+function LogoPage() {
     const navigate = useNavigate();
 
     const GoMainPage = () => {
@@ -37,15 +52,16 @@ function LogoPage(s) {
     useEffect(() => {
         const autoGoMainPage = setTimeout(() => {
             navigate("/main");
-        }, 2000);
+        }, 2500);
         return () => clearTimeout(autoGoMainPage);
     }, [navigate]);
 
     return (
         <div css={layout}>
-            <div css={imgbox}>
+            <div css={LogoImg} onClick={GoMainPage} ></div>
+            {/* <div css={imgbox}>
                 <img src={logoimg} alt="로고 이미지" onClick={GoMainPage} />
-            </div>
+            </div> */}
         </div>
     );
 }

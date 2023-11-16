@@ -1,31 +1,27 @@
-// MenuBtn.jsx
-import React, { useEffect, useState } from 'react';
-import './MenuBtnStyle.css';
+import React, { useState } from 'react';
+import * as S from './MenuBtnStyle';
+import { css } from '@emotion/react';
+/** @jsxImportSource @emotion/react */
 
 function MenuBtn() {
-    const [isChecked, setIsChecked] = useState(false);
-
-        useEffect(() => {
-            const animate = setInterval(() => {
-                setIsChecked(prev => !prev);
-            }, 3000);
-
-            return () => clearInterval(animate);
-        }, []);
+    const [isActive, setIsActive] = useState(false);
 
     const handleClick = () => {
-        clearInterval(); 
+        setIsActive(!isActive);
     };
-
+        
     return (
-        <div>
-            <label className="menu" onClick={handleClick}>
-                <input type="checkbox" checked={isChecked} readOnly />
-                <div></div>
-                <div></div>
-                <div></div>
-            </label>
-        </div>
+        <>
+            <div css={[S.menuBtn, isActive && S.active]} onClick={handleClick}>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div>
+                
+            </div>
+        </>
     );
 }
 

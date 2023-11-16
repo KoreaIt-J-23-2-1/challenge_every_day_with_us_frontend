@@ -9,6 +9,7 @@ export const Common = css`
     *{
         box-sizing: border-box;
         font-family: 'NanumSquareNeo-Variable';
+        color: #090909;
         
     }
     background-color: white;
@@ -28,11 +29,12 @@ export const Common = css`
     
     html{
         background-color: white;
-        /* background-image: url(${img3});
+        background-image: url(${img2});
         background-size: cover; 
-        background-repeat: no-repeat; */
+        background-repeat: no-repeat;
         height: 100vh;
         box-sizing: border-box;
+        color: #000;
     }
 
 `;

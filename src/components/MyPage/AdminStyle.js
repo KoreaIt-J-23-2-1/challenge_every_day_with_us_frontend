@@ -36,10 +36,13 @@ export const SChallengeList = css`
 `;
 
 export const Alignment = css`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 30px;
+    margin-top: 20px;
+
+    & div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
     & label {
         margin-right: px;
@@ -50,7 +53,8 @@ export const Alignment = css`
 export const searchContainer = css`
     display: flex;
     justify-content: flex-end;
-    height: 30px;
+    align-items: center;
+    margin-top: 20px;
     
     & > input {
         margin-left: 10px;
@@ -81,11 +85,11 @@ export const SChallengeListHeader = css`
             align-items: center;
             margin-right: 50px;
         }
-        & > div:nth-of-type(1) {width: 30%;}
-        & > div:nth-of-type(2) {width: 20%;}
-        & > div:nth-of-type(3) {width: 20%;}
-        & > div:nth-of-type(4) {width: 20%;}
-        & > div:nth-of-type(5) {width: 10%;}
+        & > div:nth-of-type(1) {width: 23%;}
+        & > div:nth-of-type(2) {width: 5%;}
+        & > div:nth-of-type(3) {width: 11%;}
+        & > div:nth-of-type(4) {width: 1%;}
+        & > div:nth-of-type(5) {width: 12%;}
     }
 `;
 
@@ -105,10 +109,39 @@ export const SChallengeListBody = css`
             align-items: center;
         }
         & > div:nth-of-type(1) {width: 30%;}
-        & > div:nth-of-type(2) {width: 20%;}
-        & > div:nth-of-type(3) {width: 20%;}
+        & > div:nth-of-type(2) {width: 15%;}
+        & > div:nth-of-type(3) {width: 15%;}
         & > div:nth-of-type(4) {width: 12%;}
         & > div:nth-of-type(5) {width: 15%;}
+    }
+`;
+
+export const StopButton = css`
+    display: flex;
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: transparent;
+    margin-left: 2px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #eee;
+    }
+`;
+
+export const Deletebutton = css`
+    display: flex;
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: transparent;
+    margin-left: 2px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: crimson;
+        color: white;
     }
 `;
 

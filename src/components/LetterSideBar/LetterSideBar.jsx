@@ -12,8 +12,8 @@ const LetterSideBarLayout = css`
     position: relative;
     width: 400px;
     border-radius: 10px 0px 0px 10px;
-    border-left:5px solid #dfdfdf;
     padding: 0px 10px;
+    background-color: #efefef;
     
 
 `;
