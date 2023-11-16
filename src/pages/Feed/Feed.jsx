@@ -84,6 +84,9 @@ function Feed(props) {
                         <div>작성자: {comment.userNickname}</div>
                         <div>내용: {comment.commentContent}</div>
                         <div>작성 시각: {comment.commentDatetime}</div>
+                        {comment.userId === principal.userId && 
+                            <button onClick={() => {handleDeleteCommentButtonClick(feed.feedId, comment.commentId)}}>삭제</button>
+                        }
                     </div>
                 })}
             </>
@@ -107,6 +110,19 @@ function Feed(props) {
                 아직 댓글이 없습니다.
             </div>
         )
+    };
+
+    const handleDeleteCommentButtonClick = async (feedId, commentId) => {
+        instance.delete(`/api/feed/${feedId}/comment/${commentId}`, option)
+        .then((response) => {
+            alert("댓글 삭제 성공");
+            getFeedList.refetch();
+
+        }).catch((error) => {
+            console.error(error);
+            alert("댓글 삭제 실패");
+
+        });
     };
     
     const handleReportClick = async (feedId, feedChallengeId) => {
@@ -145,6 +161,7 @@ function Feed(props) {
             await instance.post(`/api/feed/${feedId}/comment`, {commentContent: commentInputList[`commentInput${feedId}`]}, option);
             alert("댓글 등록 성공! -> " + feedId + "피드");
             getFeedList.refetch();
+            
         }catch(error) {
             console.error(error);
         }
