@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import {instance} from '../../../api/config/instance';
 import { useQueryClient } from 'react-query';
-import { ref, getDownloadURL, uploadBytes, uploadBytesResumable } from "firebase/storage";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from '../../../api/firebase/firebase';
 import * as S from "./Style";
 import BaseLayout from '../../../components/BaseLayout/BaseLayout';
@@ -12,7 +11,6 @@ import { FaRegUser } from "react-icons/fa";
 import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
 import { HiOutlineMail } from "react-icons/hi";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
-import logoimg from '../../../img/로고이미지2.png';
 import MypageDetailSideBar from '../../../components/MypageDetailSideBar/MypageDetailSideBar';
 
 
