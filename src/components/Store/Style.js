@@ -53,6 +53,7 @@ export const SItemImgLayout = css`
     align-items: center;
     border-right: 1px solid #dbdbdb;
     padding: 10px;
+    background-color: #ffffff;
 `;
 
 
