@@ -12,7 +12,6 @@ import { FaRegUser } from "react-icons/fa";
 import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
 import { HiOutlineMail } from "react-icons/hi";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
-import logoimg from '../../../img/로고이미지2.png';
 
 const layout = css`
     display: flex;

@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 import LetterModal from '../LetterModal/LetterModal';
-import img3 from '../../img/배경3.jpg'
+
 
 
 const LetterSideBarLayout = css`
@@ -13,7 +13,8 @@ const LetterSideBarLayout = css`
     width: 400px;
     border-radius: 10px 0px 0px 10px;
     padding: 0px 10px;
-    background-color: #efefef;
+    border: 5px solid #EED2C7;
+    background-color: #FFF4D8;
     
 
 `;
