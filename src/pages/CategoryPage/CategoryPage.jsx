@@ -1,6 +1,5 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import img1 from '../../img/운동.png';
 import img2 from '../../img/일상.png';
 import img3 from '../../img/재태크.png';

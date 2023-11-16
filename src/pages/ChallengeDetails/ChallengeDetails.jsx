@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { css } from '@emotion/react';
 import { instance } from '../../api/config/instance';
-import {AiOutlineLike, AiTwotoneLike} from 'react-icons/ai';
+import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
 
@@ -97,7 +96,7 @@ function ChallengeDetails(props) {
     })
 
     const getFeedList = useQuery(["getFeedList"], async () => {
-        return await instance.get(`/api/challenge/certification/feed/${page}`, option);
+        return await instance.get(`/api/challenge/certification/feed/${page}/${challengeId}`, option);
     }, {
         refetchOnWindowFocus: false,
         enabled: isChallengeFeedRefetch,
