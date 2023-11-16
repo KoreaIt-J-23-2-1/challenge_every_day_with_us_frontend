@@ -23,15 +23,15 @@ export const menuBtn = css`
         transition: all 0.7s;
     }
 
-    & > span:nth-child(1) {
+    & > span:nth-of-type(1) {
         top: 0;
     }
 
-    & > span:nth-child(2) {
+    & > span:nth-of-type(2) {
         top: 12px;
     }
 
-    & > span:nth-child(3) {
+    & > span:nth-of-type(3) {
         bottom: 0;
     }
 `;
@@ -41,13 +41,13 @@ export const active = css`
         left: 2px;
         
     }
-    & > span:nth-child(1) {
+    & > span:nth-of-type(1) {
         transform: rotate(45deg) translate(5px, 12px);
     }
-    & > span:nth-child(2) {
+    & > span:nth-of-type(2) {
         opacity: 0;
     }
-    & > span:nth-child(3) {
+    & > span:nth-of-type(3) {
         transform: rotate(-45deg) translate(5px, -13px);
     }
 `;
