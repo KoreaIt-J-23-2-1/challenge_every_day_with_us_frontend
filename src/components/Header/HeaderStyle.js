@@ -1,5 +1,10 @@
 import { css } from '@emotion/react';
 /** @jsxImportSource @emotion/react */
+import logo1 from '../../img/로고1.png';
+import logo2 from '../../img/로고2.png';
+import logo3 from '../../img/로고3.png';
+import logo4 from '../../img/로고4.png';
+
 
 export const Layout = css`
     display: flex;
@@ -8,7 +13,6 @@ export const Layout = css`
     width: 100%;
     height: 70px;
     padding: 5px 0px;
-
 `;
 
 export const HeaderBox = css`
@@ -20,30 +24,44 @@ export const HeaderBox = css`
     align-items: center;
     justify-content:space-between;
     z-index: 100;
-    /* padding: 5px 10px; */
-    
-    `;
+`;
 
-export const HeaderTitleBox = css`
+export const BtnBackground = css`
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    margin: 0px 3px;
+    &:hover{
+        border-radius: 50%;
+        background-color: #efefef;
+    }
+    &:active{
+        background-color: #e5e5e5;
+    }
+`;
+
+export const LogoBox = css`
     display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
-    margin: 5px;
-    height: 60px;
-    width: 80%;
+    width: 100%;
+    height: 100%;
 `;
 
 export const LogoBtn = css`
-    position: absolute;
     cursor: pointer;
-    margin: 0px 10px;
-    width: 50px;
-    height: 50px;
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
+    background-image: url(${logo3});
+    background-repeat: no-repeat;
+    width: 550px;
+    height: 100%;
+    margin-left: 9%;
+
+    &:hover{
+        /* background-image: url(${logo4}); */
+        opacity: 0.5;
+
     }
 `;
 
@@ -71,24 +89,6 @@ export const BackBtn = css`
     font-size: 27px;
 `;
 
-export const BtnBackground = css`
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    margin: 0px 3px;
-    &:hover{
-        border-radius: 50%;
-        background-color: #efefef;
-    }
-    &:active{
-        background-color: #e5e5e5;
-
-    }
-`;
-
 export const LetterCountBox = css`
     display: flex;
     justify-content: center;
@@ -103,7 +103,6 @@ export const LetterCountBox = css`
     color: red;
     background-color: #ffe292;
 `;
-
 
 export const LetterSideBarCss = css`
     z-index: 10;

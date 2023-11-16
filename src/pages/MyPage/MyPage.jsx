@@ -8,7 +8,7 @@ import { instance } from '../../api/config/instance';
 function MyPage() {
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
-    const principal = principalState.data.data;
+    const principal = principalState?.data?.data;
     const getPrincipal = useQuery(["getPrincipal"], async () => {
         try {
             const option = {
@@ -28,7 +28,7 @@ function MyPage() {
 
     return (
         <BaseLayout>
-            {principal.isAdmin === 1 ? <Admin /> : <User />}
+            {principal?.isAdmin === 1 ? <Admin /> : <User />}
         </BaseLayout>
     );
 }

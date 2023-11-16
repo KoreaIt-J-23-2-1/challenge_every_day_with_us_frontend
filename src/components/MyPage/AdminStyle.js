@@ -4,6 +4,7 @@ export const Layout = css`
     display: flex;
     flex-direction: column;
     margin: 50px;
+    width: 90%;
 `;
 
 export const UserBox = css`
@@ -17,7 +18,7 @@ export const UserBox = css`
 export const ImgBoxImg = css`
     position: absolute;
     top: -15px;
-    right: 290px;
+    right: 350px;
     transform: rotate(25deg);
 
     & img {
@@ -85,16 +86,16 @@ export const SChallengeListHeader = css`
             align-items: center;
             margin-right: 50px;
         }
-        & > div:nth-of-type(1) {width: 23%;}
-        & > div:nth-of-type(2) {width: 5%;}
-        & > div:nth-of-type(3) {width: 11%;}
-        & > div:nth-of-type(4) {width: 1%;}
-        & > div:nth-of-type(5) {width: 12%;}
+        & > div:nth-of-type(1) {width: 20%;}
+        & > div:nth-of-type(2) {width: 15%;}
+        & > div:nth-of-type(3) {width: 4%;}
+        & > div:nth-of-type(4) {width: 11%;}
+        & > div:nth-of-type(5) {width: 5%;}
     }
 `;
 
 export const SChallengeListBody = css`
-    height: 200px;
+    height: 150px;
     white-space: nowrap;
     overflow-y: auto;
 
@@ -234,4 +235,12 @@ export const ModalContent = css`
     background: #fff;
     padding: 20px;
     border-radius: 8px;
+`;
+
+export const Chart = css`
+    display: flex;
+    margin-top: 20px;
+
+    & h2 {
+    }
 `;

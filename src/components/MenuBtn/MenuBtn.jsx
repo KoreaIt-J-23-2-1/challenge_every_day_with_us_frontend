@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as S from './MenuBtnStyle';
-import { css } from '@emotion/react';
+import MenuModal from '../MenuModal/MenuModal';
 /** @jsxImportSource @emotion/react */
 
 function MenuBtn() {
@@ -17,9 +17,8 @@ function MenuBtn() {
                 <span></span>
                 <span></span>
             </div>
-
-            <div>
-                
+            <div css={S.background(isActive)}>
+                {isActive && <MenuModal />}
             </div>
         </>
     );

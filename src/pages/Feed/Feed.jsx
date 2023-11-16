@@ -13,7 +13,7 @@ function Feed(props) {
     const [ feedList, setFeedList ] = useState([]);
     const [ page, setPage ] = useState(1);
     const lastChallengeRef = useRef();
-    const [ isLikeList, setIsLikeList ] = useState(false);
+    const [ isLikeList, setIsLikeList ] = useState({});
     const [ commentInputList, setCommentInputList ] = useState();
     const [ commentShowMode, setCommentShowMode ] = useState({});
     const [ latestComments, setLatestComments ] = useState({});
@@ -36,6 +36,7 @@ function Feed(props) {
         feedList.forEach(feed => {
             getLatestComment(feed);
             getComments(feed);
+            getLikeStates(feed);
         })
     }, [feedList]);
 
@@ -53,6 +54,14 @@ function Feed(props) {
         const response = await instance.get(`/api/feed/${feed.feedId}/comments`, option);
         setComments((comment) => ({
             ...comment,
+            [feed.feedId]: response.data
+        }));
+    }
+
+    const getLikeStates = async (feed) => {
+        const response = await instance.get(`/api/feed/${feed.feedId}/like`, option);
+        setIsLikeList((isLikeList) => ({
+            ...isLikeList,
             [feed.feedId]: response.data
         }));
     }
@@ -134,27 +143,38 @@ function Feed(props) {
         await instance.post("/api/challenge/report", data, option)
     }
 
-    const handleLikebuttonClick = async () => {
+    const handleLikebuttonClick = async (feedId) => {
         const userId = principal.userId;
-
         try {
-            //좋아요를 했는가?
-            //했으면
-                //삭제
-            //아니면
-                //추가
-            setIsLikeList();
+            // 좋아요를 했는가?
+            const isLike = isLikeList[feedId];
+            let newState = null;
+
+            if (isLike === 1) { // 했으면
+                // 삭제
+                await instance.delete(`/api/feed/${feedId}/like`, option);
+                newState = 0;
+            } else { // 아니면
+                // 추가
+                await instance.post(`/api/feed/${feedId}/like`, {}, option);
+                newState = 1;
+            }
+            setIsLikeList((prevIsLikeList) => ({
+                ...prevIsLikeList,
+                [feedId]: newState
+            }));
         } catch (error) {
             console.error(error);
         }
     }
+    
 
     const handleCommentInput = (e) => {
         setCommentInputList({
             ...commentInputList,
             [e.target.name]: e.target.value
         })
-    };
+    };                       
 
     const handleCommentSubmit = async (feedId) => {
         try {
@@ -206,7 +226,11 @@ function Feed(props) {
                                     <div css={S.SFeedBottomLayout}>
                                         <div css={S.SFeedBottomHeader}>
                                             {principal &&
-                                                <div onClick={() => {handleLikebuttonClick(feed.feedId)}}>{isLikeList?.s ? <AiTwotoneLike/> : <AiOutlineLike/>}</div>
+                                                <div onClick={() => {handleLikebuttonClick(feed.feedId);}}>
+                                                    {
+                                                        isLikeList?.[feed.feedId] === 1 ? <AiTwotoneLike/> : <AiOutlineLike/>
+                                                    }
+                                                </div>
                                             }
                                             {commentShowMode[feed.feedId] ? 
                                                 <button onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: false})}}>댓글 접기</button>
