@@ -149,7 +149,7 @@ function Feed(props) {
             // 좋아요를 했는가?
             const isLike = isLikeList[feedId];
             let newState = null;
-            alert(isLike === 1)
+
             if (isLike === 1) { // 했으면
                 // 삭제
                 await instance.delete(`/api/feed/${feedId}/like`, option);
@@ -225,8 +225,9 @@ function Feed(props) {
                                 </div>
                                     <div css={S.SFeedBottomLayout}>
                                         <div css={S.SFeedBottomHeader}>
+                                            <div>좋아요 {feed.likeCount}개</div>
                                             {principal &&
-                                                <div onClick={() => {handleLikebuttonClick(feed.feedId);console.log("ss");console.log(isLikeList?.[feed.feedId])}}>
+                                                <div onClick={() => {handleLikebuttonClick(feed.feedId);}}>
                                                     {
                                                         isLikeList?.[feed.feedId] === 1 ? <AiTwotoneLike/> : <AiOutlineLike/>
                                                     }

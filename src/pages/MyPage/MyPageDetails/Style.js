@@ -1,5 +1,47 @@
 import { css } from "@emotion/react";
 
+export const userBox = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+    max-width: 400px;
+
+    & button {
+        margin-top: 25px;
+        width: 200px;
+    }
+`;
+
+export const userInfoHeader = css`
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 15px 38px 13px 18px;
+    border-radius: 12px 12px 0 0;
+    background-image: linear-gradient(98deg,#03c75a,#49c6dd);
+    color: #FFFFFF;
+`;
+
+export const inputBox = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 0 17px;
+    height: 50px;
+
+    & > input {
+        border: none;
+        margin-left: 10px;
+        
+        &:focus {
+            outline: none;
+        }
+    }
+`;
+
 export const SModify = css`
     font-family: "proxima-nova", sans-serif;
     font-weight: 500;
