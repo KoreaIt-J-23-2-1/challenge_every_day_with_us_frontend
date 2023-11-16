@@ -99,11 +99,7 @@ function ChallengeList(props) {
     const lastChallengeRef = useRef();
     const [ isChallengeListRefetch, setIsChallengeListRefetch ] = useState(false);
     const [ challengeList, setChallengeList ] = useState([]);
-<<<<<<< HEAD
-    const [orderBy, setOrderBy] = useState('latest');
-=======
     const [sort, setSort] = useState('latest');
->>>>>>> main
 
     const options = [
         {value: "전체", label: "전체"},
@@ -120,11 +116,7 @@ function ChallengeList(props) {
 
     const getChallengeList = useQuery(["getChallengeList", page], async () => {
         const option = {
-<<<<<<< HEAD
-            params: {...searchParams, orderBy}
-=======
             params: { ...searchParams, sort }
->>>>>>> main
         }
         return await instance.get(`/api/challenges/${page}`, option);
     }, {
