@@ -18,8 +18,16 @@ function Admin() {
     const [ isModalOpen, setModalOpen ] = useState(false);
     const [ challengeList, setChallengeList ] = useState([]);
     const [ isChallengeListRefetch, setIsChallengeListRefetch ] = useState(false);
+    const [ chartData, setChartData ] = useState([]);
     const lastChallengeRef = useRef();
-    const [sort, setSort] = useState('latest');
+    const [ sort, setSort ] = useState('latest');
+    const [ accumulatedData, setAccumulatedData ] = useState([]);
+
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
+    }
 
     const options = [
         {value: "전체", label: "전체"},
@@ -50,6 +58,70 @@ function Admin() {
             ].concat(response.data));
             setIsChallengeListRefetch(false);
             setPage(page + 1);
+        }
+    });
+
+    const getChartData = useQuery(["getChartData"], async () => {
+        try {
+            const dailyChallengesResponse = await instance.get('/api/admin/challengers/count', option);
+            const dailyMembersResponse = await instance.get('/api/admin/members/count', option);
+            const dailyFeedResponse = await instance.get('/api/admin/feed/count', option);
+            const dailyChallengeCompletedResponse = await instance.get('/api/admin/challenges/completed/count', option);
+            const dailyChallengeDeletedResponse = await instance.get('/api/admin/challenges/deleted/count', option);
+    
+            if (
+                dailyChallengesResponse.data &&
+                dailyMembersResponse.data &&
+                dailyFeedResponse.data&&
+                dailyChallengeCompletedResponse.data&&
+                dailyChallengeDeletedResponse.data
+            ) {
+                setChartData(prevData => [
+                    ...prevData,
+                    {
+                        id: "총 챌린지 수",
+                        data: dailyChallengesResponse.data.map(data => ({
+                            x: data.date,
+                            y: data.count
+                        })),
+                    },
+                    {
+                        id: "총 피드 수",
+                        data: dailyFeedResponse.data.map(data => ({
+                            x: data.date,
+                            y: data.count
+                        })),
+                    },
+                    {
+                        id: "삭제된 챌린지 수",
+                        data: dailyChallengeDeletedResponse.data.map(data => ({
+                            x: data.date,
+                            y: data.count
+                        })),
+                    },
+                    {
+                        id: "종료된 챌린지 수",
+                        data: dailyChallengeCompletedResponse.data.map(data => ({
+                            x: data.date,
+                            y: data.count
+                        })),
+                    },
+                    {
+                        id: "총 회원 수",
+                        data: dailyMembersResponse.data.map(data => ({
+                            x: data.date,
+                            y: data.count
+                        })),
+                    },
+                ]);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }, {
+        retry: 0,
+        refetchOnWindowFocus: false,
+        onSuccess: (response) => {
         }
     });
 
@@ -88,18 +160,17 @@ function Admin() {
 
         setSelectedChallenge(prevChallenge => {
             const challengeId = prevChallenge
-            console.log(challengeId);
             const stop = window.confirm(`${challengeId}번 챌린지를 정말 중단 시키겠습니까?`);
             
             if(stop){
                 const response = instance.put(`/api/challenge/stop/${challengeId}`)
                 if(response){
                     alert("중단 되었습니다.");
+                    setPage(1);
                 }else {
                     alert("error")
                 }
             }
-
         });    
     };
 
@@ -108,18 +179,17 @@ function Admin() {
 
         setSelectedChallenge(prevChallenge => {
             const challengeId = prevChallenge
-            console.log(challengeId);
             const stop = window.confirm(`${challengeId}번 챌린지를 삭제 시키겠습니까?`);
             
             if(stop){
                 const response = instance.put(`/api/challenge/hidden/${challengeId}`)
                 if(response){
                     alert("삭제 되었습니다.");
+                    setPage(1);
                 }else {
                     alert("error")
                 }
             }
-            
         });    
     };
     
@@ -159,116 +229,88 @@ function Admin() {
         setPage(1);
     };
 
-    const MyResponsiveLine = ({ data }) => (
-        <ResponsiveLine
-            data={data}
-            height={200}
-            margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-            xScale={{ type: 'point' }}
-            yScale={{
-                type: 'point',
-                min: 0,
-                max: 30,
-            }}
-            yFormat=" >-.2f"
-            gridYValues={[0, 5,10,15,20,25,30]}
-            axisTop={null}
-            axisRight={null}
-            axisBottom={{
-                tickSize: 5,
-                tickPadding: 5,
-                tickRotation: 0,
-                legendOffset: 36,
-                legendPosition: 'middle'
-            }}
-            axisLeft={{
-                tickSize: 5,
-                tickPadding: 5,
-                tickRotation: 0,
-                legendOffset: -40,
-                legendPosition: 'middle',
-            }}
-            pointSize={5}
-            pointColor={{ theme: 'background' }}
-            pointBorderWidth={2}
-            pointBorderColor={{ from: 'serieColor' }}
-            pointLabelYOffset={-12}
-            useMesh={true}
-            legends={[
-                {
-                    anchor: 'bottom-right',
-                    direction: 'column',
-                    justify: false,
-                    translateX: 100,
-                    translateY: 0,
-                    itemsSpacing: 0,
-                    itemDirection: 'left-to-right',
-                    itemWidth: 80,
-                    itemHeight: 20,
-                    itemOpacity: 0.75,
-                    symbolSize: 12,
-                    symbolShape: 'circle',
-                    symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                    effects: [
-                        {
-                            on: 'hover',
-                            style: {
-                                itemBackground: 'rgba(0, 0, 0, .03)',
-                                itemOpacity: 1
-                            }
-                        }
-                    ]
-                }
-            ]}
-        />
-    )
+    const MyResponsiveLine = ({ data }) => {
+        const sortedData = data.map(item => ({
+            id: item.id,
+            data: item.data.sort((a, b) => new Date(a.x) - new Date(b.x))
+        }));
 
-    const chartData = [
-        {
-            id: '회원 수',
-            data: [
-                { x: '2023-11-15', y: 3 },
-                { x: '2023-12-15', y: 5 },
-            ]
-        },
-        {
-            id: '탈퇴 수',
-            data: [
-                { x: '2023-11-15', y: 5 },
-                { x: '2023-12-15', y: 8 },
-            ]
-        },
-        {
-            id: '전체 챌린지 수',
-            data: [
-                { x: '2023-11-15', y: 1 },
-                { x: '2023-12-15', y: 5 },
-            ]
-        },
-        {
-            id: '삭제된 챌린지 수',
-            data: [
-                { x: '2023-11-15', y: 4 },
-                { x: '2023-12-15', y: 6 },
-            ]
-        },
-        {
-            id: '종료된 챌린지 수',
-            data: [
-                { x: '2023-11-15', y: 5 },
-                { x: '2023-12-15', y: 1 },
-            ]
-        }
-    ]
+        console.log(sortedData)
+        return (
+            <ResponsiveLine
+                data={sortedData}
+                height={200}
+                margin={{ top: 50, right: 130, bottom: 50, left: 100 }}
+                xScale={{ type: 'point' }}
+                yScale={{
+                    type: 'linear',
+                    min: 0,
+                    max: 10,
+                }}
+                yFormat=" >-.2f"
+                gridYValues={[0, 5, 10, 15, 20, 25, 30]}
+                axisTop={null}
+                axisRight={null}
+                axisBottom={{
+                    tickSize: 5,
+                    tickPadding: 5,
+                    tickRotation: 0,
+                    legendOffset: 36,
+                    legendPosition: 'middle'
+                }}
+                axisLeft={{
+                    tickSize: 5,
+                    tickPadding: 5,
+                    tickRotation: 0,
+                    legendOffset: -40,
+                    legendPosition: 'middle',
+                }}
+                pointSize={5}
+                pointColor={{ theme: 'background' }}
+                pointBorderWidth={2}
+                pointBorderColor={{ from: 'serieColor' }}
+                pointLabelYOffset={-12}
+                useMesh={true}
+                legends={[
+                    {
+                        anchor: 'bottom-right',
+                        direction: 'column',
+                        justify: false,
+                        translateX: 100,
+                        translateY: 0,
+                        itemsSpacing: 0,
+                        itemDirection: 'left-to-right',
+                        itemWidth: 80,
+                        itemHeight: 20,
+                        itemOpacity: 0.75,
+                        symbolSize: 12,
+                        symbolShape: 'circle',
+                        symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                        effects: [
+                            {
+                                on: 'hover',
+                                style: {
+                                    itemBackground: 'rgba(0, 0, 0, .03)',
+                                    itemOpacity: 1
+                                }
+                            }
+                        ]
+                    }
+                ]}
+            />
+        )
+    }
 
     return (
         <div css={S.Layout}>
             <div css={S.UserBox}>
-                <div css={S.ImgBoxImg}>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/challengewithus-1ffef.appspot.com/o/files%2Ffree-icon-crown-931979.png?alt=media&token=f801604e-ee4d-4465-bbcb-9eacb448adab" alt="" />
-                </div>
-                <div css={S.ImgBox}>
-                    <img src={principal.profileUrl} alt="" />
+                <div css={S.ImgLayout}>
+                    <div css={S.ImgBoxImg}>
+                        <img src="https://firebasestorage.googleapis.com/v0/b/challengewithus-1ffef.appspot.com/o/files%2Ffree-icon-crown-931979.png?alt=media&token=f801604e-ee4d-4465-bbcb-9eacb448adab" alt="" />
+                    </div>
+                    <div css={S.ProfileImgBox}>
+                        <img src={principal.profileUrl} alt="" />
+                    </div>
                 </div>
                 <div css={S.ProfileBox}>
                     <div css={S.ProfileText}>

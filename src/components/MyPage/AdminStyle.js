@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { SubModal } from '../AdminModal/Style';
 
 export const Layout = css`
     display: flex;
@@ -12,13 +13,32 @@ export const UserBox = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+`;
+
+export const ImgLayout = css`
     position: relative;
+`;
+
+export const ProfileImgBox = css`
+    margin-bottom: 20px;
+    border: 2px solid #dbdbdb;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    & img {
+        max-width: 100%;
+        max-height: 100%;
+        width: 100px;
+        height: 100px;
+    }
 `;
 
 export const ImgBoxImg = css`
     position: absolute;
     top: -15px;
-    right: 350px;
+    right: 5px;
     transform: rotate(25deg);
 
     & img {
@@ -146,22 +166,6 @@ export const Deletebutton = css`
     }
 `;
 
-export const ImgBox = css`
-    margin-bottom: 20px;
-    border: 2px solid #dbdbdb;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-
-    & img {
-        max-width: 100%;
-        max-height: 100%;
-        width: 100px;
-        height: 100px;
-    }
-`;
-
 export const IntroBox = css`
     display: flex;
     flex-direction: column;
@@ -220,21 +224,25 @@ export const SStore = css`
 `;
 
 export const ModalOverlay = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    z-index: 1;
 `;
 
 export const ModalContent = css`
+    height: 500px;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
+
+    ${SubModal} 
 `;
 
 export const Chart = css`
