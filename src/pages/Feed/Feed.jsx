@@ -226,7 +226,7 @@ function Feed(props) {
                                     <div css={S.SFeedBottomLayout}>
                                         <div css={S.SFeedBottomHeader}>
                                             {principal &&
-                                                <div onClick={() => {handleLikebuttonClick(feed.feedId);console.log("ss");console.log(isLikeList?.[feed.feedId])}}>
+                                                <div onClick={() => {handleLikebuttonClick(feed.feedId);}}>
                                                     {
                                                         isLikeList?.[feed.feedId] === 1 ? <AiTwotoneLike/> : <AiOutlineLike/>
                                                     }
