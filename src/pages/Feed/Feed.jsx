@@ -145,40 +145,29 @@ function Feed(props) {
 
     const handleLikebuttonClick = async (feedId) => {
         const userId = principal.userId;
-
         try {
-            try {
-                //좋아요를 했는가?
-                const isLike = isLikeList.feedId;
-                let newState = null;
-                alert(isLike === 1)
-                if(isLike === 1) {//했으면
-                    //삭제
-                    await instance.delete(`/api/feed/${feedId}/like`, option);
-                    newState = 0;
-
-                }else {//아니면
-                    //추가
-                    await instance.post(`/api/feed/${feedId}/like`, {}, option);
-                    newState = 1;
-
-                }
-
-                setIsLikeList((isLikeList) => ({
-                    ...isLikeList,
-                    [feedId]: newState
-                }));
-
-            }catch(error) {
-                console.error(error);
-                alert("서버 오류");
+            // 좋아요를 했는가?
+            const isLike = isLikeList[feedId];
+            let newState = null;
+            alert(isLike === 1)
+            if (isLike === 1) { // 했으면
+                // 삭제
+                await instance.delete(`/api/feed/${feedId}/like`, option);
+                newState = 0;
+            } else { // 아니면
+                // 추가
+                await instance.post(`/api/feed/${feedId}/like`, {}, option);
+                newState = 1;
             }
-
-            setIsLikeList();
+            setIsLikeList((prevIsLikeList) => ({
+                ...prevIsLikeList,
+                [feedId]: newState
+            }));
         } catch (error) {
             console.error(error);
         }
     }
+    
 
     const handleCommentInput = (e) => {
         setCommentInputList({

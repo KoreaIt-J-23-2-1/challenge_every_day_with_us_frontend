@@ -94,10 +94,8 @@ function LetterSideBar(props) {
     const getLetterList = useQuery(["getLetters"], async () => {
         try {
             const response = await instance.get(`/api/letters`, option);
-            console.log(response);
             return response.data || [];
         }catch (error) {
-            console.error(error);
             return [];
         }
     }, {
@@ -176,8 +174,6 @@ function LetterSideBar(props) {
             console.error(error)
         }
     }
-
-    console.log(getLetterList);
 
     return (
         <div css={LetterSideBarLayout}>

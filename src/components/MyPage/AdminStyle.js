@@ -4,6 +4,7 @@ export const Layout = css`
     display: flex;
     flex-direction: column;
     margin: 50px;
+    width: 90%;
 `;
 
 export const UserBox = css`
