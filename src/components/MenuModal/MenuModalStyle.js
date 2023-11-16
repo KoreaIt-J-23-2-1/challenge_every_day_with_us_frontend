@@ -23,6 +23,7 @@ export const MenuHeader = css`
 
 export const MyBox = css`
     padding-bottom: 30px;
+    transition: 1s all ease;
     &>button{
         margin-top: 10px;
         cursor: pointer;
@@ -36,10 +37,13 @@ export const MyBox = css`
         font-weight: 700;
         border-bottom: 3px solid #EDD0C2;
     }
+    
 `;
 
 export const BtnBox = css`
     padding-bottom: 30px;
+    transition: 1s all ease;
+
     &>button{
         margin-top: 10px;
         cursor: pointer;

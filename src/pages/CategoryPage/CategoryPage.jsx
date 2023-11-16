@@ -2,60 +2,15 @@ import React from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import img1 from '../../img/운동.png';
-import img2 from '../../img/생활습관.jpeg';
-import img3 from '../../img/재테크.jpeg';
-import img4 from '../../img/학습.jpeg';
-import img5 from '../../img/취미.jpeg';
-import img6 from '../../img/일기.jpeg';
-import img7 from '../../img/챌어스.jpeg';
+import img2 from '../../img/일상.png';
+import img3 from '../../img/재태크.png';
+import img4 from '../../img/학습.png';
+import img5 from '../../img/취미.png';
+import img6 from '../../img/일기.png';
+import img7 from '../../img/기타.png';
 import { Link } from 'react-router-dom';
-
-const Layout = css`
-    padding: 30px;
-`;
-
-const SStoreContainer = css`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    border: 2px solid #dbdbdb;
-`;
-
-const SProductContainer = css`
-    display: flex;
-    align-items: center;
-    position: relative;
-    margin: 20px;
-    width: calc(30% - 10px);
-    height: 210px;
-    background-color: transparent;
-    padding: 0px;
-    border-radius: 20px;
-    border: 1px solid #eee;
-    font-size: 20px;
-    font-weight: 600;
-    overflow: hidden;
-    cursor: pointer;
-
-    & p {
-        position: absolute;
-        white-space: nowrap;
-        margin-left: 10px;
-        top: -10px;
-        font-size: 25px;
-        font-weight: 600;
-        color: #dbdbdb;
-    }
-
-    & img {
-        width: 543px;
-        height: 208px;
-    }
-
-    & :active {
-        transform: scale(1.1);
-    }
-`;
+import BaseLayout from '../../components/BaseLayout/BaseLayout';
+import * as S from './CategoryPageStyle';
 
 
 function CategoryPage(props) {
@@ -70,19 +25,19 @@ function CategoryPage(props) {
     ];
 
     return (
-        <div css={Layout}>
+        <BaseLayout>
             <h2>카테고리 선택</h2>
-            <div css={SStoreContainer}>
+            <div css={S.CategoryBox}>
                 {categoryData.map((category) => (
-                    <button css={SProductContainer} key={category.name}>
+                    <button css={S.SProductContainer} key={category.name}>
                         <Link to={`/challenge/create/${category.value}`}>
-                            <p>{category.name}</p>
-                            <img src={category.image} alt={category.name} />
+                            <p css={S.imgName}>{category.name}</p>
+                            <div css={S.imgBox(category.image)}></div>
                         </Link>
                     </button>
                 ))}
             </div>
-        </div>
+        </BaseLayout>
     );    
 }
 

@@ -1,5 +1,4 @@
 import { css } from "@emotion/react"
-import img1 from '../img/배경1.png'
 import img2 from '../img/배경2.jpg'
 import img3 from '../img/배경3.jpg'
 
