@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
-import logoimg from '../../img/로고이미지1.png';
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
-import BaseLayout from '../../components/BaseLayout/BaseLayout';
 /** @jsxImportSource @emotion/react */
 import Logo from '../../img/Start.png';
 
