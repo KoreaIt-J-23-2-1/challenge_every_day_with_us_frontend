@@ -127,7 +127,7 @@ function ChallengeDetails(props) {
         const timeDifference = endDate - startDate;
         const dayDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         const todayTimeDifference = today - startDate;
-        const todayDifference = Math.floor(todayTimeDifference / (1000 * 60 * 60 * 24));
+        const todayDifference = Math.floor(todayTimeDifference / (1000 * 60 * 60 * 24)) + 1;
 
         setDateDifference(dayDifference);
         setTodayDifference(todayDifference)
