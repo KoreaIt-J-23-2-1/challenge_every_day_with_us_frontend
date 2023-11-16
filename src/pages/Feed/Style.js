@@ -164,3 +164,8 @@ export const SFeedBottomProfileImg = css`
 export const SFeedBottomFooter = css`
 
 `;
+
+export const SCommentContainer = css`
+    border: 1px solid #dbdbdb;
+    width: 400px;
+`;

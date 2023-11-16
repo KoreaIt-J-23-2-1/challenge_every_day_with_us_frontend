@@ -79,7 +79,7 @@ function Feed(props) {
         return comments[feed.feedId].length !== 0 ? 
             <>
                 {comments[feed.feedId].map((comment) => {
-                    return <div key={comment.commentId}>
+                    return <div css={S.SCommentContainer} key={comment.commentId}>
                         <div>번호: {comment.commentId}</div>
                         <div>작성자: {comment.userNickname}</div>
                         <div>내용: {comment.commentContent}</div>
@@ -96,12 +96,12 @@ function Feed(props) {
     const latestCommentComponent = (feed) => {
         return (
             latestComments[feed.feedId] ? (
-                <>
+                <div css={S.SCommentContainer} key={latestComments[feed.feedId]?.commentId}>
                     <div>번호: {latestComments[feed.feedId]?.commentId}</div>
                     <div>작성자: {latestComments[feed.feedId]?.userNickname}</div>
                     <div>내용: {latestComments[feed.feedId]?.commentContent}</div>
                     <div>작성 시각: {latestComments[feed.feedId]?.commentDatetime}</div>
-                </>
+                </div>
             ) : 
             <div>
                 아직 댓글이 없습니다.
@@ -144,7 +144,6 @@ function Feed(props) {
         try {
             await instance.post(`/api/feed/${feedId}/comment`, {commentContent: commentInputList[`commentInput${feedId}`]}, option);
             alert("댓글 등록 성공! -> " + feedId + "피드");
-            console.log(commentInputList[`commentInput${feedId}`]);
             getFeedList.refetch();
         }catch(error) {
             console.error(error);
