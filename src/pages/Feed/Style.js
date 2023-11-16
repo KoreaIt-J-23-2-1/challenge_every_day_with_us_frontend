@@ -166,6 +166,23 @@ export const SFeedBottomFooter = css`
 `;
 
 export const SCommentContainer = css`
+    border-radius: 10px;
     border: 1px solid #dbdbdb;
-    width: 400px;
+    min-width: 400px;
+    width: 650px;
+    background-color: rgb(252, 250, 252);
+
+    & > b:nth-of-type(1) {
+        display: flex;
+    }
+    & > div:nth-of-type(1) {
+        display: flex;
+        padding: 10px;
+        font-size: 24px;
+    }
+    & > div:nth-of-type(2) {
+        display: flex;
+        font-size: 14px;
+        color: rgb(96, 96, 96);
+    }
 `;

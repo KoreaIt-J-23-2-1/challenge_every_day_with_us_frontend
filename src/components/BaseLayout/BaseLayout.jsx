@@ -34,7 +34,6 @@ export const Layout = css`
     text-align: center;
 `;
 
-
 function BaseLayout({children}) {
     return (
         <>

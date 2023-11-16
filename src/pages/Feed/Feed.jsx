@@ -89,10 +89,9 @@ function Feed(props) {
             <>
                 {comments[feed.feedId].map((comment) => {
                     return <div css={S.SCommentContainer} key={comment.commentId}>
-                        <div>번호: {comment.commentId}</div>
-                        <div>작성자: {comment.userNickname}</div>
-                        <div>내용: {comment.commentContent}</div>
-                        <div>작성 시각: {comment.commentDatetime}</div>
+                        <b>{comment.userNickname}</b>
+                        <div>{comment.commentContent}</div>
+                        <div>{comment.commentDatetime}</div>
                         {comment.userId === principal.userId && 
                             <button onClick={() => {handleDeleteCommentButtonClick(feed.feedId, comment.commentId)}}>삭제</button>
                         }
@@ -109,10 +108,10 @@ function Feed(props) {
         return (
             latestComments[feed.feedId] ? (
                 <div css={S.SCommentContainer} key={latestComments[feed.feedId]?.commentId}>
-                    <div>번호: {latestComments[feed.feedId]?.commentId}</div>
-                    <div>작성자: {latestComments[feed.feedId]?.userNickname}</div>
-                    <div>내용: {latestComments[feed.feedId]?.commentContent}</div>
-                    <div>작성 시각: {latestComments[feed.feedId]?.commentDatetime}</div>
+                    <b>{latestComments[feed.feedId]?.userNickname}</b>
+                    <div>{latestComments[feed.feedId]?.commentContent}</div>
+                    <div>{latestComments[feed.feedId]?.commentDatetime}</div>
+                    
                 </div>
             ) : 
             <div>
@@ -163,6 +162,8 @@ function Feed(props) {
                 ...prevIsLikeList,
                 [feedId]: newState
             }));
+            getFeedList.refetch();
+
         } catch (error) {
             console.error(error);
         }
@@ -186,6 +187,10 @@ function Feed(props) {
             console.error(error);
         }
     };
+
+    if(getFeedList.isLoading) {
+        return <></>;
+    }
 
     return (
         <BaseLayout>
