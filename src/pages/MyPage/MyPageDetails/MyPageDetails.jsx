@@ -87,6 +87,7 @@ function MyPageDetails(props) {
     }
 
     const handleIsWithdrawn = async () => {
+        const userId = principal?.userId;
         if(window.confirm("정말 탈퇴하시겠습니까?")) {
             if(window.confirm("진짜로 떠나시겠습니까?")) {
                 try{
@@ -95,7 +96,7 @@ function MyPageDetails(props) {
                             Authorization: localStorage.removeItem("accessToken")
                         }
                     }
-                    await instance.delete(`/api/account/${1}`, option);
+                    await instance.delete(`/api/account/${userId}`, option);
                 }catch(error) {
                     console.error(error);
                 }
