@@ -135,7 +135,6 @@ function ChallengeDetails(props) {
     }, [challenge.startDate, challenge.endDate]);
 
     const handleLikebuttonClick = async () => {
-        console.log(principal)
         const userId = principal.data.data.userId;
         const result = {
             userId: userId
@@ -212,7 +211,6 @@ function ChallengeDetails(props) {
     };
 
     const handleDeleteChallenger = async (userId) => {
-        console.log(userId)
         if(userId !== challenge.userId) {
             instance.delete(`/api/challenger/${challengeId}`, {
                 ...option,
@@ -225,8 +223,6 @@ function ChallengeDetails(props) {
         }
         getChallengers.refetch();
     };
-
-    console.log(feedList)
 
     return (
         <div css={S.Layout}>

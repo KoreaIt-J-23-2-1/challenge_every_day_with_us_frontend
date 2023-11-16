@@ -76,7 +76,6 @@ function MyPageDetails(props) {
     }
 
     const handleInputChange = (e) => {
-        console.log(modifyMypageDetail)
         setModifyMypageDetail({
             ...modifyMypageDetail,
             [e.target.name]: e.target.value

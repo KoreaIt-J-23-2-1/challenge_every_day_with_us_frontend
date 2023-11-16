@@ -214,7 +214,6 @@ function ChallengeCreate({ children }) {
             categoryName: categoryName,
             userId: userId
         };
-        console.log(principal);
         if(window.confirm("챌린지 생성시 1000 Point가 소요됩니다. 동의하시나요?")) {
             if(principal.point >= 1000){
                 const principalPoint = {
@@ -234,7 +233,6 @@ function ChallengeCreate({ children }) {
                 navigete("/point");
             }
         }
-        console.log(requestData);
     };
 
     return (

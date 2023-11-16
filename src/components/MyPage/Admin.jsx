@@ -169,7 +169,6 @@ function Admin() {
                 type: 'point',
                 min: 0,
                 max: 30,
-
             }}
             yFormat=" >-.2f"
             gridYValues={[0, 5,10,15,20,25,30]}

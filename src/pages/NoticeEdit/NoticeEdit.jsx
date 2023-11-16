@@ -79,7 +79,6 @@ function NoticeEdit(props) {
     }, {
         refetchOnWindowFocus: false,
         onSuccess: response => {
-            console.log(response)
             setNoticeContent({
                 ...noticeContent,
                 title: response.data.noticeTitle,
@@ -130,7 +129,6 @@ function NoticeEdit(props) {
                     Authorization: localStorage.getItem("accessToken")
                 }
             }
-            console.log(noticeContent);
             await instance.put(`/api/notice/${noticeId}`, noticeContent, option);
             alert("게시글 수정 완료.");
             window.history.back();
@@ -141,8 +139,6 @@ function NoticeEdit(props) {
         }
     }
     
-    console.log(getNotice.noticeTitle)
-
     return (
         <BaseLayout>
             <div css={noticeLayout}>
