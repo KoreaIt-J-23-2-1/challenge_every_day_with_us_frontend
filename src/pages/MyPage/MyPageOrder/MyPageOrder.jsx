@@ -51,7 +51,7 @@ function MyPageOrder(props) {
     return (
         <BaseLayout>
             <MypageDetailSideBar>
-                <div>
+                <div css={S.SLayout}>
                     <div css={S.SOrderHeader}>
                         <h1>{!getPrincipal.isLoading && getPrincipal.data.data.nickname} 님의 구매목록</h1>
                     </div>
