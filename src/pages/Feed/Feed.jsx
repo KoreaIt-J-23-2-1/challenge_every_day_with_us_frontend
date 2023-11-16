@@ -18,6 +18,7 @@ function Feed(props) {
     const [ commentShowMode, setCommentShowMode ] = useState({});
     const [ latestComments, setLatestComments ] = useState({});
     const [ comments, setComments ] = useState({});
+    const [ sort, setSort ] = useState('latest');
 
     useEffect(() => {
         const observerService = (entries, observer) => {
@@ -73,8 +74,14 @@ function Feed(props) {
     }
 
     const getFeedList = useQuery(["getFeedList"], async () => {
-        return await instance.get(`/api/challenge/certification/feed/${page}`, option);
+        return await instance.get(`/api/challenge/certification/feed/${page}`, {
+            params: {
+                sort: sort
+            },
+            ...option
+        });
     }, {
+        retry: 0,
         refetchOnWindowFocus: false,
         enabled: isChallengeFeedRefetch,
         onSuccess: (response) => {
@@ -83,6 +90,18 @@ function Feed(props) {
             setPage(page + 1);
         }
     });
+
+    useEffect(() => {
+        if(page === 1) {
+            setFeedList([]);
+            getFeedList.refetch();
+        }
+    }, [page])
+
+    useEffect(() => {
+        setPage(1);
+        setFeedList([]);
+    }, [sort])
 
     const commentListComponent = (feed) => {
         return comments[feed.feedId].length !== 0 ? 
@@ -146,19 +165,27 @@ function Feed(props) {
     const handleLikebuttonClick = async (feedId) => {
         const userId = principal.userId;
         try {
-            // 좋아요를 했는가?
             const isLike = isLikeList[feedId];
             let newState = null;
 
-            if (isLike === 1) { // 했으면
-                // 삭제
+            if (isLike === 1) {
                 await instance.delete(`/api/feed/${feedId}/like`, option);
                 newState = 0;
-            } else { // 아니면
-                // 추가
+            } else {
                 await instance.post(`/api/feed/${feedId}/like`, {}, option);
                 newState = 1;
             }
+            setFeedList(prevFeedList => {
+                return prevFeedList.map(feed => {
+                    if (feed.feedId === feedId) {
+                        return {
+                            ...feed,
+                            likeCount: newState === 1 ? feed.likeCount + 1 : feed.likeCount - 1,
+                        };
+                    }
+                    return feed;
+                });
+            });
             setIsLikeList((prevIsLikeList) => ({
                 ...prevIsLikeList,
                 [feedId]: newState
@@ -167,7 +194,6 @@ function Feed(props) {
             console.error(error);
         }
     }
-    
 
     const handleCommentInput = (e) => {
         setCommentInputList({
@@ -187,6 +213,11 @@ function Feed(props) {
         }
     };
 
+    const handleCheckboxChange = async (event) => {
+        setSort(event.target.value);
+        setPage(1);
+    };
+
     return (
         <BaseLayout>
             <div css={S.SLayout}>
@@ -196,8 +227,12 @@ function Feed(props) {
                     <button>활동</button>
                 </div>
                 <div css={S.SAlignment}>
-                    <button>인기</button>
-                    <button>실시간</button>
+                    <input type="radio" name="radioGroup" id="radio1" onChange={handleCheckboxChange} value="latest" defaultChecked={true}/>
+                    <label htmlFor="radio1">최신순</label>
+                    <input type="radio" name="radioGroup" id="radio2" onChange={handleCheckboxChange} value="oldest"/>
+                    <label htmlFor="radio2">오래된순</label>
+                    <input type="radio" name="radioGroup" id="radio3" onChange={handleCheckboxChange} value="popular"/>
+                    <label htmlFor="radio3">인기순</label>
                 </div>
                 <div css={S.SScroll}>
                     {feedList.map(feed => (

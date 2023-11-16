@@ -21,7 +21,6 @@ function Admin() {
     const [ chartData, setChartData ] = useState([]);
     const lastChallengeRef = useRef();
     const [ sort, setSort ] = useState('latest');
-    const [ accumulatedData, setAccumulatedData ] = useState([]);
 
     const option = {
         headers: {
