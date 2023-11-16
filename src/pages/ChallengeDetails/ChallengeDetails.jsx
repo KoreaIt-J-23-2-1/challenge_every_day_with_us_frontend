@@ -182,7 +182,7 @@ function ChallengeDetails(props) {
         receiverUserId: challenge.userId,
         title: "챌린지 승인 요청",
         content: `${challenge.challengeName} 챌린지의 승인 요청이 들어왔습니다.`,
-        targetUrl: principal.data.data.profileUrl
+        targetUrl: "http://localhost:3000/challenge/1"
     };
     
     const handleParticipationButton = () => {
