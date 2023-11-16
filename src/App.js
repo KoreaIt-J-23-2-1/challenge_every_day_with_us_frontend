@@ -26,6 +26,7 @@ import { SReset } from './styles/reset';
 import Store from './components/Store/Store';
 import NoticeEdit from './pages/NoticeEdit/NoticeEdit';
 import RealMain from './pages/Main/RealMain';
+import MyPageOrder from './pages/MyPage/MyPageOrder/MyPageOrder';
 
 function App() {
 
@@ -68,7 +69,7 @@ function App() {
         <Route path='/auth/oauth2/login' element={<SigninOauth2 />} />
         
         <Route path='/store/items' element={<Store/>} />
-        <Route path='/store/:userId/orders' element={<StoreMyOrder/>} />
+        <Route path='/store/:userId/orders' element={<MyPageOrder/>} />
 
         <Route path='/notice/page/:page' element={<NoticeList/>} />
         <Route path='/notice/write' element={<NoticeWrite />} />

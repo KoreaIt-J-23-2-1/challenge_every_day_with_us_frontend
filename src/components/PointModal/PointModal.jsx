@@ -8,28 +8,11 @@ import { useQuery, useQueryClient } from 'react-query';
 
 const SStoreContainer = css`
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     border: 1px solid #dbdbdb;
     border-radius: 10px;
     padding: 20px 20px;
-`;
-
-const SProductContainer = css`
-    position: relative;
-    margin: 10px;
-    width: 30%;
-    height: 120px;
-    font-size: 20px;
-    font-weight: 600;
-    cursor: pointer;
-    
-    & p {
-        position: absolute;
-        right: 10px;
-        bottom: -5px;
-        font-size: 12px;
-        font-weight: 500;
-    }
 `;
 
 function PointStore({ onClose }) {
@@ -60,9 +43,12 @@ function PointStore({ onClose }) {
     }, [handleCloseModal]);
     
     const productData = [
-        { name: "1000 Point", price: 10000, points: 500 },
-        { name: "2000 Point", price: 20000, points: 500 },
-        { name: "3000 Point", price: 30000, points: 1000 },
+        { name: "1000 Point", price: 10000, points: 1000, option: 500 },
+        { name: "2000 Point", price: 20000, points: 2000, option: 500 },
+        { name: "3000 Point", price: 30000, points: 3000, option: 1000 },
+        { name: "5000 Point", price: 50000, points: 5000, option: 2000 },
+        { name: "7500 Point", price: 75000, points: 7500, option: 3000 },
+        { name: "10000 Point", price: 100000, points: 10000, option: 5000 }
     ];
     
     const handlePaymentSubmit = (product) => {
@@ -118,7 +104,7 @@ function PointStore({ onClose }) {
                         css={S.SPointBtn}
                         onClick={() => handlePaymentSubmit(product)}>
                         {product.name}
-                        <p>충전 시 <br/>+ {product.points} 추가지급!</p>
+                        <p>충전 시 <br/>+ {product.option} 추가지급!</p>
                     </button>
                 ))}
             </div>

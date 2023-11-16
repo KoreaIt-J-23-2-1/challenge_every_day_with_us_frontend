@@ -22,7 +22,7 @@ export const Layout = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
+    min-width: 950px;
     width: 80%;
     height: 90vh;
     margin: 0px auto ;

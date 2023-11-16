@@ -1,5 +1,86 @@
 import { css } from '@emotion/react';
 
+export const StoreHeader = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+
+    & > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 600px;
+    }
+    & * h1 {
+        white-space: nowrap;
+        font-size: 30px;
+    }
+
+    & * h3 {
+        white-space: nowrap;
+        font-size: 15px;
+    }
+`;
+
+export const UserPoint = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    & > h3 > b {
+        font-weight: 700;
+    }
+`;
+
+export const SBaseLayout = css`
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    max-height: 800px;
+    margin: 20px 30px;
+    padding-right: 15px;
+`;
+
+export const SItemLayout = css`
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #dbdbdb;
+`;
+
+export const SItemImgLayout = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #dbdbdb;
+    padding: 10px;
+`;
+
+
+
+export const SItemImgContainer = css`
+    width: 160px;
+    height: 120px;
+`;
+
+export const SItemContainer = css`
+    padding: 25px 20px;
+    width: 400px;
+
+    & > b {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    & > p {
+        font-size: 14px;
+    }
+`;
+
+export const itemImg = css`
+    width: 100%;
+    height: 100%;
+`;
+
 export const SBuyBtn = css`
     background-color: initial;
     background-image: linear-gradient(-180deg, #00D775, #00BD68);
