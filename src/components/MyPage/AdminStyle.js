@@ -130,10 +130,10 @@ export const SChallengeListBody = css`
             align-items: center;
         }
         & > div:nth-of-type(1) {width: 30%;}
-        & > div:nth-of-type(2) {width: 15%;}
-        & > div:nth-of-type(3) {width: 15%;}
-        & > div:nth-of-type(4) {width: 12%;}
-        & > div:nth-of-type(5) {width: 15%;}
+        & > div:nth-of-type(2) {width: 13%;}
+        & > div:nth-of-type(3) {width: 16%;}
+        & > div:nth-of-type(4) {width: 10%;}
+        & > div:nth-of-type(5) {width: 17%;}
     }
 `;
 
