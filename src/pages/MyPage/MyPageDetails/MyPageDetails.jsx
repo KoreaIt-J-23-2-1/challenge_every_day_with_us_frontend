@@ -96,7 +96,14 @@ function MyPageDetails(props) {
                             Authorization: localStorage.removeItem("accessToken")
                         }
                     }
+<<<<<<< HEAD
                     await instance.delete(`/api/account/${userId}`, option);
+=======
+                    const response = await instance.delete(`/api/account/${principal.userId}`, option);
+                    if(response){
+                        navegate("/main");
+                    }
+>>>>>>> 35e477e724ddb3fe73f2596759e6b5181538dbfc
                 }catch(error) {
                     console.error(error);
                 }
