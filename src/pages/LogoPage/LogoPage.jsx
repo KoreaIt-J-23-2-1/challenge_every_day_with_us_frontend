@@ -13,19 +13,6 @@ const layout = css`
 
 `;
 
-const imgbox = css`
-    cursor: pointer;
-    margin:  120px auto;
-    width: 500px;
-    height: 500px;
-
-    &:hover{
-        img {
-            opacity: 0.5;
-        }
-    }
-`;
-
 const LogoImg = css`
     cursor: pointer;
     background-image: url(${Logo});
@@ -34,17 +21,24 @@ const LogoImg = css`
     left: 0px;
     width: 500px;
     height: 500px;
-        &:hover{
-            opacity: 0.5;       
+    transition: transform 0.4s ease-out; 
+
+    &:hover{
+        opacity: 0.5;    
+        transform: scale(0.9);
+    }
+    &:active {
+        opacity: 1;    
     }
 `;
-
 
 function LogoPage() {
     const navigate = useNavigate();
 
     const GoMainPage = () => {
-        navigate("/main");
+        setTimeout(() => {
+            navigate("/main");
+        }, 400);
     };
 
     useEffect(() => {
@@ -57,9 +51,7 @@ function LogoPage() {
     return (
         <div css={layout}>
             <div css={LogoImg} onClick={GoMainPage} ></div>
-            {/* <div css={imgbox}>
-                <img src={logoimg} alt="로고 이미지" onClick={GoMainPage} />
-            </div> */}
+
         </div>
     );
 }

@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 
 export const listTable = css`
-    width: 938px;
+    width: 850px;
     border-collapse: collapse;
     & th, td {
         height: 30px;
@@ -11,7 +11,6 @@ export const listTable = css`
     & td {
         cursor: pointer;
     }
-
 `;
 
 export const noticeTitle = css`
@@ -26,7 +25,6 @@ export const btnBox = css`
     display: flex;
     justify-content: end;
     width: 938px;
-    
     & > button{
         cursor: pointer;
         margin: 5px;
@@ -35,11 +33,9 @@ export const btnBox = css`
         background-color: #efefef;
         border: none;
     }
-
     & > button:hover{
         background-color: #dbdbdb;
     }
-    
     & > input {
         margin:5px;
         width: 300px;

@@ -107,10 +107,10 @@ function ChallengeList(props) {
                 <input type="text" onChange={handleSearchInputChange} />
                 <button onClick={handleSearchButtonClick}>검색</button>
             </div>
+            
             <table css={S.listTable}>
                 <thead >
                     <tr>
-                        <th>번호</th>
                         <th>챌린지 제목</th>
                         <th>카테고리 이름</th>
                         <th>시작일</th>
@@ -120,8 +120,7 @@ function ChallengeList(props) {
                 <tbody >
                     {challengeList.map(challenge => (
                         <tr key={challenge.challengeId} onClick={() => { navigate(`/challenge/${challenge.challengeId}`) }}>
-                            <td>{challenge.challengeId}</td>
-                            <td>{challenge.challengeName}</td>
+                            <td css={S.Title}>{challenge.challengeName}</td>
                             <td>{challenge.categoryName}</td>
                             <td>{challenge.startDate}</td>
                             <td>{challenge.likeCount}</td>

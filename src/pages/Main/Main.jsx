@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { css } from '@emotion/react';
-import Header from '../../components/Header/Header';
-import LetterSideBar from '../../components/LetterSideBar/LetterSideBar';
 import { useQueryClient } from 'react-query';
 /** @jsxImportSource @emotion/react */
 
@@ -39,6 +37,7 @@ function Main(props) {
                 <h1>임시 메인페이지(버튼이동용...)</h1>
                 <p>주소 매번 입력하기...귀찮았다...미안하다...</p>
                 <div css={btn}>
+                <button onClick={() => { navigate("/maain") }}>찐메인</button>
                 <button onClick={() => { navigate("/auth/signin") }}>로그인</button>
                 <button onClick={() => { navigate("/store/items") }}>상점</button>
                 <button onClick={() => { navigate(`/store/${userId}/orders`) }}>상점 물품 구매 목록 조회</button>
