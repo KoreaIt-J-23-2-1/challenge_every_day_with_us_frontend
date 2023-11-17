@@ -5,138 +5,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
-
-const ChallengeTitle = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    margin-top: 20px;
-
-    & p {
-        margin-right: 10px;
-        font-size: 20px;
-        font-weight: 600;
-    }
-
-    & input {
-        width: 70%;
-        height: 40px;
-    }
-`;
-
-const layout = css`
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    height: 100%;
-`;
-
-const CategoryBox = css`
-    position: absolute;
-    left: 38px;
-    top: 65px;
-    & b {
-        font-size: 20px;
-        margin-left: 5px;
-    }
-`;
-
-const ApplicationBtn = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 40px;
-
-    & button {
-        width: 100%;
-        height: 40px;
-        font-size: 20px;
-        cursor: pointer;
-    }
-`;
-
-const Checkbox = css`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right: 30px;
-
-    & label {
-        margin-right: 15px;
-    }
-`;
-
-const DataBox = css`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right: 10px;
-    margin-bottom: 10px;
-`;
-
-const DateInput = css`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right: 30px;
-
-    & label {
-        margin-right: 10px;
-    }
-
-    & input {
-        width: 150px;
-        height: 25px;
-    }
-`;
-const Layout = css`
-
-    & div {
-        margin-top: 50px;
-    }
-
-    & h2 {
-        margin-top: 50px;
-    }
-
-    &>textarea{
-        resize: none;
-
-    }
-`;
-
-const CheckBox = css`
-    display: flex;
-
-    & input {
-        margin-right: 5px;
-    }
-`;
-
-const CheckBoxLayout = css`
-    display: flex;
-
-    & div {
-        margin-right: 20px;
-    }
-`;
-
-const ContentLayout = css`
-    margin: 30px;
-    background: rgba(255, 255, 255, 0.5); 
-    border-radius: 15px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-    & h2 {
-        margin-left: 20px;
-    }
-
-    & div, p, textarea {
-        margin-left: 10px;
-        margin-bottom: 20px;
-    }
-`;
+import * as S from './Style';
 
 function ChallengeCreate({ children }) {
     const [ challengeTitle, setChallengeTitle ] = useState("");
@@ -252,9 +121,9 @@ function ChallengeCreate({ children }) {
 
     return (
         <BaseLayout>
-            <div css={layout}>
-                <div css={ChallengeTitle}>
-                    <div css={CategoryBox}>
+            <div css={S.layout}>
+                <div css={S.ChallengeTitle}>
+                    <div css={S.CategoryBox}>
                         <div>Category : 
                             <b>{categoryName}</b>
                         </div>
@@ -262,19 +131,19 @@ function ChallengeCreate({ children }) {
                     <p>Challenge Title</p>
                     <input type="text" placeholder='제목을 입력하세요' onChange={handleTitleChange} />
                 </div>
-                <div css={ContentLayout}>
+                <div css={S.ContentLayout}>
                     <h2>인증 방법</h2>
-                    <div css={CheckBoxLayout}>
-                        <div css={CheckBox}>
+                    <div css={S.CheckBoxLayout}>
+                        <div css={S.CheckBox}>
                             <input type="radio" id="layout1" name='layout' value={1} onChange={handleLayoutChange}/>
                             <label htmlFor="layout1">글, 사진인증</label>
                         </div>
-                        <div css={CheckBox}>
+                        <div css={S.CheckBox}>
                             <input type="radio" id="layout2" name='layout' value={2} onChange={handleLayoutChange}/>
                             <label htmlFor="layout2">글, 사진, 시간인증</label>
                         </div>
                     </div>
-                    <div css={Layout}>
+                    <div css={S.Layout}>
                         <div>* 참가자들이 혼란을 겪지 않도록 정확한 기준과 구체적인 인증방법을 적어주세요.</div>
                         <h2>챌린지 소개</h2>
                         <textarea id="introText" rows="7" cols="60" maxLength={1000} onChange={handleIntroductionChange}></textarea>
@@ -283,8 +152,8 @@ function ChallengeCreate({ children }) {
                         <div>* 챌린지가 시작되면 챌린지를 수정할 수 없습니다. 신중하게 생성해주세요</div>
                     </div>
                 </div>
-                <div css={DataBox}>
-                    <div css={DateInput}>
+                <div css={S.DataBox}>
+                    <div css={S.DateInput}>
                         <label htmlFor="startDate">시작 날짜:</label>
                         <input
                             type="date"
@@ -293,7 +162,7 @@ function ChallengeCreate({ children }) {
                             onChange={handleStartDateChange}
                         />
                     </div>
-                    <div css={DateInput}>
+                    <div css={S.DateInput}>
                         <label htmlFor="endDate">마감 날짜:</label>
                         <input
                             type="date"
@@ -303,7 +172,7 @@ function ChallengeCreate({ children }) {
                         />
                     </div>
                 </div>
-                <div css={Checkbox}>
+                <div css={S.Checkbox}>
                     <input
                         type="checkbox"
                         id="privateCheckbox"
@@ -319,7 +188,7 @@ function ChallengeCreate({ children }) {
                     />
                     <label htmlFor="allApprovalCheckbox">모든참여허용</label>
                 </div>
-                <div css={ApplicationBtn}>
+                <div css={S.ApplicationBtn}>
                     <button onClick={handleSubmitButton}>생성하기</button>
                 </div>
             </div>

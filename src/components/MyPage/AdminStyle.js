@@ -5,7 +5,7 @@ export const Layout = css`
     display: flex;
     flex-direction: column;
     margin: 50px;
-    width: 90%;
+    width: 100%;
 `;
 
 export const UserBox = css`
@@ -104,13 +104,13 @@ export const SChallengeListHeader = css`
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right: 50px;
+            margin: 0px 9px;
         }
-        & > div:nth-of-type(1) {width: 20%;}
-        & > div:nth-of-type(2) {width: 15%;}
-        & > div:nth-of-type(3) {width: 4%;}
-        & > div:nth-of-type(4) {width: 11%;}
-        & > div:nth-of-type(5) {width: 5%;}
+        & > div:nth-of-type(1) {width: 25%;}
+        & > div:nth-of-type(2) {width: 17%;}
+        & > div:nth-of-type(3) {width: 14%;}
+        & > div:nth-of-type(4) {width: 12%;}
+        & > div:nth-of-type(5) {width: 14%;}
     }
 `;
 
@@ -128,12 +128,13 @@ export const SChallengeListBody = css`
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 0px 8.5px;
         }
         & > div:nth-of-type(1) {width: 30%;}
-        & > div:nth-of-type(2) {width: 13%;}
+        & > div:nth-of-type(2) {width: 12%;}
         & > div:nth-of-type(3) {width: 16%;}
-        & > div:nth-of-type(4) {width: 10%;}
-        & > div:nth-of-type(5) {width: 17%;}
+        & > div:nth-of-type(4) {width: 9%;}
+        & > div:nth-of-type(5) {width: 16%;}
     }
 `;
 
@@ -250,5 +251,6 @@ export const Chart = css`
     margin-top: 20px;
 
     & h2 {
+        margin-left: 50px;
     }
 `;

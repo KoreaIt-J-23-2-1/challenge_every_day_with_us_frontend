@@ -1,92 +1,79 @@
 import { css } from '@emotion/react';
 
+export const Layout = css`
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+`;
 
-// 검색창
 export const searchContainer = css`
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 10px;
-    width: 100%;
+    align-items: center;
+    margin: 30px 0px;
     
-    & > * {
-        margin-left: 5px;
+    & > input {
+        margin-left: 10px;
+        height: 100%;
+    }
+
+    & > button {
+        height: 100%;
     }
 `;
+
 export const selectBox = css`
-    width: 100px;
-    `;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
 export const SChallengeList = css`
     width: 100%;
     border: 1px solid #dbdbdb;
+    padding: 0px;
 `;
 
-//목록
-export const listTable = css`
+export const SChallengeListHeader = css`
     overflow-y: auto;
-    width: 850px;
-    border-collapse: collapse;
-    text-align: center;
-
-    & th, td {
-        height: 30px;
-        text-align: center;
-        cursor: pointer;
-    }
-    & td {
-        cursor: pointer;
-    }
-    
-`;
-export const Title = css`
-    max-width: 500px;
-    width: 500px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin: 20px;
+    margin-left: 50px;
     white-space: nowrap;
-`;
 
+    & > li {
+        display: flex;
+        & > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        & > div:nth-of-type(1) {width: 7%;}
+        & > div:nth-of-type(2) {width: 53%;}
+        & > div:nth-of-type(3) {width: 5%;}
+        & > div:nth-of-type(4) {width: 24%;}
+        & > div:nth-of-type(5) {width: 11%;}
+    }
+`;
 
 export const SChallengeListBody = css`
-    height: 300px;
+    height: 500px;
+    white-space: nowrap;
     overflow-y: auto;
 
     & > li {
         display: flex;
+        margin-bottom: 10px;
+
         cursor: pointer;
         & > div {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 40px;
-            border: 1px solid #dbdbdb;
         }
-        & > div:nth-of-type(1) {width: 7%;}
-        & > div:nth-of-type(2) {
-            width: 53%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+        & > div:nth-of-type(1) {width: 15%;}
+        & > div:nth-of-type(2) {width: 40%;}
         & > div:nth-of-type(3) {width: 15%;}
-        & > div:nth-of-type(4) {width: 20%;}
-        & > div:nth-of-type(5) {width: 5%;}
+        & > div:nth-of-type(4) {width: 14%;}
+        & > div:nth-of-type(5) {width: 16%;}
     }
-`;
-
-export const SPageNumbers = css`
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    width: 200px;
-
-    & button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0px 3px;
-        width: 20px;
-        border: 1px solid #dbdbdb;
-        cursor: pointer;
-    }
-
 `;

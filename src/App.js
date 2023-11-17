@@ -2,7 +2,6 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import AccountRoute from './components/Routes/AccountRoute';
 import SignUp from './pages/SignUp/SignUp';
-import PointStore from './pages/PointStore/PointStore';
 import SignIn from './pages/SignIn/SignIn';
 import { useQuery } from 'react-query';
 import { instance } from './api/config/instance';
@@ -17,7 +16,6 @@ import SigninOauth2 from './pages/SignIn/SigninOauth2';
 import StampPage from './pages/StampPage/StampPage';
 import LogoPage from './pages/LogoPage/LogoPage';
 import Certification from './pages/Certification/Certification';
-import StoreMyOrder from './pages/StoreMyOrder/StoreMyOrder';
 import Feed from './pages/Feed/Feed';
 import NoticeDetails from './pages/NoticeDetails/NoticeDetails';
 import { Global } from '@emotion/react';
@@ -63,7 +61,6 @@ function App() {
         <Route path='/' element={<LogoPage/>}/>
         
         <Route path='/account/*' element={ <AccountRoute /> } />
-        <Route path='/point' element={ <PointStore /> } />
         <Route path='/auth/signup' element={ <SignUp/> } />
         <Route path='/auth/signin' element={<SignIn />} />
         <Route path='/auth/oauth2/login' element={<SigninOauth2 />} />

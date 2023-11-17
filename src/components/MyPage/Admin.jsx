@@ -235,17 +235,16 @@ function Admin() {
             data: item.data.sort((a, b) => new Date(a.x) - new Date(b.x))
         }));
 
-        console.log(sortedData)
         return (
             <ResponsiveLine
                 data={sortedData}
                 height={200}
-                margin={{ top: 50, right: 130, bottom: 50, left: 100 }}
+                margin={{ top: 50, right: 180, bottom: 50, left: 80 }}
                 xScale={{ type: 'point' }}
                 yScale={{
                     type: 'linear',
                     min: 0,
-                    max: 10,
+                    max: 20,
                 }}
                 yFormat=" >-.2f"
                 gridYValues={[0, 5, 10, 15, 20, 25, 30]}

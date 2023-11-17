@@ -11,7 +11,7 @@ export const Layout = css`
     align-items: center;
     min-width: 950px;
     width: 80%;
-    height: 850px;
+    height: 85vh;
     margin: 0px auto ;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 

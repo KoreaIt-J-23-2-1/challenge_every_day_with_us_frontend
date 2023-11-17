@@ -5,14 +5,7 @@ import { instance } from '../../api/config/instance';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useNavigate } from 'react-router-dom';
 /** @jsxImportSource @emotion/react */
-
-const SLayout = css`
-    background-color: #dbdbdb;
-`;
-
-const SItemContainer = css`
-    border: 1px solid black;
-`;
+import * as S from './Style';
 
 function StoreMyOrder(props) {
     const navigate = useNavigate();
@@ -57,10 +50,10 @@ function StoreMyOrder(props) {
     return (
         <BaseLayout>
             <h1>{!getPrincipal.isLoading && getPrincipal.data.data.nickname} 님의 구매 기록</h1>
-            <div css={SLayout}>
+            <div css={S.SLayout}>
                 {!getMyOrders.isLoading &&
                     getMyOrders?.data?.data.map(order => {
-                        return <div css={SItemContainer} key={order.orderId}>
+                        return <div css={S.SItemContainer} key={order.orderId}>
                                 <div>주문 고유번호 : {order.orderId}</div>
                                 <div>상품 번호 : {order.itemId}</div>
                                 <div>상품 이름 : {order.itemName}</div>
