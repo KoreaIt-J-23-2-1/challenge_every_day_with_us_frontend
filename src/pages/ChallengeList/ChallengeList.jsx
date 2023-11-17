@@ -109,7 +109,7 @@ function ChallengeList(props) {
             </div>
             
             <table css={S.listTable}>
-                <thead >
+                <thead > 
                     <tr>
                         <th>챌린지 제목</th>
                         <th>카테고리 이름</th>

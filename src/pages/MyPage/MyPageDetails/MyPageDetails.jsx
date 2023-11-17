@@ -34,11 +34,12 @@ function MyPageDetails(props) {
 
     const handleModifyMypageDetailSubmit = async () => {
         let promise = null;
-        console.log(uploadFiles)
+
         if(uploadFiles.length > 0) {
             promise = new Promise((resolve, reject) => {
                 const storageRef = ref(storage, `files/profile/${uploadFiles[0].name}`);
                 const uploadTask = uploadBytesResumable(storageRef, uploadFiles[0]);
+    
                 uploadTask.on(
                     "state_changed",
                     (snapshot) => {
@@ -49,9 +50,7 @@ function MyPageDetails(props) {
                     },
                     () => {
                         getDownloadURL(storageRef).then(downloadUrl => {
-                            console.log("Before Update:", modifyMypageDetail);
-                            modifyMypageDetail.profileUrl = downloadUrl;
-                            console.log("After Update:", modifyMypageDetail);   
+                            modifyMypageDetail.profileUrl = downloadUrl;   
                             resolve(downloadUrl)
                         })
                     }
@@ -98,6 +97,7 @@ function MyPageDetails(props) {
                         }
                     }
                     await instance.delete(`/api/account/${userId}`, option);
+                    navegate("/");
                 }catch(error) {
                     console.error(error);
                 }
@@ -107,7 +107,7 @@ function MyPageDetails(props) {
 
     return (
         <BaseLayout>
-            <MypageDetailSideBar>
+            <MypageDetailSideBar setUploadFiles={setUploadFiles}>
                 <div css={S.userBox}>
                     <div css={S.userInfoHeader}>내 정보수정</div>
                     <div css={S.inputBox}>
