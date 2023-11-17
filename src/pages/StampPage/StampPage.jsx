@@ -3,32 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-
-const calendarContainer = css`
-    & button {
-        height: 50px;
-        background-color: white;
-        border: 1px solid #dbdbdb;
-    }
-
-    & .react-calendar__tile--now {
-        position: relative;
-    }
-
-    & .checked-circle {
-        &::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 2px solid orange;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-        }
-    }
-`;
+import * as S from './Style';
 
 function StampPage(props) {
     const [value, onChange] = useState(new Date());
@@ -45,7 +20,6 @@ function StampPage(props) {
         }
     }, []);
 
-    // 출석체크 날짜가 변경될 때 로컬 스토리지에 저장
     useEffect(() => {
         localStorage.setItem('checkedDates', JSON.stringify(checkedDates));
     }, [checkedDates]);
@@ -58,7 +32,7 @@ function StampPage(props) {
                 </div>
                 {moment(value).format('YYYY년 MM월 DD일')}
             </div>
-            <div css={calendarContainer}>
+            <div css={S.calendarContainer}>
                 <Calendar
                     onChange={onChange}
                     value={value}
@@ -68,7 +42,7 @@ function StampPage(props) {
                             return 'checked-circle';
                         }
                     }}
-                    />
+                />
             </div>
             <button onClick={handleCheckIn}>출석체크</button>
             <div>

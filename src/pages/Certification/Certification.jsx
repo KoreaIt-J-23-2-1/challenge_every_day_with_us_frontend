@@ -3,27 +3,7 @@ import Challengedefault from '../../components/ChallengeLayout/ChallengeDefault'
 import ChallengeTimeLayout from '../../components/ChallengeLayout/ChallengeTimeLayout';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-
-const ChallengeArea = css`
-    position: relative;
-    display: flex;
-    justify-content: center;
-    height: 800px;
-    margin: 20px;
-    border: 5px solid #dbdbdb;
-    font-weight: 600;
-
-    & label {
-        position: absolute;
-        margin: 10px;
-        right: 0px;
-    }
-
-    & select {
-        margin-left: 10px;
-        width: 200px;
-    }
-`;
+import * as S from './Style';
 
 function Certification(props) {
     const [ selectedComponent, setSelectedComponent ] = useState(<Challengedefault />);
@@ -38,7 +18,7 @@ function Certification(props) {
 
     return (
         <div>
-            <div css={ChallengeArea}>
+            <div css={S.ChallengeArea}>
                 {selectedComponent}
                 <label>
                     Select Layout

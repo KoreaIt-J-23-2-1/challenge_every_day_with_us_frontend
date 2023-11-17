@@ -9,8 +9,6 @@ import Header from '../../components/Header/Header';
 /** @jsxImportSource @emotion/react */
 import * as S from './NoticeListStyle';
 
-
-
 function NoticeList(props) {
     const option = {
         headers: {

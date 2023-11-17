@@ -6,53 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { instance } from '../../api/config/instance';
 import { useQuery } from 'react-query';
 /** @jsxImportSource @emotion/react */
-
-
-const noticeLayout = css`
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
-
-const inputBox = css`
-    margin: 5px;
-
-    &> label{
-        display: flex;
-        align-items: center;
-        width: 100px;
-        font-size: 12px;
-    }
-
-    & > input {
-        margin-top: 4px;
-        width: 100%;
-        height: 25px;
-    }
-`;
-
-const btnBox = css`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 50px;
-    width: auto;
-    
-    & > button{
-        cursor: pointer;
-        margin: 0px 5px;
-        width: 80px;
-        height: 30px;
-        background-color: #efefef;
-        border: none;
-    }
-    & > button:hover{
-        background-color: #dbdbdb;
-    }
-`;
-
+import * as S from './Style';
 
 function NoticeEdit(props) {
 
@@ -141,9 +95,9 @@ function NoticeEdit(props) {
     
     return (
         <BaseLayout>
-            <div css={noticeLayout}>
+            <div css={S.noticeLayout}>
                 <h1> 공지 수정</h1>
-                <div css={inputBox}>
+                <div css={S.inputBox}>
                     <label>제목</label>
                     <input type="text" name='title' onChange={handleTitleInput} defaultValue={noticeContent.title} />
                     <label>내용</label>
@@ -155,7 +109,7 @@ function NoticeEdit(props) {
                         onChange={handleContentInput}
                         />
                     
-                    <div css={btnBox}>
+                    <div css={S.btnBox}>
                         <button onClick={handleCancelBtn}>취소</button>
                         <button onClick={handleEditSubmit}>수정</button>
                     </div>

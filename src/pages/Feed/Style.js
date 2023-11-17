@@ -86,7 +86,6 @@ export const SFeedBody = css`
     margin-left: 20px;
 
     & img {
-        max-width: 500px;
         max-height: 300px;
         margin-right: 20px;
         border-radius: 10px;

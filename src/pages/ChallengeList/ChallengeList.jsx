@@ -8,15 +8,14 @@ import { instance } from '../../api/config/instance';
 import * as S from './ChallengeListStyle';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 
-
-
 function ChallengeList(props) {
+
     const navigate = useNavigate();
     const [ page, setPage ] = useState(1);
     const lastChallengeRef = useRef();
     const [ isChallengeListRefetch, setIsChallengeListRefetch ] = useState(false);
     const [ challengeList, setChallengeList ] = useState([]);
-    const [sort, setSort] = useState('latest');
+    const [ sort, setSort ] = useState('latest');
 
     const options = [
         {value: "전체", label: "전체"},
@@ -33,21 +32,20 @@ function ChallengeList(props) {
 
     const getChallengeList = useQuery(["getChallengeList", page], async () => {
         const option = {
-            params: { ...searchParams, sort }
+            params: {...searchParams, sort}
         }
         return await instance.get(`/api/challenges/${page}`, option);
     }, {
-        retry: 0,
         refetchOnWindowFocus: false,
         enabled: isChallengeListRefetch,
         onSuccess: (response) => {
-            setChallengeList([
-                ...challengeList
-            ].concat(response.data));
+            setChallengeList([...challengeList].concat(response.data));
             setIsChallengeListRefetch(false);
             setPage(page + 1);
         }
     });
+
+    console.log(challengeList)
 
     const getChallengeCount = useQuery(["getChallengeCount", page], async () => {
         const option = {
@@ -71,13 +69,6 @@ function ChallengeList(props) {
         observer.observe(lastChallengeRef.current);
     }, []);
 
-    useEffect(() => {
-        if(page === 1) {
-            setChallengeList([]);
-            getChallengeList.refetch();
-        }
-    }, [page])
-
     const handleSearchInputChange = (e) => {
         setSearchParams({
             ...searchParams,
@@ -93,42 +84,47 @@ function ChallengeList(props) {
     }
 
     const handleSearchButtonClick = () => {
-        setPage(1);
+        navigate("/challenges");
+        getChallengeList.refetch();
     }
+    
 
     return (
         <BaseLayout>
-            <h1>챌린지리스트</h1>
-        
-            <div css={S.searchContainer}>
-                <div css={S.selectBox}>
-                    <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect} />
+            <div css={S.Layout}>
+                <div css={S.searchContainer}>
+                    <div css={S.selectBox}>
+                        <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect} />
+                    </div>
+                    <input type="text" onChange={handleSearchInputChange} />
+                    <button onClick={handleSearchButtonClick}>검색</button>
                 </div>
-                <input type="text" onChange={handleSearchInputChange} />
-                <button onClick={handleSearchButtonClick}>검색</button>
+                    <ul css={S.SChallengeList}>
+                    <div css={S.SChallengeListHeader}>
+                        <li>
+                            <div>번호</div>
+                            <div>챌린지제목</div>
+                            <div>카테고리이름</div>
+                            <div>시작일</div>
+                            <div>좋아요 수</div>
+                        </li>
+                    </div>
+                    <div css={S.SChallengeListBody}>
+                        {challengeList?.map((challenge) => {
+                            return (<li key={challenge.challengeId}
+                                    onClick={() => {navigate(`/challenge/${challenge.challengeId}`)}}>
+                                        <div>{challenge.challengeId}</div>
+                                        <div>{challenge.challengeName}</div>
+                                        <div>{challenge.categoryName}</div>
+                                        <div>{challenge.startDate}</div>
+                                        <div>{challenge.likeCount}</div>
+                                    </li>
+                                    );
+                        })}
+                        <li ref={lastChallengeRef}></li>
+                    </div>
+                </ul>
             </div>
-            
-            <table css={S.listTable}>
-                <thead > 
-                    <tr>
-                        <th>챌린지 제목</th>
-                        <th>카테고리 이름</th>
-                        <th>시작일</th>
-                        <th>좋아요 수</th>
-                    </tr>
-                </thead>
-                <tbody >
-                    {challengeList.map(challenge => (
-                        <tr key={challenge.challengeId} onClick={() => { navigate(`/challenge/${challenge.challengeId}`) }}>
-                            <td css={S.Title}>{challenge.challengeName}</td>
-                            <td>{challenge.categoryName}</td>
-                            <td>{challenge.startDate}</td>
-                            <td>{challenge.likeCount}</td>
-                        </tr>
-                    ))}
-                    <tr ref={lastChallengeRef}></tr>
-                </tbody>
-            </table>            
         </BaseLayout>
     );
 }
