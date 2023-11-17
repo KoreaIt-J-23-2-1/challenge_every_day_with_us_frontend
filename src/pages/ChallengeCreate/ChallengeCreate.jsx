@@ -107,7 +107,9 @@ function ChallengeCreate({ children }) {
                 instance.post(`/api/challenge/create/point`, principalPoint)
                     .then((response) => {
                         instance.post(`/api/challenge/create`, requestData)
+                        alert("챌린지 등록 !! ");
                         getPrincipal.refetch();
+                        navigete(-1);
                     })
                     .catch((error) => {
                         console.error("챌린지 생성 실패:", error);            
