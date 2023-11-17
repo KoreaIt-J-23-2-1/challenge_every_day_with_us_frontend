@@ -57,11 +57,11 @@ function Main(props) {
                     
                     {principal ? <button onClick={handleLogoutButton}>로그아웃</button>
                     : <button onClick={() => { navigate("/auth/signin") }}>로그인</button>}
-                    <button onClick={() => { checkLoginBeforeNavigate("/store/items") }}>상점</button>
+                    {/* <button onClick={() => { checkLoginBeforeNavigate("/store/items") }}>상점</button> */}
                     <button onClick={() => { checkLoginBeforeNavigate(`/store/${userId}/orders`) }}>상점 물품 구매 목록 조회</button>
                     <button onClick={() => { checkLoginBeforeNavigate("/account/mypage") }}>마이페이지</button>
                     <button onClick={() => { checkLoginBeforeNavigate("/account/mypage/detail") }}>내정보수정</button>
-                    <button onClick={() => { checkLoginBeforeNavigate("/point") }}>포인트상점</button>
+                    {/* <button onClick={() => { checkLoginBeforeNavigate("/point") }}>포인트상점</button> */}
                     <button onClick={() => { checkLoginBeforeNavigate("/notice/page/1") }}>공지목록</button>
                     <button onClick={() => { checkLoginBeforeNavigate("/challenge/category") }}>챌린지 생성 </button>
                     {/* <button onClick={() => { checkLoginBeforeNavigate("/challenge/5") }}>챌린지조회</button> */}
