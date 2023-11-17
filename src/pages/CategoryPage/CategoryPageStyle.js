@@ -24,7 +24,7 @@ export const SProductContainer =  css`
     font-weight: 600;
     overflow: hidden;
     cursor: pointer;   
-    transition: transform 0.4s ease-out; 
+    transition: transform 0.5s ease-out; 
     &:hover{
         opacity: 0.7;
         transform: scale(1.07);

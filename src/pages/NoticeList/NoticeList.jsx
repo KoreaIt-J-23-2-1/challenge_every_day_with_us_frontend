@@ -85,45 +85,43 @@ function NoticeList(props) {
     };
 
     return (
-        <>
-            <BaseLayout>
-                <h1>공지</h1>
+        <BaseLayout>
+            <h1>공지</h1>
+            <div css={S.btnBox}>
+                <button onClick={handleNoticeWriteBtn}>공지 작성</button>
                 <div css={S.btnBox}>
-                    <button onClick={handleNoticeWriteBtn}>공지 작성</button>
-                    <div css={S.btnBox}>
-                        <input type="text" placeholder='검색어를 입력하세요' />
-                        <button>검색</button>
-                    </div>
+                    <input type="text" placeholder='검색어를 입력하세요' />
+                    <button>검색</button>
                 </div>
-                <table css={S.listTable}>
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>작성자</th>
-                            <th>작성일</th>
-                        </tr>
-                    </thead>
+            </div>
+            <table css={S.listTable}>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {!getNoticeList.isLoading && getNoticeList?.data?.data.map(notice => {
+                        return (
+                            <tr key={notice.noticeId} onClick={() => { navigate(`/notice/${notice.noticeId}`) }}>
+                                <td>{notice.noticeId}</td>
+                                <td css={S.noticeTitle}>{notice.noticeTitle}</td>
+                                <td>{notice.nickname}</td>
+                                <td>{notice.noticeDate}</td>
+                            </tr>
+                        );
+                    })}
                     
-                    <tbody>
-                        {!getNoticeList.isLoading && getNoticeList?.data?.data.map(notice => {
-                            return (
-                                <tr key={notice.noticeId} onClick={() => { navigate(`/notice/${notice.noticeId}`) }}>
-                                    <td>{notice.noticeId}</td>
-                                    <td>{notice.noticeTitle}</td>
-                                    <td>{notice.nickname}</td>
-                                    <td>{notice.noticeDate}</td>
-                                </tr>
-                            );
-                        })}
-                        
-                    </tbody>
-                </table>
-                <ul css={S.SPageNumbers}>
-                    {pagination()}
-                </ul>
-            </BaseLayout>
-        </>
+                </tbody>
+            </table>
+            <ul css={S.SPageNumbers}>
+                {pagination()}
+            </ul>
+        </BaseLayout>
     );
 }
 

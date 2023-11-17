@@ -4,6 +4,7 @@ export const SubModal = css`
     height: auto;
     width: auto;
     border-top: 2px solid #dbdbdb;
+    z-index: 2;
 
     & li {
         width: 100px;

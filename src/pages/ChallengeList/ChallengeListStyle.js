@@ -18,12 +18,15 @@ export const selectBox = css`
 export const SChallengeList = css`
     width: 100%;
     border: 1px solid #dbdbdb;
-    `;
+`;
 
+//목록
 export const listTable = css`
     overflow-y: auto;
-    width: 938px;
+    width: 850px;
     border-collapse: collapse;
+    text-align: center;
+
     & th, td {
         height: 30px;
         text-align: center;
@@ -31,29 +34,17 @@ export const listTable = css`
     }
     & td {
         cursor: pointer;
-        
     }
     
 `;
-
-export const SChallengeListHeader = css`
-    overflow-y: auto;
-
-    & > tr {
-        display: flex;
-        & > th {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 50px;
-        }
-        & > th:nth-of-type(1) {width: 7%;}
-        & > th:nth-of-type(2) {width: 53%;}
-        & > th:nth-of-type(3) {width: 15%;}
-        & > th:nth-of-type(4) {width: 20%;}
-        & > th:nth-of-type(5) {width: 5%;}
-    }
+export const Title = css`
+    max-width: 500px;
+    width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `;
+
 
 export const SChallengeListBody = css`
     height: 300px;

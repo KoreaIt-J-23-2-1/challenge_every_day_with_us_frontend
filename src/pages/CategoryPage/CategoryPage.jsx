@@ -7,12 +7,20 @@ import img4 from '../../img/학습.png';
 import img5 from '../../img/취미.png';
 import img6 from '../../img/일기.png';
 import img7 from '../../img/기타.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import * as S from './CategoryPageStyle';
 
 
 function CategoryPage(props) {
+    const navigate = useNavigate();
+
+    const handleClick = (categoryValue) => {
+        setTimeout(() => {
+            navigate(`/challenge/create/${categoryValue}`);
+        }, 1000);
+    };
+
     const categoryData = [
         { name: "운동", value: "운동", image: img1 },
         { name: "생활습관", value: "생활습관", image: img2 },
@@ -28,7 +36,8 @@ function CategoryPage(props) {
             <h2>카테고리 선택</h2>
             <div css={S.CategoryBox}>
                 {categoryData.map((category) => (
-                    <button css={S.SProductContainer} key={category.name}>
+                    <button css={S.SProductContainer} key={category.name}
+                    onClick={() => handleClick(category.value)}>
                         <Link to={`/challenge/create/${category.value}`}>
                             <p css={S.imgName}>{category.name}</p>
                             <div css={S.imgBox(category.image)}></div>
