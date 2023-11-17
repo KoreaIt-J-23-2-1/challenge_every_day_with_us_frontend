@@ -25,6 +25,13 @@ const ChallengeTitle = css`
     }
 `;
 
+const layout = css`
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 100%;
+`;
+
 const CategoryBox = css`
     position: absolute;
     left: 38px;
@@ -92,6 +99,11 @@ const Layout = css`
     & h2 {
         margin-top: 50px;
     }
+
+    &>textarea{
+        resize: none;
+
+    }
 `;
 
 const CheckBox = css`
@@ -111,8 +123,10 @@ const CheckBoxLayout = css`
 `;
 
 const ContentLayout = css`
-    border: 5px solid #dbdbdb;
     margin: 30px;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
     & h2 {
         margin-left: 20px;
@@ -198,10 +212,6 @@ function ChallengeCreate({ children }) {
         setIntroduction(e.target.value);
     }
 
-    const handleBackButton = () => {
-        navigete(-1);
-    }
-
     const handleSubmitButton = () => {
         if (!challengeTitle || !startDate || !endDate || !introduction) {
             alert("모든 필수 항목을 입력해주세요.");
@@ -241,78 +251,79 @@ function ChallengeCreate({ children }) {
     };
 
     return (
-        <>
-            <button onClick={handleBackButton}>뒤로가기</button>
-            <div css={ChallengeTitle}>
-                <div css={CategoryBox}>
-                    <div>Category : 
-                        <b>{categoryName}</b>
+        <BaseLayout>
+            <div css={layout}>
+                <div css={ChallengeTitle}>
+                    <div css={CategoryBox}>
+                        <div>Category : 
+                            <b>{categoryName}</b>
+                        </div>
+                    </div>
+                    <p>Challenge Title</p>
+                    <input type="text" placeholder='제목을 입력하세요' onChange={handleTitleChange} />
+                </div>
+                <div css={ContentLayout}>
+                    <h2>인증 방법</h2>
+                    <div css={CheckBoxLayout}>
+                        <div css={CheckBox}>
+                            <input type="radio" id="layout1" name='layout' value={1} onChange={handleLayoutChange}/>
+                            <label htmlFor="layout1">글, 사진인증</label>
+                        </div>
+                        <div css={CheckBox}>
+                            <input type="radio" id="layout2" name='layout' value={2} onChange={handleLayoutChange}/>
+                            <label htmlFor="layout2">글, 사진, 시간인증</label>
+                        </div>
+                    </div>
+                    <div css={Layout}>
+                        <div>* 참가자들이 혼란을 겪지 않도록 정확한 기준과 구체적인 인증방법을 적어주세요.</div>
+                        <h2>챌린지 소개</h2>
+                        <textarea id="introText" rows="7" cols="60" maxLength={1000} onChange={handleIntroductionChange}></textarea>
+                        <p>챌린지를 소개해보세요.</p>
+                        <p>혹시 알아요? 리더님의 글에 반해서 의지가 불타오를지!</p>
+                        <div>* 챌린지가 시작되면 챌린지를 수정할 수 없습니다. 신중하게 생성해주세요</div>
                     </div>
                 </div>
-                <p>Challenge Title</p>
-                <input type="text" placeholder='제목을 입력하세요' onChange={handleTitleChange} />
-            </div>
-            <div css={ContentLayout}>
-                <h2>인증 방법</h2>
-                <div css={CheckBoxLayout}>
-                    <div css={CheckBox}>
-                        <input type="radio" id="layout1" name='layout' value={1} onChange={handleLayoutChange}/>
-                        <label htmlFor="layout1">글, 사진인증</label>
+                <div css={DataBox}>
+                    <div css={DateInput}>
+                        <label htmlFor="startDate">시작 날짜:</label>
+                        <input
+                            type="date"
+                            id="startDate"
+                            value={startDate}
+                            onChange={handleStartDateChange}
+                        />
                     </div>
-                    <div css={CheckBox}>
-                        <input type="radio" id="layout2" name='layout' value={2} onChange={handleLayoutChange}/>
-                        <label htmlFor="layout2">글, 사진, 시간인증</label>
+                    <div css={DateInput}>
+                        <label htmlFor="endDate">마감 날짜:</label>
+                        <input
+                            type="date"
+                            id="endDate"
+                            value={endDate}
+                            onChange={handleEndDateChange}
+                        />
                     </div>
                 </div>
-                <div css={Layout}>
-                    <div>* 참가자들이 혼란을 겪지 않도록 정확한 기준과 구체적인 인증방법을 적어주세요.</div>
-                    <h2>챌린지 소개</h2>
-                    <textarea id="introText" rows="7" cols="60" maxLength={1000} onChange={handleIntroductionChange}></textarea>
-                    <p>챌린지를 소개해보세요.</p>
-                    <p>혹시 알아요? 리더님의 글에 반해서 의지가 불타오를지!</p>
-                    <div>* 챌린지가 시작되면 챌린지를 수정할 수 없습니다. 신중하게 생성해주세요</div>
-                </div>
-            </div>
-            <div css={DataBox}>
-                <div css={DateInput}>
-                    <label htmlFor="startDate">시작 날짜:</label>
+                <div css={Checkbox}>
                     <input
-                        type="date"
-                        id="startDate"
-                        value={startDate}
-                        onChange={handleStartDateChange}
+                        type="checkbox"
+                        id="privateCheckbox"
+                        checked={isPrivate}
+                        onChange={handlePrivateCheckboxChange}
                     />
-                </div>
-                <div css={DateInput}>
-                    <label htmlFor="endDate">마감 날짜:</label>
+                    <label htmlFor="privateCheckbox">비공개</label>
                     <input
-                        type="date"
-                        id="endDate"
-                        value={endDate}
-                        onChange={handleEndDateChange}
+                        type="checkbox"
+                        id="allApprovalCheckbox"
+                        checked={applicable}
+                        onChange={handleCheckboxChange}
                     />
+                    <label htmlFor="allApprovalCheckbox">모든참여허용</label>
+                </div>
+                <div css={ApplicationBtn}>
+                    <button onClick={handleSubmitButton}>생성하기</button>
                 </div>
             </div>
-            <div css={Checkbox}>
-                <input
-                    type="checkbox"
-                    id="privateCheckbox"
-                    checked={isPrivate}
-                    onChange={handlePrivateCheckboxChange}
-                />
-                <label htmlFor="privateCheckbox">비공개</label>
-                <input
-                    type="checkbox"
-                    id="allApprovalCheckbox"
-                    checked={applicable}
-                    onChange={handleCheckboxChange}
-                />
-                <label htmlFor="allApprovalCheckbox">모든참여허용</label>
-            </div>
-            <div css={ApplicationBtn}>
-                <button onClick={handleSubmitButton}>생성하기</button>
-            </div>
-        </>
+        </BaseLayout>
     );
 }
 
