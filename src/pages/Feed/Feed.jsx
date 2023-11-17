@@ -15,10 +15,12 @@ function Feed(props) {
     const lastChallengeRef = useRef();
     const [ isLikeList, setIsLikeList ] = useState({});
     const [ commentInputList, setCommentInputList ] = useState();
+    const [ commentModifyInputList, setCommentModifyInputList ] = useState();
     const [ commentShowMode, setCommentShowMode ] = useState({});
     const [ latestComments, setLatestComments ] = useState({});
     const [ comments, setComments ] = useState({});
     const [ sort, setSort ] = useState('latest');
+    const [ isCommentModifiableList, setIsCommentModifiableList ] = useState({});
 
     useEffect(() => {
         const observerService = (entries, observer) => {
@@ -49,7 +51,7 @@ function Feed(props) {
                 [feed.feedId]: response.data
             }));
         })
-    }
+    };
 
     const getComments = async (feed) => {
         const response = await instance.get(`/api/feed/${feed.feedId}/comments`, option);
@@ -57,7 +59,7 @@ function Feed(props) {
             ...comment,
             [feed.feedId]: response.data
         }));
-    }
+    };
 
     const getLikeStates = async (feed) => {
         const response = await instance.get(`/api/feed/${feed.feedId}/like`, option);
@@ -65,13 +67,13 @@ function Feed(props) {
             ...isLikeList,
             [feed.feedId]: response.data
         }));
-    }
+    };
 
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
         }
-    }
+    };
 
     const getFeedList = useQuery(["getFeedList"], async () => {
         return await instance.get(`/api/challenge/certification/feed/${page}`, {
@@ -96,24 +98,49 @@ function Feed(props) {
             setFeedList([]);
             getFeedList.refetch();
         }
-    }, [page])
+    }, [page]);
 
     useEffect(() => {
         setPage(1);
         setFeedList([]);
-    }, [sort])
+    }, [sort]);
 
     const commentListComponent = (feed) => {
         return comments[feed.feedId].length !== 0 ? 
             <>
                 {comments[feed.feedId].map((comment) => {
-                    return <div css={S.SCommentContainer} key={comment.commentId}>
+                    return !isCommentModifiableList?.[comment.commentId] ?
+                    <div css={S.SCommentContainer} key={comment.commentId}>
                         <b>{comment.userNickname}</b>
                         <div>{comment.commentContent}</div>
                         <div>{comment.commentDatetime}</div>
                         {comment.userId === principal.userId && 
-                            <button onClick={() => {handleDeleteCommentButtonClick(feed.feedId, comment.commentId)}}>삭제</button>
+                            <div>
+                                <button onClick={() => {handleDeleteCommentButtonClick(feed.feedId, comment.commentId)}}>삭제</button>
+                                <button onClick={() => {
+                                    setIsCommentModifiableList({
+                                        ...isCommentModifiableList,
+                                        [comment.commentId]: 1});
+                                    setCommentModifyInputList({
+                                        ...commentModifyInputList,
+                                        [`commentModifyInput${comment.commentId}`]: comment.commentContent
+                                    })
+                                }}>수정</button>
+                            </div>
                         }
+                    </div> :
+                    <div css={S.SCommentContainer} key={comment.commentId}>
+                        <b>{comment.userNickname}</b>
+                        <input type="text" name={`commentModifyInput${comment.commentId}`} defaultValue={comment.commentContent} value={commentModifyInputList?.[comment.commentId]} onChange={handleCommentModifyInput}/>
+                        <div>{comment.commentDatetime}</div>
+                        <div>
+                            <button onClick={() => {handleModifyCommentSubmit(feed.feedId, comment.commentId)}}>수정 적용</button>
+                            <button onClick={() => {
+                                setIsCommentModifiableList({
+                                    ...isCommentModifiableList,
+                                    [comment.commentId]: 0})
+                            }}>수정 취소</button>
+                        </div>
                     </div>
                 })}
             </>
@@ -121,7 +148,7 @@ function Feed(props) {
             <div>
                 아직 댓글이 없습니다.
             </div>
-    }
+    };
 
     const latestCommentComponent = (feed) => {
         return (
@@ -158,7 +185,7 @@ function Feed(props) {
             content: `${feedId}번의 피드의 신고가 들어왔으니 확인바랍니다.`
         };
         await instance.post("/api/challenge/report", data, option)
-    }
+    };
 
     const handleLikebuttonClick = async (feedId) => {
         const userId = principal.userId;
@@ -191,14 +218,21 @@ function Feed(props) {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const handleCommentInput = (e) => {
         setCommentInputList({
             ...commentInputList,
             [e.target.name]: e.target.value
         })
-    };                       
+    };
+    
+    const handleCommentModifyInput = (e) => {
+        setCommentModifyInputList({
+            ...commentModifyInputList,
+            [e.target.name]: e.target.value
+        })
+    };
 
     const handleCommentSubmit = async (feedId) => {
         try {
@@ -210,6 +244,21 @@ function Feed(props) {
             console.error(error);
         }
     };
+
+    const handleModifyCommentSubmit = async (feedId, commentId) => {
+        try {
+            await instance.put(`/api/feed/${feedId}/comment/${commentId}`, {commentContent: commentModifyInputList[`commentModifyInput${commentId}`]}, option);
+            getFeedList.refetch();
+            setIsCommentModifiableList({
+            ...isCommentModifiableList,
+            [commentId]: 0});
+            alert("댓글이 수정되었습니다.");
+
+        }catch(error) {
+            console.error(error);
+            alert("댓글 수정 실패");
+        }
+    }
 
     const handleCheckboxChange = async (event) => {
         setSort(event.target.value);
