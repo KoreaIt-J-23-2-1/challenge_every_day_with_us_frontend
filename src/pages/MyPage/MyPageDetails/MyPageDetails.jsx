@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import {instance} from '../../../api/config/instance';
 import { useQueryClient } from 'react-query';
-import { ref, getDownloadURL, uploadBytes, uploadBytesResumable } from "firebase/storage";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from '../../../api/firebase/firebase';
 import * as S from "./Style";
 import BaseLayout from '../../../components/BaseLayout/BaseLayout';
@@ -88,6 +87,7 @@ function MyPageDetails(props) {
     }
 
     const handleIsWithdrawn = async () => {
+        const userId = principal?.userId;
         if(window.confirm("정말 탈퇴하시겠습니까?")) {
             if(window.confirm("진짜로 떠나시겠습니까?")) {
                 try{
@@ -96,7 +96,7 @@ function MyPageDetails(props) {
                             Authorization: localStorage.removeItem("accessToken")
                         }
                     }
-                    await instance.delete(`/api/account/${1}`, option);
+                    await instance.delete(`/api/account/${userId}`, option);
                 }catch(error) {
                     console.error(error);
                 }

@@ -51,6 +51,7 @@ export const IntroBox = css`
 
     & textarea {
         resize: none;
+        margin-bottom: 20px;
     }
 `;
 
@@ -66,8 +67,8 @@ export const UserCheckBox = css`
     align-items: center;
     margin-top: 30px;
     margin-right: 10px;
-    width: 400px;
-    height: 300px;
+    width: 350px;
+    height: 150px;
     border: 5px solid #dbdbdb;
 `;
 

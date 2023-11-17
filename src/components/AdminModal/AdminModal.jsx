@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 import { instance } from '../../api/config/instance';
-import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
+import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
 

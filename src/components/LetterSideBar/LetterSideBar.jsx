@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 import LetterModal from '../LetterModal/LetterModal';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -58,6 +59,7 @@ function LetterSideBar(props) {
     const queryClient = useQueryClient();
     const principal = queryClient.getQueryState("getPrincipal");
     const [ buttonDisabled, setButtonDisabled ] = useState(false);
+    const navigate = useNavigate();
 
     const option = {
         headers: {
@@ -204,6 +206,11 @@ function LetterSideBar(props) {
                             <div>
                                 <button onClick={handleAcceptChallenge} disabled={buttonDisabled}>수락</button>
                                 <button onClick={handleRejectChallenge} disabled={buttonDisabled}>거절</button>
+                            </div>
+                        )}
+                        {selectedLetter.title === "새로운 공지가 있습니다." && (
+                            <div>
+                                <button onClick={() => {window.location.replace(selectedLetter.targetUrl);}}>바로가기</button>
                             </div>
                         )}
                     </div>

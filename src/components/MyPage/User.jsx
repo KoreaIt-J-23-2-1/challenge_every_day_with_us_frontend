@@ -18,13 +18,14 @@ function User() {
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data;
 
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
+    }
+
     const getMyChallenges = useQuery(["getMyChallenges"], async () => {
         try {
-            const option = {
-                headers: {
-                    Authorization: localStorage.getItem("accessToken")
-                }
-            }
         return await instance.get("/api/account/mychallenges", option);
         } catch(error) {
             throw new Error(error)
@@ -44,12 +45,6 @@ function User() {
     const toggleModal = () => {
         setModalOpen(!isModalOpen);
     };
-    
-    const toggleStoreModal = () => {
-        
-        navigete("/store/items")
-        // setIsStoreModalOpen(!isStoreModalOpen);
-    };
 
     const closeModal = () => {
         setModalOpen(false);
@@ -64,15 +59,23 @@ function User() {
         setIntro(e.target.value);
     };
 
-    const handleSubmit = () => {
-        navigete("/account/mypage/detail")
+    const handleSubmit = async () => {
+        try {
+            const response = await instance.post("/api/account/checkpassword", { password }, option);
+            console.log(response);
+    
+            if (response.data) {
+                navigete("/account/mypage/detail");
+            } else {
+                alert("비밀번호가 일치하지 않습니다.");
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
+    
 
     const handleCancelClick = () => {
-        closeModal();
-    };
-
-    const handleStoreCancelClick = () => {
         closeModal();
     };
 
@@ -98,8 +101,6 @@ function User() {
             .catch((error) => {
             });
     };
-
-    console.log(principal)
 
     return (
         <div css={S.Layout}>
@@ -139,7 +140,6 @@ function User() {
                 </ul>
             </div>
             <div css={S.BtBox}>
-                <button onClick={toggleStoreModal}>상점</button>
                 <button onClick={toggleModal}>정보변경</button>
             </div>
             <div css={S.modalStyle}>
@@ -150,17 +150,6 @@ function User() {
                         <div>
                             <button onClick={handleSubmit}>확인</button>
                             <button onClick={handleCancelClick}>취소</button>
-                        </div>
-                    </div>
-                )}
-                {isStoreModalOpen && (
-                    <div css={S.UserCheckBox}>
-                        <div>
-                            <button onClick={() => {navigete("/point");}}>포인트충전</button>
-                            <button onClick={handleStoreCancelClick}>취소</button>
-                        </div>
-                        <div css={S.SStore}>
-                            <Store/>
                         </div>
                     </div>
                 )}

@@ -203,6 +203,11 @@ function ChallengeCreate({ children }) {
     }
 
     const handleSubmitButton = () => {
+        if (!challengeTitle || !startDate || !endDate || !introduction) {
+            alert("모든 필수 항목을 입력해주세요.");
+            return;
+        }
+
         const requestData = {
             challengeName: challengeTitle,
             isOpen: isPrivate,
@@ -257,10 +262,6 @@ function ChallengeCreate({ children }) {
                     <div css={CheckBox}>
                         <input type="radio" id="layout2" name='layout' value={2} onChange={handleLayoutChange}/>
                         <label htmlFor="layout2">글, 사진, 시간인증</label>
-                    </div>
-                    <div css={CheckBox}>
-                        <input type="radio" id="layout3" name='layout' value={3} onChange={handleLayoutChange}/>
-                        <label htmlFor="layout3">글, 사진, 루틴기록</label>
                     </div>
                 </div>
                 <div css={Layout}>
