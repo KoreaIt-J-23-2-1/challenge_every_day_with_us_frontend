@@ -206,7 +206,7 @@ function Admin() {
         const today = new Date();
         const start = new Date(startDate);
         const timeDifference = today.getTime() - start.getTime();
-        const daysElapsed = Math.floor(timeDifference / (1000 * 60 * 60 * 24) + 1) + 1;
+        const daysElapsed = Math.floor(timeDifference / (1000 * 60 * 60 * 24)) + 1;
         return daysElapsed;
     };
 
