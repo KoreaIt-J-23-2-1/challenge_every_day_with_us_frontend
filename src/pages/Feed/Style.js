@@ -162,10 +162,32 @@ export const SFeedBottomProfileImg = css`
 `;
 
 export const SFeedBottomFooter = css`
-
+    
 `;
 
 export const SCommentContainer = css`
     border: 1px solid #dbdbdb;
-    width: 400px;
+    border-radius: 10px;
+    padding: 10px;
+    width: 600px;
+    background-color: #b8b7ad;
+
+    & > * {
+        display: flex;
+    }
+
+    & > b:nth-of-type(1) {
+        font-size: 14px;
+        font-weight: 900;
+    }
+    
+    & > div:nth-of-type(1) {
+        font-size: 24px;
+        font-weight: 700;
+    }
+    
+    & > div:nth-of-type(2) {
+        font-size: 14px;
+    }
+
 `;
