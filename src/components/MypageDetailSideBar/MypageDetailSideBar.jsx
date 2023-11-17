@@ -30,6 +30,7 @@ function MypageDetailSideBar({ children }) {
     const handleProfileChange = (e) => {
         setUploadFiles(e.target.files);
         const files = e.target.files;
+        console.log(files)
 
         if(!files.length) {
             setUploadFiles([]);

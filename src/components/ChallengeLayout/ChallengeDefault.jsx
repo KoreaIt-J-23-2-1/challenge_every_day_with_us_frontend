@@ -134,8 +134,6 @@ function Challengedefault(props) {
         reader.readAsDataURL(files[0]);
     };
 
-    console.log(challenge);
-
     const handleSave = async () => {
         const textValue = document.getElementById('challengeText').value;
         let imageUrl = "";
