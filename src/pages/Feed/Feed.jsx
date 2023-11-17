@@ -108,7 +108,7 @@ function Feed(props) {
             <>
                 {comments[feed.feedId].map((comment) => {
                     return <div css={S.SCommentContainer} key={comment.commentId}>
-                        <div>{comment.userNickname}</div>
+                        <b>{comment.userNickname}</b>
                         <div>{comment.commentContent}</div>
                         <div>{comment.commentDatetime}</div>
                         {comment.userId === principal.userId && 
@@ -127,7 +127,7 @@ function Feed(props) {
         return (
             latestComments[feed.feedId] ? (
                 <div css={S.SCommentContainer} key={latestComments[feed.feedId]?.commentId}>
-                    <div>{latestComments[feed.feedId]?.userNickname}</div>
+                    <b>{latestComments[feed.feedId]?.userNickname}</b>
                     <div>{latestComments[feed.feedId]?.commentContent}</div>
                     <div>{latestComments[feed.feedId]?.commentDatetime}</div>
                 </div>
