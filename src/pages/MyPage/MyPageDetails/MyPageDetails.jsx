@@ -34,12 +34,11 @@ function MyPageDetails(props) {
 
     const handleModifyMypageDetailSubmit = async () => {
         let promise = null;
-
+        console.log(uploadFiles)
         if(uploadFiles.length > 0) {
             promise = new Promise((resolve, reject) => {
                 const storageRef = ref(storage, `files/profile/${uploadFiles[0].name}`);
                 const uploadTask = uploadBytesResumable(storageRef, uploadFiles[0]);
-    
                 uploadTask.on(
                     "state_changed",
                     (snapshot) => {
@@ -50,7 +49,9 @@ function MyPageDetails(props) {
                     },
                     () => {
                         getDownloadURL(storageRef).then(downloadUrl => {
-                            modifyMypageDetail.profileUrl = downloadUrl;   
+                            console.log("Before Update:", modifyMypageDetail);
+                            modifyMypageDetail.profileUrl = downloadUrl;
+                            console.log("After Update:", modifyMypageDetail);   
                             resolve(downloadUrl)
                         })
                     }

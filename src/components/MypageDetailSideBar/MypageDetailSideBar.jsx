@@ -26,7 +26,7 @@ function MypageDetailSideBar({ children }) {
             profileFileRef.current.click();
         }
     }
-
+    
     const handleProfileChange = (e) => {
         setUploadFiles(e.target.files);
         const files = e.target.files;
