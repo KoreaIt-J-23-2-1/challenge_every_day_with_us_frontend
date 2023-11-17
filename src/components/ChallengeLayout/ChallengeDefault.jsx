@@ -1,14 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import { instance } from '../../api/config/instance';
-import { useQuery } from 'react-query';
-import { Navigate, useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
+import { useQuery, useQueryClient } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../../api/firebase/firebase';
 import * as S from './DefaultStyle';
 
 function Challengedefault(props) {
+    const queryClient = useQueryClient();
+    const principal = queryClient.getQueryState("getPrincipal");
     const { challengeId } = useParams();
     const [ challenge, setChallenge ] = useState({});
     const [ selectedImage, setSelectedImage ] = useState(null);
@@ -16,6 +17,8 @@ function Challengedefault(props) {
     const [ uploadFiles, setUploadFiles ] = useState([]);
     const [ profileImgSrc, setProfileImgSrc ] = useState("");
     const navigate = useNavigate();
+    const [ page, setPage ] = useState(1);
+    const [ isChallengeFeedRefetch, setIsChallengeFeedRefetch ] = useState(false);
 
     const option = {
         headers: {
@@ -28,7 +31,7 @@ function Challengedefault(props) {
             return await instance.get(`/api/challenge/${challengeId}`, option);
         }catch(error) {
             alert("해당 챌린지를 불러올 수 없습니다.");
-            Navigate("/");
+            navigate("/");
         }
     }, {
         retry: 0,
@@ -36,7 +39,19 @@ function Challengedefault(props) {
         onSuccess: response => {
             setChallenge(response.data);
         }
-    })
+    });
+    
+    const getFeedList = useQuery(["getFeedList"], async () => {
+        return await instance.get(`/api/challenge/certification/feed/${page}/${challengeId}`, option);
+    }, {
+        refetchOnWindowFocus: false,
+        enabled: isChallengeFeedRefetch,
+        onSuccess: (response) => {
+            setIsChallengeFeedRefetch(false);
+            setPage(page + 1);
+        }
+    });
+    
 
     if(getChallenge.isLoading) {
         return <></>
@@ -71,12 +86,21 @@ function Challengedefault(props) {
 
     const handleSave = async () => {
         const textValue = document.getElementById('challengeText').value;
+        const today = new Date().toISOString().split('T')[0];
+        const userFeedToday = getFeedList.data.data.find(feed =>
+            feed.userId === principal.data.data.userId &&
+            new Date(feed.dateTime).toISOString().split('T')[0] === today);
+    
+        if (userFeedToday) {
+            alert('오늘 이미 피드를 작성하셨습니다.');
+            return;
+        }
         let imageUrl = "";
         if (uploadFiles.length > 0) {
             try {
                 imageUrl = await uploadImageToFirebase(uploadFiles[0]);
             } catch (error) {
-                console.error("Error uploading image:", error);
+                console.error(error);
                 return;
             }
         }
@@ -89,22 +113,22 @@ function Challengedefault(props) {
         };
         try {
             const response = await instance.post(`/api/challenge/feed/${challengeId}`, data, {
-                            headers: {
-                                Authorization: localStorage.getItem('accessToken')
-                            },
+                headers: {
+                    Authorization: localStorage.getItem('accessToken')
+                },
             });
-            if(response){
+            if (response) {
+                alert("피드 등록 성공");
+                setIsChallengeFeedRefetch(true);
                 navigate(-1);
-            }else {
+            } else {
                 alert("피드 등록 실패");
             }
         } catch (error) {
             console.error(error);
         }
     };
-
-    console.log(profileImgSrc)
-
+    
     return (
         <div css={S.Layout}>
             <div css={S.TitleLayout}>
