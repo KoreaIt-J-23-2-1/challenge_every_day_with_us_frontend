@@ -8,8 +8,13 @@ export const LetterSideBarLayout = css`
     padding: 0px 10px;
     border: 5px solid #EED2C7;
     background-color: #FFF4D8;
-    
 
+`;
+
+export const SLetterScroll = css`
+    height: 800px;
+    width: 800px;
+    overflow-y: scroll;
 `;
 
 export const miniLetter = css`
@@ -42,5 +47,4 @@ export const modalCloseBtn = css`
 export const modalTitle = css`
     cursor: pointer;
 `;
-
 

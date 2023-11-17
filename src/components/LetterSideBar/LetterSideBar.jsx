@@ -5,63 +5,7 @@ import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 import LetterModal from '../LetterModal/LetterModal';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
 import * as S from './Style';
-=======
-
-
-
-const LetterSideBarLayout = css`
-    overflow: hidden;
-    position: relative;
-    width: 400px;
-    border-radius: 10px 0px 0px 10px;
-    padding: 0px 10px;
-    border: 5px solid #EED2C7;
-    background-color: #FFF4D8;
-    
-
-`;
-
-const SLetterScroll = css`
-    height: 800px;
-    width: 800px;
-    overflow-y: scroll;
-`;
-
-const miniLetter = css`
-    word-wrap: break-word;
-    cursor: pointer;
-    width: 380px;
-    border-bottom: 1px solid #dbdbdb;
-    padding: 5px;
-`;
-
-const lettersHeader = css`
-    display: flex;
-    justify-content: flex-end;
-`;
-
-const letterContent = css`
-    max-width: 350px;
-    width: 350px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-`;
-
-const modalCloseBtn = css`
-    cursor: pointer;
-    display: flex;
-    justify-content: flex-end;
-`;
-
-const modalTitle = css`
-    cursor: pointer;
-`;
-
-
->>>>>>> origin/main
 
 function LetterSideBar(props) {
     const [ isModalOpen, setIsModalOpen] = useState(false);
@@ -191,7 +135,7 @@ function LetterSideBar(props) {
         <div css={S.LetterSideBarLayout}>
             <div>
                 <h2>알림</h2>
-                <div css={SLetterScroll}>
+                <div css={S.SLetterScroll}>
                     {getLetterList?.data.map(letter => (
                         <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                             <h3>{letter.title}</h3>
