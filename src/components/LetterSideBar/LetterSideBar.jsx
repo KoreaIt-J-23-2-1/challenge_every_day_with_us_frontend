@@ -20,6 +20,12 @@ const LetterSideBarLayout = css`
 
 `;
 
+const SLetterScroll = css`
+    height: 800px;
+    width: 800px;
+    overflow-y: scroll;
+`;
+
 const miniLetter = css`
     word-wrap: break-word;
     cursor: pointer;
@@ -181,7 +187,7 @@ function LetterSideBar(props) {
         <div css={LetterSideBarLayout}>
             <div>
                 <h2>알림</h2>
-                <div>
+                <div css={SLetterScroll}>
                     {getLetterList?.data.map(letter => (
                         <div css={miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                             <h3>{letter.title}</h3>
