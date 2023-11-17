@@ -17,19 +17,27 @@ function MenuModal(props) {
         }
         navigate(path);
     };
+    
+    const handleLogoutButton = async () => {
+        localStorage.removeItem("accessToken");
+        alert("로그아웃 되었습니다.");
+        window.location.replace("/");
+    };
+
 
     return (
         <div css={S.Background}>
             <div css={S.MenuHeader}>
                 <h3></h3>
                 <div css={S.MyBox}>
-                    <button onClick={() => { navigate("/auth/signin") }}>로그인</button>
+                    {principal ? <button onClick={handleLogoutButton}>로그아웃</button>
+                    : <button onClick={() => { navigate("/auth/signin") }}>로그인</button>}
                     <button onClick={() => { checkLoginBeforeNavigate("/account/mypage") }}>마이페이지</button>
                     <button onClick={() => { checkLoginBeforeNavigate("/account/mypage/detail") }}>내정보수정</button>
                 </div>
             </div>
 
-            <div>
+            {/* <div>
                 <div css={S.BtnBox}>
                     <button onClick={() => { checkLoginBeforeNavigate("/notice/page/1") }}>공지</button>
                     <button onClick={() => { checkLoginBeforeNavigate("/store/items") }}>상점</button>
@@ -46,8 +54,8 @@ function MenuModal(props) {
                     <button>닐니리야</button>
                     <button>추가할것</button>
                 </div>
-                {/* <button onClick={() => { navigate(`/store/${userId}/orders`) }}>상점 물품 구매 목록 조회</button> */}
-            </div>
+                <button onClick={() => { navigate(`/store/${userId}/orders`) }}>상점 물품 구매 목록 조회</button>
+            </div> */}
         </div>
     );
 }
