@@ -7,14 +7,13 @@ import { useNavigate } from 'react-router-dom';
 import * as S from "./Style";
 
 
-function MypageDetailSideBar({ children }) {
+function MypageDetailSideBar({ setUploadFiles, children }) {
 
     const navigate = useNavigate();
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data; 
     const profileFileRef = useRef();
-    const [ uploadFiles, setUploadFiles ] = useState([]);
     const [ profileImgSrc, setProfileImgSrc ] = useState("");
 
     useEffect(() => {
@@ -30,7 +29,6 @@ function MypageDetailSideBar({ children }) {
     const handleProfileChange = (e) => {
         setUploadFiles(e.target.files);
         const files = e.target.files;
-        console.log(files)
 
         if(!files.length) {
             setUploadFiles([]);
@@ -58,8 +56,8 @@ function MypageDetailSideBar({ children }) {
                 <div css={S.imgContainer}>
                     <div css={S.imgBox} onClick={handleProfileUploadClick}>
                         <img src={profileImgSrc} alt="" />
-                        <input css={S.file} type="file" onChange={handleProfileChange} ref={profileFileRef}/>
                     </div>
+                    <input css={S.file} type="file" onChange={handleProfileChange} ref={profileFileRef}/>
                 </div>
                 <div css={S.profile}>
                     <b>{principal.nickname}</b>

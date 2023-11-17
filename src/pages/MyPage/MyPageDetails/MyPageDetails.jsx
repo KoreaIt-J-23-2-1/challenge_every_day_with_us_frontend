@@ -97,6 +97,7 @@ function MyPageDetails(props) {
                         }
                     }
                     await instance.delete(`/api/account/${userId}`, option);
+                    navegate("/");
                 }catch(error) {
                     console.error(error);
                 }
@@ -106,7 +107,7 @@ function MyPageDetails(props) {
 
     return (
         <BaseLayout>
-            <MypageDetailSideBar>
+            <MypageDetailSideBar setUploadFiles={setUploadFiles}>
                 <div css={S.userBox}>
                     <div css={S.userInfoHeader}>내 정보수정</div>
                     <div css={S.inputBox}>
