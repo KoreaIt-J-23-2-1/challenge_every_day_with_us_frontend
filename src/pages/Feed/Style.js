@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { SubModal } from '../../components/FeedEditModal/Style';
 
 export const SLayout = css`
     
@@ -188,4 +189,26 @@ export const SCommentContainer = css`
         font-size: 14px;
     }
 
+`;
+
+export const ModalOverlay = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+`;
+
+export const ModalContent = css`
+    height: 500px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+
+    ${SubModal} 
 `;
