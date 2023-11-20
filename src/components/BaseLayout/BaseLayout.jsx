@@ -9,9 +9,9 @@ export const Layout = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 950px;
+    min-width: 1050px;
     width: 80%;
-    height: 85vh;
+    min-height: 850px;
     margin: 0px auto ;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 

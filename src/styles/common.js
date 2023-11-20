@@ -30,8 +30,8 @@ export const Common = css`
         background-color: white;
         background-image: url(${img2});
         background-size: cover; 
-        background-repeat: no-repeat;
-        height: 100vh;
+        /* background-repeat: no-repeat; */
+        height: 100%;
         box-sizing: border-box;
         color: #000;
     }

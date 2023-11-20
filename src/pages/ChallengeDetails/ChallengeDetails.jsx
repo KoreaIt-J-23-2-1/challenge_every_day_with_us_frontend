@@ -5,6 +5,7 @@ import { instance } from '../../api/config/instance';
 import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
+import BaseLayout from '../../components/BaseLayout/BaseLayout';
 
 function ChallengeDetails(props) {
     const navigate = useNavigate();
@@ -224,41 +225,45 @@ function ChallengeDetails(props) {
     };
 
     return (
-        <div css={S.Layout}>
-            <div css={S.HeaderLayout}>
-                <div>
-                    <b>[{challenge.categoryName}]</b>
-                    {dateDifference !== null && (
-                        <p>{dateDifference+1}일 중 {todayDifference}일차</p>
-                    )}
-                </div>
-                {queryClient.data}
-                <h1>{challenge.challengeName}</h1>
-                <div>
-                    <div css={S.Box}>
-                        <div css={S.Writer}>작성자: <b>{challenge.name}</b> </div>
-                        <div>
-                            {!getLikeState.isLoading &&
-                                <button css={S.SLikeButton(getLikeState?.data?.data)} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
-                                    <div>{isLike ? <AiTwotoneLike/> : <AiOutlineLike/>}</div>
-                                    <div>{challenge.challengeLikeCount}</div>
-                                </button>
-                            }
+        <BaseLayout>
+            <div css={S.Layout}>
+                <div css={S.HeaderLayout}>
+                    <div>
+                        <div>[{challenge.categoryName}]</div>
+                        {dateDifference !== null && (
+                            <div>{dateDifference+1}일 중 {todayDifference}일차</div>
+                        )}
+                    </div>
+
+                    {queryClient.data}
+                    <div>{challenge.challengeName}</div>
+
+                    <div>
+                        <div css={S.Box}>
+                            <div css={S.Writer}>작성자: <b>{challenge.name}</b> </div>
+                            <div>
+                                {!getLikeState.isLoading &&
+                                    <button css={S.SLikeButton(getLikeState?.data?.data)} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
+                                        <div>{isLike ? <AiTwotoneLike/> : <AiOutlineLike/>}</div>
+                                        <div>{challenge.challengeLikeCount}</div>
+                                    </button>
+                                }
+                            </div>
+                            <button css={S.DeleteButton} onClick={handleDeleteClick}>삭제</button>
                         </div>
-                        <button css={S.DeleteButton} onClick={handleDeleteClick}>삭제</button>
                     </div>
                 </div>
-            </div>
-            <div css={S.line}></div>
-            <div css={S.BodyLayout}>
-                <div css={S.BodyFeedLayout}>
-                    <div css={S.SLayout}>
-                        {feedList.map(feed => (
-                            <div key={feed.feedId} css={S.SFeedContainer}>
-                                <div css={S.SFeedLayout}>
+
+
+                <div css={S.BodyLayout}>
+
+                    <div css={S.BodyFeedLayout}>
+                        <div css={S.SLayout}>
+                            {feedList.map(feed => (
+                                <div key={feed.feedId}>
                                     <div css={S.SFeedHeader}>
                                         <div>
-                                            <img src={feed.profileUrl} alt="" />
+                                            <img css={S.FeedImg} src={feed.profileUrl} alt="" />
                                             <b>{feed.nickname}</b>
                                         </div>
                                     </div>
@@ -278,41 +283,48 @@ function ChallengeDetails(props) {
                                     <div css={S.SInfo}>
                                         <p>{getTimeDifference(feed.dateTime)}</p>
                                     </div>
-                                <div css={S.SFeedBottomLayout}>
-                                    <div css={S.SFeedBottomHeader}>
-                                        <b>좋아요</b>
-                                        <b>댓글</b>
+
+
+                                    <div css={S.SFeedBottomLayout}>
+                                        <div css={S.SFeedBottomHeader}>
+                                            <b>좋아요</b>
+                                            <b>댓글</b>
+                                        </div>
+                                        <div css={S.SFeedBottomBody}>
+                                            <div>이미지</div>
+                                            <div><p>{principal.data.data.nickname}</p>댓글</div>
+                                        </div>
                                     </div>
-                                    <div css={S.SFeedBottomBody}>
-                                        <div>이미지</div>
-                                        <div><p>{principal.data.data.nickname}</p>댓글</div>
-                                    </div>
+
+                                    
                                 </div>
-                                </div>
-                            </div>
-                        ))}
-                    <div ref={lastChallengeRef}></div>
+                            ))}
+                            <div ref={lastChallengeRef}></div>
+                        </div>
                     </div>
-                </div>
-                <div css={S.BodyRightBox}>
-                    <p>기간: {challenge.startDate} ~ {!challenge.endDate ? "마감 없음": challenge.endDate}</p>
-                    <div css={S.textBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
-                    <b>참여인원</b>
-                    <button css={S.ParticipationButton} onClick={handleParticipationButton} disabled={button}>
-                        {isJoined}
-                    </button>
-                    <div css={S.ListBox}>
+
+
+                    <div css={S.BodyRightBox}>
+                        <p>기간: {challenge.startDate} ~ {!challenge.endDate ? "마감 없음": challenge.endDate}</p>
+                        <div css={S.textBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
                         <b>참여인원</b>
-                        {Object.values(challengers).map((item, index) => (
-                            <div key={index} css={S.ListContainer}>
-                                <p>{item.nickname}</p>
-                                {(item.userId !== challenge.userId && isOwner(principal.data.data.userId, challenge.userId))  && <button css={S.DeleteChallengerButton} onClick={() => handleDeleteChallenger(item.userId)}>삭제</button>}
-                            </div>
-                        ))}
+                        <button css={S.ParticipationButton} onClick={handleParticipationButton} disabled={button}>
+                            {isJoined}
+                        </button>
+                        <div css={S.ListBox}>
+                            <b>참여인원</b>
+                            {Object.values(challengers).map((item, index) => (
+                                <div key={index} css={S.ListContainer}>
+                                    <p>{item.nickname}</p>
+                                    {(item.userId !== challenge.userId && isOwner(principal.data.data.userId, challenge.userId))  && <button css={S.DeleteChallengerButton} onClick={() => handleDeleteChallenger(item.userId)}>삭제</button>}
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </BaseLayout>
+
     );
 }
 
