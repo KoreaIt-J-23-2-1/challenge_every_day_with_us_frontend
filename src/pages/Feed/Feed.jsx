@@ -87,7 +87,7 @@ function Feed(props) {
         refetchOnWindowFocus: false,
         enabled: isChallengeFeedRefetch,
         onSuccess: (response) => {
-            setFeedList([...feedList].concat(response.data));
+            setFeedList(response.data);
             setIsChallengeFeedRefetch(false);
             setPage(page + 1);
         }

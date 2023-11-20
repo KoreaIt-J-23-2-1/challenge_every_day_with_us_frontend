@@ -9,7 +9,7 @@ function SigninOauth2(props) {
     localStorage.setItem("accessToken", "Bearer " + searchParams.get("token"));
     queryClient.refetchQueries(["getPrincipal"]);
 
-    return <Navigate to={"/"}/>;
+    return <Navigate to={"/main"}/>;
 }
 
 export default SigninOauth2;

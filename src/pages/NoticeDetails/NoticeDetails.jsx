@@ -6,7 +6,6 @@ import { useQuery } from 'react-query';
 import { instance } from '../../api/config/instance';
 
 function NoticeDetails(props) {
-
     const navigate = useNavigate();
     const [notice, setNotice] = useState({});
     const { noticeId } = useParams();
