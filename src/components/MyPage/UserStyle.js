@@ -3,7 +3,9 @@ import { css } from '@emotion/react';
 export const Layout = css`
     display: flex;
     flex-direction: column;
-    margin: 50px;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
 `;
 
 export const UserBox = css`
@@ -48,6 +50,10 @@ export const ImgBox = css`
 export const IntroBox = css`
     display: flex;
     flex-direction: column;
+
+    & h4 {
+        margin: 30px 0px 10px 0px;
+    }
 
     & textarea {
         resize: none;

@@ -1,20 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import { useQueryClient } from 'react-query';
-import { ref, getDownloadURL, uploadBytes, uploadBytesResumable } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
 import * as S from "./Style";
-
+import { instance } from '../../api/config/instance';
 
 function MypageDetailSideBar({ setUploadFiles, children }) {
-
     const navigate = useNavigate();
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data; 
     const profileFileRef = useRef();
     const [ profileImgSrc, setProfileImgSrc ] = useState("");
+    const [ intro, setIntro ] = useState("");
 
     useEffect(() => {
         setProfileImgSrc(principal.profileUrl);
@@ -44,13 +42,34 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
         reader.readAsDataURL(files[0])
     }
 
-    const handleUploadCancel = () => {
-        setUploadFiles([]);
-        profileFileRef.current.value = "";
-    }
+    const handleIntroChange = (e) => {
+        setIntro(e.target.value);
+    };
+
+    const handleIntroSubmit = () => {
+        const option = {
+            params: {
+            nickname: principal.nickname,
+            intro: intro,
+            },
+        };
+        instance.get('/api/account/intro', option)
+            .then((response) => {
+            queyrClient.refetchQueries(["getPrincipal"]);
+            const introData = response.data.intro;
+            const requestConfig = {
+                nickname: principal.nickname,
+                intro: intro,
+            };
+            const requestMethod = introData !== null ? 'put' : 'post';
+
+            instance[requestMethod]('/api/account/intro', requestConfig);
+            })
+            .catch((error) => {
+            });
+    };
 
     return (
-        
         <div css={S.layout}>
             <div css={S.sideBox}>
                 <div css={S.imgContainer}>
@@ -62,13 +81,24 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
                 <div css={S.profile}>
                     <b>{principal.nickname}</b>
                     <p>{principal.email}</p>
+                    <p>{principal.membership}</p>
+                    <p>{principal.point}<b>포인트</b></p>
+                    <div css={S.IntroBox}>
+                        <h5>자기 소개</h5>
+                        <textarea id="introText" rows="3" cols="40" maxLength={50} defaultValue={principal.intro} onChange={handleIntroChange}></textarea>
+                        <div>
+                            <button onClick={handleIntroSubmit}>저장</button>
+                            <button>취소</button>
+                        </div>
+                    </div>
                 </div>
                 <div css={S.line}></div>
                 <div css={S.leftHeader}>
                     <ul css={S.leftMenu}>
+                        <li onClick={() => navigate("/user")}>참여 현황</li>
                         <li onClick={() => navigate("/account/mypage/detail")}>내 정보수정</li>
-                        <li>참여 현황</li>
                         <li onClick={() => navigate("/store/:userId/orders")}>상점물품 구매내역</li>
+                        {/* <li onClick={() => navigate("/user")}>참여중인 리스트</li> */}
                     </ul>
                 </div>
             </div>
