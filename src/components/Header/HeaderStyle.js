@@ -1,7 +1,5 @@
 import { css } from '@emotion/react';
 /** @jsxImportSource @emotion/react */
-import logo1 from '../../img/로고1.png';
-import logo2 from '../../img/로고2.png';
 import logo3 from '../../img/로고3.png';
 import logo4 from '../../img/로고4.png';
 
@@ -13,6 +11,7 @@ export const Layout = css`
     width: 100%;
     height: 70px;
     padding: 5px 0px;
+    margin-bottom: 20px;
 `;
 
 export const HeaderBox = css`
@@ -59,7 +58,7 @@ export const LogoBtn = css`
     margin-left: 9%;
 
     &:hover{
-        /* background-image: url(${logo4}); */
+        background-image: url(${logo4});
         opacity: 0.5;
 
     }

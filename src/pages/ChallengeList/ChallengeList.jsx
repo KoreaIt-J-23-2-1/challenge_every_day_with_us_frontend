@@ -16,10 +16,6 @@ function ChallengeList(props) {
     const [ isChallengeListRefetch, setIsChallengeListRefetch ] = useState(false);
     const [ challengeList, setChallengeList ] = useState([]);
     const [ sort, setSort ] = useState('latest');
-    const [ userId, setUserId ] = useState([]);
-    const queryClient = useQueryClient();
-    const principalState = queryClient.getQueryState("getPrincipal");
-    const principal = principalState.data.data;
 
     const options = [
         {value: "전체", label: "전체"},
@@ -68,7 +64,8 @@ function ChallengeList(props) {
             });
         }
 
-        const observer = new IntersectionObserver(observerService, {threshold: 1});
+        const observer = new IntersectionObserver(observerService, {threshold: 0.5});
+        // observer.observe(topChallengeRef.current);
         observer.observe(lastChallengeRef.current);
     }, []);
 
@@ -113,6 +110,7 @@ function ChallengeList(props) {
                         </li>
                     </div>
                     <div css={S.SChallengeListBody}>
+                        {/* <li ref={topChallengeRef}></li> */}
                         {challengeList?.map((challenge) => {
                             return (<li key={challenge.challengeId} onClick={() => {navigate(`/challenge/${challenge.challengeId}`)}}>
                                         <div>{challenge.challengeId}</div>

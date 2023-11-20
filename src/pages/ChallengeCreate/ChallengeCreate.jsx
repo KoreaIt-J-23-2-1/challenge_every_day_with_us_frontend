@@ -84,9 +84,7 @@ function ChallengeCreate({ children }) {
                     };
                     await instance.post(`/api/challenge/create/point`, principalPoint);
                     const createResponse = await instance.post(`/api/challenge/create`, requestData);
-
-                    console.log(createResponse.data);
-
+                    
                     if (createResponse.data === true) {
                         alert("챌린지 등록 !! ");
                         navigete("/main");
@@ -110,29 +108,29 @@ function ChallengeCreate({ children }) {
 
     return (
         <BaseLayout>
-            <div css={S.layout}>
+            <div css={S.Layout}>
                 <div css={S.ChallengeTitle}>
-                    <div css={S.CategoryBox}>
-                        <div>Category : 
-                            <b>{categoryName}</b>
-                        </div>
+                    <div>Category : 
+                        <b>{categoryName}</b>
                     </div>
+                </div>
+                <div css={S.InputBox}>
                     <p>Challenge Title</p>
                     <input type="text" placeholder='제목을 입력하세요' onChange={handleTitleChange} />
                 </div>
                 <div css={S.ContentLayout}>
                     <h2>인증 방법</h2>
                     <div css={S.CheckBoxLayout}>
-                        <div css={S.CheckBox}>
+                        <div css={S.CheckBox1}>
                             <input type="radio" id="layout1" name='layout' value={1} onChange={handleLayoutChange}/>
                             <label htmlFor="layout1">글, 사진인증</label>
                         </div>
-                        <div css={S.CheckBox}>
+                        <div css={S.CheckBox2}>
                             <input type="radio" id="layout2" name='layout' value={2} onChange={handleLayoutChange}/>
                             <label htmlFor="layout2">글, 사진, 시간인증</label>
                         </div>
                     </div>
-                    <div css={S.Layout}>
+                    <div css={S.Introduction}>
                         <div>* 참가자들이 혼란을 겪지 않도록 정확한 기준과 구체적인 인증방법을 적어주세요.</div>
                         <h2>챌린지 소개</h2>
                         <textarea id="introText" rows="7" cols="60" maxLength={1000} onChange={handleIntroductionChange}></textarea>
@@ -161,7 +159,7 @@ function ChallengeCreate({ children }) {
                         />
                     </div>
                 </div>
-                <div css={S.Checkbox}>
+                <div css={S.allApprovalCheckbox}>
                     <input
                         type="checkbox"
                         id="allApprovalCheckbox"

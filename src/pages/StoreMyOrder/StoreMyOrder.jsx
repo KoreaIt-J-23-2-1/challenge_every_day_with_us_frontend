@@ -18,7 +18,7 @@ function StoreMyOrder(props) {
 
     const getPrincipal = useQuery(["getPrincipal"], async () => {
         try{
-            return await instance.get("/api/account/principal", option);
+            return await instance.get("/api/auth/principal", option);
 
         }catch(error) {
             // throw new Error(error);
@@ -32,7 +32,7 @@ function StoreMyOrder(props) {
 
     const getMyOrders = useQuery(["getMyOrders"], async () => {
         try{
-            const principal = await instance.get("/api/account/principal", option);
+            const principal = await instance.get("/api/auth/principal", option);
             return await instance.get(`/api/store/purchases/${principal.data.userId}`, option);
 
         }catch(error) {

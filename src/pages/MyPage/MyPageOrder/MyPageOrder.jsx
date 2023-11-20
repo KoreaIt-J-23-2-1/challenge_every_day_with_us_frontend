@@ -19,7 +19,7 @@ function MyPageOrder(props) {
 
     const getPrincipal = useQuery(["getPrincipal"], async () => {
         try{
-            return await instance.get("/api/account/principal", option);
+            return await instance.get("/api/auth/principal", option);
 
         }catch(error) {
             // throw new Error(error);
@@ -33,7 +33,7 @@ function MyPageOrder(props) {
 
     const getMyOrders = useQuery(["getMyOrders"], async () => {
         try{
-            const principal = await instance.get("/api/account/principal", option);
+            const principal = await instance.get("/api/auth/principal", option);
             return await instance.get(`/api/store/purchases/${principal.data.userId}`, option);
 
         }catch(error) {
@@ -53,7 +53,7 @@ function MyPageOrder(props) {
             <MypageDetailSideBar>
                 <div css={S.SLayout}>
                     <div css={S.SOrderHeader}>
-                        <h1>{!getPrincipal.isLoading && getPrincipal.data.data.nickname} 님의 구매목록</h1>
+                        <h3>{!getPrincipal.isLoading && getPrincipal.data.data.nickname} 님의 구매목록</h3>
                     </div>
                     <div css={S.SBaseLayout}>
                         {!getMyOrders.isLoading &&

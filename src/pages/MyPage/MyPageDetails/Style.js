@@ -1,23 +1,29 @@
 import { css } from "@emotion/react";
 
+export const Layout = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+`;
+
 export const userBox = css`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: 50px;
-    max-width: 400px;
+    border: 1px solid #dbdbdb;
+    border-radius: 12px;
 
     & button {
-        margin-top: 25px;
+        margin: 15px;
         width: 200px;
     }
 `;
 
 export const userInfoHeader = css`
-    position: relative;
     display: block;
-    width: 100%;
+    width: 300px;
     padding: 15px 38px 13px 18px;
     border-radius: 12px 12px 0 0;
     background-image: linear-gradient(98deg,#03c75a,#49c6dd);
@@ -34,6 +40,7 @@ export const inputBox = css`
 
     & > input {
         border: none;
+        border-radius: 10px;
         margin-left: 10px;
         
         &:focus {
@@ -45,7 +52,7 @@ export const inputBox = css`
 export const SModify = css`
     font-family: "proxima-nova", sans-serif;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 15px;
     text-transform: uppercase!important;
     letter-spacing: 2px;
     color: #49c6dd;
@@ -116,7 +123,7 @@ export const SModify = css`
 export const SCancel = css`
     font-family: "proxima-nova", sans-serif;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 15px;
     text-transform: uppercase!important;
     letter-spacing: 2px;
     color: #03c75a;
@@ -187,7 +194,7 @@ export const SCancel = css`
 export const SWithdrawn = css`
     font-family: "proxima-nova", sans-serif;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 15px;
     text-transform: uppercase!important;
     letter-spacing: 2px;
     color: #DE3180;

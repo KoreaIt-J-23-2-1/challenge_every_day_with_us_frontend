@@ -13,7 +13,6 @@ import Main from './pages/Main/Main';
 import ChallengeDetails from './pages/ChallengeDetails/ChallengeDetails';
 import ChallengeList from './pages/ChallengeList/ChallengeList';
 import SigninOauth2 from './pages/SignIn/SigninOauth2';
-import StampPage from './pages/StampPage/StampPage';
 import LogoPage from './pages/LogoPage/LogoPage';
 import Certification from './pages/Certification/Certification';
 import Feed from './pages/Feed/Feed';
@@ -23,8 +22,9 @@ import { Common } from "./styles/common";
 import { SReset } from './styles/reset';
 import Store from './components/Store/Store';
 import NoticeEdit from './pages/NoticeEdit/NoticeEdit';
-import RealMain from './pages/Main/RealMain';
 import MyPageOrder from './pages/MyPage/MyPageOrder/MyPageOrder';
+import User from './components/MyPage/User';
+import StampPage from './pages/StampPage/StampPage';
 
 function App() {
 
@@ -68,6 +68,7 @@ function App() {
         
         <Route path='/store/items' element={<Store/>} />
         <Route path='/store/:userId/orders' element={<MyPageOrder/>} />
+        <Route path='/user' element={<User/>} />
 
         <Route path='/notice/page/:page' element={<NoticeList/>} />
         <Route path='/notice/write' element={<NoticeWrite />} />
@@ -83,7 +84,6 @@ function App() {
         <Route path='/challenge/certification/:challengeId' element={<Certification/>} />
 
         <Route path='/challenge/feed' element={<Feed/>} />
-
         <Route path='/stamp' element={<StampPage/>} />
       </Routes>
     </>
