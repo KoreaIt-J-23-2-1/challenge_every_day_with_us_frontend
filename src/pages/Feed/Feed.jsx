@@ -5,8 +5,12 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
+import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
+import FeedEditModal from '../../components/FeedEditModal/FeedEditModal';
 
 function Feed(props) {
+    const { challengeId } = useParams();
+    const navigate = useNavigate();
     const principalState = useQueryClient().getQueryState("getPrincipal");
     const principal = principalState?.data?.data;
     const [ isChallengeFeedRefetch, setIsChallengeFeedRefetch ] = useState(false);
@@ -21,6 +25,8 @@ function Feed(props) {
     const [ comments, setComments ] = useState({});
     const [ sort, setSort ] = useState('latest');
     const [ isCommentModifiableList, setIsCommentModifiableList ] = useState({});
+    const [ selectedFeed, setSelectedFeed ] = useState(null);
+    const [ isModalOpen, setModalOpen ] = useState(false);
 
     useEffect(() => {
         const observerService = (entries, observer) => {
@@ -177,7 +183,7 @@ function Feed(props) {
 
         });
     };
-    
+
     const handleReportClick = async (feedId, feedChallengeId) => {
         const data = {
             feedId: feedId,
@@ -265,6 +271,20 @@ function Feed(props) {
         setPage(1);
     };
 
+    const handleFeedEditClick = (feed) => {
+        setSelectedFeed(feed);
+        setModalOpen(true);
+    };
+
+    const handleFeedEditCloseModal = () => {
+        setSelectedFeed(null);
+        setModalOpen(false);
+    };
+    
+    const handleFeedDeleteClick = () => {
+
+    }
+
     return (
         <BaseLayout>
             <div css={S.SLayout}>
@@ -290,6 +310,12 @@ function Feed(props) {
                                         <img src={feed.profileUrl} alt="" />
                                         <b>{feed.nickname}</b>
                                     </div>
+                                    {principal &&
+                                        <div>
+                                            <button onClick={() => handleFeedEditClick(feed.feedId)}>수정</button>
+                                            <button onClick={() => {handleFeedDeleteClick()}}>삭제</button>
+                                        </div>
+                                    }
                                     <button onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
                                 </div>
                                 <div css={S.SFeedBody}>
@@ -342,8 +368,16 @@ function Feed(props) {
                                     </div>
                             </div>
                         </div>
+                        
                     ))}
                     <div ref={lastChallengeRef}></div>
+                    {isModalOpen && (
+                        <div css={S.ModalOverlay}>
+                            <div css={S.ModalContent}>
+                                <FeedEditModal onClose={handleFeedEditCloseModal} feedId={selectedFeed} />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </BaseLayout>
