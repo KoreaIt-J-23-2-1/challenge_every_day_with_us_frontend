@@ -20,7 +20,7 @@ function SignIn(props) {
             const response = await instance.post("/api/auth/sign-in", signinUser);
             localStorage.setItem("accessToken", "Bearer " + response.data);
             alert("로그인 성공");
-            window.location.replace("/");
+            window.location.replace("/main");
             
         }catch(error) {
             console.error(error);
@@ -61,10 +61,10 @@ function SignIn(props) {
                     <button css={S.btn} onClick={handleSignup}>회원가입</button>
 
 
-                <div>
+                {/* <div>
                     <a href="#" >이메일 찾기</a>
                     <a href="#"> 비밀번호 찾기</a>
-                </div>
+                </div> */}
 
 
                 

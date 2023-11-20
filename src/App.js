@@ -35,7 +35,7 @@ function App() {
           Authorization: localStorage.getItem("accessToken")
         }
       }
-      return await instance.get("/api/account/principal", option);
+      return await instance.get("/api/auth/principal", option);
 
     }catch(error) {
       // throw new Error(error);
@@ -56,7 +56,8 @@ function App() {
       <Global styles={SReset, Common}/>
 
       <Routes>
-        <Route path='/maain' element={<RealMain/>}/>
+        <Route path='' element={<></>} />
+        {/* <Route path='/maain' element={<RealMain/>}/> */}
         <Route path='/main' element={<Main />} />
         <Route path='/' element={<LogoPage/>}/>
         

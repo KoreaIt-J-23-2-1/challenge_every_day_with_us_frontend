@@ -43,7 +43,8 @@ function Header() {
         }
     }, {
         retry: 0,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        enabled: !!principal
     });
 
     const GoStartPage = () => {

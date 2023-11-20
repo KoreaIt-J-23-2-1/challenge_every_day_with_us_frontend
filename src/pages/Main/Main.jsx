@@ -34,7 +34,7 @@ function Main(props) {
     const handleLogoutButton = async () => {
         localStorage.removeItem("accessToken");
         alert("로그아웃 되었습니다.");
-        window.location.replace("/");
+        window.location.replace("/main");
     };
 
     const checkLoginBeforeNavigate = (path) => {

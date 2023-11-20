@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import ReactSelect from 'react-select';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 import * as S from './ChallengeListStyle';
@@ -16,6 +16,10 @@ function ChallengeList(props) {
     const [ isChallengeListRefetch, setIsChallengeListRefetch ] = useState(false);
     const [ challengeList, setChallengeList ] = useState([]);
     const [ sort, setSort ] = useState('latest');
+    const [ userId, setUserId ] = useState([]);
+    const queryClient = useQueryClient();
+    const principalState = queryClient.getQueryState("getPrincipal");
+    const principal = principalState.data.data;
 
     const options = [
         {value: "전체", label: "전체"},
@@ -38,14 +42,13 @@ function ChallengeList(props) {
     }, {
         refetchOnWindowFocus: false,
         enabled: isChallengeListRefetch,
+        staleTime: 0,
         onSuccess: (response) => {
-            setChallengeList([...challengeList].concat(response.data));
+            setChallengeList(response.data);
             setIsChallengeListRefetch(false);
             setPage(page + 1);
         }
     });
-
-    console.log(challengeList)
 
     const getChallengeCount = useQuery(["getChallengeCount", page], async () => {
         const option = {
@@ -111,8 +114,7 @@ function ChallengeList(props) {
                     </div>
                     <div css={S.SChallengeListBody}>
                         {challengeList?.map((challenge) => {
-                            return (<li key={challenge.challengeId}
-                                    onClick={() => {navigate(`/challenge/${challenge.challengeId}`)}}>
+                            return (<li key={challenge.challengeId} onClick={() => {navigate(`/challenge/${challenge.challengeId}`)}}>
                                         <div>{challenge.challengeId}</div>
                                         <div>{challenge.challengeName}</div>
                                         <div>{challenge.categoryName}</div>

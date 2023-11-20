@@ -9,7 +9,6 @@ import { useQuery } from 'react-query';
 import * as S from './Style';
 
 function NoticeEdit(props) {
-
     const navigete = useNavigate();
     const { noticeId } = useParams();
 

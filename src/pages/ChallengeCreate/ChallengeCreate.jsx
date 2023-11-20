@@ -21,24 +21,7 @@ function ChallengeCreate({ children }) {
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data;
     const navigete = useNavigate();
-    const getPrincipal = useQuery(["getPrincipal"], async () => {
-        try {
-            const option = {
-            headers: {
-                Authorization: localStorage.getItem("accessToken")
-            }
-            }
-        return await instance.get("/api/account/principal", option);
     
-        } catch(error) {
-            throw new Error(error)
-        }
-        }, {
-        retry: 0,
-        refetchInterval: 1000 * 60 * 10,
-        refetchOnWindowFocus: false
-        });
-
     useEffect(() => {
         const today = new Date();
         const formattedDate = today.toISOString().substr(0, 10);
@@ -59,11 +42,6 @@ function ChallengeCreate({ children }) {
         setChallengeTitle(e.target.value);
     };
 
-    // 비공개는 true로 전송됨
-    const handlePrivateCheckboxChange = () => {
-        setIsPrivate(!isPrivate);
-    };
-
     // 승인을받을거면 true로 전송됨
     const handleCheckboxChange = () => {
         setApplicable(!applicable);
@@ -81,7 +59,7 @@ function ChallengeCreate({ children }) {
         setIntroduction(e.target.value);
     }
 
-    const handleSubmitButton = () => {
+    const handleSubmitButton = async () => {
         if (!challengeTitle || !startDate || !endDate || !introduction) {
             alert("모든 필수 항목을 입력해주세요.");
             return;
@@ -89,7 +67,6 @@ function ChallengeCreate({ children }) {
 
         const requestData = {
             challengeName: challengeTitle,
-            isOpen: isPrivate,
             isApplicable: applicable,
             startDate: new Date(startDate).toISOString(),
             endDate: new Date(endDate).toISOString(),
@@ -99,24 +76,34 @@ function ChallengeCreate({ children }) {
             userId: userId
         };
         if(window.confirm("챌린지 생성시 1000 Point가 소요됩니다. 동의하시나요?")) {
-            if(principal.point >= 1000){
-                const principalPoint = {
-                    point: 1000,
-                    userId: userId
-                };
-                instance.post(`/api/challenge/create/point`, principalPoint)
-                    .then((response) => {
-                        instance.post(`/api/challenge/create`, requestData)
+            try {
+                if(principal.point >= 1000){
+                    const principalPoint = {
+                        point: 1000,
+                        userId: userId
+                    };
+                    await instance.post(`/api/challenge/create/point`, principalPoint);
+                    const createResponse = await instance.post(`/api/challenge/create`, requestData);
+
+                    console.log(createResponse.data);
+
+                    if (createResponse.data === true) {
                         alert("챌린지 등록 !! ");
-                        getPrincipal.refetch();
-                        navigete(-1);
-                    })
-                    .catch((error) => {
-                        console.error("챌린지 생성 실패:", error);            
-                    });
-            }else {
-                window.confirm("해당 잔여 포인트가 부족합니다. Point 충전소로 이동하시겠습니까?")
-                navigete("/point");
+                        navigete("/main");
+                        principal.refetch();
+                        instance.post()
+                    } else {
+                        console.log("챌린지 생성 실패");
+                    }
+                } else {
+                    if (window.confirm("해당 잔여 포인트가 부족합니다. Point 충전소로 이동하시겠습니까?")) {
+                        navigete("/store/items");
+                    } else {
+                        alert("포인트 충전 후 챌린지를 개설해주세요.");
+                    }
+                }
+            } catch (error) {
+                console.error(error);
             }
         }
     };
@@ -177,18 +164,11 @@ function ChallengeCreate({ children }) {
                 <div css={S.Checkbox}>
                     <input
                         type="checkbox"
-                        id="privateCheckbox"
-                        checked={isPrivate}
-                        onChange={handlePrivateCheckboxChange}
-                    />
-                    <label htmlFor="privateCheckbox">비공개</label>
-                    <input
-                        type="checkbox"
                         id="allApprovalCheckbox"
                         checked={applicable}
                         onChange={handleCheckboxChange}
                     />
-                    <label htmlFor="allApprovalCheckbox">모든참여허용</label>
+                    <label htmlFor="allApprovalCheckbox">자동 승인</label>
                 </div>
                 <div css={S.ApplicationBtn}>
                     <button onClick={handleSubmitButton}>생성하기</button>

@@ -23,7 +23,6 @@ function LogoPage() {
     return (
         <div css={S.layout}>
             <div css={S.LogoImg} onClick={GoMainPage} ></div>
-
         </div>
     );
 }

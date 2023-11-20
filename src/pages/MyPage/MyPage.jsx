@@ -9,22 +9,6 @@ function MyPage() {
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState?.data?.data;
-    const getPrincipal = useQuery(["getPrincipal"], async () => {
-        try {
-            const option = {
-            headers: {
-                Authorization: localStorage.getItem("accessToken")
-            }
-            }
-        return await instance.get("/api/account/principal", option);
-        } catch(error) {
-            throw new Error(error)
-        }
-        }, {
-        retry: 0,
-        refetchInterval: 1000 * 60 * 10,
-        refetchOnWindowFocus: false
-        });
 
     return (
         <BaseLayout>

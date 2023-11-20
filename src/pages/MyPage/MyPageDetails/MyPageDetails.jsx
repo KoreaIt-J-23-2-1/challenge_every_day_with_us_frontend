@@ -15,15 +15,12 @@ import MypageDetailSideBar from '../../../components/MypageDetailSideBar/MypageD
 
 
 function MyPageDetails(props) {
-    
     const navegate = useNavigate();
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data;   
     const [ uploadFiles, setUploadFiles ] = useState([]);
     const [ modifyMypageDetail, setModifyMypageDetail ] = useState(principal);
-
-    
 
     const handleInputChange = (e) => {
         setModifyMypageDetail({
@@ -77,9 +74,6 @@ function MyPageDetails(props) {
                 console.error(error);
             }
         })
-        
-
-        
     }
 
     const handleCancelClick = () => {
