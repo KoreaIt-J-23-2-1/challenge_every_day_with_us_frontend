@@ -4,25 +4,13 @@ export const Layout = css`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 100%;
+    width: 95%;
 `;
 
-export const TitleLayout = css`
-    position: absolute;
-    top: 0px;
-    left: 50px;
-
-    & b {
-        margin: 0px 10px;
-    }
-`;
 
 export const textLayout = css`
     display: flex;
     justify-content: space-between;
-    position: absolute;
     left: 50px;
     top: 100px;
     width: 95%;
@@ -51,7 +39,6 @@ export const FileBox = css`
 `;
 
 export const SaveButton = css`
-    position: absolute;
     right: 30px;
     bottom: 30px;
     width: 100px;

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.developm
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
 
+import Logo from '../../img/Start.png';
+
 function LogoPage() {
     const navigate = useNavigate();
 

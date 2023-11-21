@@ -131,13 +131,7 @@ function Challengedefault(props) {
     
     return (
         <div css={S.Layout}>
-            <div css={S.TitleLayout}>
-                {challenge ? (
-                    <h1>Title: <b>{challenge.challengeName}</b>[{challenge.categoryName}]</h1>
-                ) : (
-                    <h1>Loading...</h1>
-                )}
-            </div>
+
             <div css={S.textLayout}>
                 <div>
                     <textarea ref={textareaRef} css={S.textareaBox} id="challengeText" rows="32" cols="200" maxLength={1000}></textarea>
@@ -147,6 +141,7 @@ function Challengedefault(props) {
                     <img src={selectedImage} css={S.imagePreview} alt="Selected" />
                 )}
             </div>
+            
             <button css={S.SaveButton} onClick={handleSave}>인증하기</button>
         </div>
     );
