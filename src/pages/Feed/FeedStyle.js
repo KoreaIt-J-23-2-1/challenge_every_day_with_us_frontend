@@ -131,7 +131,7 @@ export const FeedImg = css`
     border-radius: 10px;
 `;
 
-export const FeedContentBox = css`
+export const FeedContentBox = (imgExists) => css`
     margin: 0px auto;
     border-radius: 10px;
     width: 100%;
@@ -153,7 +153,7 @@ export const FeedContentBox = css`
         margin: auto 0px ;
     }
 
-    ${(props) => !props.imgExists && `img { display: none; }`}
+    ${!imgExists && `img { display: none; }`}
 `;
 
 export const FeedContent = css`
@@ -199,13 +199,18 @@ export const WriteCommentBox = css`
         border-radius: 50%;
     }
 
-    &>div>input {
-        width: 500px;
-        height: 30px;
-        border-radius: 5px;
-        border: 1px solid #dbdbdb;
-    }
 
+`;
+
+export const CommentInputBox = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px auto;
+    width: 600px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #dbdbdb;
 
 `;
 

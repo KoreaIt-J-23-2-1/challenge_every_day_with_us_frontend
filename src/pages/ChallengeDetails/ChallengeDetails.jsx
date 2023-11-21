@@ -284,7 +284,7 @@ function ChallengeDetails(props) {
 
                                 <div css={S.SFeedBody}>
                                     {feed.img && <img css={S.FeedImg} src={feed.img} alt="" />}
-                                    <div css={S.FeedContentBox} imgExists={!!feed.img}>
+                                    <div css={S.FeedContentBox(!!feed.img)} imgexists={(!!feed.img).toString()}>
                                         <a>{getTimeDifference(feed.dateTime)}</a>
                                         <div css={S.FeedContent}>{feed.feedContent}</div>
                                     </div>                                 
