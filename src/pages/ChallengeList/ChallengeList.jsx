@@ -40,7 +40,7 @@ function ChallengeList(props) {
         enabled: isChallengeListRefetch,
         staleTime: 0,
         onSuccess: (response) => {
-            setChallengeList(response.data);
+            setChallengeList(challengeList.concat(response.data));
             setIsChallengeListRefetch(false);
             setPage(page + 1);
         }

@@ -11,7 +11,6 @@ export const HeaderLayout = css`
     justify-content: space-between;
     align-items: flex-end;
     height: 100px;
-    /* width: 100%; */
     padding-bottom: 10px;
     border-bottom: 4px solid #999;
 
@@ -46,9 +45,10 @@ export const Writer = css`
 
 export const BodyLayout = css`
     display: flex;
-    margin: 20px 0px;
     justify-content: center;
+    align-items: center;
     width: 100%;
+    height: 650px;
     gap: 30px;
 `;
 
@@ -122,8 +122,8 @@ export const FeedContainer = css`
     display: flex;
     flex-direction: column;
     padding: 20px;
-    width: 800px;
-    height: 700px;
+    width: 700px;
+    height: 600px;
     border-radius: 10px;
     overflow: hidden;
     overflow-y: auto;

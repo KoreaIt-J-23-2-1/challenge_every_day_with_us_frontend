@@ -32,6 +32,7 @@ export const Common = css`
         background-size: cover; 
         /* background-repeat: no-repeat; */
         height: 100%;
+        width: 100%;
         box-sizing: border-box;
         color: #000;
     }
