@@ -83,7 +83,7 @@ const FeedEditModal = ({ onClose, feedDetail }) => {
     }, [handleFeedEditCloseModal]);
 
     const handleFeedEditClick = async () => {
-        let imageUrl = "";
+        let imageUrl = getFeed?.data?.data?.img;
         if (uploadFiles.length > 0) {
             try {
                 imageUrl = await uploadImageToFirebase(uploadFiles[0]);

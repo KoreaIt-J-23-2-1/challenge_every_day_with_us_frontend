@@ -78,8 +78,8 @@ function Admin() {
                 setChartData(prevData => [
                     ...prevData,
                     {
-                        id: "총 챌린지 수",
-                        data: dailyChallengesResponse.data.map(data => ({
+                        id: "총 회원 수",
+                        data: dailyMembersResponse.data.map(data => ({
                             x: data.date,
                             y: data.count
                         })),
@@ -106,8 +106,8 @@ function Admin() {
                         })),
                     },
                     {
-                        id: "총 회원 수",
-                        data: dailyMembersResponse.data.map(data => ({
+                        id: "총 챌린지 수",
+                        data: dailyChallengesResponse.data.map(data => ({
                             x: data.date,
                             y: data.count
                         })),

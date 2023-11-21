@@ -283,6 +283,8 @@ function Feed(props) {
     const handleFeedEditCloseModal = () => {
         setSelectedFeed(null);
         setModalOpen(false);
+        window.location.reload()
+        
     };
     
     const handleFeedDeleteClick = async (feedId) => {
@@ -299,9 +301,6 @@ function Feed(props) {
         }
     };
 
-    console.log(principal?.userId)
-    console.log(getFeedList?.data?.data?.userId)
-    console.log(getFeedList)
     return (
         <BaseLayout>
             <div css={S.SLayout}>
