@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { css } from '@emotion/react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -8,19 +8,29 @@ import { useParams } from 'react-router-dom/dist/umd/react-router-dom.developmen
 import Header from '../../components/Header/Header';
 /** @jsxImportSource @emotion/react */
 import * as S from './NoticeListStyle';
+import ReactSelect from 'react-select';
 
 function NoticeList(props) {
-    const option = {
-        headers: {
-        Authorization: localStorage.getItem("accessToken")
-        }
-    }
-
     const navigate = useNavigate();
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
     const principal = principalState.data.data;
     const { page } = useParams();
+    const option = {
+        headers: {
+        Authorization: localStorage.getItem("accessToken")
+        }
+    }
+    const options = [
+        {value: "전체", label: "전체"},
+        {value: "챌린지제목", label: "챌린지제목"},
+        {value: "카테고리이름", label: "카테고리이름"}
+    ];
+
+    const search = {
+        optionName: options[0].label,
+        searchValue: ""
+    }
 
     const getNoticeList = useQuery(["getBoardList", page], async () => {
         return await instance.get(`/api/notices/${page}`, option)
@@ -36,13 +46,32 @@ function NoticeList(props) {
         refetchOnWindowFocus: false
     });
 
-    const handleNoticeWriteBtn = () => {
-        if (principal.isAdmin == 1) {
-            navigate("/notice/write");
-        } else {
-            alert("공지는 관리자만 작성 가능")
-        }
-    };
+    const getAdminList = useQuery(["getAdminList"], async () => {
+        return await instance.get(`/api/admin`, option)
+    }, {
+        retry: 0,
+        refetchOnWindowFocus: false
+    });
+
+    const [ searchParams, setSearchParams ] = useState(search);
+
+    const handleSearchInputChange = (e) => {
+        setSearchParams({
+            ...searchParams,
+            searchValue: e.target.value
+        })
+    }
+
+    const handleSearchOptionSelect = (option) => {
+        setSearchParams({
+            ...searchParams,
+            optionName: option.label
+        })
+    }
+
+    const handleSearchButtonClick = () => {
+        getNoticeList.refetch();
+    }
 
     const pagination = () => {
         if(getNoticesCount.isLoading) {
@@ -50,17 +79,12 @@ function NoticeList(props) {
         }
 
         const totalNoticeCount = getNoticesCount.data.data;
-        
         const lastPage = totalNoticeCount % 10 === 0
             ? totalNoticeCount / 10
             : Math.floor(totalNoticeCount / 10) + 1;
-        
         const startIndex = parseInt(page) % 5 === 0 ? parseInt(page) - 4 : parseInt(page) - (parseInt(page) % 5) + 1;
-        
         const endIndex = startIndex + 4 <= lastPage ? startIndex + 4 : lastPage;
-
         const pageNumbers = [];
-
         for(let i = startIndex; i <= endIndex; i++) {
             pageNumbers.push(i);
         }
@@ -82,14 +106,21 @@ function NoticeList(props) {
         )
     };
 
+    const isAdmin = getAdminList?.data?.some(admin => admin.adminId === principal.adminId);
+
     return (
         <BaseLayout>
             <h1>공지</h1>
             <div css={S.btnBox}>
-                <button onClick={handleNoticeWriteBtn}>공지 작성</button>
+            {isAdmin && (
                 <div css={S.btnBox}>
-                    <input type="text" placeholder='검색어를 입력하세요' />
-                    <button>검색</button>
+                    <button>공지 작성</button>
+                </div>
+            )}
+                <div css={S.btnBox}>
+                    <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect} />
+                    <input onChange={handleSearchInputChange} type="text" placeholder='검색어를 입력하세요' />
+                    <button onClick={handleSearchButtonClick}>검색</button>
                 </div>
             </div>
             <table css={S.listTable}>
