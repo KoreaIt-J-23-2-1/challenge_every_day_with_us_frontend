@@ -285,9 +285,19 @@ function Feed(props) {
         setModalOpen(false);
     };
     
-    const handleFeedDeleteClick = () => {
-
-    }
+    const handleFeedDeleteClick = async (feedId) => {
+        try {
+            const confirmed = window.confirm("피드를 삭제 시키겠습니까?")
+            
+            if (confirmed) {
+                await instance.delete(`/api/challenge/feed/${feedId}`, option);
+                alert("피드가 삭제되었습니다.");
+                getFeedList.refetch({ force: true });
+            }
+        }catch(error) {
+            console.error(error);
+        }
+    };
 
     return (
         <BaseLayout>
@@ -324,8 +334,8 @@ function Feed(props) {
                                         
                                         {principal &&
                                             <div>
-                                                <button onClick={() => handleFeedEditClick(feed.feedId)}>수정</button>
-                                                <button onClick={() => {handleFeedDeleteClick()}}>삭제</button>
+                                                <button onClick={() => {handleFeedEditClick(feed.feedId)}}>수정</button>
+                                                <button onClick={() => {handleFeedDeleteClick(feed.feedId)}}>삭제</button>
                                             </div>
                                         }
                                         <button onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
