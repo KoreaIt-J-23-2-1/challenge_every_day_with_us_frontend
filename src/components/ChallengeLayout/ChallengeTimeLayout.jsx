@@ -146,13 +146,7 @@ function ChallengeTimeLayout() {
 
     return (
         <div css={S.Layout}>
-            <div css={S.TitleLayout}>
-                {challenge ? (
-                    <h1>Title: <b>{challenge.challengeName}</b>[{challenge.categoryName}]</h1>
-                ) : (
-                    <h1>Loading...</h1>
-                )}
-            </div>
+
             <div css={S.TimeLayout}>{formattedTime}</div>
             <div css={S.ButtonLayout}>
                 <button onClick={startTimer} disabled={isRunning}>Start</button>
