@@ -16,7 +16,7 @@ export const SProductContainer =  css`
     margin: 20px;
     width: calc(30% - 10px);
     min-width: 270px;
-    height: 210px;
+    height: 180px;
     background-color: transparent;
     border-radius: 15%;
     border: none;
@@ -25,6 +25,7 @@ export const SProductContainer =  css`
     overflow: hidden;
     cursor: pointer;   
     transition: transform 0.5s ease-out; 
+
     &:hover{
         opacity: 0.7;
         transform: scale(1.07);

@@ -53,9 +53,7 @@ function Admin() {
         refetchOnWindowFocus: false,
         enabled: isChallengeListRefetch,
         onSuccess: (response) => {
-            setChallengeList([
-                ...challengeList
-            ].concat(response.data));
+            setChallengeList(response.data);
             setIsChallengeListRefetch(false);
             setPage(page + 1);
         }

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import ReactSelect from 'react-select';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 import * as S from './ChallengeListStyle';
@@ -38,14 +38,13 @@ function ChallengeList(props) {
     }, {
         refetchOnWindowFocus: false,
         enabled: isChallengeListRefetch,
+        staleTime: 0,
         onSuccess: (response) => {
-            setChallengeList([...challengeList].concat(response.data));
+            setChallengeList(response.data);
             setIsChallengeListRefetch(false);
             setPage(page + 1);
         }
     });
-
-    console.log(challengeList)
 
     const getChallengeCount = useQuery(["getChallengeCount", page], async () => {
         const option = {
@@ -65,7 +64,8 @@ function ChallengeList(props) {
             });
         }
 
-        const observer = new IntersectionObserver(observerService, {threshold: 1});
+        const observer = new IntersectionObserver(observerService, {threshold: 0.5});
+        // observer.observe(topChallengeRef.current);
         observer.observe(lastChallengeRef.current);
     }, []);
 
@@ -110,9 +110,9 @@ function ChallengeList(props) {
                         </li>
                     </div>
                     <div css={S.SChallengeListBody}>
+                        {/* <li ref={topChallengeRef}></li> */}
                         {challengeList?.map((challenge) => {
-                            return (<li key={challenge.challengeId}
-                                    onClick={() => {navigate(`/challenge/${challenge.challengeId}`)}}>
+                            return (<li key={challenge.challengeId} onClick={() => {navigate(`/challenge/${challenge.challengeId}`)}}>
                                         <div>{challenge.challengeId}</div>
                                         <div>{challenge.challengeName}</div>
                                         <div>{challenge.categoryName}</div>

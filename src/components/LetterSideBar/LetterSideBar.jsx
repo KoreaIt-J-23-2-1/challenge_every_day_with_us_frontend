@@ -50,13 +50,14 @@ function LetterSideBar(props) {
     const getLetterList = useQuery(["getLetters"], async () => {
         try {
             const response = await instance.get(`/api/letters`, option);
-            return response.data || [];
+            return response.data;
         }catch (error) {
             return [];
         }
     }, {
         retry: 0,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        enabled: !!principal?.data?.data
     });
 
     const GoTargetLetterUrl = () => {
@@ -136,7 +137,7 @@ function LetterSideBar(props) {
             <div>
                 <h2>알림</h2>
                 <div css={S.SLetterScroll}>
-                    {getLetterList?.data.map(letter => (
+                    {getLetterList?.data?.map(letter => (
                         <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                             <h3>{letter.title}</h3>
                             <div css={S.lettersHeader}>{letter.sendDateTime}</div>
