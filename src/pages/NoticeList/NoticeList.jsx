@@ -106,13 +106,13 @@ function NoticeList(props) {
         )
     };
 
-    const isAdmin = getAdminList?.data?.some(admin => admin.adminId === principal.adminId);
+    const isAdmins = getAdminList?.data?.data?.some(admin => admin.userId === principal.userId);
 
     return (
         <BaseLayout>
             <h1>공지</h1>
             <div css={S.btnBox}>
-            {isAdmin && (
+            {isAdmins && (
                 <div css={S.btnBox}>
                     <button>공지 작성</button>
                 </div>

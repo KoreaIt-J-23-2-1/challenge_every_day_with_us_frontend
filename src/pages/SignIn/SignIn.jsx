@@ -58,6 +58,8 @@ function SignIn(props) {
                     </div>
                 </div>
                     <button css={S.btn} onClick={handleNaverSignin}>네이버 연동 로그인</button>
+                    <button css={S.btn} onClick={handleNaverSignin}>카카오 연동 로그인</button>
+                    <button css={S.btn} onClick={handleNaverSignin}>구글 연동 로그인</button>
                     <button css={S.btn} onClick={handleSignup}>회원가입</button>
 
 
