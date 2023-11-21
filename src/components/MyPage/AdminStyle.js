@@ -57,7 +57,9 @@ export const SChallengeList = css`
 `;
 
 export const Alignment = css`
-    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     & div {
         display: flex;
@@ -75,7 +77,6 @@ export const searchContainer = css`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-top: 20px;
     
     & > input {
         margin-left: 10px;
@@ -248,9 +249,7 @@ export const ModalContent = css`
 
 export const Chart = css`
     display: flex;
-    margin-top: 20px;
-
-    & h2 {
-        margin-left: 50px;
-    }
+    flex-direction: column;
+    align-items: center;
+    height: 200px;
 `;
