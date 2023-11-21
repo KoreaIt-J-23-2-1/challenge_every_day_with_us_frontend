@@ -3,16 +3,15 @@ import { css } from '@emotion/react';
 export const Layout = css`
     display: flex;
     flex-direction: column;
-    width: 90%;
-    height: 100%;
+    
 `;
 
 export const HeaderLayout = css`
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     align-items: flex-end;
-    height: 120px;
-    width: 100%;
+    height: 100px;
+    /* width: 100%; */
     padding-bottom: 10px;
     border-bottom: 4px solid #999;
 
@@ -48,7 +47,7 @@ export const Writer = css`
 export const BodyLayout = css`
     display: flex;
     margin: 20px 0px;
-    /* justify-content: center; */
+    justify-content: center;
     width: 100%;
     gap: 30px;
 `;
@@ -57,7 +56,7 @@ export const BodyLayout = css`
 export const BodyRightBox = css`
     display: flex;
     flex-direction: column;
-    min-width: 400px;
+    width: 400px;
 `;
 
 export const ParticipationButton = css`
@@ -119,10 +118,11 @@ export const DeleteChallengerButton = css`
 `;
 
 // 왼쪽 피드 
-export const BodyFeedLayout = css`
+export const FeedContainer = css`
     display: flex;
     flex-direction: column;
-    width: 700px;
+    padding: 20px;
+    width: 800px;
     height: 700px;
     border-radius: 10px;
     overflow: hidden;
@@ -130,6 +130,7 @@ export const BodyFeedLayout = css`
     background: rgba(255, 255, 255, 0.7); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
     ::-webkit-scrollbar {
     width: 2px;
     }
@@ -138,94 +139,104 @@ export const BodyFeedLayout = css`
     }
 `;
 
-export const SLayout = css`
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center;   */
-    width: 560px;
-    margin: 20px auto;
+export const FeedBox = css`
+    margin: 5px 0px;
+    border-radius: 15px; 
+    background-color: white;
+    padding: 15px;
 `;
 
+export const FeedHeader = css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
 
-export const SFeedLayout = css`
+    &>div>div{
+        display: flex;
+        align-items: center;
+    }
+`;
+export const userInfo = css`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+`;
+export const ChInfo = css`
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    margin: 0px auto;
+    &>div{
+        gap: 10px;
+    }
 `;
 
-export const SFeedHeader = css`
-    display: flex;
-    /* justify-content: space-between; */
-    align-items: center;
-
-`;
-
-export const FeedImg = css`
-    width: 40px;
-    height: 40px;
+export const InfoImg = css`
+    width: 50px;
+    height: 50px;
     border: 1px solid #dbdbdb;
     border-radius: 50%;
 `;
 
 export const SFeedBody = css`
     display: flex;
-    /* justify-content: space-between; */
-    margin-left: 20px;
+    margin: 10px 0px;
+    height: 200px;
+    gap: 10px;
 
-    & img {
-        max-width: 150px;
-        max-height: 150px;
-        margin-right: 20px;
-        border-radius: 10px;
-    }
-
-    & div {
-        font-size: 15px;
-    }
-
-    & b {
-        font-size: 40px;
-    }
-
-    & p {
-        margin: 0px;
-    }
 `;
 
-export const SText = css`
-    margin: 20px;
-    border: 1px solid #dbdbdb;
+export const FeedImg = css`
+    width: 200px;
+    height: 200px;
     border-radius: 10px;
-    height: 80px;
-    & div {
-        margin: 10px;
-    }
 `;
 
-export const SInfo = css`
-    display: flex;
-    justify-content: flex-end;
-    /* align-items: center; */
-    margin: 10px 20px;
-`;
-
-export const SFeedBottomLayout = css`
+export const FeedContentBox = css`
+    margin: 0px auto;
+    border-radius: 10px;
+    width: 100%;
+    height: 200px;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
-    width: 100%;
-    border-top: 1px solid #dbdbdb;
+
+    &>div{
+        width: 100%;
+        border: 1px solid #dbdbdb;
+        border-radius: 10px;
+        height: 180px;
+    }
+    &>a{
+        display: flex;
+        justify-content:end;
+        /* height: 15px; */
+        font-size: 13px;
+        margin: auto 0px ;
+    }
+
+    ${(props) => !props.imgExists && `img { display: none; }`}
+`;
+
+export const FeedContent = css`
+    display: flex;
+    padding: 15px;
+    word-wrap: break-word;
+    white-space: pre-line; 
+`;
+
+
+
+export const SFeedBottomLayout = css`
+
 `;
 
 export const SFeedBottomHeader = css`
     display: flex;
     align-items: center;
+    justify-content: space-between;
 `;
 
-export const SFeedBottomBody = css`
-    display: flex;
-    align-items: center;
+export const CommentBox = css`
+    
 `;

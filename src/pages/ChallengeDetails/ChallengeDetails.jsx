@@ -23,6 +23,7 @@ function ChallengeDetails(props) {
     const [ feedList, setFeedList ] = useState([]);
     const [ page, setPage ] = useState(1);
     const lastChallengeRef = useRef();
+    const [img, setImg] = useState(false);
 
     const option = {
         headers: {
@@ -256,54 +257,58 @@ function ChallengeDetails(props) {
 
 
                 <div css={S.BodyLayout}>
+                    
+                    {/* 왼쪽  */}
+                    <div css={S.FeedContainer}>
+                        {feedList.map(feed => (
+                            <div key={feed.feedId} css={S.FeedBox}>
 
-                    <div css={S.BodyFeedLayout}>
-                        <div css={S.SLayout}>
-                            {feedList.map(feed => (
-                                <div key={feed.feedId}>
-                                    <div css={S.SFeedHeader}>
-                                        <div>
-                                            <img css={S.FeedImg} src={feed.profileUrl} alt="" />
-                                            <b>{feed.nickname}</b>
-                                        </div>
+                                <div css={S.FeedHeader}>
+                                    <div css={S.userInfo}>
+                                        <img css={S.InfoImg} src={feed.profileUrl} alt="" />
+                                        <b>{feed.nickname}</b>  
                                     </div>
-                                    <div css={S.SFeedBody}>
+                                    <div  css={S.ChInfo}>
                                         <div>
                                             <p>[{feed.categoryName}]</p>
-                                            <div><b>{feed.challengeName}</b> Challenge</div>
+                                            <b>{feed.challengeName}</b>
                                         </div>
-                                        {feed.stopWatch !== 0 ? (
-                                            <div>{convertSecondsToTime(feed.stopWatch)}</div>
-                                        ) : (null)}
-                                        <img src={feed.img} alt="" />
-                                    </div>
-                                    <div css={S.SText}>
-                                        <div>{feed.feedContent}</div>
-                                    </div>
-                                    <div css={S.SInfo}>
-                                        <p>{getTimeDifference(feed.dateTime)}</p>
-                                    </div>
-
-
-                                    <div css={S.SFeedBottomLayout}>
-                                        <div css={S.SFeedBottomHeader}>
-                                            <b>좋아요</b>
-                                            <b>댓글</b>
-                                        </div>
-                                        <div css={S.SFeedBottomBody}>
-                                            <div>이미지</div>
-                                            <div><p>{principal.data.data.nickname}</p>댓글</div>
+                                        <div>
+                                            {feed.stopWatch !== 0 ? (
+                                                <div>진행 시간 : {convertSecondsToTime(feed.stopWatch)}</div>
+                                            ) : (null)}
                                         </div>
                                     </div>
-
-                                    
                                 </div>
-                            ))}
-                            <div ref={lastChallengeRef}></div>
-                        </div>
+
+                                <div css={S.SFeedBody}>
+                                    {feed.img && <img css={S.FeedImg} src={feed.img} alt="" />}
+                                    <div css={S.FeedContentBox} imgExists={!!feed.img}>
+                                        <a>{getTimeDifference(feed.dateTime)}</a>
+                                        <div css={S.FeedContent}>{feed.feedContent}</div>
+                                    </div>                                 
+                                </div>
+
+
+
+                                <div css={S.SFeedBottomLayout}>
+                                    <div css={S.SFeedBottomHeader}>
+                                        <b>댓글</b>
+                                        <b>좋아요 (좋아요 수)</b>
+                                    </div>
+                                    <div css={S.CommentBox}>
+                                        <div>{principal.data.data.nickname}댓글</div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        ))}
+                        <div ref={lastChallengeRef}></div>
+
                     </div>
 
-
+                    {/* 오른쪽 */}
                     <div css={S.BodyRightBox}>
                         <p>기간: {challenge.startDate} ~ {!challenge.endDate ? "마감 없음": challenge.endDate}</p>
                         <div css={S.textBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
