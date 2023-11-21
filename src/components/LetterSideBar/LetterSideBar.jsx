@@ -19,11 +19,8 @@ function LetterSideBar(props) {
             Authorization: localStorage.getItem("accessToken")
         }
     };
-
-        const storedButtonDisabled = localStorage.getItem('buttonDisabled');
-        if (storedButtonDisabled) {
-            setButtonDisabled(JSON.parse(storedButtonDisabled));
-        }
+    
+        
 
     const openModal = async (letter) => {
         setSelectedLetter(letter);
