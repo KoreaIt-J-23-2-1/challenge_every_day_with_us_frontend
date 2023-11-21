@@ -4,6 +4,7 @@ import { instance } from '../../api/config/instance';
 import { useQuery, useQueryClient } from 'react-query';
 import * as S from './AdminStyle';
 import AdminModal from '../AdminModal/AdminModal';
+import BaseLayout from '../BaseLayout/BaseLayout';
 import ReactSelect from 'react-select';
 import { MdDeleteOutline } from "react-icons/md";
 import { IoStopCircleOutline } from "react-icons/io5";
@@ -53,7 +54,7 @@ function Admin() {
         refetchOnWindowFocus: false,
         enabled: isChallengeListRefetch,
         onSuccess: (response) => {
-            setChallengeList(response.data);
+            setChallengeList(challengeList.concat(response.data));
             setIsChallengeListRefetch(false);
             setPage(page + 1);
         }
@@ -227,6 +228,8 @@ function Admin() {
         setPage(1);
     };
 
+    console.log(chartData)
+
     const MyResponsiveLine = ({ data }) => {
         const sortedData = data.map(item => ({
             id: item.id,
@@ -237,12 +240,13 @@ function Admin() {
             <ResponsiveLine
                 data={sortedData}
                 height={200}
+                width={1000}
                 margin={{ top: 50, right: 180, bottom: 50, left: 80 }}
-                xScale={{ type: 'point' }}
+                xScale={{ type: 'point', format: '%Y-%m-%d', precision: 'day' }}
                 yScale={{
                     type: 'linear',
                     min: 0,
-                    max: 20,
+                    max: 50,
                 }}
                 yFormat=" >-.2f"
                 gridYValues={[0, 5, 10, 15, 20, 25, 30]}
@@ -298,85 +302,83 @@ function Admin() {
         )
     }
 
-    console.log(getChallengeList)
-
     return (
-        <div css={S.Layout}>
-            <div css={S.UserBox}>
-                <div css={S.ImgLayout}>
-                    <div css={S.ImgBoxImg}>
-                        <img src="https://firebasestorage.googleapis.com/v0/b/challengewithus-1ffef.appspot.com/o/files%2Ffree-icon-crown-931979.png?alt=media&token=f801604e-ee4d-4465-bbcb-9eacb448adab" alt="" />
+        <BaseLayout>
+            <div css={S.Layout}>
+                <div css={S.UserBox}>
+                    <div css={S.ImgLayout}>
+                        <div css={S.ImgBoxImg}>
+                            <img src="https://firebasestorage.googleapis.com/v0/b/challengewithus-1ffef.appspot.com/o/files%2Ffree-icon-crown-931979.png?alt=media&token=f801604e-ee4d-4465-bbcb-9eacb448adab" alt="" />
+                        </div>
+                        <div css={S.ProfileImgBox}>
+                            <img src={principal.profileUrl} alt="" />
+                        </div>
                     </div>
-                    <div css={S.ProfileImgBox}>
-                        <img src={principal.profileUrl} alt="" />
-                    </div>
-                </div>
-                <div css={S.ProfileBox}>
-                    <div css={S.ProfileText}>
-                        <p>
-                            {principal.nickname}
-                        </p>
-                    </div>
-                </div>
-            </div>
-                <div css={S.Alignment}>
-                    <div>
-                        <input type="radio" name="radioGroup" id="radio1" onChange={handleCheckboxChange} value="latest" defaultChecked={true}/>
-                        <label htmlFor="radio1">최신순</label>
-                        <input type="radio" name="radioGroup" id="radio2" onChange={handleCheckboxChange} value="oldest"/>
-                        <label htmlFor="radio2">오래된순</label>
-                        <input type="radio" name="radioGroup" id="radio3" onChange={handleCheckboxChange} value="popular"/>
-                        <label htmlFor="radio3">인기순</label>
-                        <input type="radio" name="radioGroup" id="radio4" onChange={handleCheckboxChange} value="participants"/>
-                        <label htmlFor="radio4">참여자많은순</label>
-                        <input type="radio" name="radioGroup" id="radio5" onChange={handleCheckboxChange} value="hidden"/>
-                        <label htmlFor="radio5">삭제된 챌린지</label>
-                        <input type="radio" name="radioGroup" id="radio6" onChange={handleCheckboxChange} value="stop"/>
-                        <label htmlFor="radio6">중단된 챌린지</label>
-                    </div>
-                    <div css={S.searchContainer}>
-                        <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect}/>
-                        <input type="text" onChange={handleSearchInputChange} />
-                        <button onClick={handleSearchButtonClick}>검색</button>
+                    <div css={S.ProfileBox}>
+                        <div css={S.ProfileText}>
+                            <p>{principal.nickname}</p>
+                        </div>
                     </div>
                 </div>
-            <ul css={S.SChallengeList}>
-                <div css={S.SChallengeListHeader}>
-                    <li>
-                        <div>ChallengeName</div>
-                        <div>Category</div>
-                        <div>Founder</div>
-                        <div>Day</div>
-                        <div>Like</div>
-                    </li>
-                </div>
-                <div css={S.SChallengeListBody}>
-                    {challengeList?.map((myChallenge) => (
-                        <li key={myChallenge.challengeId}>
-                            <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.challengeName}</div>
-                            <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.categoryName}</div>
-                            <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.name}</div>
-                            <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{calculateDaysElapsed(myChallenge.startDate)}일차</div>
-                            <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.likeCount}</div>
-                            <button css={S.StopButton} onClick={() => handleChallengeStopClick(myChallenge.challengeId)}><IoStopCircleOutline /></button>
-                            <button css={S.Deletebutton} onClick={() => handleChallengeDeleteClick(myChallenge.challengeId)}><MdDeleteOutline /></button>
+                    <div css={S.Alignment}>
+                        <div>
+                            <input type="radio" name="radioGroup" id="radio1" onChange={handleCheckboxChange} value="latest" defaultChecked={true}/>
+                            <label htmlFor="radio1">최신순</label>
+                            <input type="radio" name="radioGroup" id="radio2" onChange={handleCheckboxChange} value="oldest"/>
+                            <label htmlFor="radio2">오래된순</label>
+                            <input type="radio" name="radioGroup" id="radio3" onChange={handleCheckboxChange} value="popular"/>
+                            <label htmlFor="radio3">인기순</label>
+                            <input type="radio" name="radioGroup" id="radio4" onChange={handleCheckboxChange} value="participants"/>
+                            <label htmlFor="radio4">참여자많은순</label>
+                            <input type="radio" name="radioGroup" id="radio5" onChange={handleCheckboxChange} value="hidden"/>
+                            <label htmlFor="radio5">삭제된 챌린지</label>
+                            <input type="radio" name="radioGroup" id="radio6" onChange={handleCheckboxChange} value="stop"/>
+                            <label htmlFor="radio6">중단된 챌린지</label>
+                        </div>
+                        <div css={S.searchContainer}>
+                            <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect}/>
+                            <input type="text" onChange={handleSearchInputChange} />
+                            <button onClick={handleSearchButtonClick}>검색</button>
+                        </div>
+                    </div>
+                <ul css={S.SChallengeList}>
+                    <div css={S.SChallengeListHeader}>
+                        <li>
+                            <div>ChallengeName</div>
+                            <div>Category</div>
+                            <div>Founder</div>
+                            <div>Day</div>
+                            <div>Like</div>
                         </li>
-                    ))}
-                    <li ref={lastChallengeRef}></li>
-                </div>
-            </ul>
-            {isModalOpen && (
-                <div css={S.ModalOverlay}>
-                    <div css={S.ModalContent}>
-                        <AdminModal onClose={handleCloseModal} challengeDetails={selectedChallenge} />
                     </div>
+                    <div css={S.SChallengeListBody}>
+                        {challengeList?.map((myChallenge) => (
+                            <li key={myChallenge.challengeId}>
+                                <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.challengeName}</div>
+                                <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.categoryName}</div>
+                                <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.name}</div>
+                                <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{calculateDaysElapsed(myChallenge.startDate)}일차</div>
+                                <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.likeCount}</div>
+                                <button css={S.StopButton} onClick={() => handleChallengeStopClick(myChallenge.challengeId)}><IoStopCircleOutline /></button>
+                                <button css={S.Deletebutton} onClick={() => handleChallengeDeleteClick(myChallenge.challengeId)}><MdDeleteOutline /></button>
+                            </li>
+                        ))}
+                        <li ref={lastChallengeRef}></li>
+                    </div>
+                </ul>
+                {isModalOpen && (
+                    <div css={S.ModalOverlay}>
+                        <div css={S.ModalContent}>
+                            <AdminModal onClose={handleCloseModal} challengeDetails={selectedChallenge} />
+                        </div>
+                    </div>
+                )}
+                <div css={S.Chart}>
+                    <h2>Challenge Chart</h2>
+                    <MyResponsiveLine data={chartData} />
                 </div>
-            )}
-            <div css={S.Chart}>
-                <h2>Challenge Chart</h2>
-                <MyResponsiveLine data={chartData} />
             </div>
-        </div>
+        </BaseLayout>
     );
 }
 

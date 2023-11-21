@@ -9,21 +9,21 @@ export const Layout = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 80%;
-    min-width: 1350px;
     box-sizing: content-box;
-    min-height: 850px;
-    margin: 0px auto ;
+    margin: 10px auto ;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     color: white;
-    text-align: center;
+    /* text-align: center; */
+    width: 1350px;
+    height: 750px;
 `;
 
 const border = css`
-    width: 1280px;
+    width: 1050px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
