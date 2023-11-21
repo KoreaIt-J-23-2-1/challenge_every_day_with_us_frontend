@@ -253,4 +253,9 @@ export const Chart = css`
     & h2 {
         margin-left: 50px;
     }
+
+    & > div {
+        width: 100%;
+        height: 100%;
+    }
 `;
