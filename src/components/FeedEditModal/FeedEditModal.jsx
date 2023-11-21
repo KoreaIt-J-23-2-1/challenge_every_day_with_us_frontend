@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
@@ -13,6 +13,8 @@ const FeedEditModal = ({ onClose, feedDetail }) => {
     const [feedContent, setFeedContent] = useState("");
     const [ uploadFiles, setUploadFiles ] = useState([]);
     const [ isChallengeFeedRefetch, setIsChallengeFeedRefetch ] = useState(false);
+    const principalState = useQueryClient().getQueryState("getPrincipal");
+    const principal = principalState?.data?.data;
 
     const modalRef = useRef();
 
