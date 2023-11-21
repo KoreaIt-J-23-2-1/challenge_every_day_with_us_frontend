@@ -83,14 +83,16 @@ function LetterSideBar(props) {
             if(response) {
                 alert("승인 완료");
                 instance.post("/api/challenge/atmosphere/letter", {
-                    data: {
-                        receiverUserId: selectedLetter.senderUserId,
-                        senderUserId: principal.data.data.userId,
-                        title: "챌린지 승인 완료",
-                        content: `${selectedLetter.challengeName} 챌린지의 승인이 완료되었습니다.`,
-                        targetUrl: principal.data.data.profileUrl
-                    }
+                    receiverUserId: selectedLetter.senderUserId,
+                    senderUserId: principal.data.data.userId,
+                    title: "챌린지 승인 완료",
+                    content: `${selectedLetter.challengeName} 챌린지의 승인이 완료되었습니다.`,
+                    targetUrl: principal.data.data.profileUrl,
+                    targetId: selectedLetter.challengeId
                 }, option);
+                selectedLetter.acceptState = 1;
+                closeModal();
+
             }
         }catch(error) {
             console.error(error)
@@ -108,14 +110,16 @@ function LetterSideBar(props) {
             if(response) {
                 alert("거절 완료");
                 instance.post("/api/challenge/atmosphere/letter", {
-                    data: {
-                        receiverUserId: selectedLetter.senderUserId,
-                        senderUserId: principal.data.data.userId,
-                        title: "챌린지 승인 거부",
-                        content: `${selectedLetter.challengeName} 챌린지의 승인이 거절되었습니다..`,
-                        targetUrl: principal.data.data.profileUrl
-                    }
+                    receiverUserId: selectedLetter.senderUserId,
+                    senderUserId: principal.data.data.userId,
+                    title: "챌린지 승인 거부",
+                    content: `${selectedLetter.challengeName} 챌린지의 승인이 거절되었습니다..`,
+                    targetUrl: principal.data.data.profileUrl,
+                    targetId: selectedLetter.challengeId
                 }, option);
+                selectedLetter.acceptState = 2;
+                closeModal();
+
             }
         }catch(error) {
             console.error(error)
