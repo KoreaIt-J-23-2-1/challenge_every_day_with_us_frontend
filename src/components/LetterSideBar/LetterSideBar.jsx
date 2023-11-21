@@ -142,7 +142,6 @@ function LetterSideBar(props) {
                             <h3>{letter.title}</h3>
                             <div css={S.lettersHeader}>{letter.sendDateTime}</div>
                             <div css={S.lettersHeader}>발신자: {letter.senderNickname}</div>
-                            <div></div>
                             <div css={S.letterContent}>{letter.content}</div>
                         </div>
                     ))}
@@ -158,10 +157,13 @@ function LetterSideBar(props) {
                         <div><b>Date: </b>{selectedLetter.sendDateTime}</div>
                         <div><b>Content: </b>{selectedLetter.content}</div>
                         {selectedLetter.title === "챌린지 승인 요청" && (
-                            <div>
-                                <button onClick={handleAcceptChallenge} disabled={buttonDisabled}>수락</button>
-                                <button onClick={handleRejectChallenge} disabled={buttonDisabled}>거절</button>
-                            </div>
+                            selectedLetter.acceptState === 0 ?
+                                <div>
+                                    <button onClick={handleAcceptChallenge} disabled={buttonDisabled}>수락</button>
+                                    <button onClick={handleRejectChallenge} disabled={buttonDisabled}>거절</button>
+                                </div>
+                                :
+                                <div><b>Accept-State: </b>{selectedLetter.acceptState === 1 ? "수락 완료" : "거절 완료"}</div>
                         )}
                         {selectedLetter.title === "새로운 공지가 있습니다." && (
                             <div>
