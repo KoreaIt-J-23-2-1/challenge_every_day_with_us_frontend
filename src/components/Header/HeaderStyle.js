@@ -11,7 +11,6 @@ export const Layout = css`
     width: 100%;
     height: 70px;
     padding: 5px 0px;
-    margin-bottom: 20px;
 `;
 
 export const HeaderBox = css`
