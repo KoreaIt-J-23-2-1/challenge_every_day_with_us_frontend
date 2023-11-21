@@ -12,7 +12,6 @@ function LetterSideBar(props) {
     const [ selectedLetter, setSelectedLetter ] = useState(null);
     const queryClient = useQueryClient();
     const principal = queryClient.getQueryState("getPrincipal");
-    const [ buttonDisabled, setButtonDisabled ] = useState(false);
     const navigate = useNavigate();
 
     const option = {
@@ -20,13 +19,8 @@ function LetterSideBar(props) {
             Authorization: localStorage.getItem("accessToken")
         }
     };
-
-    useEffect(() => {
-        const storedButtonDisabled = localStorage.getItem('buttonDisabled');
-        if (storedButtonDisabled) {
-            setButtonDisabled(JSON.parse(storedButtonDisabled));
-        }
-    }, []);
+    
+        
 
     const openModal = async (letter) => {
         setSelectedLetter(letter);
@@ -97,8 +91,6 @@ function LetterSideBar(props) {
                         targetUrl: principal.data.data.profileUrl
                     }
                 }, option);
-                setButtonDisabled(true);
-                localStorage.setItem('buttonDisabled', JSON.stringify(true));
             }
         }catch(error) {
             console.error(error)
@@ -124,8 +116,6 @@ function LetterSideBar(props) {
                         targetUrl: principal.data.data.profileUrl
                     }
                 }, option);
-                setButtonDisabled(true);
-                localStorage.setItem('buttonDisabled', JSON.stringify(true));
             }
         }catch(error) {
             console.error(error)
@@ -159,8 +149,8 @@ function LetterSideBar(props) {
                         {selectedLetter.title === "챌린지 승인 요청" && (
                             selectedLetter.acceptState === 0 ?
                                 <div>
-                                    <button onClick={handleAcceptChallenge} disabled={buttonDisabled}>수락</button>
-                                    <button onClick={handleRejectChallenge} disabled={buttonDisabled}>거절</button>
+                                    <button onClick={handleAcceptChallenge}>수락</button>
+                                    <button onClick={handleRejectChallenge}>거절</button>
                                 </div>
                                 :
                                 <div><b>Accept-State: </b>{selectedLetter.acceptState === 1 ? "수락 완료" : "거절 완료"}</div>
