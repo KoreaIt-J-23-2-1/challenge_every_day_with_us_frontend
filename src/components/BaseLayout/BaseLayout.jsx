@@ -9,8 +9,9 @@ export const Layout = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 1050px;
-    width: 80%;
+    max-width: 80%;
+    min-width: 1350px;
+    box-sizing: content-box;
     min-height: 850px;
     margin: 0px auto ;
     background: rgba(255, 255, 255, 0.5); 
@@ -21,13 +22,22 @@ export const Layout = css`
     text-align: center;
 `;
 
+const border = css`
+    width: 1280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
 
 function BaseLayout({children}) {
     return (
         <>
             <Header/>
             <div css={Layout}>
-                {children}
+                <div css={border}>
+                    {children}
+                </div>
             </div>
         </>
     );
