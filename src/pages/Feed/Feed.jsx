@@ -299,6 +299,9 @@ function Feed(props) {
         }
     };
 
+    console.log(principal?.userId)
+    console.log(getFeedList?.data?.data?.userId)
+    console.log(getFeedList)
     return (
         <BaseLayout>
             <div css={S.SLayout}>
@@ -331,12 +334,13 @@ function Feed(props) {
                                         <b>{feed.nickname}</b>  
                                     </div>
                                     <div  css={S.ChInfo}>
-                                        
-                                        {principal &&
+                                        {principal.userId === feed.userId ?
                                             <div>
                                                 <button onClick={() => {handleFeedEditClick(feed.feedId)}}>수정</button>
                                                 <button onClick={() => {handleFeedDeleteClick(feed.feedId)}}>삭제</button>
                                             </div>
+                                        :
+                                        <></>
                                         }
                                         <button onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
                                                                         
