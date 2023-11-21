@@ -113,8 +113,8 @@ function NoticeList(props) {
             <h1>공지</h1>
             <div css={S.btnBox}>
             {isAdmins && (
-                <div css={S.btnBox}>
-                    <button>공지 작성</button>
+                <div>
+                    <button onClick={() => { navigate(`/notice/write`) }}>공지 작성</button>
                 </div>
             )}
                 <div css={S.btnBox}>
