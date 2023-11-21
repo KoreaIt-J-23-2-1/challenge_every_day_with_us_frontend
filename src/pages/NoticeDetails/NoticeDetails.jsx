@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { useQuery, useQueryClient } from 'react-query';
@@ -6,7 +6,8 @@ import { instance } from '../../api/config/instance';
 
 function NoticeDetails(props) {
     const navigate = useNavigate();
-    const [notice, setNotice] = useState({});
+    const [ notice, setNotice ] = useState({});
+    const [ isAdmin, setIsAdmin ] = useState([]);
     const { noticeId } = useParams();
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
@@ -32,11 +33,20 @@ function NoticeDetails(props) {
     })
 
     const getAdminList = useQuery(["getAdminList"], async () => {
-        return await instance.get(`/api/admin`, option)
+        try {
+            return await instance.get(`/api/admin`, option)
+        }catch(error) {
+
+        }
     }, {
         retry: 0,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        onSuccess: response => {
+            setIsAdmin(response.data);
+        }
     });
+
+    console.log(isAdmin)
 
     const deleteNoticeBtn = async () => {
         /* eslint-disable no-restricted-globals */ 
@@ -53,12 +63,8 @@ function NoticeDetails(props) {
         }
     }
 
-    if(setNotice.isLoading) {
-        return <></>
-    }
+    const isAdmins = getAdminList?.data?.data?.some(admin => admin.userId === principal.userId);
 
-    const isAdmin = getAdminList?.data?.some(admin => admin.adminId === principal.adminId);
-    
     return (
         <>
             <BaseLayout>
@@ -66,7 +72,7 @@ function NoticeDetails(props) {
                     <h1>{notice.noticeTitle}</h1>
                     <p><b>{notice.nickname}</b> - {notice.noticeDate}</p>
                     <div dangerouslySetInnerHTML={{ __html: notice.noticeContent }}></div>
-                    {isAdmin &&
+                    {isAdmins &&
                         <div>
                             <button onClick={()=>{navigate(`/notice/${noticeId}/edit`)}}>수정</button>
                             <button onClick={deleteNoticeBtn} >삭제</button>
