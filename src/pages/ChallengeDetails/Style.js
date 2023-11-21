@@ -193,7 +193,7 @@ export const FeedImg = css`
     border-radius: 10px;
 `;
 
-export const FeedContentBox = css`
+export const FeedContentBox = (imgExists) => css`
     margin: 0px auto;
     border-radius: 10px;
     width: 100%;
@@ -215,7 +215,7 @@ export const FeedContentBox = css`
         margin: auto 0px ;
     }
 
-    ${(props) => !props.imgExists && `img { display: none; }`}
+    ${!imgExists && `img { display: none; }`}
 `;
 
 export const FeedContent = css`
