@@ -25,7 +25,7 @@ function Feed(props) {
     const [ comments, setComments ] = useState({});
     const [ sort, setSort ] = useState('latest');
     const [ isCommentModifiableList, setIsCommentModifiableList ] = useState({});
-    const [ selectedFeed, setSelectedFeed ] = useState(null);
+    const [ selectedFeed, setSelectedFeed ] = useState(0);
     const [ isModalOpen, setModalOpen ] = useState(false);
 
     useEffect(() => {
@@ -275,8 +275,8 @@ function Feed(props) {
         setPage(1);
     };
 
-    const handleFeedEditClick = (feed) => {
-        setSelectedFeed(feed);
+    const handleFeedEditClick = (feedId) => {
+        setSelectedFeed(feedId);
         setModalOpen(true);
     };
 
@@ -390,7 +390,7 @@ function Feed(props) {
                     {isModalOpen && (
                         <div css={S.ModalOverlay}>
                             <div css={S.ModalContent}>
-                                <FeedEditModal onClose={handleFeedEditCloseModal} feedId={selectedFeed} />
+                                <FeedEditModal onClose={handleFeedEditCloseModal} feedDetail={selectedFeed} />
                             </div>
                         </div>
                     )}

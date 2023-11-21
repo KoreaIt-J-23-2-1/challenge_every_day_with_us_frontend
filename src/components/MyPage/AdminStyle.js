@@ -249,6 +249,16 @@ export const ModalContent = css`
 
 export const Chart = css`
     display: flex;
+    margin-top: 20px;
+
+    & h2 {
+        margin-left: 50px;
+    }
+
+    & > div {
+        width: 100%;
+        height: 100%;
+    }
     flex-direction: column;
     align-items: center;
     height: 200px;
