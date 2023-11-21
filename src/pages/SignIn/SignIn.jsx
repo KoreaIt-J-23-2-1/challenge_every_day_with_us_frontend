@@ -39,6 +39,10 @@ function SignIn(props) {
         window.location.replace("http://localhost:8080/oauth2/authorization/naver");
     }
 
+    const handleGoogleSignin = () => {
+        window.location.replace("http://localhost:8080/oauth2/authorization/google");
+    }
+    
     const handleSignup = () => {
         navigete("/auth/signup")
     };
@@ -59,7 +63,7 @@ function SignIn(props) {
                 </div>
                     <button css={S.btn} onClick={handleNaverSignin}>네이버 연동 로그인</button>
                     <button css={S.btn} onClick={handleNaverSignin}>카카오 연동 로그인</button>
-                    <button css={S.btn} onClick={handleNaverSignin}>구글 연동 로그인</button>
+                    <button css={S.btn} onClick={handleGoogleSignin}>구글 연동 로그인</button>
                     <button css={S.btn} onClick={handleSignup}>회원가입</button>
 
 
