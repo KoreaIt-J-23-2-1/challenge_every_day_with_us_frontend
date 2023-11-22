@@ -7,7 +7,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../../api/firebase/firebase';
 import * as S from './DefaultStyle';
 
-function Challengedefault(props) {
+function Challengedefault() {
     const queryClient = useQueryClient();
     const principal = queryClient.getQueryState("getPrincipal");
     const { challengeId } = useParams();
@@ -18,7 +18,9 @@ function Challengedefault(props) {
     const [ profileImgSrc, setProfileImgSrc ] = useState("");
     const navigate = useNavigate();
     const [ page, setPage ] = useState(1);
-    const [ isChallengeFeedRefetch, setIsChallengeFeedRefetch ] = useState(false);
+    const [isChallengeFeedRefetch, setIsChallengeFeedRefetch] = useState(false);
+    const inputRef = useRef(null);
+    
 
     const option = {
         headers: {
@@ -63,6 +65,11 @@ function Challengedefault(props) {
         const downloadURL = await getDownloadURL(storageRef);
         return downloadURL;
     };
+
+    const handleInputImg = () => {
+        inputRef.current.click();
+    };
+
 
     const handleProfileChange = (e) => {
         setUploadFiles(e.target.files);
@@ -132,17 +139,31 @@ function Challengedefault(props) {
     return (
         <div css={S.Layout}>
 
-            <div css={S.textLayout}>
-                <div>
-                    <textarea ref={textareaRef} css={S.textareaBox} id="challengeText" rows="32" cols="200" maxLength={1000}></textarea>
-                    <input css={S.FileBox} type="file" accept="image/*" onChange={handleProfileChange} />
-                </div>
-                {selectedImage && (
-                    <img src={selectedImage} css={S.imagePreview} alt="Selected" />
-                )}
-            </div>
+
             
-            <button css={S.SaveButton} onClick={handleSave}>인증하기</button>
+            <div css={S.contentBox}>
+
+                <div css={S.textBox}>
+                    <b>Text</b>
+                    <textarea ref={textareaRef}
+                        id="challengeText" rows="32" cols="200" maxLength={1000} />
+                </div>
+
+                <div>
+                    <b>Choice Img</b>
+                    <div css={S.imgBox} onClick={handleInputImg}>
+                        {/* <img src={selectedImage}  alt="Selected" /> */}
+                        {selectedImage && (
+                            <img src={selectedImage} alt="Selected" />
+                        )}
+                    </div>
+                    <input ref={inputRef} css={S.file} type="file" accept="image/*" onChange={handleProfileChange} />  
+                </div>
+                
+
+            </div>
+
+            <button css={S.SaveBtn} onClick={handleSave}>인증하기</button>
         </div>
     );
 }

@@ -52,19 +52,19 @@ function Certification(props) {
     return (
         
         <BaseLayout>
-            
             <div css={S.Header}>
+                <b>당신의 도전을 보여주세요 !</b>
                 <b css={S.Title}>
                     [{challenge.categoryName}]
                 {challenge ? (
-                    <b>{challenge.challengeName}</b>
+                    <b> {challenge.challengeName}</b>
                 ) : (
-                    <b>Loading...</b>
+                    <b> Loading...</b>
                 )}
                 </b>
                 <label>
-                    Select Layout
-                    <select onChange={handleComponentChange}>
+                    Select Layout 
+                    <select css={S.SelectBox} onChange={handleComponentChange}>
                         <option value="Default">Default</option>
                         <option value="Timelayout">Timelayout</option>
                     </select>
