@@ -123,7 +123,6 @@ function Feed(props) {
                         <div>{comment.commentContent}</div>
                         <div>{comment.commentDatetime}</div>
                             
-
                         {comment.userId === principal.userId && 
                             <div>
                                 <button onClick={() => {handleDeleteCommentButtonClick(feed.feedId, comment.commentId)}}>삭제</button>

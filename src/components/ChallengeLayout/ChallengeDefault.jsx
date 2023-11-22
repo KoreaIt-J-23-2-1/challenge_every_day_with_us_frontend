@@ -86,6 +86,11 @@ function Challengedefault(props) {
 
     const handleSave = async () => {
         const textValue = document.getElementById('challengeText').value;
+        if (!textValue.trim()) {
+            alert('텍스트를 입력하세요.');
+            return;
+        }
+    
         const today = new Date().toISOString().split('T')[0];
         const userFeedToday = getFeedList.data.data.find(feed =>
             feed.userId === principal.data.data.userId &&

@@ -115,6 +115,11 @@ function ChallengeTimeLayout() {
     
     const handleSave = async () => {
         const textValue = document.getElementById('challengeText').value;
+        if (!textValue.trim()) {
+            alert('텍스트를 입력하세요.');
+            return;
+        }
+        
         let imageUrl = "";
         if (uploadFiles.length > 0) {
             try {

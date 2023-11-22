@@ -22,7 +22,7 @@ function SignUp(props) {
 
     const handleSignupSubmit = async () => {
         try {
-            const response = await instance.post("/api/auth/sign-up", user);
+            const response = await instance.post("/api/auth/sign-up", signupUser);
             if(response){
                 console.log(response);
                 alert("회원가입 완료");
