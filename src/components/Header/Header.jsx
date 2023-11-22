@@ -102,9 +102,9 @@ function Header() {
                         {(!getLettersCount.isLoading && principal ) && (
                             <>
                                 <div css={S.BtnBackground} onClick={handleLetterOpen}  >
-                                    {getLetter ? <BsBellFill  css={S.Icon}/> : <BsBell  css={S.Icon}/>}
+                                    {getUnreadLettersCount.data !== 0 ? <BsBellFill  css={S.Icon}/> : <BsBell  css={S.Icon}/>}
                                 </div>
-                                <div css={S.LetterCountBox}>{!getUnreadLettersCount.isLoading && getUnreadLettersCount.data}</div>
+                                {!getUnreadLettersCount.isLoading && getUnreadLettersCount.data === 0 ? <></> : <div css={S.LetterCountBox}>{getUnreadLettersCount.data}</div>}
                             </>
                             )
                         }
