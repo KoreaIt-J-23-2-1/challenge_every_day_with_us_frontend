@@ -47,6 +47,19 @@ function Header() {
         enabled: !!principal
     });
 
+    const getUnreadLettersCount = useQuery(["getUnreadLettersCount"], async () => {
+        try {
+            const response = await instance.get(`/api/letters/count/unread`, option);
+            return response.data;
+        }catch (error) {
+            console.error(error);
+        }
+    }, {
+        retry: 0,
+        refetchOnWindowFocus: false,
+        enabled: !!principal
+    });
+
     const GoStartPage = () => {
         window.location.replace("/");
     }
@@ -91,7 +104,7 @@ function Header() {
                                 <div css={S.BtnBackground} onClick={handleLetterOpen}  >
                                     {getLetter ? <BsBellFill  css={S.Icon}/> : <BsBell  css={S.Icon}/>}
                                 </div>
-                                <div css={S.LetterCountBox}>{getLettersCount.data}</div>
+                                <div css={S.LetterCountBox}>{!getUnreadLettersCount.isLoading && getUnreadLettersCount.data}</div>
                             </>
                             )
                         }

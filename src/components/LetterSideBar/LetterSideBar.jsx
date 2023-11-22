@@ -9,9 +9,11 @@ import * as S from './Style';
 
 function LetterSideBar(props) {
     const [ isModalOpen, setIsModalOpen] = useState(false);
+    const [ letterViewType, setLetterViewType ] = useState("unread");
     const [ selectedLetter, setSelectedLetter ] = useState(null);
     const queryClient = useQueryClient();
     const principal = queryClient.getQueryState("getPrincipal");
+    const lettersCount = queryClient.getQueryState("getLettersCount");
     const navigate = useNavigate();
 
     const option = {
@@ -19,8 +21,6 @@ function LetterSideBar(props) {
             Authorization: localStorage.getItem("accessToken")
         }
     };
-    
-        
 
     const openModal = async (letter) => {
         setSelectedLetter(letter);
@@ -41,9 +41,10 @@ function LetterSideBar(props) {
         setIsModalOpen(false);
     };
 
-    const getLetterList = useQuery(["getLetters"], async () => {
+    const getLetterList = useQuery(["getLetters", letterViewType], async () => {
         try {
             const response = await instance.get(`/api/letters`, option);
+            getLettersCount.refetchQueries(asdas);
             return response.data;
         }catch (error) {
             return [];
@@ -56,16 +57,7 @@ function LetterSideBar(props) {
 
     const GoTargetLetterUrl = () => {
         // 여기에 챌린지 연결 해주세요  
-        // 
-        // 
-        // 
-        // 
-        // 
-        // 
-        // 
-        // 
-        // 
-        
+        window.location.replace(selectedLetter.targetUrl);
     }
 
     if (getLetterList.isLoading) {
@@ -130,15 +122,39 @@ function LetterSideBar(props) {
         <div css={S.LetterSideBarLayout}>
             <div>
                 <h2>알림</h2>
+                <h3>전체 알림 수 : {lettersCount.data}</h3>
+                <input type="radio" id="unread-letter-radio-button" name="letterViewType" checked={letterViewType === "unread"} onClick={() => {setLetterViewType("unread");}}/>
+                <label htmlFor="unread-letter-radio-button" >읽지 않은 메시지</label>
+                <input type="radio" id="read-letter-radio-button" name="letterViewType" checked={letterViewType === "read"} onClick={() => {setLetterViewType("read");}}/>
+                <label htmlFor="read-letter-radio-button" >읽은 메시지</label>
                 <div css={S.SLetterScroll}>
-                    {getLetterList?.data?.map(letter => (
-                        <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
-                            <h3>{letter.title}</h3>
-                            <div css={S.lettersHeader}>{letter.sendDateTime}</div>
-                            <div css={S.lettersHeader}>발신자: {letter.senderNickname}</div>
-                            <div css={S.letterContent}>{letter.content}</div>
-                        </div>
-                    ))}
+
+                    {letterViewType === "unread" ?
+                        getLetterList?.data?.map(letter => (
+                            letter.isRead === 0 ? 
+                            <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
+                                <h3>{letter.title}</h3>
+                                <div css={S.lettersHeader}>{letter.sendDateTime}</div>
+                                <div css={S.lettersHeader}>발신자: {letter.senderNickname}</div>
+                                <div css={S.letterContent}>{letter.content}</div>
+                            </div>
+                            :
+                            <></>
+                        ))
+                        :
+                        getLetterList?.data?.map(letter => (
+                            letter.isRead === 1 ? 
+                            <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
+                                <h3>{letter.title}</h3>
+                                <div css={S.lettersHeader}>{letter.sendDateTime}</div>
+                                <div css={S.lettersHeader}>발신자: {letter.senderNickname}</div>
+                                <div css={S.letterContent}>{letter.content}</div>
+                            </div>
+                            :
+                            <></>
+                        ))
+                    }
+
                 </div>
             </div>
 
