@@ -49,6 +49,7 @@ function SignIn(props) {
                         </div>
                     )}
                 </div>
+            </div>
         </BaseLayout>
     );
 }
