@@ -44,7 +44,8 @@ function LetterSideBar(props) {
     const getLetterList = useQuery(["getLetters", letterViewType], async () => {
         try {
             const response = await instance.get(`/api/letters`, option);
-            getLettersCount.refetchQueries(asdas);
+            queryClient.refetchQueries(["getLettersCount"]);
+            queryClient.refetchQueries(["getUnreadLettersCount"]);
             return response.data;
         }catch (error) {
             return [];
