@@ -76,13 +76,14 @@ export const textBox = css`
     border: 2px solid #dbdbdb;
 `;
 
-export const SLikeButton = (isLike) => css`
+export const SLikeButton = css`
     position: sticky;
-    border: 1px solid #dbdbdb;
+    border: none;
     border-radius: 50%;
+    background-color: transparent;
+    margin-left: 5px;
     width: 40px;
     height: 40px;
-    background-color: ${isLike ? "#7bbdff" : "#fff"};
     cursor: pointer;
 `;
 
