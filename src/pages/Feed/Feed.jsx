@@ -111,8 +111,6 @@ function Feed(props) {
         setFeedList([]);
     }, [sort]);
 
-
-
     const handleReportClick = async (feedId, feedChallengeId) => {
         const data = {
             feedId: feedId,
