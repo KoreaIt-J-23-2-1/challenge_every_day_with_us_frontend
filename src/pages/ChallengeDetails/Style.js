@@ -48,7 +48,7 @@ export const BodyLayout = css`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 650px;
+    height: 730px;
     gap: 30px;
 `;
 
@@ -123,7 +123,7 @@ export const FeedContainer = css`
     flex-direction: column;
     padding: 20px;
     width: 700px;
-    height: 600px;
+    height: 95%;
     border-radius: 10px;
     overflow: hidden;
     overflow-y: auto;

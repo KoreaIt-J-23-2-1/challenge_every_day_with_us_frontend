@@ -15,10 +15,8 @@ export const Layout = css`
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    color: white;
-    /* text-align: center; */
     width: 1350px;
-    height: 750px;
+    height: 830px;
 `;
 
 const border = css`
