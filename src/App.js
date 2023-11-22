@@ -56,7 +56,6 @@ function App() {
       <Global styles={SReset, Common}/>
 
       <Routes>
-        <Route path='' element={<></>} />
         {/* <Route path='/maain' element={<RealMain/>}/> */}
         <Route path='/main' element={<Main />} />
         <Route path='/' element={<LogoPage/>}/>
