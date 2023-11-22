@@ -57,7 +57,6 @@ function LetterSideBar(props) {
     });
 
     const GoTargetLetterUrl = () => {
-        // 여기에 챌린지 연결 해주세요  
         window.location.replace(selectedLetter.targetUrl);
     }
 
@@ -124,14 +123,14 @@ function LetterSideBar(props) {
             <div>
                 <h2>알림</h2>
                 <h3>전체 알림 수 : {lettersCount.data}</h3>
-                <input type="radio" id="unread-letter-radio-button" name="letterViewType" checked={letterViewType === "unread"} onClick={() => {setLetterViewType("unread");}}/>
+                <input type="radio" id="unread-letter-radio-button" name="letterViewType" checked={letterViewType === "unread"} onChange={() => {setLetterViewType("unread");}}/>
                 <label htmlFor="unread-letter-radio-button" >읽지 않은 메시지</label>
-                <input type="radio" id="read-letter-radio-button" name="letterViewType" checked={letterViewType === "read"} onClick={() => {setLetterViewType("read");}}/>
+                <input type="radio" id="read-letter-radio-button" name="letterViewType" checked={letterViewType === "read"} onChange={() => {setLetterViewType("read");}}/>
                 <label htmlFor="read-letter-radio-button" >읽은 메시지</label>
                 <div css={S.SLetterScroll}>
 
                     {letterViewType === "unread" ?
-                        getLetterList?.data?.map(letter => (
+                        getLetterList?.data?.map((letter) => (
                             letter.isRead === 0 ? 
                             <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                                 <h3>{letter.title}</h3>
@@ -140,10 +139,10 @@ function LetterSideBar(props) {
                                 <div css={S.letterContent}>{letter.content}</div>
                             </div>
                             :
-                            <></>
+                            <div key={letter.letterId}></div>
                         ))
                         :
-                        getLetterList?.data?.map(letter => (
+                        getLetterList?.data?.map((letter) => (
                             letter.isRead === 1 ? 
                             <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                                 <h3>{letter.title}</h3>
