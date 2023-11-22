@@ -7,6 +7,8 @@ import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import FeedEditModal from '../../components/FeedEditModal/FeedEditModal';
+import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
+import LatestFeedComment from '../../components/LatestFeedComment/LatestFeedComment';
 
 function Feed(props) {
     const { challengeId } = useParams();
@@ -19,12 +21,10 @@ function Feed(props) {
     const lastChallengeRef = useRef();
     const [ isLikeList, setIsLikeList ] = useState({});
     const [ commentInputList, setCommentInputList ] = useState();
-    const [ commentModifyInputList, setCommentModifyInputList ] = useState();
     const [ commentShowMode, setCommentShowMode ] = useState({});
     const [ latestComments, setLatestComments ] = useState({});
     const [ comments, setComments ] = useState({});
     const [ sort, setSort ] = useState('latest');
-    const [ isCommentModifiableList, setIsCommentModifiableList ] = useState({});
     const [ selectedFeed, setSelectedFeed ] = useState(0);
     const [ isModalOpen, setModalOpen ] = useState(false);
 
@@ -111,82 +111,7 @@ function Feed(props) {
         setFeedList([]);
     }, [sort]);
 
-    const commentListComponent = (feed) => {
-        return comments[feed.feedId].length !== 0 ? 
-            <>
-                {comments[feed.feedId].map((comment) => {
-                    return !isCommentModifiableList?.[comment.commentId] ?
-                        
-                    <div css={S.SCommentContainer} key={comment.commentId}>
-                            
-                        <b>{comment.userNickname}</b>
-                        <div>{comment.commentContent}</div>
-                        <div>{comment.commentDatetime}</div>
-                            
 
-                        {comment.userId === principal.userId && 
-                            <div>
-                                <button onClick={() => {handleDeleteCommentButtonClick(feed.feedId, comment.commentId)}}>삭제</button>
-                                <button onClick={() => {
-                                    setIsCommentModifiableList({
-                                        ...isCommentModifiableList,
-                                        [comment.commentId]: 1});
-                                    setCommentModifyInputList({
-                                        ...commentModifyInputList,
-                                        [`commentModifyInput${comment.commentId}`]: comment.commentContent
-                                    })
-                                }}>수정</button>
-                            </div>
-                        }
-                    </div> :
-                    <div css={S.SCommentContainer} key={comment.commentId}>
-                        <b>{comment.userNickname}</b>
-                        <input type="text" name={`commentModifyInput${comment.commentId}`} defaultValue={comment.commentContent} value={commentModifyInputList?.[comment.commentId]} onChange={handleCommentModifyInput}/>
-                        <div>{comment.commentDatetime}</div>
-                        <div>
-                            <button onClick={() => {handleModifyCommentSubmit(feed.feedId, comment.commentId)}}>수정 적용</button>
-                            <button onClick={() => {
-                                setIsCommentModifiableList({
-                                    ...isCommentModifiableList,
-                                    [comment.commentId]: 0})
-                            }}>수정 취소</button>
-                        </div>
-                    </div>
-                })}
-            </>
-            :
-            <div>
-                아직 댓글이 없습니다.
-            </div>
-    };
-
-    const latestCommentComponent = (feed) => {
-        return (
-            latestComments[feed.feedId] ? (
-                <div css={S.SCommentContainer} key={latestComments[feed.feedId]?.commentId}>
-                    <b>{latestComments[feed.feedId]?.userNickname}</b>
-                    <div>{latestComments[feed.feedId]?.commentContent}</div>
-                    <div>{latestComments[feed.feedId]?.commentDatetime}</div>
-                </div>
-            ) : 
-            <div>
-                아직 댓글이 없습니다.
-            </div>
-        )
-    };
-
-    const handleDeleteCommentButtonClick = async (feedId, commentId) => {
-        instance.delete(`/api/feed/${feedId}/comment/${commentId}`, option)
-        .then((response) => {
-            alert("댓글 삭제 성공");
-            getFeedList.refetch();
-
-        }).catch((error) => {
-            console.error(error);
-            alert("댓글 삭제 실패");
-
-        });
-    };
 
     const handleReportClick = async (feedId, feedChallengeId) => {
         const data = {
@@ -236,13 +161,7 @@ function Feed(props) {
             [e.target.name]: e.target.value
         })
     };
-    
-    const handleCommentModifyInput = (e) => {
-        setCommentModifyInputList({
-            ...commentModifyInputList,
-            [e.target.name]: e.target.value
-        })
-    };
+
 
     const handleCommentSubmit = async (feedId) => {
         try {
@@ -254,21 +173,6 @@ function Feed(props) {
             console.error(error);
         }
     };
-
-    const handleModifyCommentSubmit = async (feedId, commentId) => {
-        try {
-            await instance.put(`/api/feed/${feedId}/comment/${commentId}`, {commentContent: commentModifyInputList[`commentModifyInput${commentId}`]}, option);
-            getFeedList.refetch();
-            setIsCommentModifiableList({
-            ...isCommentModifiableList,
-            [commentId]: 0});
-            alert("댓글이 수정되었습니다.");
-
-        }catch(error) {
-            console.error(error);
-            alert("댓글 수정 실패");
-        }
-    }
 
     const handleCheckboxChange = async (event) => {
         setSort(event.target.value);
@@ -390,14 +294,15 @@ function Feed(props) {
 
                                     <div css={S.SFeedBottomFooter}>
                                         {
-                                            commentShowMode[feed.feedId] ? commentListComponent(feed) : latestCommentComponent(feed)
-                                        }                                  
+                                            commentShowMode[feed.feedId] ? 
+                                            <FeedCommentList feed={feed} comments={comments}/>
+                                            : <LatestFeedComment feed={feed} latestComments={latestComments}/>
+                                        }
                                     </div>
                                     
                                 </div>
                             </div>
                         </div>
-                        
                     ))}
                     <div ref={lastChallengeRef}></div>
                     {isModalOpen && (
