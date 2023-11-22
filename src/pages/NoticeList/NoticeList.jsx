@@ -5,7 +5,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
-import Header from '../../components/Header/Header';
 /** @jsxImportSource @emotion/react */
 import * as S from './NoticeListStyle';
 import ReactSelect from 'react-select';

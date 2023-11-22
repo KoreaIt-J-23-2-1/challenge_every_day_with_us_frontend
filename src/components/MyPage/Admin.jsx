@@ -22,7 +22,6 @@ function Admin() {
     const [ chartData, setChartData ] = useState([]);
     const lastChallengeRef = useRef();
     const [ sort, setSort ] = useState('latest');
-    const [ dateDifference, setDateDifference ] = useState(null);
 
     const option = {
         headers: {
@@ -227,8 +226,6 @@ function Admin() {
         setSort(event.target.value);
         setPage(1);
     };
-
-    console.log(chartData)
 
     const MyResponsiveLine = ({ data }) => {
         const sortedData = data.map(item => ({
