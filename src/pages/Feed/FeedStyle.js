@@ -223,22 +223,6 @@ export const SFeedBottomFooter = css`
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 `;
 
-export const SCommentContainer = css`
-    border-radius: 10px;
-    padding: 10px;
-    width: 100%;
-
-    & > div:nth-of-type(1){
-        font-size: 14px;
-        font-weight: 300;
-
-    }
-    & > div:nth-of-type(2) {
-        font-size: 12px;
-    } 
-
-`;
-
 export const ModalOverlay = css`
     display: flex;
     justify-content: center;

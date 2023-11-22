@@ -12,6 +12,10 @@ function SignIn(props) {
         window.location.replace("http://localhost:8080/oauth2/authorization/naver");
     }
 
+    const handleKakaoSignin = () => {
+        window.location.replace("http://localhost:8080/oauth2/authorization/kakao");
+    }
+
     const handleGoogleSignin = () => {
         window.location.replace("http://localhost:8080/oauth2/authorization/google");
     }
@@ -45,7 +49,6 @@ function SignIn(props) {
                         </div>
                     )}
                 </div>
-            </div>
         </BaseLayout>
     );
 }
