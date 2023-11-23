@@ -68,7 +68,8 @@ function Feed(props) {
     };
 
     const getLikeStates = async (feed) => {
-        const response = await instance.get(`/api/feed/${feed.feedId}/like`, option);
+        const response = await instance.get(`/api/feed/2023-11-23 11:58:03.110  WARN 7896 --- [nio-8080-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+/like`, option);
         setIsLikeList((isLikeList) => ({
             ...isLikeList,
             [feed.feedId]: response.data
