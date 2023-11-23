@@ -12,16 +12,20 @@ export const calendarContainer = css`
     }
 
     & .checked-circle {
-        &::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 2px solid orange;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-        }
+        position: relative;
     }
+
+    & .checked-circle::before {
+        content: '';
+        position: absolute;
+        display: block;
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 2px solid orange;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+    }   
 `;
