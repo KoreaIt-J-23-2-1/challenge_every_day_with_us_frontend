@@ -13,7 +13,11 @@ function SignIn(props) {
     }
 
     const handleKakaoSignin = () => {
-        window.location.replace("http://localhost:8080/oauth2/authorization/kakao");
+        try {
+            window.location.replace("http://localhost:8080/oauth2/authorization/kakao");
+        } catch (error) {
+            console.error("Kakao login error:", error);
+        }
     }
 
     const handleGoogleSignin = () => {
