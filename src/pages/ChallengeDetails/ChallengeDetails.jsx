@@ -6,6 +6,8 @@ import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
+import { FcLike } from "react-icons/fc";
+import { IoIosHeartEmpty } from "react-icons/io";
 
 function ChallengeDetails(props) {
     const navigate = useNavigate();
@@ -23,7 +25,7 @@ function ChallengeDetails(props) {
     const [ feedList, setFeedList ] = useState([]);
     const [ page, setPage ] = useState(1);
     const lastChallengeRef = useRef();
-    const [img, setImg] = useState(false);
+    const userId = principal.data.data.userId;
 
     const option = {
         headers: {
@@ -97,6 +99,20 @@ function ChallengeDetails(props) {
         retry: 0
     })
 
+    const getUserLikeState = useQuery(["getUserLikeState"], async () => {
+        try {
+            return await instance.get(`/api/challenge/${challengeId}/${userId}`, option);
+        }catch(error) {
+            console.erroe(error);
+        }
+    }, {
+        refetchOnWindowFocus: false,
+        retry: 0,
+        onSuccess: (response) => {
+            setIsLike(response?.data)
+        }
+    })
+
     const getFeedList = useQuery(["getFeedList"], async () => {
         return await instance.get(`/api/challenge/certification/feed/${page}/${challengeId}`, option);
     }, {
@@ -136,20 +152,12 @@ function ChallengeDetails(props) {
     }, [challenge.startDate, challenge.endDate]);
 
     const handleLikebuttonClick = async () => {
-        const userId = principal.data.data.userId;
         const result = {
             userId: userId
         }
         try {
-            const response = await instance.get(`/api/challenge/${challengeId}/userlike`, {
-                headers: {
-                    Authorization: localStorage.getItem("accessToken")
-                },
-                params: {
-                    userId: userId
-                }
-            });
-            if (response.data) {
+
+            if (isLike) {
                 await instance.delete(`/api/challenge/${challengeId}/like`, {
                     ...option,
                     data: result
@@ -245,8 +253,8 @@ function ChallengeDetails(props) {
                             <div css={S.Writer}>작성자: <b>{challenge.name}</b> </div>
                             <div>
                                 {!getLikeState.isLoading &&
-                                    <button css={S.SLikeButton(getLikeState?.data?.data)} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
-                                        <div>{isLike ? <AiTwotoneLike/> : <AiOutlineLike/>}</div>
+                                    <button css={S.SLikeButton} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
+                                        <div>{isLike ? <FcLike/> : <IoIosHeartEmpty/>}</div>
                                         <div>{challenge.challengeLikeCount}</div>
                                     </button>
                                 }
@@ -255,10 +263,7 @@ function ChallengeDetails(props) {
                         </div>
                     </div>
                 </div>
-
-
                 <div css={S.BodyLayout}>
-                    
                     {/* 왼쪽  */}
                     <div css={S.FeedContainer}>
                         {feedList.map(feed => (
