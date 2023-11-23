@@ -14,8 +14,6 @@ function LetterSideBar(props) {
     const queryClient = useQueryClient();
     const principal = queryClient.getQueryState("getPrincipal");
     const lettersCount = queryClient.getQueryState("getLettersCount");
-    const navigate = useNavigate();
-
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
@@ -128,7 +126,6 @@ function LetterSideBar(props) {
                 <input type="radio" id="read-letter-radio-button" name="letterViewType" checked={letterViewType === "read"} onChange={() => {setLetterViewType("read");}}/>
                 <label htmlFor="read-letter-radio-button" >읽은 메시지</label>
                 <div css={S.SLetterScroll}>
-
                     {letterViewType === "unread" ?
                         getLetterList?.data?.map((letter) => (
                             letter.isRead === 0 ? 
@@ -154,10 +151,8 @@ function LetterSideBar(props) {
                             <></>
                         ))
                     }
-
                 </div>
             </div>
-
             <LetterModal  isOpen={isModalOpen} onClose={closeModal} selectedLetter={selectedLetter}>
                 <div css={S.modalCloseBtn} onClick={closeModal}>닫기</div>
                 {!getLetterList.isLoading && selectedLetter && (
