@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import * as S from "./Style";
 import { instance } from '../../api/config/instance';
@@ -13,6 +13,11 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
     const profileFileRef = useRef();
     const [ profileImgSrc, setProfileImgSrc ] = useState("");
     const [ intro, setIntro ] = useState("");
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
+    }
 
     useEffect(() => {
         setProfileImgSrc(principal.profileUrl);
@@ -47,26 +52,17 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
     };
 
     const handleIntroSubmit = () => {
-        const option = {
-            params: {
-            nickname: principal.nickname,
-            intro: intro,
-            },
-        };
-        instance.get('/api/account/intro', option)
-            .then((response) => {
-            queyrClient.refetchQueries(["getPrincipal"]);
-            const introData = response.data.intro;
+        try {
             const requestConfig = {
-                nickname: principal.nickname,
                 intro: intro,
             };
-            const requestMethod = introData !== null ? 'put' : 'post';
-
-            instance[requestMethod]('/api/account/intro', requestConfig);
-            })
-            .catch((error) => {
-            });
+            const response = instance.put('/api/account/intro', requestConfig, option);
+            if(response){
+                alert("수정완료");
+            }
+        }catch(error) {
+            console.error(error);
+        }
     };
 
     return (

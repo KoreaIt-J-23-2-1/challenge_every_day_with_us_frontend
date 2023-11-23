@@ -13,7 +13,7 @@ function NoticeList(props) {
     const navigate = useNavigate();
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
-    const principal = principalState.data.data;
+    const principal = principalState?.data?.data;
     const { page } = useParams();
     const option = {
         headers: {
@@ -32,14 +32,14 @@ function NoticeList(props) {
     }
 
     const getNoticeList = useQuery(["getBoardList", page], async () => {
-        return await instance.get(`/api/notices/${page}`, option)
+        return await instance.get(`/api/notices/${page}`)
     }, {
         retry: 0,
         refetchOnWindowFocus: false
     });
 
     const getNoticesCount = useQuery(["getNoticesCount"], async () => {
-        return await instance.get(`/api/notices/count`, option)
+        return await instance.get(`/api/notices/count`)
     }, {
         retry: 0,
         refetchOnWindowFocus: false
@@ -49,7 +49,8 @@ function NoticeList(props) {
         return await instance.get(`/api/admin`, option)
     }, {
         retry: 0,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        enabled: !!principal
     });
 
     const [ searchParams, setSearchParams ] = useState(search);
@@ -77,7 +78,7 @@ function NoticeList(props) {
             return <></>;
         }
 
-        const totalNoticeCount = getNoticesCount.data.data;
+        const totalNoticeCount = getNoticesCount?.data?.data;
         const lastPage = totalNoticeCount % 10 === 0
             ? totalNoticeCount / 10
             : Math.floor(totalNoticeCount / 10) + 1;
@@ -105,7 +106,7 @@ function NoticeList(props) {
         )
     };
 
-    const isAdmins = getAdminList?.data?.data?.some(admin => admin.userId === principal.userId);
+    const isAdmins = getAdminList?.data?.data?.some(admin => admin?.userId === principal?.userId);
 
     return (
         <BaseLayout>
@@ -133,7 +134,7 @@ function NoticeList(props) {
                 </thead>
                 
                 <tbody>
-                    {!getNoticeList.isLoading && getNoticeList?.data?.data.map(notice => {
+                    {!getNoticeList.isLoading && getNoticeList?.data?.data?.map(notice => {
                         return (
                             <tr key={notice.noticeId} onClick={() => { navigate(`/notice/${notice.noticeId}`) }}>
                                 <td>{notice.noticeId}</td>

@@ -45,8 +45,11 @@ function Main(props) {
         navigate(path);
     };
 
-    console.log(principal);
-    
+    const FreeNavigate = (path) => {
+        navigate(path);
+    };
+
+
     return (
         <div>
             {/* <Header /> */}
@@ -59,7 +62,7 @@ function Main(props) {
                     : <button onClick={() => { navigate("/auth/signin") }}>로그인</button>}
                     {/* <button onClick={() => { checkLoginBeforeNavigate("/store/items") }}>상점</button> */}
                     <button onClick={() => { checkLoginBeforeNavigate("/account/mypage") }}>마이페이지</button>
-                    <button onClick={() => { checkLoginBeforeNavigate("/notice/page/1") }}>공지목록</button>
+                    <button onClick={() => { FreeNavigate("/notice/page/1") }}>공지목록</button>
                     <button onClick={() => { checkLoginBeforeNavigate("/challenge/category") }}>챌린지 생성 </button>
                     <button onClick={() => { checkLoginBeforeNavigate("/challenges") }}>챌린지리스트조회</button>
                     <button onClick={() => { checkLoginBeforeNavigate("/challenge/feed") }}>Feed</button>
