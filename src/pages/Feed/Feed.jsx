@@ -36,7 +36,6 @@ function Feed(props) {
                 }
             });
         }
-
         const observer = new IntersectionObserver(observerService, {threshold: 1});
         observer.observe(lastChallengeRef.current);
     }, []);
@@ -85,8 +84,7 @@ function Feed(props) {
         return await instance.get(`/api/challenge/certification/feed/${page}`, {
             params: {
                 sort: sort
-            },
-            ...option
+            }
         });
     }, {
         retry: 0,

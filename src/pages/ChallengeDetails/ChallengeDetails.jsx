@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { instance } from '../../api/config/instance';
-import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 /** @jsxImportSource @emotion/react */
 import * as S from './ChallengeDetailsStyle';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
@@ -130,8 +129,6 @@ function ChallengeDetails(props) {
         }
     });
 
-    console.log(feedList);
-
     useEffect(() => {
         const observerService = (entries, observer) => {
             entries.forEach(entry => {
@@ -163,7 +160,6 @@ function ChallengeDetails(props) {
             userId: userId
         }
         try {
-
             if (isLike) {
                 await instance.delete(`/api/challenge/${challengeId}/like`, {
                     ...option,
@@ -182,13 +178,16 @@ function ChallengeDetails(props) {
 
     const getFeedLikeState = useQuery(["getFeedLikeState"], async (feed) => {
         try {
-            return await instance.get(`/api/feed/${feed.feedId}/like`, option);
+            return await instance.get(`/api/feed/${challengeId}/like`, option);
         }catch(error) {
             console.erroe(error);
         }
     }, {
         refetchOnWindowFocus: false,
-        retry: 0
+        retry: 0,
+        onSuccess: (response) => {
+            setIsFeedLike(response);
+        }
     })    
 
     const handleFeedLikebuttonClick = async (feed) => {
@@ -211,8 +210,6 @@ function ChallengeDetails(props) {
             console.error(error);
         }
     }
-    //
-
 
     const handleDeleteClick = async () => {
         if(principal.data.data.name === challenge.name){
@@ -293,7 +290,7 @@ function ChallengeDetails(props) {
                         <div css={S.Box}>
                             <div css={S.Writer}>작성자: <b>{challenge.name}</b> </div>
                             <div>
-                                {!getLikeState.isLoading &&
+                                {!getFeedLikeState.isLoading &&
                                     <button css={S.SLikeButton} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
                                         <div>{isLike ? <FcLike/> : <IoIosHeartEmpty/>}</div>
                                         <div>{challenge.challengeLikeCount}</div>
