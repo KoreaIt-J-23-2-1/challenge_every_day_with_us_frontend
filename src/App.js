@@ -26,6 +26,7 @@ import MyPageOrder from './pages/MyPage/MyPageOrder/MyPageOrder';
 import User from './components/MyPage/User';
 import StampPage from './pages/StampPage/StampPage';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
+import RealMain from './pages/Main/RealMain';
 
 function App() {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ function App() {
       <Global styles={SReset, Common}/>
 
       <Routes>
-        {/* <Route path='/maain' element={<RealMain/>}/> */}
+        <Route path='/maain' element={<RealMain/>}/>
         <Route path='/main' element={<Main />} />
         <Route path='/' element={<LogoPage/>}/>
         
