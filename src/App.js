@@ -26,6 +26,7 @@ import MyPageOrder from './pages/MyPage/MyPageOrder/MyPageOrder';
 import User from './components/MyPage/User';
 import StampPage from './pages/StampPage/StampPage';
 import AuthRoute from './components/Routes/AuthRoute';
+import MyPage from './pages/MyPage/MyPage';
 
 function App() {
   const getPrincipal = useQuery(["getPrincipal"], async () => {
@@ -63,12 +64,12 @@ function App() {
         <Route path='/auth/signin' element={<SignIn />} />
         <Route path='/auth/oauth2/login' element={<SigninOauth2 />} />
         <Route path='/notice/page/:page' element={<NoticeList/>} />
-        <Route path="/notice/:noticeId" element={<NoticeDetails />} />
         <Route path='/challenges' element={<ChallengeList/>} />
 
+        <Route path="/notice/:noticeId" element={<AuthRoute element={<NoticeDetails/>} /> } />
         <Route path='/store/items' element={<AuthRoute element={<Store/>} /> } />
         <Route path='/store/:userId/orders' element={<AuthRoute element={<MyPageOrder/>} /> } />
-        <Route path='/user' element={<AuthRoute element={<User/>} /> } />
+        <Route path='/mypage' element={<AuthRoute element={<MyPage/>} /> } />
         <Route path='/notice/write' element={<AuthRoute element={<NoticeWrite />} /> } />
         <Route path="/notice/:noticeId/edit" element={<AuthRoute element={<NoticeEdit />} /> } />
         <Route path='/challenge/create/:categoryName' element={<AuthRoute element={<ChallengeCreate/>} /> } />

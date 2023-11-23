@@ -20,19 +20,9 @@ function NoticeList(props) {
         Authorization: localStorage.getItem("accessToken")
         }
     }
-    const options = [
-        {value: "전체", label: "전체"},
-        {value: "챌린지제목", label: "챌린지제목"},
-        {value: "카테고리이름", label: "카테고리이름"}
-    ];
 
-    const search = {
-        optionName: options[0].label,
-        searchValue: ""
-    }
-
-    const getNoticeList = useQuery(["getBoardList", page], async () => {
-        return await instance.get(`/api/notices/${page}`)
+    const getNoticeList = useQuery(["getNoticeList", page], async () => {
+        return await instance.get(`/api/notices/${page}` )
     }, {
         retry: 0,
         refetchOnWindowFocus: false
@@ -52,26 +42,6 @@ function NoticeList(props) {
         refetchOnWindowFocus: false,
         enabled: !!principal
     });
-
-    const [ searchParams, setSearchParams ] = useState(search);
-
-    const handleSearchInputChange = (e) => {
-        setSearchParams({
-            ...searchParams,
-            searchValue: e.target.value
-        })
-    }
-
-    const handleSearchOptionSelect = (option) => {
-        setSearchParams({
-            ...searchParams,
-            optionName: option.label
-        })
-    }
-
-    const handleSearchButtonClick = () => {
-        getNoticeList.refetch();
-    }
 
     const pagination = () => {
         if(getNoticesCount.isLoading) {
@@ -117,11 +87,11 @@ function NoticeList(props) {
                     <button onClick={() => { navigate(`/notice/write`) }}>공지 작성</button>
                 </div>
             )}
-                <div css={S.btnBox}>
+                {/* <div css={S.btnBox}>
                     <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect} />
                     <input onChange={handleSearchInputChange} type="text" placeholder='검색어를 입력하세요' />
                     <button onClick={handleSearchButtonClick}>검색</button>
-                </div>
+                </div> */}
             </div>
             <table css={S.listTable}>
                 <thead>
