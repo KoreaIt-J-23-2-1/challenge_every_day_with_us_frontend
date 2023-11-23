@@ -23,9 +23,8 @@ import { SReset } from './styles/reset';
 import Store from './components/Store/Store';
 import NoticeEdit from './pages/NoticeEdit/NoticeEdit';
 import MyPageOrder from './pages/MyPage/MyPageOrder/MyPageOrder';
-import User from './components/MyPage/User';
+import User from './components/MyPage/User/User';
 import StampPage from './pages/StampPage/StampPage';
-import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import RealMain from './pages/Main/RealMain';
 import AuthRoute from './components/Routes/AuthRoute';
 import MyPage from './pages/MyPage/MyPage';
@@ -70,6 +69,7 @@ function App() {
         <Route path='/challenges' element={<ChallengeList/>} />
 
         <Route path="/notice/:noticeId" element={<AuthRoute element={<NoticeDetails/>} /> } />
+        <Route path="/user" element={<AuthRoute element={<User/>} /> } />
         <Route path='/store/items' element={<AuthRoute element={<Store/>} /> } />
         <Route path='/store/:userId/orders' element={<AuthRoute element={<MyPageOrder/>} /> } />
         <Route path='/mypage' element={<AuthRoute element={<MyPage/>} /> } />

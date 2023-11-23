@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
-import { instance } from '../../api/config/instance';
+import { instance } from '../../../api/config/instance';
 import { useQuery, useQueryClient } from 'react-query';
 import * as S from './AdminStyle';
-import AdminModal from '../AdminModal/AdminModal';
-import BaseLayout from '../BaseLayout/BaseLayout';
+import AdminModal from '../../AdminModal/AdminModal';
+import BaseLayout from '../../BaseLayout/BaseLayout';
 import ReactSelect from 'react-select';
 import { MdDeleteOutline } from "react-icons/md";
 import { IoStopCircleOutline } from "react-icons/io5";
