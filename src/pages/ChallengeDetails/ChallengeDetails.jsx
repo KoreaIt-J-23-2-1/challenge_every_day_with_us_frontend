@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { instance } from '../../api/config/instance';
-import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
@@ -125,6 +124,11 @@ function ChallengeDetails(props) {
         }
     });
 
+<<<<<<< Updated upstream
+=======
+    console.log(feedList)
+
+>>>>>>> Stashed changes
     useEffect(() => {
         const observerService = (entries, observer) => {
             entries.forEach(entry => {
@@ -156,7 +160,6 @@ function ChallengeDetails(props) {
             userId: userId
         }
         try {
-
             if (isLike) {
                 await instance.delete(`/api/challenge/${challengeId}/like`, {
                     ...option,
@@ -168,6 +171,36 @@ function ChallengeDetails(props) {
             getLikeState.refetch();
             getChallenge.refetch();
             setIsLike(!isLike);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const getFeedLikeState = useQuery(["getFeedLikeState"], async (feed) => {
+        try {
+            return await instance.get(`/api/feed/${challengeId}/like`, option);
+        }catch(error) {
+            console.erroe(error);
+        }
+    }, {
+        refetchOnWindowFocus: false,
+        retry: 0,
+        onSuccess: (response) => {
+            setIsFeedLike(response);
+        }
+    })    
+
+    const handleFeedLikebuttonClick = async (feed) => {
+        try {
+            console.log(isFeedLike)
+            const currentFeedLikeState = isFeedLike[feed.feedId] || false;
+            if (currentFeedLikeState) {
+                await instance.delete(`/api/feed/${challengeId}/like`, {}, option)
+            } else {
+                await instance.post(`/api/feed/${challengeId}/like`, {}, option);
+            }
+            getFeedLikeState.refetch();
+            setIsFeedLike(!isFeedLike);
         } catch (error) {
             console.error(error);
         }
@@ -252,7 +285,7 @@ function ChallengeDetails(props) {
                         <div css={S.Box}>
                             <div css={S.Writer}>작성자: <b>{challenge.name}</b> </div>
                             <div>
-                                {!getLikeState.isLoading &&
+                                {!getFeedLikeState.isLoading &&
                                     <button css={S.SLikeButton} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
                                         <div>{isLike ? <FcLike/> : <IoIosHeartEmpty/>}</div>
                                         <div>{challenge.challengeLikeCount}</div>

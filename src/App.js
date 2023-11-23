@@ -37,7 +37,6 @@ function App() {
         }
       }
       return await instance.get("/api/auth/principal", option);
-
     }catch(error) {
       // throw new Error(error);
     }
@@ -60,29 +59,23 @@ function App() {
         {/* <Route path='/maain' element={<RealMain/>}/> */}
         <Route path='/main' element={<Main />} />
         <Route path='/' element={<LogoPage/>}/>
-        
         <Route path='/account/*' element={ <AccountRoute /> } />
         <Route path='/auth/signup' element={ <SignUp/> } />
         <Route path='/auth/signin' element={<SignIn />} />
         <Route path='/auth/oauth2/login' element={<SigninOauth2 />} />
+        <Route path='/notice/page/:page' element={<NoticeList/>} />
+        <Route path="/notice/:noticeId" element={<NoticeDetails />} />
+        <Route path='/challenges' element={<ChallengeList/>} />
         
         <Route path='/store/items' element={<Store/>} />
         <Route path='/store/:userId/orders' element={<MyPageOrder/>} />
         <Route path='/user' element={<User/>} />
-
-        <Route path='/notice/page/:page' element={<NoticeList/>} />
         <Route path='/notice/write' element={<NoticeWrite />} />
-        <Route path="/notice/:noticeId" element={<NoticeDetails />} />
         <Route path="/notice/:noticeId/edit" element={<NoticeEdit />} />
-        
-
         <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
         <Route path='/challenge/category' element={<CategoryPage/>} />
         <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
-
-        <Route path='/challenges' element={<ChallengeList/>} />
         <Route path='/challenge/certification/:challengeId' element={<Certification/>} />
-
         <Route path='/challenge/feed' element={<Feed/>} />
         <Route path='/stamp' element={<StampPage/>} />
       </Routes>
