@@ -1,17 +1,20 @@
 import { css } from '@emotion/react';
 
 export const Layout = css`
-    height: 670px;
+    /* height: 100%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `;
 
 
 export const contentBox = css`
+    margin: 20px;
     display: flex;
     width: 100%;
-    height: 630px;
-    padding: 40px 0px;
+    height: 580px;
     justify-content: space-between;
-    /* border: 1px solid black; */
 
     &>div{
         display: flex;
@@ -22,7 +25,7 @@ export const contentBox = css`
 
 export const textBox = css`
     border-radius: 10px;
-    max-width: 600px;
+    /* max-width: 600px; */
     height: 100%;
 
     &>textarea{
@@ -31,8 +34,8 @@ export const textBox = css`
         border-radius: 15px; 
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        margin: 20px 0px;
-        height: 600px;
+        margin: 10px 0px;
+        height: 530px;
         resize: none;
         transition: width 0.3s;
         border: none;
@@ -49,12 +52,11 @@ export const imgBox = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    margin: 20px 0px;
+    padding: 10px;
+    margin: 10px 0px;
     border-radius: 10px;
     width: 440px;
-    min-width: 100%;
-    height: 100%;
+    height: 530px;
     cursor: pointer;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
@@ -62,7 +64,6 @@ export const imgBox = css`
     &>img{
         width: 100%;
     }
-
     &>:active{
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
     }
