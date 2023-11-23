@@ -292,9 +292,7 @@ function ChallengeDetails(props) {
 
                     {queryClient.data}
                     <div css={S.ChallTitle} onClick={handleGoUp}>
-                        <a><FaStar /></a>
-                        {challenge.challengeName}
-                        <a><FaStar /></a>
+                        <a><FaStar/></a>{challenge.challengeName}<a><FaStar/></a>
                     </div>
 
                     <div>

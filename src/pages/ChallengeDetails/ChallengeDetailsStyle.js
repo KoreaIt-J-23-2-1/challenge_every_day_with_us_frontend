@@ -19,13 +19,16 @@ export const HeaderLayout = css`
 export const ChallTitle = css`
     cursor: pointer;
     font-weight: 700;
-    font-size: 40px;
+    font-size: 30px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
     
     &>a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
         opacity: 0;
         width: 40px;
         height: 40px;
