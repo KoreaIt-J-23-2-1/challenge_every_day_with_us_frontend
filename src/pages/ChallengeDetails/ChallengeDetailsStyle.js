@@ -271,6 +271,7 @@ export const Pointfont = css`
     font-style: italic;
     font-size: 15px;
     background-color: #ededed80;
+    margin-right: 3px;
 `;
 
 export const ListBox = css`
@@ -323,9 +324,17 @@ export const DeleteChallengerButton = css`
 
 
 
-export const ProgressBar = css`
-    height: 90px;
+export const ProgressBarBox = css`
+    position: relative;
+    height: 40px;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+export const ProgressBar = css`
+    position: absolute;
+    top: 13px;
+    width: 100%;
+    padding: 0px 5px;
 `;

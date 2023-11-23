@@ -2,11 +2,11 @@ import { css } from "@emotion/react";
 
 export const layout = css`
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: stretch;
-    margin: 0 auto;
     overflow: hidden;
-    height: 750px;
+    height: 850px;
+    width: 1350px;
     border-radius: 10px;
 `;
 
@@ -14,7 +14,7 @@ export const sideBox = css`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 350px;
+    width: 400px;
     background-color: #fff;
     box-shadow: 5px 1px 8px 0 rgba(0,0,0,.06);
     border-left: 1px solid rgba(0,0,0,.08);
@@ -77,7 +77,9 @@ export const IntroBox = css`
     flex-direction: column;
 
     & h5 {
-        margin: 20px 0px 10px 0px;
+        margin: 0px 0px 5px 5px;
+        font-size: 12px;
+        color: #777;
     }
 
     & textarea {
@@ -85,6 +87,7 @@ export const IntroBox = css`
         border-radius: 10px;
         resize: none;
         margin-bottom: 10px;
+        padding: 5px;
     }
 
     & button {

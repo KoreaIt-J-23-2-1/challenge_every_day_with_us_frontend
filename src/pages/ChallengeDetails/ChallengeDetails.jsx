@@ -9,7 +9,7 @@ import { FcLike } from "react-icons/fc";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { SiApachespark } from "react-icons/si";
 import { FaStar } from "react-icons/fa";
-
+import ProgressBar from '@ramonak/react-progress-bar';
 
 function ChallengeDetails(props) {
     const navigate = useNavigate();
@@ -28,6 +28,7 @@ function ChallengeDetails(props) {
     const [ isChallengeFeedRefetch, setIsChallengeFeedRefetch ] = useState(false);
     const [ feedList, setFeedList ] = useState([]);
     const [ page, setPage ] = useState(1);
+    const [ feedProgress, setFeedProgress ] = useState(0);
     const lastChallengeRef = useRef();
     const userId = principal.data.data.userId;
 
@@ -106,19 +107,19 @@ function ChallengeDetails(props) {
 
 
 
-    const getUserLikeState = useQuery(["getUserLikeState"], async () => {
-        try {
-            return await instance.get(`/api/challenge/${challengeId}/${userId}`, option);
-        }catch(error) {
-            console.erroe(error);
-        }
-    }, {
-        refetchOnWindowFocus: false,
-        retry: 0,
-        onSuccess: (response) => {
-            setIsLike(response?.data)
-        }
-    })
+    // const getUserLikeState = useQuery(["getUserLikeState"], async () => {
+    //     try {
+    //         return await instance.get(`/api/challenge/${challengeId}/${userId}`, option);
+    //     }catch(error) {
+    //         console.erroe(error);
+    //     }
+    // }, {
+    //     refetchOnWindowFocus: false,
+    //     retry: 0,
+    //     onSuccess: (response) => {
+    //         setIsLike(response?.data)
+    //     }
+    // })
 
     const getFeedList = useQuery(["getFeedList"], async () => {
         return await instance.get(`/api/challenge/certification/feed/${page}/${challengeId}`, option);
@@ -142,6 +143,7 @@ function ChallengeDetails(props) {
         }
 
         const observer = new IntersectionObserver(observerService, {threshold: 1});
+        
         observer.observe(lastChallengeRef.current);
     }, []);
 
@@ -191,7 +193,21 @@ function ChallengeDetails(props) {
         onSuccess: (response) => {
             setIsFeedLike(response);
         }
-    })    
+    })
+
+    const getProgress = useQuery(["getProgress"], async () => {
+        try{
+            return await instance.get(`/api/challenge/${challengeId}/progress`)
+        }catch(error) {
+
+        }
+    }, {
+        refetchOnWindowFocus: false,
+        retry: 0,
+        onSuccess: (response) => {
+            setFeedProgress(response.data)
+        }
+    })
 
     const handleFeedLikebuttonClick = async (feed) => {
         const result = {
@@ -279,6 +295,8 @@ function ChallengeDetails(props) {
         window.location.reload();
     }
 
+    const progress = ((feedProgress / (dateDifference + 1)) * 100).toFixed(0);
+
     return (
         <BaseLayout>
             <div css={S.Layout}>
@@ -289,7 +307,6 @@ function ChallengeDetails(props) {
                             <div>{dateDifference+1}일 중 <b css={S.Pointfont}>{todayDifference}일차 <SiApachespark /></b></div>
                         )}
                     </div>
-
                     {queryClient.data}
                     <div css={S.ChallTitle} onClick={handleGoUp}>
                         <a><FaStar/></a>{challenge.challengeName}<a><FaStar/></a>
@@ -375,9 +392,9 @@ function ChallengeDetails(props) {
                         </button>
                         <div css={S.ChallInfoBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
 
-                        <b> <a css={S.Pointfont}> {challenge.challengeName} </a> 진행율 (?%)</b>
-                        <div css={S.ProgressBar}>
-                            
+                        <b> <a css={S.Pointfont}> {challenge.challengeName} </a> 진행율 {progress}%</b>
+                        <div css={S.ProgressBarBox}>
+                            <ProgressBar css={S.ProgressBar} completed={progress} bgColor='lightpink' height='15px' labelSize='12px' baseBgColor='#eee'/>
                         </div>                        
 
                         <b>참여인원</b>
