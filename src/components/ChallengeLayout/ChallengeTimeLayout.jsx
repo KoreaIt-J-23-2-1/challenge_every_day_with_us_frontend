@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import * as S from './TimeLayoutStyle';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../../api/firebase/firebase';
@@ -20,6 +19,8 @@ function ChallengeTimeLayout() {
     const [ profileImgSrc, setProfileImgSrc ] = useState("");
     const [ refetch, setRefetch ] = useState(false);
     const navigate = useNavigate();
+    const inputRef = useRef(null);
+
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
@@ -113,6 +114,11 @@ function ChallengeTimeLayout() {
         reader.readAsDataURL(files[0]);
     };
     
+
+    const handleInputImg = () => {
+        inputRef.current.click();
+    };
+
     const handleSave = async () => {
         const textValue = document.getElementById('challengeText').value;
         if (!textValue.trim()) {
@@ -151,23 +157,32 @@ function ChallengeTimeLayout() {
 
     return (
         <div css={S.Layout}>
-
             <div css={S.TimeLayout}>{formattedTime}</div>
             <div css={S.ButtonLayout}>
                 <button onClick={startTimer} disabled={isRunning}>Start</button>
                 <button onClick={stopTimer} disabled={!isRunning}>Stop</button>
                 <button onClick={resetTimer}>Reset</button>
             </div>
-            <div css={S.textLayout}>
-                <div>
-                    <textarea css={S.textareaBox} id="challengeText" rows="12" cols="70" maxLength={1000}></textarea>
-                    <input css={S.FileBox} type="file" accept="image/*" onChange={handleProfileChange} />
+
+            <div css={S.contentBox}>
+                <div css={S.textBox}>
+                    <b>Write Text</b>
+                    <textarea  id="challengeText" rows="12" cols="70" maxLength={1000}/>
                 </div>
-                {selectedImage && (
-                    <img src={selectedImage} css={S.imagePreview} alt="Selected" />
-                )}
+
+                <div>
+                    <b>Choice Img</b>
+                    <div css={S.imgBox} onClick={handleInputImg}>
+                        {selectedImage && (
+                            <img src={selectedImage} alt="Selected" />
+                        )}
+                    </div>
+                    <input ref={inputRef} css={S.file} type="file" accept="image/*" onChange={handleProfileChange} />  
+                </div>       
+                
             </div>
-            <button css={S.SaveButton} onClick={handleSave}>인증하기</button>
+
+            <button css={S.SaveBtn} onClick={handleSave}>인증하기</button>
         </div>
     );
 }

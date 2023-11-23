@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
-import * as S from './Style';
+import * as S from './ChallengeDetailsStyle';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { FcLike } from "react-icons/fc";
 import { IoIosHeartEmpty } from "react-icons/io";
@@ -13,7 +13,9 @@ function ChallengeDetails(props) {
     const queryClient = useQueryClient();
     const principal = queryClient.getQueryState("getPrincipal");
     const [ isLike, setIsLike ] = useState(false);
+    const [ isFeedLike, setIsFeedLike ] = useState(false);
     const { challengeId } = useParams();
+    const { feedId } = useParams();
     const [ challenge, setChallenge ] = useState({});
     const [ challengers, setChallengers ] = useState({});
     const [ dateDifference, setDateDifference ] = useState(null);
@@ -69,6 +71,7 @@ function ChallengeDetails(props) {
         }
     })
 
+
     const getChallengers = useQuery(["getChallengers"], async () => {
         try {
             const challengersResponse = await instance.get(`/api/challengers/${challengeId}`, option);
@@ -98,6 +101,8 @@ function ChallengeDetails(props) {
         retry: 0
     })
 
+
+
     const getUserLikeState = useQuery(["getUserLikeState"], async () => {
         try {
             return await instance.get(`/api/challenge/${challengeId}/${userId}`, option);
@@ -124,11 +129,6 @@ function ChallengeDetails(props) {
         }
     });
 
-<<<<<<< Updated upstream
-=======
-    console.log(feedList)
-
->>>>>>> Stashed changes
     useEffect(() => {
         const observerService = (entries, observer) => {
             entries.forEach(entry => {
@@ -191,13 +191,18 @@ function ChallengeDetails(props) {
     })    
 
     const handleFeedLikebuttonClick = async (feed) => {
+        const result = {
+            userId: userId
+        }
         try {
-            console.log(isFeedLike)
-            const currentFeedLikeState = isFeedLike[feed.feedId] || false;
-            if (currentFeedLikeState) {
-                await instance.delete(`/api/feed/${challengeId}/like`, {}, option)
+
+            if (isFeedLike) {
+                await instance.delete(`/api/feed/${feed.feedId}/like`, {
+                    ...option,
+                    data: result
+                });
             } else {
-                await instance.post(`/api/feed/${challengeId}/like`, {}, option);
+                await instance.post(`/api/feed/${feed.feedId}/like`, result, option);
             }
             getFeedLikeState.refetch();
             setIsFeedLike(!isFeedLike);
@@ -330,10 +335,15 @@ function ChallengeDetails(props) {
 
 
 
-                                <div css={S.SFeedBottomLayout}>
-                                    <div css={S.SFeedBottomHeader}>
+                                <div >
+                                    <div css={S.CommentHeader}>
                                         <b>댓글</b>
-                                        <b>좋아요 (좋아요 수)</b>
+                                        <b>
+                                            좋아요 {feed.likeCount} 개
+                                            <button css={S.FeedLikeBtn} disabled={!principal?.data?.data} onClick={handleFeedLikebuttonClick}>
+                                                <div>{isLike ? <FcLike/> : <IoIosHeartEmpty/>}</div>
+                                            </button>                                        
+                                        </b>
                                     </div>
                                     <div css={S.CommentBox}>
                                         <div>{principal.data.data.nickname}댓글</div>
