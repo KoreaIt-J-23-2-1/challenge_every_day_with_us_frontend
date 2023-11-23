@@ -62,21 +62,21 @@ function StampPage(props) {
                 {moment(value).format('YYYY년 MM월 DD일')}
             </div>
             <div css={S.calendarContainer}>
-            <Calendar
-                onChange={onChange}
-                value={value}
-                formatDay={(local, date) => moment(date).format('DD')}
-                tileClassName={({ date }) => {
-                    const formattedDate = moment(date).startOf('day').format('YYYY-MM-DD');
+                <Calendar
+                    defaultView={"month"}
+                    formatDay={(local, date) => moment(date).format('DD')}
+                    tileClassName={({date}) => {
+                            const formattedDate = moment(date).startOf('day').format('YYYY-MM-DD');
+                            const matchingDates = checkedDates.filter(item => {
+                                    const attendanceDate = moment(item.attendance).startOf('day').format('YYYY-MM-DD');
+                                    return attendanceDate === formattedDate;
+                                }
+                            );
+                            return matchingDates.length > 0 ? "checked-circle" : "";
+                        }
+                    }
 
-                    const matchingDates = checkedDates.filter(item => {
-                        const attendanceDate = moment(item).startOf('day').format('YYYY-MM-DD');
-                        return attendanceDate === formattedDate;
-                    });
-
-                    return matchingDates.length > 0 ? 'checked-circle' : '';
-                }}
-            />
+                />
             </div>
             <button onClick={handleCheckIn} disabled={isCheckedIn}>
                 {isCheckedIn ? '이미 출석했습니다' : '출석체크'}
