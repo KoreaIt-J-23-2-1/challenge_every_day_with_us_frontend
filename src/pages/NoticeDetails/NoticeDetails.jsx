@@ -11,8 +11,7 @@ function NoticeDetails(props) {
     const { noticeId } = useParams();
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
-    const principal = principalState.data.data;
-
+    const principal = principalState?.data?.data;
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
@@ -21,9 +20,8 @@ function NoticeDetails(props) {
     
     const getNotice = useQuery(["getNotice"], async () => {
         try {
-            return await instance.get(`/api/notice/${noticeId}`,option);
+            return await instance.get(`/api/notice/${noticeId}`);
         }catch(error) {
-
         }
     }, {
         refetchOnWindowFocus: false,
@@ -36,7 +34,6 @@ function NoticeDetails(props) {
         try {
             return await instance.get(`/api/admin`, option)
         }catch(error) {
-
         }
     }, {
         retry: 0,
@@ -45,8 +42,6 @@ function NoticeDetails(props) {
             setIsAdmin(response.data);
         }
     });
-
-    console.log(isAdmin)
 
     const deleteNoticeBtn = async () => {
         /* eslint-disable no-restricted-globals */ 

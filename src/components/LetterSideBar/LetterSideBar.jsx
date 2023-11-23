@@ -11,6 +11,7 @@ function LetterSideBar(props) {
     const [ isModalOpen, setIsModalOpen] = useState(false);
     const [ letterViewType, setLetterViewType ] = useState("unread");
     const [ selectedLetter, setSelectedLetter ] = useState(null);
+    const [ letterList, setLetterList ] = useState([]);
     const queryClient = useQueryClient();
     const principal = queryClient.getQueryState("getPrincipal");
     const lettersCount = queryClient.getQueryState("getLettersCount");
@@ -51,7 +52,10 @@ function LetterSideBar(props) {
     }, {
         retry: 0,
         refetchOnWindowFocus: false,
-        enabled: !!principal?.data?.data
+        enabled: !!principal?.data?.data,
+        onSuccess: (response) => {
+            setLetterList(response);
+        }
     });
 
     const GoTargetLetterUrl = () => {
@@ -127,7 +131,7 @@ function LetterSideBar(props) {
                 <label htmlFor="read-letter-radio-button" >읽은 메시지</label>
                 <div css={S.SLetterScroll}>
                     {letterViewType === "unread" ?
-                        getLetterList?.data?.map((letter) => (
+                        letterList?.data?.map((letter) => (
                             letter.isRead === 0 ? 
                             <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                                 <h3>{letter.title}</h3>
@@ -139,7 +143,7 @@ function LetterSideBar(props) {
                             <div key={letter.letterId}></div>
                         ))
                         :
-                        getLetterList?.data?.map((letter) => (
+                        letterList?.data?.map((letter) => (
                             letter.isRead === 1 ? 
                             <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                                 <h3>{letter.title}</h3>
@@ -155,7 +159,7 @@ function LetterSideBar(props) {
             </div>
             <LetterModal  isOpen={isModalOpen} onClose={closeModal} selectedLetter={selectedLetter}>
                 <div css={S.modalCloseBtn} onClick={closeModal}>닫기</div>
-                {!getLetterList.isLoading && selectedLetter && (
+                {!letterList.isLoading && selectedLetter && (
                     <div>
                         <h3 css={S.modalTitle} onClick={GoTargetLetterUrl}>{selectedLetter.title}</h3>
                         <div><b>Sender: </b>{selectedLetter.senderNickname}</div>

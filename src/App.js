@@ -25,9 +25,10 @@ import NoticeEdit from './pages/NoticeEdit/NoticeEdit';
 import MyPageOrder from './pages/MyPage/MyPageOrder/MyPageOrder';
 import User from './components/MyPage/User';
 import StampPage from './pages/StampPage/StampPage';
+import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 
 function App() {
-
+  const navigate = useNavigate();
   const getPrincipal = useQuery(["getPrincipal"], async () => {
     try{
       const option = {

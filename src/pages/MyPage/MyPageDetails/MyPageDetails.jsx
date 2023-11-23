@@ -13,7 +13,6 @@ import { HiOutlineMail } from "react-icons/hi";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import MypageDetailSideBar from '../../../components/MypageDetailSideBar/MypageDetailSideBar';
 
-
 function MyPageDetails(props) {
     const navegate = useNavigate();
     const queyrClient = useQueryClient();
@@ -21,6 +20,11 @@ function MyPageDetails(props) {
     const principal = principalState.data.data;   
     const [ uploadFiles, setUploadFiles ] = useState([]);
     const [ modifyMypageDetail, setModifyMypageDetail ] = useState(principal);
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
+    }
 
     const handleInputChange = (e) => {
         setModifyMypageDetail({
@@ -36,7 +40,6 @@ function MyPageDetails(props) {
             promise = new Promise((resolve, reject) => {
                 const storageRef = ref(storage, `files/profile/${uploadFiles[0].name}`);
                 const uploadTask = uploadBytesResumable(storageRef, uploadFiles[0]);
-    
                 uploadTask.on(
                     "state_changed",
                     (snapshot) => {
@@ -82,16 +85,16 @@ function MyPageDetails(props) {
 
     const handleIsWithdrawn = async () => {
         const userId = principal?.userId;
+        console.log(principal.userId);
         if(window.confirm("정말 탈퇴하시겠습니까?")) {
             if(window.confirm("진짜로 떠나시겠습니까?")) {
                 try{
-                    const option = {
-                        headers: {
-                            Authorization: localStorage.removeItem("accessToken")
-                        }
+                    const response = await instance.delete(`/api/account/${userId}`, option);
+                    if(response) {
+                        localStorage.removeItem("accessToken");
+                        queyrClient.refetchQueries("getPrincipal");
+                        navegate("/");
                     }
-                    await instance.delete(`/api/account/${userId}`, option);
-                    navegate("/");
                 }catch(error) {
                     console.error(error);
                 }
