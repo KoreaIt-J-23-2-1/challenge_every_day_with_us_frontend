@@ -144,20 +144,17 @@ function Challengedefault() {
     return (
         <div css={S.Layout}>
 
-
-            
             <div css={S.contentBox}>
 
                 <div css={S.textBox}>
-                    <b>Text</b>
+                    <b>Write Text</b>
                     <textarea ref={textareaRef}
-                        id="challengeText" rows="32" cols="200" maxLength={1000} />
+                        id="challengeText" rows="32" cols="70" maxLength={1000} />
                 </div>
 
                 <div>
                     <b>Choice Img</b>
                     <div css={S.imgBox} onClick={handleInputImg}>
-                        {/* <img src={selectedImage}  alt="Selected" /> */}
                         {selectedImage && (
                             <img src={selectedImage} alt="Selected" />
                         )}
