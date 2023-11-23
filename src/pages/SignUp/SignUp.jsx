@@ -20,6 +20,8 @@ function SignUp(props) {
 
     const [ signupUser, setSignupUser ] = useState(user);
 
+    console.log(signupUser.profileUrl);
+
     const handleSignupSubmit = async () => {
         try {
             const response = await instance.post("/api/auth/sign-up", signupUser);

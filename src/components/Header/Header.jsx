@@ -95,12 +95,11 @@ function Header() {
 
                     {/* 오른쪽버튼 */}
                     <div css={S.RightIconBox}> 
+                    {(!getLettersCount.isLoading && principal ) && (
+                            <>
                         <div css={S.BtnBackground} onClick={GoStorePage} ><BsFillGiftFill css={S.Icon} /></div>
                         
                         <div css={S.BtnBackground} onClick={handleStampOpen}><BsCalendarCheck css={S.Icon} /></div>
-                        
-                        {(!getLettersCount.isLoading && principal ) && (
-                            <>
                                 <div css={S.BtnBackground} onClick={handleLetterOpen}  >
                                     {getUnreadLettersCount.data !== 0 ? <BsBellFill  css={S.Icon}/> : <BsBell  css={S.Icon}/>}
                                 </div>

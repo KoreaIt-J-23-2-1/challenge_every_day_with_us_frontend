@@ -27,9 +27,10 @@ import User from './components/MyPage/User';
 import StampPage from './pages/StampPage/StampPage';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import RealMain from './pages/Main/RealMain';
+import AuthRoute from './components/Routes/AuthRoute';
+
 
 function App() {
-  const navigate = useNavigate();
   const getPrincipal = useQuery(["getPrincipal"], async () => {
     try{
       const option = {
@@ -38,7 +39,6 @@ function App() {
         }
       }
       return await instance.get("/api/auth/principal", option);
-
     }catch(error) {
       // throw new Error(error);
     }
@@ -61,32 +61,27 @@ function App() {
         <Route path='/maain' element={<RealMain/>}/>
         <Route path='/main' element={<Main />} />
         <Route path='/' element={<LogoPage/>}/>
-        
-        <Route path='/account/*' element={ <AccountRoute /> } />
+        <Route path='/account/*' element={ <AuthRoute element={ <AccountRoute /> } /> } />
         <Route path='/auth/signup' element={ <SignUp/> } />
         <Route path='/auth/signin' element={<SignIn />} />
         <Route path='/auth/oauth2/login' element={<SigninOauth2 />} />
-        
-        <Route path='/store/items' element={<Store/>} />
-        <Route path='/store/:userId/orders' element={<MyPageOrder/>} />
-        <Route path='/user' element={<User/>} />
-
         <Route path='/notice/page/:page' element={<NoticeList/>} />
-        <Route path='/notice/write' element={<NoticeWrite />} />
         <Route path="/notice/:noticeId" element={<NoticeDetails />} />
-        <Route path="/notice/:noticeId/edit" element={<NoticeEdit />} />
-        
-
-        <Route path='/challenge/create/:categoryName' element={<ChallengeCreate/>} />
-        <Route path='/challenge/category' element={<CategoryPage/>} />
-        <Route path='/challenge/:challengeId' element={<ChallengeDetails/>} />
-
         <Route path='/challenges' element={<ChallengeList/>} />
-        <Route path='/challenge/certification/:challengeId' element={<Certification/>} />
 
-        <Route path='/challenge/feed' element={<Feed/>} />
-        <Route path='/stamp' element={<StampPage/>} />
+        <Route path='/store/items' element={<AuthRoute element={<Store/>} /> } />
+        <Route path='/store/:userId/orders' element={<AuthRoute element={<MyPageOrder/>} /> } />
+        <Route path='/user' element={<AuthRoute element={<User/>} /> } />
+        <Route path='/notice/write' element={<AuthRoute element={<NoticeWrite />} /> } />
+        <Route path="/notice/:noticeId/edit" element={<AuthRoute element={<NoticeEdit />} /> } />
+        <Route path='/challenge/create/:categoryName' element={<AuthRoute element={<ChallengeCreate/>} /> } />
+        <Route path='/challenge/category' element={<AuthRoute element={<CategoryPage/>} /> } />
+        <Route path='/challenge/:challengeId' element={<AuthRoute element={<ChallengeDetails/>} /> } />
+        <Route path='/challenge/certification/:challengeId' element={<AuthRoute element={<Certification/>} /> } />
+        <Route path='/challenge/feed' element={<AuthRoute element={<Feed/>} /> } />
+        <Route path='/stamp' element={<AuthRoute element={<StampPage/>} /> } />
       </Routes>
+      
     </>
   );
 }

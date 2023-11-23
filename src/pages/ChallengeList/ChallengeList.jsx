@@ -9,7 +9,9 @@ import * as S from './ChallengeListStyle';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 
 function ChallengeList(props) {
-
+    const queyrClient = useQueryClient();
+    const principalState = queyrClient.getQueryState("getPrincipal");
+    const principal = principalState?.data?.data; 
     const navigate = useNavigate();
     const [ page, setPage ] = useState(1);
     const lastChallengeRef = useRef();
@@ -65,7 +67,6 @@ function ChallengeList(props) {
         }
 
         const observer = new IntersectionObserver(observerService, {threshold: 0.5});
-        // observer.observe(topChallengeRef.current);
         observer.observe(lastChallengeRef.current);
     }, []);
 
@@ -87,7 +88,16 @@ function ChallengeList(props) {
         navigate("/challenges");
         getChallengeList.refetch();
     }
-    
+
+    const handleChallengeClick = (challengeId) => {
+        if (!principal) {
+            if(window.confirm("로그인 후 열람 가능합니다. 로그인 하시겠습니까?")){
+                navigate("/auth/signin");
+            }
+        } else {
+            navigate(`/challenge/${challengeId}`);
+        }
+    };
 
     return (
         <BaseLayout>
@@ -112,7 +122,7 @@ function ChallengeList(props) {
                     <div css={S.SChallengeListBody}>
                         {/* <li ref={topChallengeRef}></li> */}
                         {challengeList?.map((challenge) => {
-                            return (<li key={challenge.challengeId} onClick={() => {navigate(`/challenge/${challenge.challengeId}`)}}>
+                            return (<li key={challenge.challengeId} onClick={() => handleChallengeClick(challenge.challengeId)}>
                                         <div>{challenge.challengeId}</div>
                                         <div>{challenge.challengeName}</div>
                                         <div>{challenge.categoryName}</div>
