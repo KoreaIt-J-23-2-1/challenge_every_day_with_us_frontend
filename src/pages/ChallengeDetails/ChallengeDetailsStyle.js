@@ -16,6 +16,27 @@ export const HeaderLayout = css`
 
 `;
 
+export const ChallTitle = css`
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &>a{
+        opacity: 0;
+        width: 40px;
+        height: 40px;
+    }
+    &:hover{
+        &>a{
+            opacity: 1;
+        }
+    }
+`;
+
 export const Box = css`
     display: flex;
     align-items: center;
@@ -43,39 +64,6 @@ export const Writer = css`
     }
 `;
 
-export const BodyLayout = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 730px;
-    gap: 30px;
-`;
-
-
-export const BodyRightBox = css`
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-`;
-
-export const ParticipationButton = css`
-    width: 100%;
-    height: 40px;
-    background-color: transparent;
-    border: 1px solid #dbdbdb;
-    border-radius: 10px;
-    cursor: pointer;
-    &:active {
-        background-color: #eee;
-    }
-`;
-
-export const textBox = css`
-    height: 100px;
-    border: 2px solid #dbdbdb;
-`;
-
 export const SLikeButton = css`
     position: sticky;
     border: none;
@@ -97,34 +85,13 @@ export const FeedLikeBtn = css`
 `;
 
 
-export const ListBox = css`
+export const BodyLayout = css`
     display: flex;
-    flex-direction: column;
-    overflow: auto;
-    border: 1px solid #dbdbdb;
-    border-radius: 5px;
-    
-    & scrollable-container {
-        height: 100%;
-    }
-`;
-
-export const ListContainer = css`
-    display: flex;
+    justify-content: center;
     align-items: center;
-`;
-
-export const DeleteChallengerButton = css`
-    width: 50px;
-    height: 20px;
-    background-color: transparent;
-    border: 1px solid #dbdbdb;
-    border-radius: 10px;
-    cursor: pointer;
-
-    &:active {
-        background-color: #eee;
-    }
+    width: 100%;
+    height: 730px;
+    gap: 30px;
 `;
 
 // 왼쪽 피드 
@@ -132,7 +99,7 @@ export const FeedContainer = css`
     display: flex;
     flex-direction: column;
     padding: 20px;
-    width: 700px;
+    width: 750px;
     height: 95%;
     border-radius: 10px;
     overflow: hidden;
@@ -250,4 +217,112 @@ export const CommentHeader = css`
 
 export const CommentBox = css`
     
+`;
+
+
+// 오른쪽 
+export const BodyRightBox = css`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 320px;
+    &>p{
+        font-size: 13px;
+        margin-top:10px;
+        margin-bottom: 0px;
+    }
+    &>b{
+        font-size: 14px;
+        margin-top: 15px;
+        margin-bottom: 5px;
+    }
+    &>div{
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+`;
+
+export const ParticipationButton = css`
+    margin: 10px 0px;
+    width: 100%;
+    height: 40px;
+    border: none;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    &:active {
+        background-color: #eee;
+    }
+`;
+
+export const ChallInfoBox = css`
+    height: 170px;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+`;
+
+export const Pointfont = css`
+    font-style: italic;
+    font-size: 15px;
+    background-color: #ededed80;
+`;
+
+export const ListBox = css`
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    height: 250px;
+
+
+    & scrollable-container {
+        height: 100%;
+    }
+`;
+
+export const ListContainer = css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 4px 0px;
+
+    &>a{
+        font-weight: 400;
+    }
+    
+`;
+
+
+export const DeleteChallengerButton = css`
+    width: 50px;
+    height: 22px;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+
+    &:hover{
+        background-color: #eee;
+        font-weight: 600;
+    }
+
+    &:active {
+        background-color: #e1e1e1;
+    }
+`;
+
+
+
+export const ProgressBar = css`
+    height: 90px;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;

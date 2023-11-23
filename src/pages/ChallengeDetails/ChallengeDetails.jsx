@@ -7,6 +7,9 @@ import * as S from './ChallengeDetailsStyle';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { FcLike } from "react-icons/fc";
 import { IoIosHeartEmpty } from "react-icons/io";
+import { SiApachespark } from "react-icons/si";
+import { FaStar } from "react-icons/fa";
+
 
 function ChallengeDetails(props) {
     const navigate = useNavigate();
@@ -272,6 +275,10 @@ function ChallengeDetails(props) {
         getChallengers.refetch();
     };
 
+    const handleGoUp = () => {
+        window.location.reload();
+    }
+
     return (
         <BaseLayout>
             <div css={S.Layout}>
@@ -279,12 +286,16 @@ function ChallengeDetails(props) {
                     <div>
                         <div>[{challenge.categoryName}]</div>
                         {dateDifference !== null && (
-                            <div>{dateDifference+1}일 중 {todayDifference}일차</div>
+                            <div>{dateDifference+1}일 중 <b css={S.Pointfont}>{todayDifference}일차 <SiApachespark /></b></div>
                         )}
                     </div>
 
                     {queryClient.data}
-                    <div>{challenge.challengeName}</div>
+                    <div css={S.ChallTitle} onClick={handleGoUp}>
+                        <a><FaStar /></a>
+                        {challenge.challengeName}
+                        <a><FaStar /></a>
+                    </div>
 
                     <div>
                         <div css={S.Box}>
@@ -301,6 +312,7 @@ function ChallengeDetails(props) {
                         </div>
                     </div>
                 </div>
+
                 <div css={S.BodyLayout}>
                     {/* 왼쪽  */}
                     <div css={S.FeedContainer}>
@@ -334,14 +346,13 @@ function ChallengeDetails(props) {
                                 </div>
 
 
-
-                                <div >
+                                <div>
                                     <div css={S.CommentHeader}>
                                         <b>댓글</b>
                                         <b>
                                             좋아요 {feed.likeCount} 개
                                             <button css={S.FeedLikeBtn} disabled={!principal?.data?.data} onClick={handleFeedLikebuttonClick}>
-                                                <div>{isLike ? <FcLike/> : <IoIosHeartEmpty/>}</div>
+                                                <div>{isFeedLike ? <FcLike/> : <IoIosHeartEmpty/>}</div>
                                             </button>                                        
                                         </b>
                                     </div>
@@ -360,17 +371,29 @@ function ChallengeDetails(props) {
                     {/* 오른쪽 */}
                     <div css={S.BodyRightBox}>
                         <p>기간: {challenge.startDate} ~ {!challenge.endDate ? "마감 없음": challenge.endDate}</p>
-                        <div css={S.textBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
-                        <b>참여인원</b>
+                        
                         <button css={S.ParticipationButton} onClick={handleParticipationButton} disabled={button}>
                             {isJoined}
                         </button>
+                        <div css={S.ChallInfoBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
+
+                        <b> <a css={S.Pointfont}> {challenge.challengeName} </a> 진행율 (?%)</b>
+                        <div css={S.ProgressBar}>
+                            
+                        </div>                        
+
+                        <b>참여인원</b>
                         <div css={S.ListBox}>
-                            <b>참여인원</b>
                             {Object.values(challengers).map((item, index) => (
                                 <div key={index} css={S.ListContainer}>
-                                    <p>{item.nickname}</p>
-                                    {(item.userId !== challenge.userId && isOwner(principal.data.data.userId, challenge.userId))  && <button css={S.DeleteChallengerButton} onClick={() => handleDeleteChallenger(item.userId)}>삭제</button>}
+                                    <a>{item.nickname}</a>
+
+                                    {(item.userId !== challenge.userId &&
+                                        isOwner(principal.data.data.userId, challenge.userId)) &&
+                                        <button css={S.DeleteChallengerButton}
+                                            onClick={() => handleDeleteChallenger(item.userId)}>
+                                            삭제</button>}
+                                    
                                 </div>
                             ))}
                         </div>
