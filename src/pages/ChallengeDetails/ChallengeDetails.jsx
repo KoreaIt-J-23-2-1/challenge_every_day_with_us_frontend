@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { instance } from '../../api/config/instance';
 import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 /** @jsxImportSource @emotion/react */
-import * as S from './Style';
+import * as S from './ChallengeDetailsStyle';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { FcLike } from "react-icons/fc";
 import { IoIosHeartEmpty } from "react-icons/io";
@@ -14,7 +14,9 @@ function ChallengeDetails(props) {
     const queryClient = useQueryClient();
     const principal = queryClient.getQueryState("getPrincipal");
     const [ isLike, setIsLike ] = useState(false);
+    const [ isFeedLike, setIsFeedLike ] = useState(false);
     const { challengeId } = useParams();
+    const { feedId } = useParams();
     const [ challenge, setChallenge ] = useState({});
     const [ challengers, setChallengers ] = useState({});
     const [ dateDifference, setDateDifference ] = useState(null);
@@ -70,6 +72,7 @@ function ChallengeDetails(props) {
         }
     })
 
+
     const getChallengers = useQuery(["getChallengers"], async () => {
         try {
             const challengersResponse = await instance.get(`/api/challengers/${challengeId}`, option);
@@ -99,6 +102,8 @@ function ChallengeDetails(props) {
         retry: 0
     })
 
+
+
     const getUserLikeState = useQuery(["getUserLikeState"], async () => {
         try {
             return await instance.get(`/api/challenge/${challengeId}/${userId}`, option);
@@ -124,6 +129,8 @@ function ChallengeDetails(props) {
             setPage(page + 1);
         }
     });
+
+    console.log(feedList);
 
     useEffect(() => {
         const observerService = (entries, observer) => {
@@ -172,6 +179,40 @@ function ChallengeDetails(props) {
             console.error(error);
         }
     }
+
+    const getFeedLikeState = useQuery(["getFeedLikeState"], async (feed) => {
+        try {
+            return await instance.get(`/api/feed/${feed.feedId}/like`, option);
+        }catch(error) {
+            console.erroe(error);
+        }
+    }, {
+        refetchOnWindowFocus: false,
+        retry: 0
+    })    
+
+    const handleFeedLikebuttonClick = async (feed) => {
+        const result = {
+            userId: userId
+        }
+        try {
+
+            if (isFeedLike) {
+                await instance.delete(`/api/feed/${feed.feedId}/like`, {
+                    ...option,
+                    data: result
+                });
+            } else {
+                await instance.post(`/api/feed/${feed.feedId}/like`, result, option);
+            }
+            getFeedLikeState.refetch();
+            setIsFeedLike(!isFeedLike);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    //
+
 
     const handleDeleteClick = async () => {
         if(principal.data.data.name === challenge.name){
@@ -297,10 +338,15 @@ function ChallengeDetails(props) {
 
 
 
-                                <div css={S.SFeedBottomLayout}>
-                                    <div css={S.SFeedBottomHeader}>
+                                <div >
+                                    <div css={S.CommentHeader}>
                                         <b>댓글</b>
-                                        <b>좋아요 (좋아요 수)</b>
+                                        <b>
+                                            좋아요 {feed.likeCount} 개
+                                            <button css={S.FeedLikeBtn} disabled={!principal?.data?.data} onClick={handleFeedLikebuttonClick}>
+                                                <div>{isLike ? <FcLike/> : <IoIosHeartEmpty/>}</div>
+                                            </button>                                        
+                                        </b>
                                     </div>
                                     <div css={S.CommentBox}>
                                         <div>{principal.data.data.nickname}댓글</div>
