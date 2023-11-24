@@ -20,8 +20,8 @@ function Challengedefault() {
     const [ page, setPage ] = useState(1);
     const [isChallengeFeedRefetch, setIsChallengeFeedRefetch] = useState(false);
     const inputRef = useRef(null);
+    const [ challengeUserId, setChallengeUserId ] = useState(null);
     
-
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
@@ -40,9 +40,10 @@ function Challengedefault() {
         refetchOnWindowFocus: false,
         onSuccess: response => {
             setChallenge(response.data);
+            setChallengeUserId(response.data.userId);
         }
     });
-    
+
     const getFeedList = useQuery(["getFeedList"], async () => {
         return await instance.get(`/api/challenge/certification/feed/${page}/${challengeId}`, option);
     }, {
@@ -131,6 +132,9 @@ function Challengedefault() {
             });
             if (response) {
                 alert("피드 등록 성공");
+
+                instance.post(`/api/challenge/feed/${challengeUserId}/point`, option)
+                
                 setIsChallengeFeedRefetch(true);
                 navigate(-1);
             } else {

@@ -2,7 +2,57 @@ import { css } from '@emotion/react';
 
 export const Layout = css`
     display: flex;
-    justify-content: space-between;
+    align-items: flex-end;
+    height: 100px;
+    padding-bottom: 10px;
+    border-bottom: 4px solid #999;
+`;
+
+export const Box = css`
+    display: flex;
+    align-items: center;
+`;
+
+export const DeleteButton = css`
+    width: 50px;
+    height: 30px;
+    border: 1px solid #eee;
+    background-color: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    
+    &:active {
+        background-color: #eee;
+    }
+    & h2 {
+        color: #333;
+        font-weight: 700;
+        font-size: 25px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+`;
+
+export const Writer = css`
+    font-size: 14px;
+
+    & b {
+        margin-left: 5px;
+        font-size: 20px;
+    }
+`;
+
+export const BodyLayout = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 730px;
+    gap: 30px;
+`;
+
+
+export const BodyRightBox = css`
+
 `;
 
 export const LeftBox = css`
@@ -45,6 +95,71 @@ export const ListBox = css`
     }
 `;
 
+export const ListContainer = css`
+    display: flex;
+    align-items: center;
+`;
+
+export const DeleteChallengerButton = css`
+    width: 50px;
+    height: 20px;
+    background-color: transparent;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:active {
+        background-color: #eee;
+    }
+    & h2 {
+        color: #333;
+        font-weight: 700;
+        font-size: 25px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+`;
+
+// 왼쪽 피드 
+export const FeedContainer = css`
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-left: 10px;
+    border-left: 1px solid #dbdbdb;
+`;
+
+export const TitleBox = css`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 50px;
+
+    & h2 {
+        margin: 0px 0px 10px 0px;
+        font-weight: 700;
+        font-size: 25px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    & b {
+        font-size: 12px;
+    }
+`;
+
+// export const ProgressBox = css`
+//     margin: 0px 0px 0px 150px;
+// `;
+
+// export const FeedListBox = css`
+//     display: flex;
+//     flex-direction: column;
+//     margin-top: 30px;
+//     margin-left: 22px;
+//     padding: 20px;
+//     width: 700px;
+//     height: 95%;
+// `;
+
 export const EndListLayout = css`
     margin: 0px 0px 20px 25px;
     padding: 30px 0px 0px 75px;
@@ -70,20 +185,20 @@ export const RightBox = css`
     border-left: 1px solid #dbdbdb;
 `;
 
-export const TitleBox = css`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-top: 50px;
+// export const TitleBox = css`
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-end;
+//     margin-top: 50px;
 
-    & h2 {
-        margin: 0px 0px 10px 0px;
-    }
+//     & h2 {
+//         margin: 0px 0px 10px 0px;
+//     }
 
-    & b {
-        font-size: 12px;
-    }
-`;
+//     & b {
+//         font-size: 12px;
+//     }
+// `;
 
 export const ProgressBox = css`
     margin: 0px 0px 0px 150px;
@@ -103,6 +218,7 @@ export const FeedListBox = css`
     background: rgba(255, 255, 255, 0.4); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
 
     ::-webkit-scrollbar {
     width: 2px;
