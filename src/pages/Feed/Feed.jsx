@@ -8,7 +8,7 @@ import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import FeedEditModal from '../../components/FeedEditModal/FeedEditModal';
 import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
-import LatestFeedComment from '../../components/LatestFeedComment/LatestFeedComment';
+import FeedCommentSee from '../../components/FeedCommentSee/FeedCommentSee';
 import { FcLike } from "react-icons/fc";
 import { IoIosHeartEmpty } from "react-icons/io";
 
@@ -261,7 +261,6 @@ function Feed(props) {
                                 </div>                                
 
                                 <div css={S.SFeedBottomLayout}>
-
                                     <div css={S.SFeedBottomHeader}>
                                         
                                         {commentShowMode[feed.feedId] ? 
@@ -278,14 +277,12 @@ function Feed(props) {
                                                     }
                                                 </div>
                                             }
-                                    
                                         </b>
                                     </div>
 
                                     {principal && 
                                         <div css={S.SFeedBottomBody}>
                                             <div css={S.WriteCommentBox}>
-                                                {/* <img src={principal.profileUrl}/> */}
                                                 <b>{principal.nickname}</b>
                                                 <input css={S.CommentInputBox} type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput}/>
                                                 <button css={S.Btn} onClick={() => {handleCommentSubmit(feed.feedId)}}>댓글달기</button>
@@ -297,11 +294,11 @@ function Feed(props) {
                                         {
                                             commentShowMode[feed.feedId] ? 
                                             <FeedCommentList feed={feed} comments={comments}/>
-                                            : <LatestFeedComment feed={feed} latestComments={latestComments}/>
+                                            : <FeedCommentSee feed={feed} latestComments={latestComments}/>
                                         }
                                     </div>
                                     
-                                </div>
+                                </div> 
                             </div>
                         </div>
                     ))}

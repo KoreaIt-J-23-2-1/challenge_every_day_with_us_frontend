@@ -11,7 +11,7 @@ import { SiApachespark } from "react-icons/si";
 import { FaStar } from "react-icons/fa";
 import ProgressBar from '@ramonak/react-progress-bar';
 import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
-import LatestFeedComment from '../../components/LatestFeedComment/LatestFeedComment';
+import FeedCommentSee from '../../components/FeedCommentSee/FeedCommentSee';
 import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 
 function ChallengeDetails(props) {
@@ -82,6 +82,8 @@ function ChallengeDetails(props) {
             setChallenge(response.data);
         }
     })
+
+    console.log(challenge);
 
 
     const getChallengers = useQuery(["getChallengers"], async () => {
@@ -373,6 +375,7 @@ function ChallengeDetails(props) {
     return (
         <BaseLayout>
             <div css={S.Layout}>
+                {/* 헤더 */}
                 <div css={S.HeaderLayout}>
                     <div>
                         <div>[{challenge.categoryName}]</div>
@@ -387,7 +390,7 @@ function ChallengeDetails(props) {
 
                     <div>
                         <div css={S.Box}>
-                            <div css={S.Writer}>작성자: <b>{challenge.name}</b> </div>
+                            <div css={S.Writer}>작성자: <b>{challenge.nickname}</b> </div>
                             <div>
                                 {!getFeedLikeState.isLoading &&
                                     <button css={S.SLikeButton} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
@@ -435,38 +438,34 @@ function ChallengeDetails(props) {
 
 
                                 <div css={S.SFeedBottomLayout}>
-                                    <div css={S.CommentHeader}>
-
-                                    </div>
-
                                     <div css={S.SFeedBottomHeader}>
-                                        <div>좋아요 {feed.likeCount}개</div>
                                         
-                                        {principal &&
-                                            <div onClick={() => {handleFeedLikebuttonClick(feed.feedId);}}>
-                                                {
-                                                    <button css={S.FeedLikeBtn} disabled={!principal?.data?.data} onClick={handleFeedLikebuttonClick}>
-                                                        {isLikeList?.[feed.feedId] === 1 ? <div><FcLike/></div> : <div><IoIosHeartEmpty/></div>}
-                                                    </button>
-                                                }
-                                            </div>
-                                        }
                                         {commentShowMode[feed.feedId] ? 
-                                            <button onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: false})}}>댓글 접기</button>
-                                            : <button onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: true})}}>댓글 더보기</button>
+                                            <button css={S.Btn}  onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: false})}}>댓글 접기</button>
+                                            : <button css={S.Btn} onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: true})}}>댓글 더보기</button>
                                         }
+                                        
+                                        <b css={S.FeedLikeBtn}>
+                                            좋아요 {feed.likeCount}개
+                                            {principal &&
+                                                <div onClick={() => {handleLikebuttonClick(feed.feedId);}}>
+                                                    {
+                                                        isLikeList?.[feed.feedId] === 1 ? <FcLike/> : <IoIosHeartEmpty/>
+                                                    }
+                                                </div>
+                                            }
+                                    
+                                        </b>
                                     </div>
+
 
                                     {principal && 
                                         <div css={S.SFeedBottomBody}>
                                             <div css={S.WriteCommentBox}>
-                                                {/* <img src={principal.profileUrl}/> */}
-                                                <b>{principal.nickname}</b>
                                                 <input css={S.CommentInputBox} type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput}/>
-                                                <button onClick={() => {handleCommentSubmit(feed.feedId)}}>댓글달기</button>
-                                                <div>
-                                                </div>
-                                            </div>
+                                                <button css={S.Btn} onClick={() => {handleCommentSubmit(feed.feedId)}}>댓글달기</button>
+                                            </div>                                            
+
                                         </div>
                                     }
                                     
@@ -474,7 +473,7 @@ function ChallengeDetails(props) {
                                         {
                                             commentShowMode[feed.feedId] ? 
                                             <FeedCommentList feed={feed} comments={comments}/>
-                                            : <LatestFeedComment feed={feed} latestComments={latestComments}/>
+                                            : <FeedCommentSee feed={feed} latestComments={latestComments}/>
                                         }
                                     </div>
                                 </div>
