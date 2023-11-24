@@ -8,16 +8,11 @@ function UserModal({ challenge, closeModal, initialProgress, startDate, endDate 
     const modalRef = useRef();
     const [ challengeStartDate, setChallengeStartDate ] = useState(null);
     const [ challengeEndDate, setChallengeEndDate ] = useState(null);
-    const [ progress, setProgress ] = useState(initialProgress);
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
         }
     }
-
-    useEffect(() => {
-        setProgress(initialProgress);
-    }, [initialProgress]);
 
     useEffect(() => {
         setChallengeStartDate(startDate);
@@ -42,7 +37,7 @@ function UserModal({ challenge, closeModal, initialProgress, startDate, endDate 
             <div css={S.ProgressBox}>
                 <h2>수행률</h2>
                 <div>
-                    <CircularProgressBar colorCircle="#eee" colorSlice="pink" fontSize="10px" percent={parseFloat(progress)} />
+                    <CircularProgressBar colorCircle="#eee" colorSlice="pink" fontSize="10px" percent={parseFloat(initialProgress)} />
                     <div>
                     </div>
                 </div>
@@ -52,7 +47,7 @@ function UserModal({ challenge, closeModal, initialProgress, startDate, endDate 
 }
 
 UserModal.propTypes = {
-    challenge: PropTypes.object.isRequired,
+    challenge: PropTypes.number.isRequired,
     closeModal: PropTypes.func.isRequired,
     initialProgress: PropTypes.number.isRequired,
     startDate: PropTypes.instanceOf(Date).isRequired,
