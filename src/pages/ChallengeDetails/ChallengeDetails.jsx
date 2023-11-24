@@ -10,6 +10,9 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { SiApachespark } from "react-icons/si";
 import { FaStar } from "react-icons/fa";
 import ProgressBar from '@ramonak/react-progress-bar';
+import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
+import LatestFeedComment from '../../components/LatestFeedComment/LatestFeedComment';
+import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 
 function ChallengeDetails(props) {
     const navigate = useNavigate();
@@ -18,6 +21,11 @@ function ChallengeDetails(props) {
     const [ isLike, setIsLike ] = useState(false);
     const [ isFeedLike, setIsFeedLike ] = useState(false);
     const { challengeId } = useParams();
+    const [ commentShowMode, setCommentShowMode ] = useState({});
+    const [ comments, setComments ] = useState({});
+    const [ latestComments, setLatestComments ] = useState({});
+    const [ commentInputList, setCommentInputList ] = useState();
+    const [ isLikeList, setIsLikeList ] = useState({});
     const { feedId } = useParams();
     const [ challenge, setChallenge ] = useState({});
     const [ challengers, setChallengers ] = useState({});
@@ -121,6 +129,40 @@ function ChallengeDetails(props) {
     //     }
     // })
 
+    useEffect(() => {
+        feedList.forEach(feed => {
+            getLatestComment(feed);
+            getComments(feed);
+            getLikeStates(feed);
+        })
+    }, [feedList]);
+
+    const getLatestComment = (feed) => {
+        instance.get(`/api/feed/${feed.feedId}/comment/latest`, option)
+        .then((response) => {
+            setLatestComments((latestComments) => ({
+                ...latestComments,
+                [feed.feedId]: response.data
+            }));
+        })
+    };
+
+    const getComments = async (feed) => {
+        const response = await instance.get(`/api/feed/${feed.feedId}/comments`, option);
+        setComments((comment) => ({
+            ...comment,
+            [feed.feedId]: response.data
+        }));
+    };
+
+    const getLikeStates = async (feed) => {
+        const response = await instance.get(`/api/feed/${feed.feedId}/like`, option);
+        setIsLikeList((isLikeList) => ({
+            ...isLikeList,
+            [feed.feedId]: response.data
+        }));
+    };
+
     const getFeedList = useQuery(["getFeedList"], async () => {
         return await instance.get(`/api/challenge/certification/feed/${page}/${challengeId}`, option);
     }, {
@@ -164,6 +206,7 @@ function ChallengeDetails(props) {
         const result = {
             userId: userId
         }
+
         try {
             if (isLike) {
                 await instance.delete(`/api/challenge/${challengeId}/like`, {
@@ -209,26 +252,38 @@ function ChallengeDetails(props) {
         }
     })
 
-    const handleFeedLikebuttonClick = async (feed) => {
-        const result = {
-            userId: userId
-        }
+    const handleFeedLikebuttonClick = async (feedId) => {
+        const userId = principal.userId;
         try {
+            const isLike = isLikeList[feedId];
+            let newState = null;
 
-            if (isFeedLike) {
-                await instance.delete(`/api/feed/${feed.feedId}/like`, {
-                    ...option,
-                    data: result
-                });
+            if (isLike === 1) {
+                await instance.delete(`/api/feed/${feedId}/like`, option);
+                newState = 0;
             } else {
-                await instance.post(`/api/feed/${feed.feedId}/like`, result, option);
+                await instance.post(`/api/feed/${feedId}/like`, {}, option);
+                newState = 1;
             }
-            getFeedLikeState.refetch();
-            setIsFeedLike(!isFeedLike);
+            setFeedList(prevFeedList => {
+                return prevFeedList.map(feed => {
+                    if (feed.feedId === feedId) {
+                        return {
+                            ...feed,
+                            likeCount: newState === 1 ? feed.likeCount + 1 : feed.likeCount - 1,
+                        };
+                    }
+                    return feed;
+                });
+            });
+            setIsLikeList((prevIsLikeList) => ({
+                ...prevIsLikeList,
+                [feedId]: newState
+            }));
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const handleDeleteClick = async () => {
         if(principal.data.data.name === challenge.name){
@@ -297,6 +352,24 @@ function ChallengeDetails(props) {
 
     const progress = ((feedProgress / (dateDifference + 1)) * 100).toFixed(0);
 
+    const handleCommentInput = (e) => {
+        setCommentInputList({
+            ...commentInputList,
+            [e.target.name]: e.target.value
+        })
+    };
+
+    const handleCommentSubmit = async (feedId) => {
+        try {
+            await instance.post(`/api/feed/${feedId}/comment`, {commentContent: commentInputList[`commentInput${feedId}`]}, option);
+            alert("댓글 등록 성공! -> " + feedId + "피드");
+            getFeedList.refetch();
+            
+        }catch(error) {
+            console.error(error);
+        }
+    };
+
     return (
         <BaseLayout>
             <div css={S.Layout}>
@@ -361,18 +434,48 @@ function ChallengeDetails(props) {
                                 </div>
 
 
-                                <div>
-                                    <div css={S.CommentHeader}>
-                                        <b>댓글</b>
-                                        <b>
-                                            좋아요 {feed.likeCount} 개
+                                <div css={S.SFeedBottomLayout}>
+                                    {/* <div css={S.CommentHeader}>
                                             <button css={S.FeedLikeBtn} disabled={!principal?.data?.data} onClick={handleFeedLikebuttonClick}>
                                                 <div>{isFeedLike ? <FcLike/> : <IoIosHeartEmpty/>}</div>
-                                            </button>                                        
-                                        </b>
+                                            </button>
+                                    </div> */}
+
+                                    <div css={S.SFeedBottomHeader}>
+                                        <div>좋아요 {feed.likeCount}개</div>
+                                        
+                                        {principal &&
+                                            <div onClick={() => {handleFeedLikebuttonClick(feed.feedId);}}>
+                                                {
+                                                    isLikeList?.[feed.feedId] === 1 ? <AiTwotoneLike/> : <AiOutlineLike/>
+                                                }
+                                            </div>
+                                        }
+                                        {commentShowMode[feed.feedId] ? 
+                                            <button onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: false})}}>댓글 접기</button>
+                                            : <button onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: true})}}>댓글 더보기</button>
+                                        }
                                     </div>
+
+                                    {principal && 
+                                        <div css={S.SFeedBottomBody}>
+                                            <div css={S.WriteCommentBox}>
+                                                {/* <img src={principal.profileUrl}/> */}
+                                                <b>{principal.nickname}</b>
+                                                <input css={S.CommentInputBox} type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput}/>
+                                                <button onClick={() => {handleCommentSubmit(feed.feedId)}}>댓글달기</button>
+                                                <div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    
                                     <div css={S.CommentBox}>
-                                        <div>{principal.data.data.nickname}댓글</div>
+                                        {
+                                            commentShowMode[feed.feedId] ? 
+                                            <FeedCommentList feed={feed} comments={comments}/>
+                                            : <LatestFeedComment feed={feed} latestComments={latestComments}/>
+                                        }
                                     </div>
                                 </div>
 
