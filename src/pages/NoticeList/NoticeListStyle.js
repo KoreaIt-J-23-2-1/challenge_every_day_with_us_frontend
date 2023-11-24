@@ -6,13 +6,14 @@ export const Header = css`
     align-items: center;
     height: 50px;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 20px;
     border-bottom: 2px solid #dbdbdb;
     
     & b {
         width: 100%;
     }
 `;
+
 
 export const btnBox = css`
     display: flex;
@@ -40,16 +41,29 @@ export const btnBox = css`
 
 export const TableBox = css`
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     margin-top: 20px;
     background: rgba(255, 255, 255, 0.4); 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
+    height:660px;
+    width: 100%;
 `;
 
 export const TitleBox = css`
     height: 50px;
+    width: 100%;
+
+    &>th:nth-child(1){
+        width: 10%;
+    }
+    &>th:nth-child(3){
+        width: 20%;
+    }
+    &>th:nth-child(4){
+        width: 20%;
+    }
 `;
 
 export const listTable = css`
@@ -66,8 +80,7 @@ export const listTable = css`
 `;
 
 export const noticeTitle = css`
-    max-width: 500px;
-    width: 500px;
+    width: 50%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

@@ -92,7 +92,7 @@ function NoticeList(props) {
                         <thead>
                             <tr css={S.TitleBox}>
                                 <th>번호</th>
-                                <th>제목</th>
+                                <th css={S.noticeTitle}>제목</th>
                                 <th>작성자</th>
                                 <th>작성일</th>
                             </tr>
