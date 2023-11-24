@@ -18,6 +18,7 @@ function User() {
     const [ challengeEndDate, setChallengeEndDate ] = useState(null);
     const [ myFeedList, setMyFeedList ] = useState([]);
     const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ title, setTitle ] = useState("");
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
@@ -52,18 +53,14 @@ function User() {
         }
     });
 
-    console.log(myEndChallenge)
-
-    const openModal = () => {
-        console.log("열림?")
-        setIsModalOpen(true);
-    };
-    
-    const closeModal = () => {
-        setIsModalOpen(false);
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     };
 
-    const handleChallengeClick = async (challengeId, startDateTime, endDateTime) => {
+    const handleChallengeClick = async (challengeId, startDateTime, endDateTime, isHidden, isDeadline) => {
         try {
             const response = await instance.get(`/api/account/${challengeId}`, option);
             const progressValue = response.data;
@@ -77,8 +74,8 @@ function User() {
             const my = daysElapsed - progressValue;
             const progress = ((100 / (totalDays+1)) * ((totalDays+1) - my))
 
-            setChallengeStartDate(startDate);
-            setChallengeEndDate(endDate);
+            setChallengeStartDate(formatDate(startDate));
+            setChallengeEndDate(formatDate(endDate));
             setSelectedChallenge(challengeId);
             setMyFeedList(myChallengeFeeds);
 
@@ -89,6 +86,13 @@ function User() {
             }else {
                 setChallengeProgress(parseInt(progress));
             }
+
+            if (isHidden || isDeadline) {
+                setTitle("종료");
+            } else {
+                setTitle("진행중");
+            }
+    
         } catch (error) {
             console.error(error);
         }
@@ -103,7 +107,7 @@ function User() {
                             <h2>참여중인 챌린지 List</h2>
                             <div css={S.ListBox}>
                                 {myChallenge?.map((myChallenge, index) => (
-                                    <li key={index} onClick={() => handleChallengeClick(myChallenge.challengeId, myChallenge.startDate, myChallenge.endDate)}>
+                                    <li key={index} onClick={() => handleChallengeClick(myChallenge.challengeId, myChallenge.startDate, myChallenge.endDate, myChallenge.isDeadline, myChallenge.isHidden)}>
                                         {myChallenge.challengeName}
                                     </li>
                                 ))}
@@ -113,7 +117,7 @@ function User() {
                             <h2>종료된 챌린지 List</h2>
                             <div css={S.ListBox}>
                                 {myEndChallenge?.map((myChallenge, index) => (
-                                    <li key={index} onClick={() => handleChallengeClick(myChallenge.challengeId, myChallenge.startDate, myChallenge.endDate)}>
+                                    <li key={index} onClick={() => handleChallengeClick(myChallenge.challengeId, myChallenge.startDate, myChallenge.endDate, myChallenge.isDeadline, myChallenge.isHidden)}>
                                         {myChallenge.challengeName}
                                     </li>
                                 ))}
@@ -135,7 +139,10 @@ function User() {
                     </div>
 
                     <div css={S.RightBox}>
-                        
+                        <div css={S.TitleBox}>
+                            <h2>{title}</h2>
+                            <b>{challengeStartDate} ~ {challengeEndDate}</b>
+                        </div>
                         <div css={S.ProgressBox}>
                             {/* <div>진행기간: <p>{challengeStartDate}</p></div> */}
                             <CircularProgressBar colorCircle="#eee" colorSlice="pink" fontSize="10px" percent={parseFloat(challengeProgress)}/>

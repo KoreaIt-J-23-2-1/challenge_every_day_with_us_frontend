@@ -70,8 +70,23 @@ export const RightBox = css`
     border-left: 1px solid #dbdbdb;
 `;
 
+export const TitleBox = css`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 50px;
+
+    & h2 {
+        margin: 0px 0px 10px 0px;
+    }
+
+    & b {
+        font-size: 12px;
+    }
+`;
+
 export const ProgressBox = css`
-    margin: 50px 0px 0px 150px;
+    margin: 0px 0px 0px 150px;
 `;
 
 export const FeedListBox = css`
@@ -81,7 +96,7 @@ export const FeedListBox = css`
     margin-left: 22px;
     padding: 20px;
     width: 500px;
-    height: 530px;
+    height: 480px;
     border-radius: 10px;
     overflow: hidden;
     overflow-y: auto;

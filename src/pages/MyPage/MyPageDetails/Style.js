@@ -40,9 +40,15 @@ export const inputBox = css`
 
     & > input {
         border: none;
+<<<<<<< Updated upstream
         border-radius: 10px;
         margin-left: 10px;
         
+=======
+        border-radius: 15px;
+        padding: 10px;
+        font-size: 15px;
+>>>>>>> Stashed changes
         &:focus {
             outline: none;
         }
