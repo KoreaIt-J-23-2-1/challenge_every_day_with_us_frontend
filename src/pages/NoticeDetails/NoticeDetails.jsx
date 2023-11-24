@@ -6,8 +6,6 @@ import { instance } from '../../api/config/instance';
 import * as S from './NoticeDetailsStyle';
 /** @jsxImportSource @emotion/react */
 
-
-
 function NoticeDetails(props) {
     const navigate = useNavigate();
     const [ notice, setNotice ] = useState({});

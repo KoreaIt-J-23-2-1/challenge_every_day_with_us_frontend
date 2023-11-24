@@ -1,7 +1,5 @@
 import { css } from '@emotion/react';
 
-
-
 export const Header = css`
     display: flex;
     justify-content: space-between;
