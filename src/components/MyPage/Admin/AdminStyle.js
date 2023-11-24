@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { SubModal } from '../AdminModal/Style';
+import { SubModal } from '../../AdminModal/Style';
 
 export const Layout = css`
     display: flex;

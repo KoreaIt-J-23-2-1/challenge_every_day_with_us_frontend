@@ -9,10 +9,12 @@ import * as S from './Style';
 
 function NoticeWrite(props) {
     const navigete = useNavigate();
-    const [noticeContent, setNoticeContent] = useState({
+    const [ noticeContent, setNoticeContent ] = useState({
         title: "",
-        content: ""
-    })
+        content: "",
+        // imageUrl: "",
+    });
+
 
     useEffect(() => {
         const linkTag = window.document.createElement("link");
@@ -26,7 +28,7 @@ function NoticeWrite(props) {
             container: [
                 [{header: [1, 2, 3, false]}],
                 ["bold", "underline"],
-                ["image"]
+                // ["image"]
             ]
         }
     }     
@@ -47,7 +49,6 @@ function NoticeWrite(props) {
         });
     }
 
-
     const handleCancelBtn = () => {
         navigete("/notice/page/1")
     
@@ -60,7 +61,7 @@ function NoticeWrite(props) {
                     Authorization: localStorage.getItem("accessToken")
                 }
             };
-            await instance.post("/api/notice", noticeContent, option);
+            await instance.post("/api/notice", { ...noticeContent, imageUrl: noticeContent.imageUrl }, option);
             alert("공지가 작성되었습니다.");
             window.history.back();
         } catch (error) {

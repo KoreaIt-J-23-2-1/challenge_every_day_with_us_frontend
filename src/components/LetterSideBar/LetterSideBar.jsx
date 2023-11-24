@@ -131,25 +131,25 @@ function LetterSideBar(props) {
                 <label htmlFor="read-letter-radio-button" >읽은 메시지</label>
                 <div css={S.SLetterScroll}>
                     {letterViewType === "unread" ?
-                        letterList?.data?.map((letter) => (
+                        getLetterList?.data?.map((letter) => (
                             letter.isRead === 0 ? 
                             <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                                 <h3>{letter.title}</h3>
                                 <div css={S.lettersHeader}>{letter.sendDateTime}</div>
                                 <div css={S.lettersHeader}>발신자: {letter.senderNickname}</div>
-                                <div css={S.letterContent}>{letter.content}</div>
+                                <div css={S.letterContent} dangerouslySetInnerHTML={{ __html: letter.content }}></div>
                             </div>
                             :
                             <div key={letter.letterId}></div>
-                        ))
-                        :
-                        letterList?.data?.map((letter) => (
-                            letter.isRead === 1 ? 
-                            <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
+                            ))
+                            :
+                            getLetterList?.data?.map((letter) => (
+                                letter.isRead === 1 ? 
+                                <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                                 <h3>{letter.title}</h3>
                                 <div css={S.lettersHeader}>{letter.sendDateTime}</div>
                                 <div css={S.lettersHeader}>발신자: {letter.senderNickname}</div>
-                                <div css={S.letterContent}>{letter.content}</div>
+                                <div css={S.letterContent} dangerouslySetInnerHTML={{ __html: letter.content }}></div>
                             </div>
                             :
                             <></>
@@ -164,7 +164,8 @@ function LetterSideBar(props) {
                         <h3 css={S.modalTitle} onClick={GoTargetLetterUrl}>{selectedLetter.title}</h3>
                         <div><b>Sender: </b>{selectedLetter.senderNickname}</div>
                         <div><b>Date: </b>{selectedLetter.sendDateTime}</div>
-                        <div><b>Content: </b>{selectedLetter.content}</div>
+                        <div><b>Content: </b><div dangerouslySetInnerHTML={{ __html: selectedLetter.content }}></div></div>
+                        
                         {selectedLetter.title === "챌린지 승인 요청" && (
                             selectedLetter.acceptState === 0 ?
                                 <div>

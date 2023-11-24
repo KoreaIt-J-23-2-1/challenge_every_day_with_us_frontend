@@ -2,133 +2,90 @@ import { css } from '@emotion/react';
 
 export const Layout = css`
     display: flex;
-    flex-direction: column;
-    
-`;
-
-export const HeaderLayout = css`
-    display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    height: 100px;
-    padding-bottom: 10px;
-    border-bottom: 4px solid #999;
-
 `;
 
-export const Box = css`
-    display: flex;
-    align-items: center;
-`;
-
-export const DeleteButton = css`
-    width: 50px;
-    height: 30px;
-    border: 1px solid #eee;
-    background-color: transparent;
-    border-radius: 10px;
-    cursor: pointer;
-    
-    &:active {
-        background-color: #eee;
-    }
-`;
-
-export const Writer = css`
-    font-size: 14px;
-
-    & b {
-        margin-left: 5px;
-        font-size: 20px;
-    }
-`;
-
-export const BodyLayout = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 730px;
-    gap: 30px;
-`;
-
-
-export const BodyRightBox = css`
+export const LeftBox = css`
     display: flex;
     flex-direction: column;
-    width: 400px;
 `;
 
-export const ParticipationButton = css`
-    width: 100%;
-    height: 40px;
-    background-color: transparent;
-    border: 1px solid #dbdbdb;
+export const ListLayout = css`
+    margin: 20px 10px 20px 25px;
+    padding: 30px 0px 0px 65px;
+    width: 350px;
+    height: 500px;
     border-radius: 10px;
-    cursor: pointer;
-    &:active {
-        background-color: #eee;
+    overflow: hidden;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.4); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    & h2 {
+        color: #333;
     }
 `;
-
-export const textBox = css`
-    height: 100px;
-    border: 2px solid #dbdbdb;
-`;
-
-export const SLikeButton = css`
-    position: sticky;
-    border: none;
-    border-radius: 50%;
-    background-color: transparent;
-    margin-left: 5px;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-`;
-
 
 export const ListBox = css`
     display: flex;
     flex-direction: column;
-    overflow: auto;
-    border: 1px solid #dbdbdb;
-    border-radius: 5px;
+    justify-content: center;
     
-    & scrollable-container {
-        height: 100%;
+
+    & li {
+        cursor: pointer;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #555;
+
+        &:hover {
+            color: darkgray;
+        }
     }
 `;
 
-export const ListContainer = css`
-    display: flex;
-    align-items: center;
-`;
-
-export const DeleteChallengerButton = css`
-    width: 50px;
-    height: 20px;
-    background-color: transparent;
-    border: 1px solid #dbdbdb;
-    border-radius: 10px;
-    cursor: pointer;
-
-    &:active {
-        background-color: #eee;
-    }
-`;
-
-// 왼쪽 피드 
-export const FeedContainer = css`
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    width: 700px;
-    height: 95%;
+export const EndListLayout = css`
+    margin: 0px 0px 20px 25px;
+    padding: 30px 0px 0px 75px;
+    width: 350px;
+    height: 300px;
     border-radius: 10px;
     overflow: hidden;
     overflow-y: auto;
-    background: rgba(255, 255, 255, 0.7); 
+    background: rgba(255, 255, 255, 0.4); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    & h2 {
+        color: #333;
+    }
+`;
+
+export const RightBox = css`
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-left: 10px;
+    border-left: 1px solid #dbdbdb;
+`;
+
+export const ProgressBox = css`
+    margin: 50px 0px 0px 150px;
+`;
+
+export const FeedListBox = css`
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-left: 22px;
+    padding: 20px;
+    width: 500px;
+    height: 530px;
+    border-radius: 10px;
+    overflow: hidden;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.4); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
@@ -226,18 +183,37 @@ export const FeedContent = css`
     white-space: pre-line; 
 `;
 
-
-
-export const SFeedBottomLayout = css`
-
-`;
-
-export const SFeedBottomHeader = css`
+export const ModalOverlay = css`
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 `;
 
-export const CommentBox = css`
+
+export const SubModal = css`
+    height: auto;
+    width: auto;
+    border-top: 2px solid #dbdbdb;
+    z-index: 2;
     
+    & li {
+        width: 100px;
+        margin-bottom: 9px;
+    }
+`;
+
+export const ModalContent = css`
+    height: 500px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+
+    ${SubModal} 
 `;
