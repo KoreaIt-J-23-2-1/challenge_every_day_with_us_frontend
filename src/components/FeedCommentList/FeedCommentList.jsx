@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as S from './Style';
+import * as S from './FeedCommentListStyle';
 import { useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 
@@ -57,10 +57,9 @@ function FeedCommentList({ feed, comments }) {
                 return !isCommentModifiableList?.[comment.commentId] ?
 
                     <div css={S.SCommentContainer} key={comment.commentId}>
-
-                        <b>{comment.userNickname}</b>
-                        <div>{comment.commentContent}</div>
-                        <div>{comment.commentDatetime}</div>
+                        <b css={S.CommentName}>{comment.userNickname}</b>
+                        <div css={S.Comment}>{comment.commentContent}</div>
+                        <div css={S.CommentTime}>{comment.commentDatetime}</div>
 
                         {principal && comment.userId === principal.userId &&
                             <div>
@@ -79,10 +78,11 @@ function FeedCommentList({ feed, comments }) {
                         }
                     </div> :
                     <div css={S.SCommentContainer} key={comment.commentId}>
-                        <b>{comment.userNickname}</b>
-                        <input type="text" name={`commentModifyInput${comment.commentId}`} defaultValue={comment.commentContent} value={commentModifyInputList?.[comment.commentId]} onChange={handleCommentModifyInput} />
+                        <b css={S.CommentName}>{comment.userNickname}</b>
+                        <input type="text" name={`commentModifyInput${comment.commentId}`} defaultValue={comment.commentContent}
+                            value={commentModifyInputList?.[comment.commentId]} onChange={handleCommentModifyInput} />
                         <div>{comment.commentDatetime}</div>
-                        <div>
+                        <div css={S.BtnBox}>
                             <button onClick={() => { handleModifyCommentSubmit(feed.feedId, comment.commentId) }}>수정 적용</button>
                             <button onClick={() => {
                                 setIsCommentModifiableList({
