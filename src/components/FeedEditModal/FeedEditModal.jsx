@@ -15,6 +15,7 @@ const FeedEditModal = ({ onClose, feedDetail }) => {
     const [ isChallengeFeedRefetch, setIsChallengeFeedRefetch ] = useState(false);
     const principalState = useQueryClient().getQueryState("getPrincipal");
     const principal = principalState?.data?.data;
+    const feedFileRef = useRef();
 
     const modalRef = useRef();
 
@@ -42,6 +43,10 @@ const FeedEditModal = ({ onClose, feedDetail }) => {
         await uploadBytes(storageRef, file);
         const downloadURL = await getDownloadURL(storageRef);
         return downloadURL;
+    };
+
+    const handleInputImg = () => {
+        feedFileRef.current.click();
     };
 
     const handleImgChange = (e) => {
@@ -110,12 +115,19 @@ const FeedEditModal = ({ onClose, feedDetail }) => {
     return (
     <div ref={modalRef}>
         <h2>피드 수정</h2>
-        <p><b>이미지: </b><input type="file"  onChange={handleImgChange}/></p>
-        {selectedImage && (
-            <img src={selectedImage} css={S.SContentImg} alt="selected" />
-        )}
-        <p><b>내용: </b><textarea name="" id="" cols="30" rows="10" defaultValue={getFeed?.data?.data?.feedContent} onChange={handleTextContentChange}></textarea></p>
-        <button onClick={handleFeedEditClick}>수정하기</button>
+        <b>이미지 </b>
+        <div css={S.imgBox} onClick={handleInputImg}>
+            {selectedImage && (
+                <img src={selectedImage} alt="selected" />
+            )}
+        </div>
+        <input css={S.file} type="file"  onChange={handleImgChange} ref={feedFileRef}/>
+        <b>내용 </b>
+        <div css={S.textBox}>
+            <textarea name="" id="" cols="10" rows="10" defaultValue={getFeed?.data?.data?.feedContent} onChange={handleTextContentChange}></textarea>
+        </div>
+        
+        <button css={S.ModifyBtn} onClick={handleFeedEditClick}>수정하기</button>
     </div>
     );
 };

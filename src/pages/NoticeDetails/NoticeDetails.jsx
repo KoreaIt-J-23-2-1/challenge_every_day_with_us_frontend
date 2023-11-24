@@ -3,6 +3,8 @@ import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
+import * as S from './NoticeDetailsStyle';
+/** @jsxImportSource @emotion/react */
 
 function NoticeDetails(props) {
     const navigate = useNavigate();
@@ -61,21 +63,39 @@ function NoticeDetails(props) {
     const isAdmins = getAdminList?.data?.data?.some(admin => admin.userId === principal.userId);
 
     return (
-        <>
-            <BaseLayout>
-                <div >
-                    <h1>{notice.noticeTitle}</h1>
-                    <p><b>{notice.nickname}</b> - {notice.noticeDate}</p>
-                    <div dangerouslySetInnerHTML={{ __html: notice.noticeContent }}></div>
-                    {isAdmins &&
-                        <div>
-                            <button onClick={()=>{navigate(`/notice/${noticeId}/edit`)}}>수정</button>
-                            <button onClick={deleteNoticeBtn} >삭제</button>
-                        </div>
-                    }
+
+        <BaseLayout>
+            <div css={S.Header}>
+                <b>공지를 확인해주세요 ! </b>
+            </div>
+            <div css={S.Box}>
+                <div css={S.NoticeHeader}>
+                    <div css={S.NoticeTitle}>
+                        <a>공지</a> {notice.noticeTitle}
+                    </div>
                 </div>
-            </BaseLayout>
-        </>
+                <div css={S.NoticeInfo}>
+                    <b>{notice.nickname}</b>
+                    <div>작성 시간 : {notice.noticeDate}</div>
+                </div>
+                <div css={S.NoticeContent} >
+                    <b>
+                        모두와 함께 도전하는 일상, <a css={S.pointFont}>[Challenge every day with us]</a> 입니다.   공지를 꼭 읽어주세요 ! 
+                    </b>
+
+                    <div css={S.ContentBox}>
+                        <div>{notice.noticeContent} </div>
+                    </div>
+
+                </div>
+            </div>
+            {isAdmins &&
+                <div css={S.btnBox}>
+                    <button onClick={()=>{navigate(`/notice/${noticeId}/edit`)}}>수정</button>
+                    <button onClick={deleteNoticeBtn} >삭제</button>
+                </div>
+            }  
+        </BaseLayout>
     );
 }
 

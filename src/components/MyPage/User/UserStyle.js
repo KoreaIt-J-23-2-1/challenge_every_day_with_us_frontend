@@ -49,7 +49,7 @@ export const EndListLayout = css`
     margin: 0px 0px 20px 25px;
     padding: 30px 0px 0px 75px;
     width: 350px;
-    height: 300px;
+    height: 500px;
     border-radius: 10px;
     overflow: hidden;
     overflow-y: auto;
@@ -229,6 +229,5 @@ export const ModalContent = css`
     background: #fff;
     padding: 20px;
     border-radius: 8px;
-
     ${SubModal} 
 `;

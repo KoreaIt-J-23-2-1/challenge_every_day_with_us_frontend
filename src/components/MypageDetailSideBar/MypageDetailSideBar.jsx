@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import * as S from "./Style";
 import { instance } from '../../api/config/instance';
+import PointModal from '../../components/PointModal/PointModal';
 
 function MypageDetailSideBar({ setUploadFiles, children }) {
     const navigate = useNavigate();
@@ -13,6 +14,8 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
     const profileFileRef = useRef();
     const [ profileImgSrc, setProfileImgSrc ] = useState("");
     const [ intro, setIntro ] = useState("");
+    const [ isModalOpen, setModalOpen ] = useState(false);
+
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
@@ -65,6 +68,14 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
         }
     };
 
+    const handlePurchasePointClick = () => {
+        setModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalOpen(false);
+    };
+
     return (
         <div css={S.layout}>
             <div css={S.sideBox}>
@@ -94,10 +105,18 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
                         <li onClick={() => navigate("/user")}>참여 현황</li>
                         <li onClick={() => navigate("/account/mypage/detail")}>내 정보수정</li>
                         <li onClick={() => navigate("/store/:userId/orders")}>상점물품 구매내역</li>
+                        <li onClick={() => {handlePurchasePointClick()}}>포인트 충전</li>
                         {/* <li onClick={() => navigate("/user")}>참여중인 리스트</li> */}
                     </ul>
                 </div>
             </div>
+            {isModalOpen && (
+                <div css={S.modalOverlay}>
+                    <div css={S.modalContent}>
+                        <PointModal onClose={handleCloseModal} />
+                    </div>
+                </div>
+            )}
             {children}
         </div>
     );

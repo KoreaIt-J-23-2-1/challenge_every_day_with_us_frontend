@@ -333,9 +333,11 @@ function Admin() {
                             <label htmlFor="radio6">중단된 챌린지</label>
                         </div>
                         <div css={S.searchContainer}>
-                            <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect}/>
-                            <input type="text" onChange={handleSearchInputChange} />
-                            <button onClick={handleSearchButtonClick}>검색</button>
+                            <div>
+                                <ReactSelect css={S.SelectSt} options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect}/>
+                            </div>
+                            <input css={S.InputBox} type="text" onChange={handleSearchInputChange} onKeyDown={(e) => {if(e.keyCode === 13) {handleSearchButtonClick();}}}/>
+                            <button css={S.ButtonBox} onClick={handleSearchButtonClick}>검색</button>
                         </div>
                     </div>
                 <ul css={S.SChallengeList}>
