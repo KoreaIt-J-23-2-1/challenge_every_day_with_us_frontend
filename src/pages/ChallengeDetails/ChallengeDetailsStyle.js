@@ -231,7 +231,7 @@ export const BodyRightBox = css`
     width: 320px;
     &>p{
         font-size: 13px;
-        margin-top:10px;
+        margin-top:20px;
         margin-bottom: 0px;
     }
     &>b{
@@ -282,8 +282,7 @@ export const ListBox = css`
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    height: 250px;
-
+    height: 297px;
 
     & scrollable-container {
         height: 100%;

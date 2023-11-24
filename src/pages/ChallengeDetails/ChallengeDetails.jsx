@@ -10,6 +10,8 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { SiApachespark } from "react-icons/si";
 import { FaStar } from "react-icons/fa";
 import ProgressBar from '@ramonak/react-progress-bar';
+import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
+import FeedCommentSee from '../../components/FeedCommentSee/FeedCommentSee';
 
 function ChallengeDetails(props) {
     const navigate = useNavigate();
@@ -245,6 +247,7 @@ function ChallengeDetails(props) {
     const requestData = {
         senderUserId: principal.data.data.userId,
         receiverUserId: challenge.userId,
+        letterTitle: "챌린지 승인 요청",
         title: "챌린지 승인 요청",
         content: `${challenge.challengeName} 챌린지의 승인 요청이 들어왔습니다.`,
         targetUrl: "http://localhost:3000/challenge/1",
