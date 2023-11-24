@@ -4,11 +4,13 @@ import { SubModal } from '../../components/LoginModal/Style';
 export const Layout = css`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
+    margin-top: 130px;
     align-items: center;
     position: relative;
     width: 100%;
     height: 100%;
+    
 `;
 
 export const btnBox = css`
@@ -16,13 +18,29 @@ export const btnBox = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+    padding: 30px 50px ;
 
-    & img {
+
+    &>img {
         width: 200px;
-        height: 35px;
-        margin-bottom: 10px;
+        height: 40px;
+        margin: 10px;
         border-radius: 10px;
         cursor: pointer;
+        transition: transform 0.5s ease; 
+
+    }
+    &>img:hover{
+        transform: scale(1.07);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+
+    }
+    &>img:active{
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+
     }
 `;
 
@@ -41,9 +59,14 @@ export const AdminButton = css`
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         cursor: pointer;
 
+        &:hover{
+        background: rgba(150, 150, 150, 0.2); 
+
+    }
+
         &:active {
             background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);    
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);    
         }
     }
 `;

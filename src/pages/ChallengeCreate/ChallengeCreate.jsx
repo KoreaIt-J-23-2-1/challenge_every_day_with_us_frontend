@@ -6,6 +6,7 @@ import { instance } from '../../api/config/instance';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import * as S from './Style';
+import TitleComponent from '../../components/TitleComponent/TitleComponent';
 
 function ChallengeCreate({ children }) {
     const [ challengeTitle, setChallengeTitle ] = useState("");
@@ -108,6 +109,7 @@ function ChallengeCreate({ children }) {
 
     return (
         <BaseLayout>
+            <TitleComponent title="어떤 도전을 하실건가요 ?" />
             <div css={S.Layout}>
                 <div css={S.ChallengeTitle}>
                     <div>Category : 

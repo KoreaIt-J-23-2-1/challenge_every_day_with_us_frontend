@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-d
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import * as S from './NoticeDetailsStyle';
+import TitleComponent from '../../components/TitleComponent/TitleComponent';
 /** @jsxImportSource @emotion/react */
 
 function NoticeDetails(props) {
@@ -65,9 +66,8 @@ function NoticeDetails(props) {
     return (
 
         <BaseLayout>
-            <div css={S.Header}>
-                <b>공지를 확인해주세요 ! </b>
-            </div>
+            <TitleComponent title="공지를 확인해주세요 !"/>
+            
             <div css={S.Box}>
                 <div css={S.NoticeHeader}>
                     <div css={S.NoticeTitle}>

@@ -4,6 +4,7 @@ import BaseLayout from '../../components/BaseLayout/BaseLayout';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
 import LoginModal from '../../components/LoginModal/LoginModal';
+import TitleComponent from '../../components/TitleComponent/TitleComponent';
 
 function SignIn(props) {
     const [ isModalOpen, setModalOpen ] = useState(false);
@@ -34,8 +35,9 @@ function SignIn(props) {
 
     return (
         <BaseLayout>
+            <TitleComponent title="로그인 시 사이트 이용이 가능합니다 ! "/>
             <div css={S.Layout}>
-                <h1>로그인</h1>
+                <h2>간편로그인</h2>
                 <div>
                     <div css={S.btnBox}>
                         <img onClick={handleGoogleSignin} src="https://firebasestorage.googleapis.com/v0/b/challengewithus-1ffef.appspot.com/o/button%2Fweb_neutral_sq_ctn%404x.png?alt=media&token=67d467dc-d735-4a5b-853e-0c002c77b9f6" alt="" />

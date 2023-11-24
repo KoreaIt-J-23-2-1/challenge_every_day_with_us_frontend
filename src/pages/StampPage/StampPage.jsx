@@ -7,6 +7,7 @@ import { instance } from '../../api/config/instance';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { FaRegStar } from "react-icons/fa";
 import { useQuery } from 'react-query';
+import TitleComponent from '../../components/TitleComponent/TitleComponent';
 
 function StampPage(props) {
     const [ value, onChange ] = useState(new Date());
@@ -74,6 +75,7 @@ function StampPage(props) {
 
     return (
         <BaseLayout>
+            <TitleComponent title="출석체크 !" />
             <div css={S.calendarLayout}>
                 <div css={S.calendar}>
                     <div css={S.calendarHeader}>
