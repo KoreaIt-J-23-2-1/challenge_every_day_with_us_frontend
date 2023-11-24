@@ -13,7 +13,7 @@ function User() {
     const [ myEndChallenge, setMyEndChallenge ] = useState([]);
     const [ selectedChallenge, setSelectedChallenge ] = useState(null);
     const [ challengeProgress, setChallengeProgress ] = useState(0);
-    const [ ModalProgress, setModalProgress ] = useState(0);
+    const [ modalProgress, setModalProgress ] = useState(0);
     const [ challengeStartDate, setChallengeStartDate ] = useState(null);
     const [ challengeEndDate, setChallengeEndDate ] = useState(null);
     const [ myFeedList, setMyFeedList ] = useState([]);
@@ -52,6 +52,8 @@ function User() {
         }
     });
 
+    console.log(myEndChallenge)
+
     const openModal = () => {
         console.log("열림?")
         setIsModalOpen(true);
@@ -70,13 +72,23 @@ function User() {
             const startDate = new Date(startDateTime);
             const endDate = new Date(endDateTime);
             const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-            const percentage = ((progressValue / (totalDays + 1)) * 100).toFixed(0);
+            const today = new Date();
+            const daysElapsed = Math.ceil((today - startDate) / (1000 * 60 * 60 * 24));
+            const my = daysElapsed - progressValue;
+            const progress = ((100 / (totalDays+1)) * ((totalDays+1) - my))
 
             setChallengeStartDate(startDate);
             setChallengeEndDate(endDate);
             setSelectedChallenge(challengeId);
-            setChallengeProgress(percentage);
             setMyFeedList(myChallengeFeeds);
+
+            console.log(progress)
+
+            if(progressValue === 0) {
+                setChallengeProgress(0);
+            }else {
+                setChallengeProgress(parseInt(progress));
+            }
         } catch (error) {
             console.error(error);
         }
@@ -105,19 +117,19 @@ function User() {
                                         {myChallenge.challengeName}
                                     </li>
                                 ))}
-                                {isModalOpen && (
+                                {/* {isModalOpen && (
                                     <div css={S.ModalOverlay}>
                                         <div css={S.ModalContent}>
                                             <UserModal 
                                                 challenge={selectedChallenge}
                                                 closeModal={closeModal}
-                                                progress={challengeProgress}
+                                                initialProgress={modalProgress}
                                                 startDate={challengeStartDate}
                                                 endDate={challengeEndDate}
                                             />
                                         </div>
                                     </div>
-                                )}
+                                )} */}
                             </div>
                         </div>
                     </div>
@@ -125,6 +137,7 @@ function User() {
                     <div css={S.RightBox}>
                         
                         <div css={S.ProgressBox}>
+                            {/* <div>진행기간: <p>{challengeStartDate}</p></div> */}
                             <CircularProgressBar colorCircle="#eee" colorSlice="pink" fontSize="10px" percent={parseFloat(challengeProgress)}/>
                         </div>
 
