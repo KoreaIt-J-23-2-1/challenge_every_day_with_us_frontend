@@ -336,7 +336,7 @@ function Admin() {
                             <div>
                                 <ReactSelect css={S.SelectSt} options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect}/>
                             </div>
-                            <input css={S.InputBox} type="text" onChange={handleSearchInputChange} />
+                            <input css={S.InputBox} type="text" onChange={handleSearchInputChange} onKeyDown={(e) => {if(e.keyCode === 13) {handleSearchButtonClick();}}}/>
                             <button css={S.ButtonBox} onClick={handleSearchButtonClick}>검색</button>
                         </div>
                     </div>
