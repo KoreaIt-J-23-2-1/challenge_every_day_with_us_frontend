@@ -4,7 +4,6 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 import LetterModal from '../LetterModal/LetterModal';
-import { useNavigate } from 'react-router-dom';
 import * as S from './Style';
 import { IoMdCloseCircle } from 'react-icons/io';
 
@@ -167,12 +166,6 @@ function LetterSideBar(props) {
                 {!letterList.isLoading && selectedLetter && (
                     <div css={S.modalContainer}>
                         <h3 css={S.modalTitle} onClick={GoTargetLetterUrl}>{selectedLetter.title}</h3>
-
-                        <div><b>Sender: </b>{selectedLetter.senderNickname}</div>
-                        <div><b>Date: </b>{selectedLetter.sendDateTime}</div>
-                        <div><b>Content: </b>{selectedLetter.content}</div>
-                        {selectedLetter.title === "챌린지 승인 요청" && (
-                            selectedLetter.acceptState === 0 ?
 
                         <div css={S.modalFrom}><b>From: </b>{selectedLetter.senderNickname}</div>
                         <div css={S.modalDate}><b>Date: </b>{selectedLetter.sendDateTime}</div>
