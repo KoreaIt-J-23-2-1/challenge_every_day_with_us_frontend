@@ -6,15 +6,6 @@ import { instance } from '../../api/config/instance';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 
-const SStoreContainer = css`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    border: 1px solid #dbdbdb;
-    border-radius: 10px;
-    padding: 20px 20px;
-`;
-
 function PointStore({ onClose }) {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
@@ -95,16 +86,18 @@ function PointStore({ onClose }) {
 
 
     return (
-        <div ref={modalRef}>
+        <div ref={modalRef} css={S.SPointLayout}>
             <h1>포인트 충전하기</h1>
-            <div css={SStoreContainer}>
+            <div css={S.SStoreContainer}>
                 {productData.map((product) => (
                     <button
                         key={product.name}
                         css={S.SPointBtn}
                         onClick={() => handlePaymentSubmit(product)}>
-                        {product.name}
-                        <p>충전 시 <br/>+ {product.option} 추가지급!</p>
+                        <div css={S.SPointBtnContent}>
+                            <h2>{product.name}</h2><p>충전 시 <br/>+ {product.option} 추가지급!</p>
+                        </div>
+                        
                     </button>
                 ))}
             </div>
