@@ -2,9 +2,12 @@ import { css } from '@emotion/react';
 
 
 export const CategoryBox = css`
+    height:100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
+    
 `;
 
 
@@ -13,10 +16,10 @@ export const SProductContainer =  css`
     flex-direction: column;
     align-items: center;
     position: relative;
-    margin: 20px;
+    /* margin: 10px; */
     width: calc(30% - 10px);
-    min-width: 270px;
-    height: 180px;
+    min-width: 280px;
+    height: 230px;
     background-color: transparent;
     border-radius: 15%;
     border: none;
