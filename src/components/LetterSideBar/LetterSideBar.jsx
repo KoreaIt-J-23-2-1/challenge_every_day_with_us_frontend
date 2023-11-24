@@ -80,6 +80,7 @@ function LetterSideBar(props) {
                 instance.post("/api/challenge/atmosphere/letter", {
                     receiverUserId: selectedLetter.senderUserId,
                     senderUserId: principal.data.data.userId,
+                    letterTitle: "챌린지 승인 완료",
                     title: "챌린지 승인 완료",
                     content: `${selectedLetter.challengeName} 챌린지의 승인이 완료되었습니다.`,
                     targetUrl: principal.data.data.profileUrl,
@@ -107,6 +108,7 @@ function LetterSideBar(props) {
                 instance.post("/api/challenge/atmosphere/letter", {
                     receiverUserId: selectedLetter.senderUserId,
                     senderUserId: principal.data.data.userId,
+                    letterTitle: "챌린지 승인 거부",
                     title: "챌린지 승인 거부",
                     content: `${selectedLetter.challengeName} 챌린지의 승인이 거절되었습니다..`,
                     targetUrl: principal.data.data.profileUrl,
@@ -123,19 +125,21 @@ function LetterSideBar(props) {
 
     return (
         <div css={S.LetterSideBarLayout}>
-            <div>
+            <div css={S.Layout}>
                 <h2>알림</h2>
-                <h3>전체 알림 수 : {lettersCount.data}</h3>
-                <input type="radio" id="unread-letter-radio-button" name="letterViewType" checked={letterViewType === "unread"} onChange={() => {setLetterViewType("unread");}}/>
-                <label htmlFor="unread-letter-radio-button" >읽지 않은 메시지</label>
-                <input type="radio" id="read-letter-radio-button" name="letterViewType" checked={letterViewType === "read"} onChange={() => {setLetterViewType("read");}}/>
-                <label htmlFor="read-letter-radio-button" >읽은 메시지</label>
+                <h4>전체 알림 수 : {lettersCount.data}</h4>
+                <div css={S.LadioBox}>
+                    <input type="radio" id="unread-letter-radio-button" name="letterViewType" checked={letterViewType === "unread"} onChange={() => {setLetterViewType("unread");}}/>
+                    <label htmlFor="unread-letter-radio-button" >읽지 않은 메시지</label>
+                    <input type="radio" id="read-letter-radio-button" name="letterViewType" checked={letterViewType === "read"} onChange={() => {setLetterViewType("read");}}/>
+                    <label htmlFor="read-letter-radio-button" >읽은 메시지</label>
+                </div>
                 <div css={S.SLetterScroll}>
                     {letterViewType === "unread" ?
                         getLetterList?.data?.map((letter) => (
                             letter.isRead === 0 ? 
                             <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
-                                <h3>{letter.title}</h3>
+                                <div css={S.Title}><b>{letter.letterTitle} </b> {letter.title}</div>
                                 <div css={S.lettersHeader}>{letter.sendDateTime}</div>
                                 <div css={S.lettersHeader}>발신자: {letter.senderNickname}</div>
                                 <div css={S.letterContent} dangerouslySetInnerHTML={{ __html: letter.content }}></div>
@@ -153,7 +157,7 @@ function LetterSideBar(props) {
                                 <div css={S.letterContent} dangerouslySetInnerHTML={{ __html: letter.content }}></div>
                             </div>
                             :
-                            <></>
+                            <div key={letter.letterId}></div>
                         ))
                     }
                 </div>

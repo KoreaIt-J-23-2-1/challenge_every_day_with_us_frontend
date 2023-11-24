@@ -98,8 +98,10 @@ export const LetterCountBox = css`
     padding: 3px;
     width: 13px;
     height: 13px;
-    color: red;
-    background-color: #ffe292;
+    color: salmon;
+    font-weight: 700;
+    font-size: 12px;
+    background-color: linen;
 `;
 
 export const LetterSideBarCss = css`
