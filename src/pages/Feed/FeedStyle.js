@@ -32,7 +32,7 @@ export const SAlignment = css`
 
 export const SScroll = css`
     overflow-y: auto;
-    max-height: 600px;
+    max-height: 670px;
     padding-right: 15px;
     background: rgba(255, 255, 255, 0.7); 
     border-radius: 15px; 
@@ -173,6 +173,7 @@ export const SFeedBottomLayout = css`
     width: 100%;
 `;
 
+// 댓글
 export const SFeedBottomHeader = css`
     display: flex;
     justify-content: space-between;
@@ -192,14 +193,6 @@ export const WriteCommentBox = css`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-
-    &>img{
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-    }
-
-
 `;
 
 export const CommentInputBox = css`
@@ -209,11 +202,11 @@ export const CommentInputBox = css`
     margin: 0px auto;
     padding-left: 10px;
     width: 600px;
-    height: 30px;
+    height: 25px;
     border: none;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     &:focus{
         outline: none;
     }
@@ -221,7 +214,6 @@ export const CommentInputBox = css`
 `;
 
 
-// 댓글 
 export const CommentBox = css`
     margin: 10px 0px;
     padding: 10px;

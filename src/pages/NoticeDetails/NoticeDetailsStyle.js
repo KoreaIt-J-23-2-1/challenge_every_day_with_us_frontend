@@ -69,7 +69,6 @@ export const NoticeContent = css`
 export const pointFont = css`
     font-size: 17px;
     font-style: oblique;
-    fo
 `;
 
 export const btnBox = css`
