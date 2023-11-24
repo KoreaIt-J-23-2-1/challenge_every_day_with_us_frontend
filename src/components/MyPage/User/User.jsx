@@ -26,7 +26,7 @@ function User() {
 
     const getMyChallenges = useQuery(["getMyChallenges"], async () => {
         try {
-        return await instance.get("/api/account/mychallenges", option);
+            return await instance.get("/api/account/mychallenges", option);
         } catch(error) {
             throw new Error(error)
         }

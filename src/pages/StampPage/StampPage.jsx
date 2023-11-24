@@ -6,6 +6,7 @@ import * as S from './Style';
 import { instance } from '../../api/config/instance';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { FaRegStar } from "react-icons/fa";
+import { useQuery } from 'react-query';
 
 function StampPage(props) {
     const [ value, onChange ] = useState(new Date());
@@ -17,23 +18,39 @@ function StampPage(props) {
         }
     }
 
+    const getCheck = useQuery(["getCheck"], async () => {
+        try{
+            const response = await instance.get('/api/stamp', option);
+            if(response.data) {
+                setIsCheckedIn(true);
+            }
+            return response.data;
+        }catch(error) {
+            throw new Error(error);
+        }
+    }, {
+        retry: 0,
+        refetchOnWindowFocus: false,
+    })
 
     const handleCheckIn = async () => {
         try {
-            const response = await instance.post('/api/attendance', {
-                attendance: moment(value).format('YYYY-MM-DD'),
-            }, option);
-            if (response.data.success) {
-                setCheckedDates([...checkedDates, moment(value).toDate()]);
-                setIsCheckedIn(true);
-            } else {
+            if(!!getCheck){
+                const response = await instance.post('/api/attendance', {
+                    attendance: moment(value).format('YYYY-MM-DD'),
+                }, option);
+                if (response.data) {
+                    setCheckedDates([...checkedDates, moment(value).toDate()]);
+                    window.location.reload();
+                } else {
+                }
+            }else {
+                alert("하루에 한번만 출석 가능합니다.");
             }
         } catch (error) {
             console.error(error);
         }
     };
-
-    console.log(checkedDates)
 
     useEffect(() => {
         const fetchCheckedDates = async () => {
