@@ -60,11 +60,12 @@ export const inputBox = css`
     height: 70px;
 
     & > input {
-        margin-left: 10px;
         border: none;
-        border-radius: 5px;
+        margin-left: 10px;
+        border-radius: 15px;
         padding: 10px;
         font-size: 15px;
+        padding: 10px;
         &:focus {
             outline: none;
         }
