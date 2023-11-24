@@ -131,7 +131,7 @@ function LetterSideBar(props) {
                 <label htmlFor="read-letter-radio-button" >읽은 메시지</label>
                 <div css={S.SLetterScroll}>
                     {letterViewType === "unread" ?
-                        letterList?.data?.map((letter) => (
+                        getLetterList?.data?.map((letter) => (
                             letter.isRead === 0 ? 
                             <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                                 <h3>{letter.title}</h3>
@@ -143,7 +143,7 @@ function LetterSideBar(props) {
                             <div key={letter.letterId}></div>
                         ))
                         :
-                        letterList?.data?.map((letter) => (
+                        getLetterList?.data?.map((letter) => (
                             letter.isRead === 1 ? 
                             <div css={S.miniLetter} onClick={() => openModal(letter)} key={letter.letterId}>
                                 <h3>{letter.title}</h3>
