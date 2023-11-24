@@ -1,12 +1,64 @@
 import { css } from '@emotion/react';
 
+export const Header = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    margin-top: 10px;
+    border-bottom: 2px solid #dbdbdb;
+    
+    & b {
+        width: 100%;
+    }
+`;
+
+export const btnBox = css`
+    display: flex;
+    justify-content: end;
+    width: 938px;
+
+    & > button{
+        width: 80px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.4); 
+        border-radius: 10px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        cursor: pointer;
+
+        &:active {
+            background-color: #dbdbdb;
+        }
+
+        &:hover {
+            background-color: #eee;
+        }
+    }
+`;
+
+export const TableBox = css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.4); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+`;
+
+export const TitleBox = css`
+    height: 50px;
+`;
 
 export const listTable = css`
-    width: 850px;
+    width: 1050px;
     border-collapse: collapse;
-    & th, td {
-        height: 30px;
+
+    & th, td, tr{
         text-align: center;
+        height: 47px;
     }
     & td {
         cursor: pointer;
@@ -21,28 +73,6 @@ export const noticeTitle = css`
     white-space: nowrap;
 `;
 
-export const btnBox = css`
-    display: flex;
-    justify-content: end;
-    width: 938px;
-    & > button{
-        cursor: pointer;
-        margin: 5px;
-        width: 150px;
-        height: 30px;
-        background-color: #efefef;
-        border: none;
-    }
-    & > button:hover{
-        background-color: #dbdbdb;
-    }
-    & > input {
-        margin:5px;
-        width: 300px;
-        height: 25px;
-    }
-`;
-
 export const SPageNumbers = css`
     display: flex;
     align-items: center;
@@ -53,7 +83,7 @@ export const SPageNumbers = css`
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0px 3px;
+        margin: 10px 3px;
         width: 20px;
         border: 1px solid #dbdbdb;
         cursor: pointer;

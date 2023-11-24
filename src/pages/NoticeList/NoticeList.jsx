@@ -7,7 +7,6 @@ import { instance } from '../../api/config/instance';
 import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 /** @jsxImportSource @emotion/react */
 import * as S from './NoticeListStyle';
-import ReactSelect from 'react-select';
 
 function NoticeList(props) {
     const navigate = useNavigate();
@@ -80,46 +79,43 @@ function NoticeList(props) {
 
     return (
         <BaseLayout>
-            <h1>공지</h1>
-            <div css={S.btnBox}>
-            {isAdmins && (
-                <div>
-                    <button onClick={() => { navigate(`/notice/write`) }}>공지 작성</button>
+                <div css={S.Header}>
+                    <b>공지를 확인해주세요 !</b>
+                    {isAdmins && (
+                        <div css={S.btnBox}>
+                            <button onClick={() => { navigate(`/notice/write`) }}>공지 작성</button>
+                        </div>
+                    )}
                 </div>
-            )}
-                {/* <div css={S.btnBox}>
-                    <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect} />
-                    <input onChange={handleSearchInputChange} type="text" placeholder='검색어를 입력하세요' />
-                    <button onClick={handleSearchButtonClick}>검색</button>
-                </div> */}
-            </div>
-            <table css={S.listTable}>
-                <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>작성일</th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    {!getNoticeList.isLoading && getNoticeList?.data?.data?.map(notice => {
-                        return (
-                            <tr key={notice.noticeId} onClick={() => { navigate(`/notice/${notice.noticeId}`) }}>
-                                <td>{notice.noticeId}</td>
-                                <td css={S.noticeTitle}>{notice.noticeTitle}</td>
-                                <td>{notice.nickname}</td>
-                                <td>{notice.noticeDate}</td>
+                <div css={S.TableBox}>
+                    <table css={S.listTable}>
+                        <thead>
+                            <tr css={S.TitleBox}>
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일</th>
                             </tr>
-                        );
-                    })}
-                    
-                </tbody>
-            </table>
-            <ul css={S.SPageNumbers}>
-                {pagination()}
-            </ul>
+                        </thead>
+                        
+                        <tbody>
+                            {!getNoticeList.isLoading && getNoticeList?.data?.data?.map(notice => {
+                                return (
+                                    <tr key={notice.noticeId} onClick={() => { navigate(`/notice/${notice.noticeId}`) }}>
+                                        <td>{notice.noticeId}</td>
+                                        <td css={S.noticeTitle}>{notice.noticeTitle}</td>
+                                        <td>{notice.nickname}</td>
+                                        <td>{notice.noticeDate}</td>
+                                    </tr>
+                                );
+                            })}
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <ul css={S.SPageNumbers}>
+                    {pagination()}
+                </ul>
         </BaseLayout>
     );
 }
