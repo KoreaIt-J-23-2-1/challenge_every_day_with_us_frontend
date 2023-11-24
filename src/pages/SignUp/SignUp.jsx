@@ -6,6 +6,7 @@ import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import * as S from './Style';
 
 function SignUp(props) {
+    const navigate = useNavigate();
     const [ searchParams, setSearchParams ] = useSearchParams();
     const [ isEmailChecked, setIsEmailChecked ] = useState(true);
     const user = {
@@ -28,6 +29,7 @@ function SignUp(props) {
             if(response){
                 console.log(response);
                 alert("회원가입 완료");
+                navigate("/auth/signin")
             }
         } catch (error) {
             alert("모든 항목을 채워주세요");
