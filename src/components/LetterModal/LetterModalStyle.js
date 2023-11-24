@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
 /** @jsxImportSource @emotion/react */
 
-
-
 export const modalContainer = css`
     position: fixed;
     top: 0;
@@ -13,15 +11,16 @@ export const modalContainer = css`
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    background: #8D8B8B50;
+    background: rgba(0, 0, 0, 0.5);
 `;
 
 export const modalContent = css`
-    background: #fff;
     padding: 20px;
-    border-radius: 8px;
     width: 400px;
     max-width: 500px;
+    background: rgba(255, 255, 255, 0.9); 
+    border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
     
 `;

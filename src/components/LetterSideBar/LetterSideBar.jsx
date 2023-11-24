@@ -6,6 +6,7 @@ import { instance } from '../../api/config/instance';
 import LetterModal from '../LetterModal/LetterModal';
 import * as S from './Style';
 import { IoMdCloseCircle } from 'react-icons/io';
+import noticeIcon from '../../img/공지알람.png'
 
 function LetterSideBar(props) {
     const [ isModalOpen, setIsModalOpen] = useState(false);
@@ -161,14 +162,17 @@ function LetterSideBar(props) {
                     }
                 </div>
             </div>
-            <LetterModal  isOpen={isModalOpen} onClose={closeModal} selectedLetter={selectedLetter}>
-                <div css={S.modalCloseBtn} onClick={closeModal}><IoMdCloseCircle /></div>
+            <LetterModal isOpen={isModalOpen} onClose={closeModal} selectedLetter={selectedLetter}>
+                <div css={S.modalCloseBtnContainer}><IoMdCloseCircle  css={S.modalCloseBtn} onClick={closeModal}/></div>
                 {!letterList.isLoading && selectedLetter && (
                     <div css={S.modalContainer}>
-                        <h3 css={S.modalTitle} onClick={GoTargetLetterUrl}>{selectedLetter.title}</h3>
-
-                        <div css={S.modalFrom}><b>From: </b>{selectedLetter.senderNickname}</div>
-                        <div css={S.modalDate}><b>Date: </b>{selectedLetter.sendDateTime}</div>
+                        <div css={S.noticeTitleBox}>
+                            <h3 css={S.modalTitle} onClick={GoTargetLetterUrl}><img src={noticeIcon} css={S.noticeIcon} />{selectedLetter.title}</h3>
+                        </div>
+                        <div css={S.fromAndDate}>
+                            <div css={S.modalFrom}><b>From </b>{selectedLetter.senderNickname}</div>
+                            <div css={S.modalDate}><b>Date </b>{selectedLetter.sendDateTime}</div>
+                        </div>
                         <div css={S.modalContent}><div dangerouslySetInnerHTML={{ __html: selectedLetter.content }}></div></div>
                         <div css={S.modalBottom}>
                             {selectedLetter.letterTitle === "챌린지 승인 요청" && (
@@ -193,6 +197,6 @@ function LetterSideBar(props) {
             </LetterModal>
         </div>
     );
-}
+    }
 
 export default LetterSideBar;
