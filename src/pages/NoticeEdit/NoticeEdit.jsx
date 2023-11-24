@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { css } from '@emotion/react';
 import ReactQuill from 'react-quill';
@@ -9,6 +9,7 @@ import { useQuery } from 'react-query';
 import * as S from './Style';
 
 function NoticeEdit(props) {
+    const textareaRef = useRef(null);
     const navigete = useNavigate();
     const { noticeId } = useParams();
 
@@ -38,24 +39,7 @@ function NoticeEdit(props) {
                 content: response.data.noticeContent
             })
         } 
-    })
-
-    useEffect(() => {
-        const linkTag = window.document.createElement("link");
-        linkTag.href = "//cdn.quilljs.com/1.3.6/quill.snow.css";
-        linkTag.rel = "stylesheet";
-        window.document.head.appendChild(linkTag);
-    });
-
-    const modules = {
-        toolbar: {
-            container: [
-                [{header: [1, 2, 3, false]}],
-                ["bold", "underline"],
-                ["image"]
-            ]
-        }
-    }     
+    }) 
 
     const handleTitleInput = (e) => {
         setNoticeContent({
@@ -64,10 +48,10 @@ function NoticeEdit(props) {
         });
     }
 
-    const handleContentInput = (value) => {
+    const handleContentInput = (e) => {
         setNoticeContent({
             ...noticeContent,
-            content: value
+            content: e.target.value
         });
     }
 
@@ -100,14 +84,10 @@ function NoticeEdit(props) {
                     <label>제목</label>
                     <input type="text" name='title' onChange={handleTitleInput} defaultValue={noticeContent.title} />
                     <label>내용</label>
-                    {/* <input type="text" name='content' placeholder='공지내용'/> */}
-                    <ReactQuill 
-                        style={{width: "700px", height: "500px"}} 
-                        modules={modules}
-                        value={noticeContent.content}
-                        onChange={handleContentInput}
-                        />
-                    
+
+                    <textarea ref={textareaRef}
+                        id="content" css={S.Quill} value={noticeContent.content} maxLength={1000} onChange={handleContentInput}/>
+
                     <div css={S.btnBox}>
                         <button onClick={handleCancelBtn}>취소</button>
                         <button onClick={handleEditSubmit}>수정</button>

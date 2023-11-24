@@ -43,7 +43,7 @@ function NoticeWrite(props) {
                 }
             };
 
-            await instance.post("/api/notice", { ...noticeContent, imageUrl: noticeContent.imageUrl }, option);
+            await instance.post("/api/notice", noticeContent, option);
             alert("공지가 작성되었습니다.");
             window.history.back();
         } catch (error) {

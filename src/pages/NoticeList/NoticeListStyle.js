@@ -55,13 +55,13 @@ export const TitleBox = css`
     height: 50px;
     width: 100%;
 
-    &>th:nth-child(1){
+    &>th:nth-of-type(1){
         width: 10%;
     }
-    &>th:nth-child(3){
+    &>th:nth-of-type(3){
         width: 20%;
     }
-    &>th:nth-child(4){
+    &>th:nth-of-type(4){
         width: 20%;
     }
 `;
