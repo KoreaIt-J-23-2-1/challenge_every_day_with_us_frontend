@@ -7,9 +7,12 @@ import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 import * as S from './ChallengeListStyle';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
+import { PiPlusSquareLight } from "react-icons/pi";
 
 function ChallengeList(props) {
-
+    const queyrClient = useQueryClient();
+    const principalState = queyrClient.getQueryState("getPrincipal");
+    const principal = principalState?.data?.data; 
     const navigate = useNavigate();
     const [ page, setPage ] = useState(1);
     const lastChallengeRef = useRef();
@@ -23,12 +26,10 @@ function ChallengeList(props) {
         {value: "카테고리이름", label: "카테고리이름"}
     ];
 
-    const search = {
+    const [ searchParams, setSearchParams ] = useState({
         optionName: options[0].label,
         searchValue: ""
-    }
-
-    const [ searchParams, setSearchParams ] = useState(search);
+    });
 
     const getChallengeList = useQuery(["getChallengeList", page], async () => {
         const option = {
@@ -42,7 +43,9 @@ function ChallengeList(props) {
         onSuccess: (response) => {
             setChallengeList(challengeList.concat(response.data));
             setIsChallengeListRefetch(false);
-            setPage(page + 1);
+            if(response.data.length !== 0) {
+                setPage(page + 1);
+            }
         }
     });
 
@@ -65,7 +68,6 @@ function ChallengeList(props) {
         }
 
         const observer = new IntersectionObserver(observerService, {threshold: 0.5});
-        // observer.observe(topChallengeRef.current);
         observer.observe(lastChallengeRef.current);
     }, []);
 
@@ -84,20 +86,35 @@ function ChallengeList(props) {
     }
 
     const handleSearchButtonClick = () => {
-        navigate("/challenges");
-        getChallengeList.refetch();
+        setChallengeList([]);
+        if(page === 1) {
+            getChallengeList.refetch();
+        }
+        setPage(1);
     }
-    
+
+    const handleChallengeClick = (challengeId) => {
+        if (!principal) {
+            if(window.confirm("로그인 후 열람 가능합니다. 로그인 하시겠습니까?")){
+                navigate("/auth/signin");
+            }
+        } else {
+            navigate(`/challenge/${challengeId}`);
+        }
+    };
 
     return (
         <BaseLayout>
             <div css={S.Layout}>
                 <div css={S.searchContainer}>
-                    <div css={S.selectBox}>
-                        <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect} />
+                    <b>공지를 확인해주세요 !</b>
+                    <div css={S.selectContainer}>
+                        <div css={S.selectBox}>
+                            <ReactSelect css={S.SelectSt} options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect} />
+                        </div>
+                        <input css={S.InputBox} type="text" onChange={handleSearchInputChange} onKeyDown={(e) => {if(e.keyCode === 13) {handleSearchButtonClick();}}}/>
+                        <button css={S.ButtonBox} onClick={handleSearchButtonClick}>검색</button>
                     </div>
-                    <input type="text" onChange={handleSearchInputChange} />
-                    <button onClick={handleSearchButtonClick}>검색</button>
                 </div>
                     <ul css={S.SChallengeList}>
                     <div css={S.SChallengeListHeader}>
@@ -112,7 +129,7 @@ function ChallengeList(props) {
                     <div css={S.SChallengeListBody}>
                         {/* <li ref={topChallengeRef}></li> */}
                         {challengeList?.map((challenge) => {
-                            return (<li key={challenge.challengeId} onClick={() => {navigate(`/challenge/${challenge.challengeId}`)}}>
+                            return (<li key={challenge.challengeId} onClick={() => handleChallengeClick(challenge.challengeId)}>
                                         <div>{challenge.challengeId}</div>
                                         <div>{challenge.challengeName}</div>
                                         <div>{challenge.categoryName}</div>
@@ -125,6 +142,7 @@ function ChallengeList(props) {
                     </div>
                 </ul>
             </div>
+            <PiPlusSquareLight css={S.Plus}/>
         </BaseLayout>
     );
 }

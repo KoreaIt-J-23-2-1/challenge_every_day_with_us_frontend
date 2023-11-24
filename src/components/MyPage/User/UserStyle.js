@@ -2,19 +2,10 @@ import { css } from '@emotion/react';
 
 export const Layout = css`
     display: flex;
-    flex-direction: column;
-    
-`;
-
-export const HeaderLayout = css`
-    display: flex;
-    justify-content: space-between;
     align-items: flex-end;
     height: 100px;
     padding-bottom: 10px;
     border-bottom: 4px solid #999;
-
-<<<<<<< Updated upstream:src/pages/ChallengeDetails/Style.js
 `;
 
 export const Box = css`
@@ -32,13 +23,12 @@ export const DeleteButton = css`
     
     &:active {
         background-color: #eee;
-=======
+    }
     & h2 {
         color: #333;
         font-weight: 700;
         font-size: 25px;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
->>>>>>> Stashed changes:src/components/MyPage/User/UserStyle.js
     }
 `;
 
@@ -62,48 +52,46 @@ export const BodyLayout = css`
 
 
 export const BodyRightBox = css`
+
+`;
+
+export const LeftBox = css`
     display: flex;
     flex-direction: column;
-    width: 400px;
 `;
 
-export const ParticipationButton = css`
-    width: 100%;
-    height: 40px;
-    background-color: transparent;
-    border: 1px solid #dbdbdb;
+export const ListLayout = css`
+    margin: 20px 10px 20px 25px;
+    padding: 30px 0px 0px 65px;
+    width: 350px;
+    height: 500px;
     border-radius: 10px;
-    cursor: pointer;
-    &:active {
-        background-color: #eee;
+    overflow: hidden;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.4); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    & h2 {
+        color: #333;
     }
 `;
-
-export const textBox = css`
-    height: 100px;
-    border: 2px solid #dbdbdb;
-`;
-
-export const SLikeButton = (isLike) => css`
-    position: sticky;
-    border: 1px solid #dbdbdb;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background-color: ${isLike ? "#7bbdff" : "#fff"};
-    cursor: pointer;
-`;
-
 
 export const ListBox = css`
     display: flex;
     flex-direction: column;
-    overflow: auto;
-    border: 1px solid #dbdbdb;
-    border-radius: 5px;
+    justify-content: center;
     
-    & scrollable-container {
-        height: 100%;
+
+    & li {
+        cursor: pointer;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #555;
+
+        &:hover {
+            color: darkgray;
+        }
     }
 `;
 
@@ -120,16 +108,14 @@ export const DeleteChallengerButton = css`
     border-radius: 10px;
     cursor: pointer;
 
-<<<<<<< Updated upstream:src/pages/ChallengeDetails/Style.js
     &:active {
         background-color: #eee;
-=======
+    }
     & h2 {
         color: #333;
         font-weight: 700;
         font-size: 25px;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
->>>>>>> Stashed changes:src/components/MyPage/User/UserStyle.js
     }
 `;
 
@@ -137,8 +123,6 @@ export const DeleteChallengerButton = css`
 export const FeedContainer = css`
     display: flex;
     flex-direction: column;
-<<<<<<< Updated upstream:src/pages/ChallengeDetails/Style.js
-=======
     flex: 1;
     margin-left: 10px;
     border-left: 1px solid #dbdbdb;
@@ -162,6 +146,60 @@ export const TitleBox = css`
     }
 `;
 
+// export const ProgressBox = css`
+//     margin: 0px 0px 0px 150px;
+// `;
+
+// export const FeedListBox = css`
+//     display: flex;
+//     flex-direction: column;
+//     margin-top: 30px;
+//     margin-left: 22px;
+//     padding: 20px;
+//     width: 700px;
+//     height: 95%;
+// `;
+
+export const EndListLayout = css`
+    margin: 0px 0px 20px 25px;
+    padding: 30px 0px 0px 75px;
+    width: 350px;
+    height: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.4); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    & h2 {
+        color: #333;
+    }
+`;
+
+export const RightBox = css`
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-left: 10px;
+    border-left: 1px solid #dbdbdb;
+`;
+
+// export const TitleBox = css`
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-end;
+//     margin-top: 50px;
+
+//     & h2 {
+//         margin: 0px 0px 10px 0px;
+//     }
+
+//     & b {
+//         font-size: 12px;
+//     }
+// `;
+
 export const ProgressBox = css`
     margin: 0px 0px 0px 150px;
 `;
@@ -171,14 +209,13 @@ export const FeedListBox = css`
     flex-direction: column;
     margin-top: 30px;
     margin-left: 22px;
->>>>>>> Stashed changes:src/components/MyPage/User/UserStyle.js
     padding: 20px;
-    width: 700px;
-    height: 95%;
+    width: 500px;
+    height: 480px;
     border-radius: 10px;
     overflow: hidden;
     overflow-y: auto;
-    background: rgba(255, 255, 255, 0.7); 
+    background: rgba(255, 255, 255, 0.4); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-size: 14px;
@@ -277,18 +314,36 @@ export const FeedContent = css`
     white-space: pre-line; 
 `;
 
-
-
-export const SFeedBottomLayout = css`
-
-`;
-
-export const SFeedBottomHeader = css`
+export const ModalOverlay = css`
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 `;
 
-export const CommentBox = css`
+
+export const SubModal = css`
+    height: auto;
+    width: auto;
+    border-top: 2px solid #dbdbdb;
+    z-index: 2;
     
+    & li {
+        width: 100px;
+        margin-bottom: 9px;
+    }
+`;
+
+export const ModalContent = css`
+    height: 500px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    ${SubModal} 
 `;

@@ -2,17 +2,31 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { instance } from '../../api/config/instance';
-import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 /** @jsxImportSource @emotion/react */
-import * as S from './Style';
+import * as S from './ChallengeDetailsStyle';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
+import { FcLike } from "react-icons/fc";
+import { IoIosHeartEmpty } from "react-icons/io";
+import { SiApachespark } from "react-icons/si";
+import { FaStar } from "react-icons/fa";
+import ProgressBar from '@ramonak/react-progress-bar';
+import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
+import FeedCommentSee from '../../components/FeedCommentSee/FeedCommentSee';
+import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 
 function ChallengeDetails(props) {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const principal = queryClient.getQueryState("getPrincipal");
     const [ isLike, setIsLike ] = useState(false);
+    const [ isFeedLike, setIsFeedLike ] = useState(false);
     const { challengeId } = useParams();
+    const [ commentShowMode, setCommentShowMode ] = useState({});
+    const [ comments, setComments ] = useState({});
+    const [ latestComments, setLatestComments ] = useState({});
+    const [ commentInputList, setCommentInputList ] = useState();
+    const [ isLikeList, setIsLikeList ] = useState({});
+    const { feedId } = useParams();
     const [ challenge, setChallenge ] = useState({});
     const [ challengers, setChallengers ] = useState({});
     const [ dateDifference, setDateDifference ] = useState(null);
@@ -22,8 +36,9 @@ function ChallengeDetails(props) {
     const [ isChallengeFeedRefetch, setIsChallengeFeedRefetch ] = useState(false);
     const [ feedList, setFeedList ] = useState([]);
     const [ page, setPage ] = useState(1);
+    const [ feedProgress, setFeedProgress ] = useState(0);
     const lastChallengeRef = useRef();
-    const [img, setImg] = useState(false);
+    const userId = principal.data.data.userId;
 
     const option = {
         headers: {
@@ -43,6 +58,15 @@ function ChallengeDetails(props) {
                 }
             } else {
                 setIsJoined("챌린지 인증하기");
+            }
+
+            const response = await instance.get(`/api/challenge/${challengeId}`, option);
+            const challenge = response.data;
+
+            console.log(challenge);
+            if (challenge.isDeadline === 1) {
+                setIsJoined("종료된 챌린지");
+                setButton(true);
             }
             return isJoined;
         } catch (error) {
@@ -67,6 +91,9 @@ function ChallengeDetails(props) {
             setChallenge(response.data);
         }
     })
+
+    console.log(challenge);
+
 
     const getChallengers = useQuery(["getChallengers"], async () => {
         try {
@@ -97,6 +124,56 @@ function ChallengeDetails(props) {
         retry: 0
     })
 
+
+
+    // const getUserLikeState = useQuery(["getUserLikeState"], async () => {
+    //     try {
+    //         return await instance.get(`/api/challenge/${challengeId}/${userId}`, option);
+    //     }catch(error) {
+    //         console.erroe(error);
+    //     }
+    // }, {
+    //     refetchOnWindowFocus: false,
+    //     retry: 0,
+    //     onSuccess: (response) => {
+    //         setIsLike(response?.data)
+    //     }
+    // })
+
+    useEffect(() => {
+        feedList.forEach(feed => {
+            getLatestComment(feed);
+            getComments(feed);
+            getLikeStates(feed);
+        })
+    }, [feedList]);
+
+    const getLatestComment = (feed) => {
+        instance.get(`/api/feed/${feed.feedId}/comment/latest`, option)
+        .then((response) => {
+            setLatestComments((latestComments) => ({
+                ...latestComments,
+                [feed.feedId]: response.data
+            }));
+        })
+    };
+
+    const getComments = async (feed) => {
+        const response = await instance.get(`/api/feed/${feed.feedId}/comments`, option);
+        setComments((comment) => ({
+            ...comment,
+            [feed.feedId]: response.data
+        }));
+    };
+
+    const getLikeStates = async (feed) => {
+        const response = await instance.get(`/api/feed/${feed.feedId}/like`, option);
+        setIsLikeList((isLikeList) => ({
+            ...isLikeList,
+            [feed.feedId]: response.data
+        }));
+    };
+
     const getFeedList = useQuery(["getFeedList"], async () => {
         return await instance.get(`/api/challenge/certification/feed/${page}/${challengeId}`, option);
     }, {
@@ -119,6 +196,7 @@ function ChallengeDetails(props) {
         }
 
         const observer = new IntersectionObserver(observerService, {threshold: 1});
+        
         observer.observe(lastChallengeRef.current);
     }, []);
 
@@ -136,20 +214,12 @@ function ChallengeDetails(props) {
     }, [challenge.startDate, challenge.endDate]);
 
     const handleLikebuttonClick = async () => {
-        const userId = principal.data.data.userId;
         const result = {
             userId: userId
         }
+
         try {
-            const response = await instance.get(`/api/challenge/${challengeId}/userlike`, {
-                headers: {
-                    Authorization: localStorage.getItem("accessToken")
-                },
-                params: {
-                    userId: userId
-                }
-            });
-            if (response.data) {
+            if (isLike) {
                 await instance.delete(`/api/challenge/${challengeId}/like`, {
                     ...option,
                     data: result
@@ -164,6 +234,67 @@ function ChallengeDetails(props) {
             console.error(error);
         }
     }
+
+    const getFeedLikeState = useQuery(["getFeedLikeState"], async (feed) => {
+        try {
+            return await instance.get(`/api/feed/${challengeId}/like`, option);
+        }catch(error) {
+            console.erroe(error);
+        }
+    }, {
+        refetchOnWindowFocus: false,
+        retry: 0,
+        onSuccess: (response) => {
+            setIsFeedLike(response);
+        }
+    })
+
+    const getProgress = useQuery(["getProgress"], async () => {
+        try{
+            return await instance.get(`/api/challenge/${challengeId}/progress`)
+        }catch(error) {
+
+        }
+    }, {
+        refetchOnWindowFocus: false,
+        retry: 0,
+        onSuccess: (response) => {
+            setFeedProgress(response.data)
+        }
+    })
+
+    const handleFeedLikebuttonClick = async (feedId) => {
+        const userId = principal.userId;
+        try {
+            const isLike = isLikeList[feedId];
+            let newState = null;
+
+            if (isLike === 1) {
+                await instance.delete(`/api/feed/${feedId}/like`, option);
+                newState = 0;
+            } else {
+                await instance.post(`/api/feed/${feedId}/like`, {}, option);
+                newState = 1;
+            }
+            setFeedList(prevFeedList => {
+                return prevFeedList.map(feed => {
+                    if (feed.feedId === feedId) {
+                        return {
+                            ...feed,
+                            likeCount: newState === 1 ? feed.likeCount + 1 : feed.likeCount - 1,
+                        };
+                    }
+                    return feed;
+                });
+            });
+            setIsLikeList((prevIsLikeList) => ({
+                ...prevIsLikeList,
+                [feedId]: newState
+            }));
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const handleDeleteClick = async () => {
         if(principal.data.data.name === challenge.name){
@@ -180,6 +311,7 @@ function ChallengeDetails(props) {
     const requestData = {
         senderUserId: principal.data.data.userId,
         receiverUserId: challenge.userId,
+        letterTitle: "챌린지 승인 요청",
         title: "챌린지 승인 요청",
         content: `${challenge.challengeName} 챌린지의 승인 요청이 들어왔습니다.`,
         targetUrl: "http://localhost:3000/challenge/1",
@@ -226,27 +358,53 @@ function ChallengeDetails(props) {
         getChallengers.refetch();
     };
 
+    const handleGoUp = () => {
+        window.location.reload();
+    }
+
+    const progress = ((feedProgress / (dateDifference + 1)) * 100).toFixed(0);
+
+    const handleCommentInput = (e) => {
+        setCommentInputList({
+            ...commentInputList,
+            [e.target.name]: e.target.value
+        })
+    };
+
+    const handleCommentSubmit = async (feedId) => {
+        try {
+            await instance.post(`/api/feed/${feedId}/comment`, {commentContent: commentInputList[`commentInput${feedId}`]}, option);
+            alert("댓글 등록 성공! -> " + feedId + "피드");
+            getFeedList.refetch();
+            
+        }catch(error) {
+            console.error(error);
+        }
+    };
+
     return (
         <BaseLayout>
             <div css={S.Layout}>
+                {/* 헤더 */}
                 <div css={S.HeaderLayout}>
                     <div>
                         <div>[{challenge.categoryName}]</div>
                         {dateDifference !== null && (
-                            <div>{dateDifference+1}일 중 {todayDifference}일차</div>
+                            <div>{dateDifference+1}일 중 <b css={S.Pointfont}>{todayDifference}일차 <SiApachespark /></b></div>
                         )}
                     </div>
-
                     {queryClient.data}
-                    <div>{challenge.challengeName}</div>
+                    <div css={S.ChallTitle} onClick={handleGoUp}>
+                        <a><FaStar/></a>{challenge.challengeName}<a><FaStar/></a>
+                    </div>
 
                     <div>
                         <div css={S.Box}>
-                            <div css={S.Writer}>작성자: <b>{challenge.name}</b> </div>
+                            <div css={S.Writer}>작성자: <b>{challenge.nickname}</b> </div>
                             <div>
-                                {!getLikeState.isLoading &&
-                                    <button css={S.SLikeButton(getLikeState?.data?.data)} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
-                                        <div>{isLike ? <AiTwotoneLike/> : <AiOutlineLike/>}</div>
+                                {!getFeedLikeState.isLoading &&
+                                    <button css={S.SLikeButton} disabled={!principal?.data?.data} onClick={handleLikebuttonClick}>
+                                        <div>{isLike ? <FcLike/> : <IoIosHeartEmpty/>}</div>
                                         <div>{challenge.challengeLikeCount}</div>
                                     </button>
                                 }
@@ -256,9 +414,7 @@ function ChallengeDetails(props) {
                     </div>
                 </div>
 
-
                 <div css={S.BodyLayout}>
-                    
                     {/* 왼쪽  */}
                     <div css={S.FeedContainer}>
                         {feedList.map(feed => (
@@ -291,14 +447,44 @@ function ChallengeDetails(props) {
                                 </div>
 
 
-
                                 <div css={S.SFeedBottomLayout}>
                                     <div css={S.SFeedBottomHeader}>
-                                        <b>댓글</b>
-                                        <b>좋아요 (좋아요 수)</b>
+                                        
+                                        {commentShowMode[feed.feedId] ? 
+                                            <button css={S.Btn}  onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: false})}}>댓글 접기</button>
+                                            : <button css={S.Btn} onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: true})}}>댓글 더보기</button>
+                                        }
+                                        
+                                        <b css={S.FeedLikeBtn}>
+                                            좋아요 {feed.likeCount}개
+                                            {principal &&
+                                                <div onClick={() => {handleLikebuttonClick(feed.feedId);}}>
+                                                    {
+                                                        isLikeList?.[feed.feedId] === 1 ? <FcLike/> : <IoIosHeartEmpty/>
+                                                    }
+                                                </div>
+                                            }
+                                    
+                                        </b>
                                     </div>
+
+
+                                    {principal && 
+                                        <div css={S.SFeedBottomBody}>
+                                            <div css={S.WriteCommentBox}>
+                                                <input css={S.CommentInputBox} type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput}/>
+                                                <button css={S.Btn} onClick={() => {handleCommentSubmit(feed.feedId)}}>댓글달기</button>
+                                            </div>                                            
+
+                                        </div>
+                                    }
+                                    
                                     <div css={S.CommentBox}>
-                                        <div>{principal.data.data.nickname}댓글</div>
+                                        {
+                                            commentShowMode[feed.feedId] ? 
+                                            <FeedCommentList feed={feed} comments={comments}/>
+                                            : <FeedCommentSee feed={feed} latestComments={latestComments}/>
+                                        }
                                     </div>
                                 </div>
 
@@ -312,17 +498,29 @@ function ChallengeDetails(props) {
                     {/* 오른쪽 */}
                     <div css={S.BodyRightBox}>
                         <p>기간: {challenge.startDate} ~ {!challenge.endDate ? "마감 없음": challenge.endDate}</p>
-                        <div css={S.textBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
-                        <b>참여인원</b>
+                        
                         <button css={S.ParticipationButton} onClick={handleParticipationButton} disabled={button}>
                             {isJoined}
                         </button>
+                        <div css={S.ChallInfoBox} dangerouslySetInnerHTML={{ __html: challenge.introduction}}></div>
+
+                        <b> <a css={S.Pointfont}> {challenge.challengeName} </a> 진행율 {progress}%</b>
+                        <div css={S.ProgressBarBox}>
+                            <ProgressBar css={S.ProgressBar} completed={progress} bgColor='lightpink' height='15px' labelSize='12px' baseBgColor='#eee'/>
+                        </div>                        
+
+                        <b>참여인원</b>
                         <div css={S.ListBox}>
-                            <b>참여인원</b>
                             {Object.values(challengers).map((item, index) => (
                                 <div key={index} css={S.ListContainer}>
-                                    <p>{item.nickname}</p>
-                                    {(item.userId !== challenge.userId && isOwner(principal.data.data.userId, challenge.userId))  && <button css={S.DeleteChallengerButton} onClick={() => handleDeleteChallenger(item.userId)}>삭제</button>}
+                                    <a>{item.nickname}</a>
+
+                                    {(item.userId !== challenge.userId &&
+                                        isOwner(principal.data.data.userId, challenge.userId)) &&
+                                        <button css={S.DeleteChallengerButton}
+                                            onClick={() => handleDeleteChallenger(item.userId)}>
+                                            삭제</button>}
+                                    
                                 </div>
                             ))}
                         </div>

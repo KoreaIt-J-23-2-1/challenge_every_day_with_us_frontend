@@ -37,7 +37,7 @@ function MenuModal(props) {
                 </div>
             </div>
 
-            {/* <div>
+            <div>
                 <div css={S.BtnBox}>
                     <button onClick={() => { checkLoginBeforeNavigate("/notice/page/1") }}>공지</button>
                     <button onClick={() => { checkLoginBeforeNavigate("/store/items") }}>상점</button>
@@ -54,8 +54,7 @@ function MenuModal(props) {
                     <button>닐니리야</button>
                     <button>추가할것</button>
                 </div>
-                <button onClick={() => { navigate(`/store/${userId}/orders`) }}>상점 물품 구매 목록 조회</button>
-            </div> */}
+            </div>
         </div>
     );
 }

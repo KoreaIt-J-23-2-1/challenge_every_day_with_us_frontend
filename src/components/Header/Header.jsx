@@ -47,6 +47,19 @@ function Header() {
         enabled: !!principal
     });
 
+    const getUnreadLettersCount = useQuery(["getUnreadLettersCount"], async () => {
+        try {
+            const response = await instance.get(`/api/letters/count/unread`, option);
+            return response.data;
+        }catch (error) {
+            console.error(error);
+        }
+    }, {
+        retry: 0,
+        refetchOnWindowFocus: false,
+        enabled: !!principal
+    });
+
     const GoStartPage = () => {
         window.location.replace("/");
     }
@@ -81,17 +94,17 @@ function Header() {
                     </div>
 
                     {/* 오른쪽버튼 */}
-                    <div css={S.RightIconBox}> 
+                    <div css={S.RightIconBox}>
+                    {(!getLettersCount.isLoading && principal ) && (
+                            <> 
                         <div css={S.BtnBackground} onClick={GoStorePage} ><BsFillGiftFill css={S.Icon} /></div>
                         
                         <div css={S.BtnBackground} onClick={handleStampOpen}><BsCalendarCheck css={S.Icon} /></div>
                         
-                        {(!getLettersCount.isLoading && principal ) && (
-                            <>
                                 <div css={S.BtnBackground} onClick={handleLetterOpen}  >
-                                    {getLetter ? <BsBellFill  css={S.Icon}/> : <BsBell  css={S.Icon}/>}
+                                    {getUnreadLettersCount.data !== 0 ? <BsBellFill  css={S.Icon}/> : <BsBell  css={S.Icon}/>}
                                 </div>
-                                <div css={S.LetterCountBox}>{getLettersCount.data}</div>
+                                {!getUnreadLettersCount.isLoading && getUnreadLettersCount.data === 0 ? <></> : <div css={S.LetterCountBox}>{getUnreadLettersCount.data}</div>}
                             </>
                             )
                         }

@@ -94,6 +94,11 @@ function Challengedefault() {
 
     const handleSave = async () => {
         const textValue = document.getElementById('challengeText').value;
+        if (!textValue.trim()) {
+            alert('텍스트를 입력하세요.');
+            return;
+        }
+    
         const today = new Date().toISOString().split('T')[0];
         const userFeedToday = getFeedList.data.data.find(feed =>
             feed.userId === principal.data.data.userId &&
@@ -143,20 +148,17 @@ function Challengedefault() {
     return (
         <div css={S.Layout}>
 
-
-            
             <div css={S.contentBox}>
-
+                
                 <div css={S.textBox}>
-                    <b>Text</b>
+                    <b>Write Text</b>
                     <textarea ref={textareaRef}
-                        id="challengeText" rows="32" cols="200" maxLength={1000} />
+                        id="challengeText" rows="32" cols="70" maxLength={1000} />
                 </div>
 
                 <div>
                     <b>Choice Img</b>
                     <div css={S.imgBox} onClick={handleInputImg}>
-                        {/* <img src={selectedImage}  alt="Selected" /> */}
                         {selectedImage && (
                             <img src={selectedImage} alt="Selected" />
                         )}

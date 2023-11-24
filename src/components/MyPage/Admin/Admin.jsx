@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
-import { instance } from '../../api/config/instance';
+import { instance } from '../../../api/config/instance';
 import { useQuery, useQueryClient } from 'react-query';
 import * as S from './AdminStyle';
-import AdminModal from '../AdminModal/AdminModal';
-import BaseLayout from '../BaseLayout/BaseLayout';
+import AdminModal from '../../AdminModal/AdminModal';
+import BaseLayout from '../../BaseLayout/BaseLayout';
 import ReactSelect from 'react-select';
 import { MdDeleteOutline } from "react-icons/md";
 import { IoStopCircleOutline } from "react-icons/io5";
@@ -22,7 +22,6 @@ function Admin() {
     const [ chartData, setChartData ] = useState([]);
     const lastChallengeRef = useRef();
     const [ sort, setSort ] = useState('latest');
-    const [ dateDifference, setDateDifference ] = useState(null);
 
     const option = {
         headers: {
@@ -228,8 +227,6 @@ function Admin() {
         setPage(1);
     };
 
-    console.log(chartData)
-
     const MyResponsiveLine = ({ data }) => {
         const sortedData = data.map(item => ({
             id: item.id,
@@ -336,9 +333,11 @@ function Admin() {
                             <label htmlFor="radio6">중단된 챌린지</label>
                         </div>
                         <div css={S.searchContainer}>
-                            <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect}/>
-                            <input type="text" onChange={handleSearchInputChange} />
-                            <button onClick={handleSearchButtonClick}>검색</button>
+                            <div>
+                                <ReactSelect css={S.SelectSt} options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect}/>
+                            </div>
+                            <input css={S.InputBox} type="text" onChange={handleSearchInputChange} onKeyDown={(e) => {if(e.keyCode === 13) {handleSearchButtonClick();}}}/>
+                            <button css={S.ButtonBox} onClick={handleSearchButtonClick}>검색</button>
                         </div>
                     </div>
                 <ul css={S.SChallengeList}>

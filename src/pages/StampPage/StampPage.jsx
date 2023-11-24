@@ -4,6 +4,10 @@ import Calendar from 'react-calendar';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
 import { instance } from '../../api/config/instance';
+import BaseLayout from '../../components/BaseLayout/BaseLayout';
+import { FaRegStar } from "react-icons/fa";
+import { useQuery } from 'react-query';
+import TitleComponent from '../../components/TitleComponent/TitleComponent';
 
 function StampPage(props) {
     const [ value, onChange ] = useState(new Date());
@@ -15,23 +19,39 @@ function StampPage(props) {
         }
     }
 
+    const getCheck = useQuery(["getCheck"], async () => {
+        try{
+            const response = await instance.get('/api/stamp', option);
+            if(response.data) {
+                setIsCheckedIn(true);
+            }
+            return response.data;
+        }catch(error) {
+            throw new Error(error);
+        }
+    }, {
+        retry: 0,
+        refetchOnWindowFocus: false,
+    })
 
     const handleCheckIn = async () => {
         try {
-            const response = await instance.post('/api/attendance', {
-                attendance: moment(value).format('YYYY-MM-DD'),
-            }, option);
-            if (response.data.success) {
-                setCheckedDates([...checkedDates, moment(value).toDate()]);
-                setIsCheckedIn(true);
-            } else {
+            if(!!getCheck){
+                const response = await instance.post('/api/attendance', {
+                    attendance: moment(value).format('YYYY-MM-DD'),
+                }, option);
+                if (response.data) {
+                    setCheckedDates([...checkedDates, moment(value).toDate()]);
+                    window.location.reload();
+                } else {
+                }
+            }else {
+                alert("하루에 한번만 출석 가능합니다.");
             }
         } catch (error) {
             console.error(error);
         }
     };
-
-    console.log(checkedDates)
 
     useEffect(() => {
         const fetchCheckedDates = async () => {
@@ -54,34 +74,42 @@ function StampPage(props) {
     };
 
     return (
-        <div>
-            <div>
-                <div>
-                    오늘 날짜: 
+        <BaseLayout>
+            <TitleComponent title="출석체크 !" />
+            <div css={S.calendarLayout}>
+                <div css={S.calendar}>
+                    <div css={S.calendarHeader}>
+                        <div>
+                            <b>오늘의 날짜 </b> {moment(value).format('YYYY년 MM월 DD일')}
+                        </div>
+                        
+                    </div>
+                    <div css={S.calendarContainer}>
+                        <Calendar
+                            defaultView={"month"}
+                            formatDay={(local, date) => moment(date).format('DD')}
+                            tileClassName={({date}) => {
+                                    const formattedDate = moment(date).startOf('day').format('YYYY-MM-DD');
+                                    const matchingDates = checkedDates.filter(item => {
+                                            const attendanceDate = moment(item.attendance).startOf('day').format('YYYY-MM-DD');
+                                            return attendanceDate === formattedDate;
+                                        }
+                                    );
+                                    return matchingDates.length > 0 ? "checked-circle" : "";
+                                }
+                            }
+                        />
+                    </div>
+                    <div css={S.checkInButtonContainer}>
+                        <div css={S.checkInButton}>
+                            <button onClick={handleCheckIn} disabled={isCheckedIn}>
+                                {isCheckedIn ? '이미 출석했습니다' : '출석체크'}
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                {moment(value).format('YYYY년 MM월 DD일')}
             </div>
-            <div css={S.calendarContainer}>
-            <Calendar
-                onChange={onChange}
-                value={value}
-                formatDay={(local, date) => moment(date).format('DD')}
-                tileClassName={({ date }) => {
-                    const formattedDate = moment(date).startOf('day').format('YYYY-MM-DD');
-
-                    const matchingDates = checkedDates.filter(item => {
-                        const attendanceDate = moment(item).startOf('day').format('YYYY-MM-DD');
-                        return attendanceDate === formattedDate;
-                    });
-
-                    return matchingDates.length > 0 ? 'checked-circle' : '';
-                }}
-            />
-            </div>
-            <button onClick={handleCheckIn} disabled={isCheckedIn}>
-                {isCheckedIn ? '이미 출석했습니다' : '출석체크'}
-            </button>
-        </div>
+        </BaseLayout>
     );
 }
 

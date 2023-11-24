@@ -13,7 +13,6 @@ import { HiOutlineMail } from "react-icons/hi";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import MypageDetailSideBar from '../../../components/MypageDetailSideBar/MypageDetailSideBar';
 
-
 function MyPageDetails(props) {
     const navegate = useNavigate();
     const queyrClient = useQueryClient();
@@ -21,6 +20,11 @@ function MyPageDetails(props) {
     const principal = principalState.data.data;   
     const [ uploadFiles, setUploadFiles ] = useState([]);
     const [ modifyMypageDetail, setModifyMypageDetail ] = useState(principal);
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
+    }
 
     const handleInputChange = (e) => {
         setModifyMypageDetail({
@@ -36,7 +40,6 @@ function MyPageDetails(props) {
             promise = new Promise((resolve, reject) => {
                 const storageRef = ref(storage, `files/profile/${uploadFiles[0].name}`);
                 const uploadTask = uploadBytesResumable(storageRef, uploadFiles[0]);
-    
                 uploadTask.on(
                     "state_changed",
                     (snapshot) => {
@@ -82,16 +85,16 @@ function MyPageDetails(props) {
 
     const handleIsWithdrawn = async () => {
         const userId = principal?.userId;
+        console.log(principal.userId);
         if(window.confirm("정말 탈퇴하시겠습니까?")) {
             if(window.confirm("진짜로 떠나시겠습니까?")) {
                 try{
-                    const option = {
-                        headers: {
-                            Authorization: localStorage.removeItem("accessToken")
-                        }
+                    const response = await instance.delete(`/api/account/${userId}`, option);
+                    if(response) {
+                        localStorage.removeItem("accessToken");
+                        queyrClient.refetchQueries("getPrincipal");
+                        navegate("/");
                     }
-                    await instance.delete(`/api/account/${userId}`, option);
-                    navegate("/");
                 }catch(error) {
                     console.error(error);
                 }
@@ -104,26 +107,28 @@ function MyPageDetails(props) {
             <MypageDetailSideBar setUploadFiles={setUploadFiles}>
                 <div css={S.Layout}>
                     <div css={S.userBox}>
-                        <div css={S.userInfoHeader}>내 정보수정</div>
-                        <div css={S.inputBox}>
-                            <div><FaRegUser /></div>
-                            <input type="text" name='name' value={principal.name} disabled={true} onChange={handleInputChange} placeholder='이름' />
+                        <h2>내 정보수정</h2>
+                        <div css={S.inputBoxLayout}>
+                            <div css={S.inputBox}>
+                                <div><FaRegUser /></div>
+                                <input type="text" name='name' value={principal.name} disabled={true} onChange={handleInputChange} placeholder='이름' />
+                            </div>
+                            <div css={S.inputBox}>
+                                <div><MdOutlineDriveFileRenameOutline /></div>
+                                <input type="text" name='nickname' defaultValue={principal.nickname} onChange={handleInputChange} placeholder='닉네임' />
+                            </div>
+                            <div css={S.inputBox}>
+                                <div><HiOutlineMail /></div>
+                                <input type="text" name='email' value={principal.email} disabled={true} onChange={handleInputChange} placeholder='이메일' />
+                            </div>
+                            <div css={S.inputBox}>
+                                <div><HiOutlineDevicePhoneMobile /></div>
+                                <input type="text" name='phone' value={principal.phone} disabled={true} onChange={handleInputChange} placeholder='전화번호' />
+                            </div>
                         </div>
-                        <div css={S.inputBox}>
-                            <div><MdOutlineDriveFileRenameOutline /></div>
-                            <input type="text" name='nickname' defaultValue={principal.nickname} onChange={handleInputChange} placeholder='닉네임' />
-                        </div>
-                        <div css={S.inputBox}>
-                            <div><HiOutlineMail /></div>
-                            <input type="text" name='email' value={principal.email} disabled={true} onChange={handleInputChange} placeholder='이메일' />
-                        </div>
-                        <div css={S.inputBox}>
-                            <div><HiOutlineDevicePhoneMobile /></div>
-                            <input type="text" name='phone' value={principal.phone} disabled={true} onChange={handleInputChange} placeholder='전화번호' />
-                        </div>
-                        <button css={S.SModify} onClick={handleModifyMypageDetailSubmit}>정보변경</button>
-                        <button css={S.SCancel} onClick={handleCancelClick}>취소</button>
-                        <button css={S.SWithdrawn} onClick={handleIsWithdrawn}>회원탈퇴</button>
+                        <button onClick={handleModifyMypageDetailSubmit}>정보변경</button>
+                        <button onClick={handleCancelClick}>취소</button>
+                        <button onClick={handleIsWithdrawn}>회원탈퇴</button>
                     </div>
                 </div>
             </MypageDetailSideBar>

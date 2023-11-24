@@ -1,6 +1,6 @@
 import React from 'react';
-import Admin from '../../components/MyPage/Admin';
-import User from '../../components/MyPage/User';
+import Admin from '../../components/MyPage/Admin/Admin';
+import User from '../../components/MyPage/User/User';
 import { useQueryClient } from 'react-query';
 
 function MyPage() {

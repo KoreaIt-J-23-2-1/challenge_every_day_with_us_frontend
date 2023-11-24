@@ -36,22 +36,31 @@ export const UserPoint = css`
 export const SBaseLayout = css`
     overflow-y: auto;
     scroll-behavior: smooth;
-    max-height: 800px;
+    max-height: 650px;
     margin: 20px 30px;
     padding-right: 15px;
+
+    ::-webkit-scrollbar {
+    width: 2px;
+    }
+    ::-webkit-scrollbar-thumb {
+    background-color: #dbdbdb
+    }
 `;
 
 export const SItemLayout = css`
     display: flex;
+    background: rgba(255, 255, 255, 0.7); 
     margin-bottom: 20px;
-    border: 1px solid #dbdbdb;
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 `;
 
 export const SItemImgLayout = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-right: 1px solid #dbdbdb;
     padding: 10px;
     background-color: #ffffff;
 `;
@@ -83,14 +92,13 @@ export const itemImg = css`
 `;
 
 export const SBuyBtn = css`
-    background-color: initial;
-    background-image: linear-gradient(-180deg, #00D775, #00BD68);
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
-    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: black;
     cursor: pointer;
     display: inline-block;
-    font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-weight: 600;
     height: 30px;
     line-height: 30px;
     outline: 0;
@@ -111,19 +119,20 @@ export const SBuyBtn = css`
     border: 0;
 
     &:hover {
-        background: #00bd68;
+        background: lightpink;
+        color: white;
     }
 `;
 export const SPointPurchaseBtn = css`
-    background-color: initial;
-    background-image: linear-gradient(-180deg, #FF7E31, #E62C03);
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
-    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
     cursor: pointer;
     display: inline-block;
     font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
     font-size: 12px;
+    font-weight: 600;
     height: 25px;
     line-height: 23px;
     outline: 0;
@@ -144,17 +153,20 @@ export const SPointPurchaseBtn = css`
     border: 0;
 
     &:hover {
-        box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+        background: lightpink;
+        color: white;
+        box-shadow: rgba(200, 50, 80, 0.5) 0 3px 8px;
     }
 `;
 
 export const ModalOverlay = css`
     position: fixed;
+    margin: 0 auto;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -162,7 +174,8 @@ export const ModalOverlay = css`
 `;
 
 export const ModalContent = css`
-    background: #fff;
+    background: rgba(253, 253, 255);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     border-radius: 8px;
     z-index: 10;

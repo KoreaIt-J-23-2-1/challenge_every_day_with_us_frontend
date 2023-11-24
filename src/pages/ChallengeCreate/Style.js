@@ -16,7 +16,6 @@ export const ChallengeTitle = css`
     justify-content: space-between;
     align-items: center;
     position: relative;
-    margin-top: 20px;
     font-size: 12px;
 
     & div {
@@ -180,3 +179,4 @@ export const allApprovalCheckbox = css`
     margin: 10px 30px 0px 0px;
     font-size: 14px;
 `;
+

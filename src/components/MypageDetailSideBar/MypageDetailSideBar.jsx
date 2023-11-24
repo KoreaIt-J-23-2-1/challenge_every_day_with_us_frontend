@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import * as S from "./Style";
 import { instance } from '../../api/config/instance';
+import PointModal from '../../components/PointModal/PointModal';
 
 function MypageDetailSideBar({ setUploadFiles, children }) {
     const navigate = useNavigate();
@@ -13,6 +14,13 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
     const profileFileRef = useRef();
     const [ profileImgSrc, setProfileImgSrc ] = useState("");
     const [ intro, setIntro ] = useState("");
+    const [ isModalOpen, setModalOpen ] = useState(false);
+
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
+    }
 
     useEffect(() => {
         setProfileImgSrc(principal.profileUrl);
@@ -47,26 +55,25 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
     };
 
     const handleIntroSubmit = () => {
-        const option = {
-            params: {
-            nickname: principal.nickname,
-            intro: intro,
-            },
-        };
-        instance.get('/api/account/intro', option)
-            .then((response) => {
-            queyrClient.refetchQueries(["getPrincipal"]);
-            const introData = response.data.intro;
+        try {
             const requestConfig = {
-                nickname: principal.nickname,
                 intro: intro,
             };
-            const requestMethod = introData !== null ? 'put' : 'post';
+            const response = instance.put('/api/account/intro', requestConfig, option);
+            if(response){
+                alert("수정완료");
+            }
+        }catch(error) {
+            console.error(error);
+        }
+    };
 
-            instance[requestMethod]('/api/account/intro', requestConfig);
-            })
-            .catch((error) => {
-            });
+    const handlePurchasePointClick = () => {
+        setModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalOpen(false);
     };
 
     return (
@@ -98,10 +105,18 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
                         <li onClick={() => navigate("/user")}>참여 현황</li>
                         <li onClick={() => navigate("/account/mypage/detail")}>내 정보수정</li>
                         <li onClick={() => navigate("/store/:userId/orders")}>상점물품 구매내역</li>
+                        <li onClick={() => {handlePurchasePointClick()}}>포인트 충전</li>
                         {/* <li onClick={() => navigate("/user")}>참여중인 리스트</li> */}
                     </ul>
                 </div>
             </div>
+            {isModalOpen && (
+                <div css={S.modalOverlay}>
+                    <div css={S.modalContent}>
+                        <PointModal onClose={handleCloseModal} />
+                    </div>
+                </div>
+            )}
             {children}
         </div>
     );

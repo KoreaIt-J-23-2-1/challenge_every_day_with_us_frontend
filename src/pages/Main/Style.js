@@ -1,47 +1,51 @@
 import { css } from '@emotion/react';
+import Logo from '../../img/Start.png';
 
-export const HederBox = css`
-    position: relative;
+
+export const MainBase = css`
     width: 100%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-`;
-
-export const ProfileBox = css`
-    position: relative;
-    height: 70%;
-    /* background-color: white; */
-    border-bottom: 4px solid rgba(0, 0, 0, 0.1);
-`;
-
-export const BtnBox = css`
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content:space-between;
-    margin: 30px;
+    justify-content: space-between;
+`;
+
+export const LogoImg = css`
+    cursor: pointer;
+    background-image: url(${Logo});
+    background-size: cover;
+    width: 500px;
+    height: 500px;
+    transition: transform 0.4s ease-out; 
+
+    &:hover{
+        opacity: 0.5;    
+        transform: scale(0.9);
+    }
+    &:active {
+        opacity: 1;    
+    }
 `;
 
 export const MenuBox = css`
     position: relative;
-    height: 30%;
-    background-color: skyblue;
-    border-top: 4px solid rgba(20, 50, 69);
-    
-`;
 
-export const ProfileImg = css`
-    margin: 80px;
-    width: 300px;
-    height: 300px;
-    background-color: #dbdbdb;
-    position: absolute;
-    border-radius: 10%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-`;
+    &>div{
+        cursor: pointer;
+        width: 100px;
+        height: 100px;
+        font-size: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+    }
 
-export const ContentBox = css`
-    height: 50%;
-    width: 100%;
-    /* background-color: beige; */
+    &>div:hover{
+        opacity: 0.5;    
+        transform: scale(0.9);
+    }
+    &>div:active {
+        opacity: 1;    
+    }
 `;

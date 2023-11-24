@@ -9,8 +9,6 @@ export const Background = css`
     height: 500px;
     border-radius: 400px 20px 400px 400px;
     transition: all 1s ease-in;
-    
-    
 `;
 
 export const MenuHeader = css`

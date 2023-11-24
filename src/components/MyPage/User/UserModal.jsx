@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import * as S from "./Style";
-import { instance } from '../../api/config/instance';
-import { useNavigate } from 'react-router-dom';
-import { useQuery, useQueryClient } from 'react-query';
+import * as S from './UserStyle';
+import { CircularProgressBar } from '@tomickigrzegorz/react-circular-progress-bar';
+import PropTypes from 'prop-types';
 
-function PointStore({ onClose }) {
+function UserModal({ onClose }) {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const modalRef = useRef();
@@ -19,12 +17,6 @@ function PointStore({ onClose }) {
             document.head.removeChild(iamport);
         };
     }, [])
-
-    const handleCloseModal = (e) => {
-        if (modalRef.current && !modalRef.current.contains(e.target)) {
-            onClose();
-        }
-    };
 
     useEffect(() => {
         document.addEventListener('mousedown', handleCloseModal);
@@ -84,9 +76,21 @@ function PointStore({ onClose }) {
         });
     }
 
+    const handleCloseModal = (e) => {
+        if (modalRef.current && !modalRef.current.contains(e.target)) {
+            closeModal();
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleCloseModal);
+        return () => {
+            document.removeEventListener('mousedown', handleCloseModal);
+        };
+    }, [handleCloseModal]);
 
     return (
-        <div ref={modalRef} css={S.SPointLayout}>
+        <div ref={modalRef}>
             <h1>포인트 충전하기</h1>
             <div css={S.SStoreContainer}>
                 {productData.map((product) => (
@@ -104,6 +108,3 @@ function PointStore({ onClose }) {
         </div>
     );
 }
-    
-
-export default PointStore;

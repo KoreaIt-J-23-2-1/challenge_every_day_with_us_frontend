@@ -6,6 +6,7 @@ import { instance } from '../../api/config/instance';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import * as S from './Style';
+import TitleComponent from '../../components/TitleComponent/TitleComponent';
 
 function ChallengeCreate({ children }) {
     const [ challengeTitle, setChallengeTitle ] = useState("");
@@ -82,14 +83,13 @@ function ChallengeCreate({ children }) {
                         point: 1000,
                         userId: userId
                     };
-                    await instance.post(`/api/challenge/create/point`, principalPoint);
                     const createResponse = await instance.post(`/api/challenge/create`, requestData);
+                    await instance.post(`/api/challenge/create/point`, principalPoint);
                     
                     if (createResponse.data === true) {
                         alert("챌린지 등록 !! ");
                         navigete("/main");
-                        principal.refetch();
-                        instance.post()
+
                     } else {
                         console.log("챌린지 생성 실패");
                     }
@@ -101,13 +101,15 @@ function ChallengeCreate({ children }) {
                     }
                 }
             } catch (error) {
-                console.error(error);
+                console.log(error);
+                alert(error.response.data);
             }
         }
     };
 
     return (
         <BaseLayout>
+            <TitleComponent title="어떤 도전을 하실건가요 ?" />
             <div css={S.Layout}>
                 <div css={S.ChallengeTitle}>
                     <div>Category : 
