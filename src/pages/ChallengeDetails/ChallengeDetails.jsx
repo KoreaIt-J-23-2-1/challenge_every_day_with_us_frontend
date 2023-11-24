@@ -65,7 +65,6 @@ function ChallengeDetails(props) {
 
             console.log(challenge);
             if (challenge.isDeadline === 1) {
-                alert("ㅎㅎ")
                 setIsJoined("종료된 챌린지");
                 setButton(true);
             }
