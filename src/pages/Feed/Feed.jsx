@@ -287,7 +287,7 @@ function Feed(props) {
                                             <div css={S.WriteCommentBox}>
                                                 {/* <img src={principal.profileUrl}/> */}
                                                 <b>{principal.nickname}</b>
-                                                <input css={S.CommentInputBox} type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput}/>
+                                                <input css={S.CommentInputBox} type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput} onKeyDown={(e) => {if(e.keyCode === 13) {handleCommentSubmit(feed.feedId);}}}/>
                                                 <button css={S.Btn} onClick={() => {handleCommentSubmit(feed.feedId)}}>댓글달기</button>
                                             </div>
                                         </div>
