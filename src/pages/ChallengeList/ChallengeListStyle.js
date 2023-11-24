@@ -3,14 +3,20 @@ import { css } from '@emotion/react';
 export const Layout = css`
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 100%;
+    *::-webkit-scrollbar {
+        width: 4px;
+    }
+    *::-webkit-scrollbar-thumb {
+        background-color: #dbdbdb
+    }
 `;
 
 export const searchContainer = css`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin: 30px 0px;
+    margin: 40px 0px 15px 0px;
     
     & > input {
         margin-left: 10px;
@@ -30,8 +36,13 @@ export const selectBox = css`
 
 export const SChallengeList = css`
     width: 100%;
+    height: 670px;
     border: 1px solid #dbdbdb;
     padding: 0px;
+    background: rgba(255, 255, 255, 0.4); 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
 `;
 
 export const SChallengeListHeader = css`
@@ -42,6 +53,7 @@ export const SChallengeListHeader = css`
 
     & > li {
         display: flex;
+        height: 20px;
         & > div {
             display: flex;
             justify-content: center;
@@ -56,13 +68,14 @@ export const SChallengeListHeader = css`
 `;
 
 export const SChallengeListBody = css`
-    height: 500px;
+    height: 605px;
     white-space: nowrap;
     overflow-y: auto;
 
     & > li {
         display: flex;
         margin-bottom: 10px;
+        height: 30px;
 
         cursor: pointer;
         & > div {
