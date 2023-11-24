@@ -87,6 +87,38 @@ export const FeedLikeBtn = css`
 
 `;
 
+export const SFeedBottomBody = css`
+    display: flex;
+    align-items: center;
+    width: 100%;
+`;
+
+export const WriteCommentBox = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    &>img{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+
+
+`;
+
+export const CommentInputBox = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px auto;
+    width: 600px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #dbdbdb;
+
+`;
 
 export const BodyLayout = css`
     display: flex;
@@ -205,7 +237,21 @@ export const FeedContent = css`
     white-space: pre-line; 
 `;
 
+export const SFeedBottomLayout = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-top: 1px solid #dbdbdb;
+`;
 
+export const SFeedBottomHeader = css`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+`;
 
 export const CommentHeader = css`
     display: flex;
@@ -302,7 +348,6 @@ export const ListContainer = css`
     
 `;
 
-
 export const DeleteChallengerButton = css`
     width: 50px;
     height: 22px;
@@ -321,8 +366,6 @@ export const DeleteChallengerButton = css`
         background-color: #e1e1e1;
     }
 `;
-
-
 
 export const ProgressBarBox = css`
     position: relative;
