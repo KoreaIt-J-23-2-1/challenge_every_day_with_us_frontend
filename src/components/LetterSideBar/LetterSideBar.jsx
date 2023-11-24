@@ -6,6 +6,7 @@ import { instance } from '../../api/config/instance';
 import LetterModal from '../LetterModal/LetterModal';
 import { useNavigate } from 'react-router-dom';
 import * as S from './Style';
+import { IoMdCloseCircle } from 'react-icons/io';
 
 function LetterSideBar(props) {
     const [ isModalOpen, setIsModalOpen] = useState(false);
@@ -158,28 +159,31 @@ function LetterSideBar(props) {
                 </div>
             </div>
             <LetterModal  isOpen={isModalOpen} onClose={closeModal} selectedLetter={selectedLetter}>
-                <div css={S.modalCloseBtn} onClick={closeModal}>닫기</div>
+                <div css={S.modalCloseBtn} onClick={closeModal}><IoMdCloseCircle /></div>
                 {!letterList.isLoading && selectedLetter && (
-                    <div>
+                    <div css={S.modalContainer}>
                         <h3 css={S.modalTitle} onClick={GoTargetLetterUrl}>{selectedLetter.title}</h3>
-                        <div><b>Sender: </b>{selectedLetter.senderNickname}</div>
-                        <div><b>Date: </b>{selectedLetter.sendDateTime}</div>
-                        <div><b>Content: </b><div dangerouslySetInnerHTML={{ __html: selectedLetter.content }}></div></div>
-                        
-                        {selectedLetter.title === "챌린지 승인 요청" && (
-                            selectedLetter.acceptState === 0 ?
+                        <div css={S.modalFrom}><b>From: </b>{selectedLetter.senderNickname}</div>
+                        <div css={S.modalDate}><b>Date: </b>{selectedLetter.sendDateTime}</div>
+                        <div css={S.modalContent}><div dangerouslySetInnerHTML={{ __html: selectedLetter.content }}></div></div>
+                        <div css={S.modalBottom}>
+                            {selectedLetter.title === "챌린지 승인 요청" && (
+                                selectedLetter.acceptState === 0 ?
+                                    <div>
+                                            <button onClick={handleAcceptChallenge}>수락</button>
+                                            <button onClick={handleRejectChallenge}>거절</button>
+                                    </div>
+                                    :
+                                    <div>
+                                        <b>Accept-State: </b>{selectedLetter.acceptState === 1 ? "수락 완료" : "거절 완료"}
+                                    </div>
+                                )}
+                            {selectedLetter.title === "새로운 공지가 있습니다." && (
                                 <div>
-                                    <button onClick={handleAcceptChallenge}>수락</button>
-                                    <button onClick={handleRejectChallenge}>거절</button>
+                                    <button onClick={() => {window.location.replace(selectedLetter.targetUrl);}}>바로가기</button>
                                 </div>
-                                :
-                                <div><b>Accept-State: </b>{selectedLetter.acceptState === 1 ? "수락 완료" : "거절 완료"}</div>
-                        )}
-                        {selectedLetter.title === "새로운 공지가 있습니다." && (
-                            <div>
-                                <button onClick={() => {window.location.replace(selectedLetter.targetUrl);}}>바로가기</button>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 )}
             </LetterModal>

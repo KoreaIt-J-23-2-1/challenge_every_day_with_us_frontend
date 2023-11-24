@@ -44,7 +44,33 @@ export const modalCloseBtn = css`
     justify-content: flex-end;
 `;
 
+export const modalContainer = css`
+    margin: auto;
+`;
+
 export const modalTitle = css`
+    display: flex;
+    justify-content: center;
     cursor: pointer;
 `;
 
+export const modalFrom = css`
+
+`;
+
+export const modalDate = css`
+
+`;
+
+export const modalContent = css`
+    padding: 20px;
+    height: 170px;
+    white-space: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+`;
+
+export const modalBottom = css`
+    display: flex;
+    justify-content: center;
+`;
