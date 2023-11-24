@@ -14,6 +14,7 @@ export const HeaderLayout = css`
     padding-bottom: 10px;
     border-bottom: 4px solid #999;
 
+<<<<<<< Updated upstream:src/pages/ChallengeDetails/Style.js
 `;
 
 export const Box = css`
@@ -31,6 +32,13 @@ export const DeleteButton = css`
     
     &:active {
         background-color: #eee;
+=======
+    & h2 {
+        color: #333;
+        font-weight: 700;
+        font-size: 25px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+>>>>>>> Stashed changes:src/components/MyPage/User/UserStyle.js
     }
 `;
 
@@ -112,8 +120,16 @@ export const DeleteChallengerButton = css`
     border-radius: 10px;
     cursor: pointer;
 
+<<<<<<< Updated upstream:src/pages/ChallengeDetails/Style.js
     &:active {
         background-color: #eee;
+=======
+    & h2 {
+        color: #333;
+        font-weight: 700;
+        font-size: 25px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+>>>>>>> Stashed changes:src/components/MyPage/User/UserStyle.js
     }
 `;
 
@@ -121,6 +137,41 @@ export const DeleteChallengerButton = css`
 export const FeedContainer = css`
     display: flex;
     flex-direction: column;
+<<<<<<< Updated upstream:src/pages/ChallengeDetails/Style.js
+=======
+    flex: 1;
+    margin-left: 10px;
+    border-left: 1px solid #dbdbdb;
+`;
+
+export const TitleBox = css`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 50px;
+
+    & h2 {
+        margin: 0px 0px 10px 0px;
+        font-weight: 700;
+        font-size: 25px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    & b {
+        font-size: 12px;
+    }
+`;
+
+export const ProgressBox = css`
+    margin: 0px 0px 0px 150px;
+`;
+
+export const FeedListBox = css`
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-left: 22px;
+>>>>>>> Stashed changes:src/components/MyPage/User/UserStyle.js
     padding: 20px;
     width: 700px;
     height: 95%;
@@ -130,6 +181,7 @@ export const FeedContainer = css`
     background: rgba(255, 255, 255, 0.7); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
 
     ::-webkit-scrollbar {
     width: 2px;

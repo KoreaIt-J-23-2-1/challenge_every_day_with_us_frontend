@@ -20,6 +20,7 @@ export const sideBox = css`
     border-left: 1px solid rgba(0,0,0,.08);
     vertical-align: top;
     z-index: 1;
+    padding: 15px;
 `;
 
 export const imgContainer = css`

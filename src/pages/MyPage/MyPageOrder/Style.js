@@ -1,14 +1,20 @@
 import { css } from '@emotion/react';
 
 export const SLayout = css`
-    width: 700px;
+    width: 930px;
+    *::-webkit-scrollbar {
+        width: 2px;
+    }
+    *::-webkit-scrollbar-thumb {
+        background-color: #dbdbdb
+    }
 `;
 
 export const SOrderHeader = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin: 30px 0px 0px 150px;
   font-size: 24px;
   font-weight: bold;
   color: #333;
@@ -20,6 +26,7 @@ export const SBaseLayout = css`
   max-height: 600px;
   margin: 20px 30px;
   padding-right: 15px;
+
 `;
 
 export const SItemContainer = css`
