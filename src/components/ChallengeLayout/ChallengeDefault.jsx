@@ -145,7 +145,7 @@ function Challengedefault() {
         <div css={S.Layout}>
 
             <div css={S.contentBox}>
-
+                
                 <div css={S.textBox}>
                     <b>Write Text</b>
                     <textarea ref={textareaRef}

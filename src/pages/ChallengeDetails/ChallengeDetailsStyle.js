@@ -13,7 +13,6 @@ export const HeaderLayout = css`
     height: 100px;
     padding-bottom: 10px;
     border-bottom: 4px solid #999;
-
 `;
 
 export const ChallTitle = css`
@@ -78,15 +77,36 @@ export const SLikeButton = css`
     cursor: pointer;
 `;
 
-export const FeedLikeBtn = css`
-    position: sticky;
-    border: none;
-    border-radius: 50%;
-    background-color: transparent;
-    cursor: pointer;
-
+export const SFeedBottomBody = css`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0px;
 `;
 
+export const WriteCommentBox = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+`;
+export const CommentInputBox = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    width: 80%;
+    height: 25px;
+    border: none;
+    background: rgba(250, 250, 250, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    &:focus{
+        outline: none;
+    }
+
+`;
 
 export const BodyLayout = css`
     display: flex;
@@ -205,7 +225,33 @@ export const FeedContent = css`
     white-space: pre-line; 
 `;
 
+export const SFeedBottomLayout = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+`;
 
+
+export const SFeedBottomHeader = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+`;
+
+export const FeedLikeBtn = css`
+    display: flex;
+    justify-content: end;
+    width: 180px;
+    font-size: 13px;
+
+    &>div{
+        margin-left: 5px;
+    }
+
+`;
 
 export const CommentHeader = css`
     display: flex;
@@ -218,8 +264,28 @@ export const CommentHeader = css`
     }
 `;
 
+export const Btn = css`
+    border: none;
+    padding: 5px 10px;
+    margin: 0px 2px;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    &:hover{
+        background: rgba(80, 80, 80, 0.2);
+    }
+    &:active{
+        background: rgba(80, 80, 80, 0.4);
+    }
+`;
+
 export const CommentBox = css`
-    
+    margin: 10px 0px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 `;
 
 
@@ -302,7 +368,6 @@ export const ListContainer = css`
     
 `;
 
-
 export const DeleteChallengerButton = css`
     width: 50px;
     height: 22px;
@@ -321,8 +386,6 @@ export const DeleteChallengerButton = css`
         background-color: #e1e1e1;
     }
 `;
-
-
 
 export const ProgressBarBox = css`
     position: relative;

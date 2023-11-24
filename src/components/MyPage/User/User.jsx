@@ -6,14 +6,12 @@ import BaseLayout from '../../BaseLayout/BaseLayout';
 import * as S from './UserStyle';
 import MypageDetailSideBar from '../../MypageDetailSideBar/MypageDetailSideBar';
 import { CircularProgressBar } from '@tomickigrzegorz/react-circular-progress-bar';
-import UserModal from './UserModal'; 
 
 function User() {
     const [ myChallenge, setMyChallenge ] = useState([]);
     const [ myEndChallenge, setMyEndChallenge ] = useState([]);
     const [ selectedChallenge, setSelectedChallenge ] = useState(null);
     const [ challengeProgress, setChallengeProgress ] = useState(0);
-    const [ modalProgress, setModalProgress ] = useState(0);
     const [ challengeStartDate, setChallengeStartDate ] = useState(null);
     const [ challengeEndDate, setChallengeEndDate ] = useState(null);
     const [ myFeedList, setMyFeedList ] = useState([]);
@@ -27,7 +25,7 @@ function User() {
 
     const getMyChallenges = useQuery(["getMyChallenges"], async () => {
         try {
-        return await instance.get("/api/account/mychallenges", option);
+            return await instance.get("/api/account/mychallenges", option);
         } catch(error) {
             throw new Error(error)
         }
@@ -79,8 +77,6 @@ function User() {
             setSelectedChallenge(challengeId);
             setMyFeedList(myChallengeFeeds);
 
-            console.log(progress)
-
             if(progressValue === 0) {
                 setChallengeProgress(0);
             }else {
@@ -121,19 +117,6 @@ function User() {
                                         {myChallenge.challengeName}
                                     </li>
                                 ))}
-                                {/* {isModalOpen && (
-                                    <div css={S.ModalOverlay}>
-                                        <div css={S.ModalContent}>
-                                            <UserModal 
-                                                challenge={selectedChallenge}
-                                                closeModal={closeModal}
-                                                initialProgress={modalProgress}
-                                                startDate={challengeStartDate}
-                                                endDate={challengeEndDate}
-                                            />
-                                        </div>
-                                    </div>
-                                )} */}
                             </div>
                         </div>
                     </div>
@@ -144,7 +127,6 @@ function User() {
                             <b>{challengeStartDate} ~ {challengeEndDate}</b>
                         </div>
                         <div css={S.ProgressBox}>
-                            {/* <div>진행기간: <p>{challengeStartDate}</p></div> */}
                             <CircularProgressBar colorCircle="#eee" colorSlice="pink" fontSize="10px" percent={parseFloat(challengeProgress)}/>
                         </div>
 

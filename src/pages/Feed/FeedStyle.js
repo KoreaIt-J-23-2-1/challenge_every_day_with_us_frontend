@@ -32,7 +32,7 @@ export const SAlignment = css`
 
 export const SScroll = css`
     overflow-y: auto;
-    max-height: 600px;
+    max-height: 670px;
     padding-right: 15px;
     background: rgba(255, 255, 255, 0.7); 
     border-radius: 15px; 
@@ -57,7 +57,7 @@ export const FeedHeader = css`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 60px;
+    height: 80px;
 
     &>div>div{
         display: flex;
@@ -171,12 +171,12 @@ export const SFeedBottomLayout = css`
     justify-content: center;
     align-items: center;
     width: 100%;
-    border-top: 1px solid #dbdbdb;
 `;
 
+// 댓글
 export const SFeedBottomHeader = css`
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
 `;
@@ -185,6 +185,7 @@ export const SFeedBottomBody = css`
     display: flex;
     align-items: center;
     width: 100%;
+    margin: 10px 0px;
 `;
 
 export const WriteCommentBox = css`
@@ -192,14 +193,6 @@ export const WriteCommentBox = css`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-
-    &>img{
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-    }
-
-
 `;
 
 export const CommentInputBox = css`
@@ -207,17 +200,23 @@ export const CommentInputBox = css`
     justify-content: center;
     align-items: center;
     margin: 0px auto;
+    padding-left: 10px;
     width: 600px;
-    height: 30px;
-    border-radius: 5px;
-    border: 1px solid #dbdbdb;
+    height: 25px;
+    border: none;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    &:focus{
+        outline: none;
+    }
 
 `;
 
 
-// 댓글 
-export const SFeedBottomFooter = css`
-    margin: 5px;
+export const CommentBox = css`
+    margin: 10px 0px;
+    padding: 10px;
     width: 100%;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -243,4 +242,39 @@ export const ModalContent = css`
     border-radius: 8px;
 
     ${SubModal} 
+`;
+
+export const BtnBox = css`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 180px;
+`;
+
+export const Btn = css`
+    border: none;
+    padding: 5px 10px;
+    margin: 0px 2px;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    &:hover{
+        background: rgba(80, 80, 80, 0.2);
+    }
+    &:active{
+        background: rgba(80, 80, 80, 0.4);
+    }
+`;
+
+export const FeedLikeBtn = css`
+    display: flex;
+    justify-content: end;
+    width: 180px;
+    font-size: 13px;
+
+    &>div{
+        margin-left: 5px;
+    }
+
 `;

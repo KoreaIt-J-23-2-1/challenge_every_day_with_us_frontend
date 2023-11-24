@@ -8,7 +8,9 @@ import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import FeedEditModal from '../../components/FeedEditModal/FeedEditModal';
 import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
-import LatestFeedComment from '../../components/LatestFeedComment/LatestFeedComment';
+import FeedCommentSee from '../../components/FeedCommentSee/FeedCommentSee';
+import { FcLike } from "react-icons/fc";
+import { IoIosHeartEmpty } from "react-icons/io";
 
 function Feed(props) {
     const { challengeId } = useParams();
@@ -206,9 +208,7 @@ function Feed(props) {
             <div css={S.SLayout}>
 
                 <div css={S.SHeaderLayout}>
-                    <b>피드</b>
-                    <div>이미지드갈예정</div>
-                    <button>활동</button>
+                    <b>서로의 도전을 응원해주세요 !</b>
                 </div>
 
                 <div css={S.SAlignment}>
@@ -232,16 +232,18 @@ function Feed(props) {
                                         <img css={S.InfoImg} src={feed.profileUrl} alt="" />
                                         <b>{feed.nickname}</b>  
                                     </div>
-                                    <div  css={S.ChInfo}>
-                                        {principal.userId === feed.userId ?
-                                            <div>
-                                                <button onClick={() => {handleFeedEditClick(feed.feedId)}}>수정</button>
-                                                <button onClick={() => {handleFeedDeleteClick(feed.feedId)}}>삭제</button>
-                                            </div>
-                                        :
-                                        <></>
-                                        }
-                                        <button onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
+                                    <div css={S.ChInfo}>
+                                        <div css={S.BtnBox}>
+                                            <button css={S.Btn} onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
+                                            {principal.userId === feed.userId ?
+                                                <div>
+                                                    <button css={S.Btn} onClick={() => {handleFeedEditClick(feed.feedId)}}>수정</button>
+                                                    <button css={S.Btn} onClick={() => {handleFeedDeleteClick(feed.feedId)}}>삭제</button>
+                                                </div>
+                                            :
+                                            <></>
+                                            }
+                                        </div>
                                                                         
                                         <div>
                                             <p>[{feed.categoryName}]</p>
@@ -259,44 +261,44 @@ function Feed(props) {
                                 </div>                                
 
                                 <div css={S.SFeedBottomLayout}>
-
                                     <div css={S.SFeedBottomHeader}>
-                                        <div>좋아요 {feed.likeCount}개</div>
-                                        {principal &&
-                                            <div onClick={() => {handleLikebuttonClick(feed.feedId);}}>
-                                                {
-                                                    isLikeList?.[feed.feedId] === 1 ? <AiTwotoneLike/> : <AiOutlineLike/>
-                                                }
-                                            </div>
-                                        }
+                                        
                                         {commentShowMode[feed.feedId] ? 
-                                            <button onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: false})}}>댓글 접기</button>
-                                            : <button onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: true})}}>댓글 더보기</button>
+                                            <button css={S.Btn}  onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: false})}}>댓글 접기</button>
+                                            : <button css={S.Btn} onClick={() => {setCommentShowMode({...commentShowMode, [feed.feedId]: true})}}>댓글 더보기</button>
                                         }
+                                        
+                                        <b css={S.FeedLikeBtn}>
+                                            좋아요 {feed.likeCount}개
+                                            {principal &&
+                                                <div onClick={() => {handleLikebuttonClick(feed.feedId);}}>
+                                                    {
+                                                        isLikeList?.[feed.feedId] === 1 ? <FcLike/> : <IoIosHeartEmpty/>
+                                                    }
+                                                </div>
+                                            }
+                                        </b>
                                     </div>
 
                                     {principal && 
                                         <div css={S.SFeedBottomBody}>
                                             <div css={S.WriteCommentBox}>
-                                                {/* <img src={principal.profileUrl}/> */}
                                                 <b>{principal.nickname}</b>
-                                                <input css={S.CommentInputBox} type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput}/>
-                                                <button onClick={() => {handleCommentSubmit(feed.feedId)}}>댓글달기</button>
-                                                <div >
-                                                </div>
+                                                <input css={S.CommentInputBox} type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput} onKeyDown={(e) => {if(e.keyCode === 13) {handleCommentSubmit(feed.feedId);}}}/>
+                                                <button css={S.Btn} onClick={() => {handleCommentSubmit(feed.feedId)}}>댓글달기</button>
                                             </div>
                                         </div>
                                     }
 
-                                    <div css={S.SFeedBottomFooter}>
+                                    <div css={S.CommentBox}>
                                         {
                                             commentShowMode[feed.feedId] ? 
                                             <FeedCommentList feed={feed} comments={comments}/>
-                                            : <LatestFeedComment feed={feed} latestComments={latestComments}/>
+                                            : <FeedCommentSee feed={feed} latestComments={latestComments}/>
                                         }
                                     </div>
                                     
-                                </div>
+                                </div> 
                             </div>
                         </div>
                     ))}
