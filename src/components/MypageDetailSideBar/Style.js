@@ -136,16 +136,20 @@ export const leftMenu = css`
 `;
 
 export const modalOverlay = css`
+    position: fixed;
+    margin: 0 auto;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
     display: flex;
-    align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    align-items: center;
+    z-index: 10;
 `;
+
+
 
 export const modalContent = css`
     position: absolute;

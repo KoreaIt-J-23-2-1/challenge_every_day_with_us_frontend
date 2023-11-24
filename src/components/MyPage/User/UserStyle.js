@@ -182,3 +182,37 @@ export const FeedContent = css`
     word-wrap: break-word;
     white-space: pre-line; 
 `;
+
+export const ModalOverlay = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+`;
+
+
+export const SubModal = css`
+    height: auto;
+    width: auto;
+    border-top: 2px solid #dbdbdb;
+    z-index: 2;
+    
+    & li {
+        width: 100px;
+        margin-bottom: 9px;
+    }
+`;
+
+export const ModalContent = css`
+    height: 500px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    ${SubModal} 
+`;
