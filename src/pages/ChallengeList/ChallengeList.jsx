@@ -25,12 +25,10 @@ function ChallengeList(props) {
         {value: "카테고리이름", label: "카테고리이름"}
     ];
 
-    const search = {
+    const [ searchParams, setSearchParams ] = useState({
         optionName: options[0].label,
         searchValue: ""
-    }
-
-    const [ searchParams, setSearchParams ] = useState(search);
+    });
 
     const getChallengeList = useQuery(["getChallengeList", page], async () => {
         const option = {
@@ -44,7 +42,9 @@ function ChallengeList(props) {
         onSuccess: (response) => {
             setChallengeList(challengeList.concat(response.data));
             setIsChallengeListRefetch(false);
-            setPage(page + 1);
+            if(response.data.length !== 0) {
+                setPage(page + 1);
+            }
         }
     });
 
@@ -85,8 +85,11 @@ function ChallengeList(props) {
     }
 
     const handleSearchButtonClick = () => {
-        navigate("/challenges");
-        getChallengeList.refetch();
+        setChallengeList([]);
+        if(page === 1) {
+            getChallengeList.refetch();
+        }
+        setPage(1);
     }
 
     const handleChallengeClick = (challengeId) => {
