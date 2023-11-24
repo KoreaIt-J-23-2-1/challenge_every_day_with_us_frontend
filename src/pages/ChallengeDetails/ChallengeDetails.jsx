@@ -59,6 +59,16 @@ function ChallengeDetails(props) {
             } else {
                 setIsJoined("챌린지 인증하기");
             }
+
+            const response = await instance.get(`/api/challenge/${challengeId}`, option);
+            const challenge = response.data;
+
+            console.log(challenge);
+            if (challenge.isDeadline === 1) {
+                alert("ㅎㅎ")
+                setIsJoined("종료된 챌린지");
+                setButton(true);
+            }
             return isJoined;
         } catch (error) {
             console.log(error);
