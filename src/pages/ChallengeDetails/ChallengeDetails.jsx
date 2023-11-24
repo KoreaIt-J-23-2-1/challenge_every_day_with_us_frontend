@@ -435,11 +435,9 @@ function ChallengeDetails(props) {
 
 
                                 <div css={S.SFeedBottomLayout}>
-                                    {/* <div css={S.CommentHeader}>
-                                            <button css={S.FeedLikeBtn} disabled={!principal?.data?.data} onClick={handleFeedLikebuttonClick}>
-                                                <div>{isFeedLike ? <FcLike/> : <IoIosHeartEmpty/>}</div>
-                                            </button>
-                                    </div> */}
+                                    <div css={S.CommentHeader}>
+
+                                    </div>
 
                                     <div css={S.SFeedBottomHeader}>
                                         <div>좋아요 {feed.likeCount}개</div>
@@ -447,7 +445,9 @@ function ChallengeDetails(props) {
                                         {principal &&
                                             <div onClick={() => {handleFeedLikebuttonClick(feed.feedId);}}>
                                                 {
-                                                    isLikeList?.[feed.feedId] === 1 ? <AiTwotoneLike/> : <AiOutlineLike/>
+                                                    <button css={S.FeedLikeBtn} disabled={!principal?.data?.data} onClick={handleFeedLikebuttonClick}>
+                                                        {isLikeList?.[feed.feedId] === 1 ? <div><FcLike/></div> : <div><IoIosHeartEmpty/></div>}
+                                                    </button>
                                                 }
                                             </div>
                                         }
