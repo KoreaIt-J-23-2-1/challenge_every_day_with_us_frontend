@@ -93,8 +93,8 @@ export const itemImg = css`
 
 export const SBuyBtn = css`
     background: rgba(255, 255, 255, 0.5); 
-        border-radius: 15px; 
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     color: black;
     cursor: pointer;
     display: inline-block;
@@ -124,12 +124,9 @@ export const SBuyBtn = css`
     }
 `;
 export const SPointPurchaseBtn = css`
-    background-color: initial;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
     color: #333;
     cursor: pointer;
     display: inline-block;
@@ -164,11 +161,12 @@ export const SPointPurchaseBtn = css`
 
 export const ModalOverlay = css`
     position: fixed;
+    margin: 0 auto;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -176,7 +174,8 @@ export const ModalOverlay = css`
 `;
 
 export const ModalContent = css`
-    background: #fff;
+    background: rgba(253, 253, 255);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     border-radius: 8px;
     z-index: 10;
