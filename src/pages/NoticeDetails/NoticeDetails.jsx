@@ -84,8 +84,10 @@ function NoticeDetails(props) {
                     <b>
                         모두와 함께 도전하는 일상, <a css={S.pointFont}>[Challenge every day with us]</a> 입니다.   공지를 꼭 읽어주세요 ! 
                     </b>
-                    
-                    <div>{notice.noticeContent} </div>
+
+                    <div css={S.ContentBox}>
+                        <div>{notice.noticeContent} </div>
+                    </div>
 
                 </div>
             </div>
