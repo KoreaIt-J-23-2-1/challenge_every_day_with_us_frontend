@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 export const Layout = css`
     display: flex;
     flex-direction: column;
+    position: relative;
     width: 100%;
     *::-webkit-scrollbar {
         width: 4px;
@@ -12,19 +13,47 @@ export const Layout = css`
     }
 `;
 
+export const selectContainer = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+`;
+
 export const searchContainer = css`
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    margin: 40px 0px 15px 0px;
-    
-    & > input {
-        margin-left: 10px;
-        height: 100%;
-    }
+    margin: 19px 0px 0px 10px;
+    border-bottom: 2px solid #dbdbdb;
+`;
 
-    & > button {
-        height: 100%;
+export const InputBox = css`
+    background: rgba(255, 255, 255, 0.4); 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    margin-left: 10px;
+    height: 35px;
+    padding: 10px;
+    outline: none;
+`;
+
+export const ButtonBox = css`
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.4); 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    margin-left: 5px;
+    height: 35px;
+    width: 50px;
+    padding: 11px;
+    cursor: pointer;
+
+    &:active {
+        background: #eee;
     }
 `;
 
@@ -39,7 +68,8 @@ export const SChallengeList = css`
     height: 670px;
     border: 1px solid #dbdbdb;
     padding: 0px;
-    background: rgba(255, 255, 255, 0.4); 
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.7); 
     border-radius: 10px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
@@ -88,5 +118,49 @@ export const SChallengeListBody = css`
         & > div:nth-of-type(3) {width: 15%;}
         & > div:nth-of-type(4) {width: 14%;}
         & > div:nth-of-type(5) {width: 16%;}
+    }
+`;
+
+export const Plus = css`
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+
+    & * {
+        color: #999;
+
+        &:active {
+            color: #444;
+        }
+    }
+`;
+
+export const SelectSt = css`
+    .css-13cymwt-control {
+        height: 25px;
+        width: 150px;
+        background: rgba(255, 255, 255, 0.4); 
+        border-radius: 10px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        font-size: 12px;
+    }
+
+    .css-t3ipsp-control {
+        height: 25px;
+        width: 150px;
+        background: rgba(255, 255, 255, 0.4); 
+        border-radius: 10px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        font-size: 12px;
+
+    }
+
+    .css-1nmdiq5-menu {
+        font-size: 12px;
     }
 `;

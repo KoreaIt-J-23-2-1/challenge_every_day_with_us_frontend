@@ -52,8 +52,18 @@ export const ImgBoxImg = css`
 
 export const SChallengeList = css`
     width: 100%;
+    height: 250px;
     border: 1px solid #dbdbdb;
     padding: 0px;
+    background: rgba(255, 255, 255, 0.3); 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    *::-webkit-scrollbar {
+        width: 4px;
+    }
+    *::-webkit-scrollbar-thumb {
+        background-color: #dbdbdb
+    }
 `;
 
 export const Alignment = css`
@@ -116,7 +126,7 @@ export const SChallengeListHeader = css`
 `;
 
 export const SChallengeListBody = css`
-    height: 150px;
+    height: 180px;
     white-space: nowrap;
     overflow-y: auto;
 
@@ -262,4 +272,71 @@ export const Chart = css`
     flex-direction: column;
     align-items: center;
     height: 200px;
+`;
+
+export const InputBox = css`
+    background: rgba(255, 255, 255, 0.4); 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    margin-left: 10px;
+    height: 35px;
+    padding: 10px;
+    outline: none;
+`;
+
+export const ButtonBox = css`
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.4); 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    margin-left: 5px;
+    height: 35px;
+    width: 50px;
+    padding: 11px;
+    cursor: pointer;
+
+    &:active {
+        background: #eee;
+    }
+`;
+
+export const SelectSt = css`
+    
+    .css-13cymwt-control {
+        height: 25px;
+        width: 150px;
+        background: rgba(255, 255, 255, 0.4); 
+        border-radius: 10px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .css-1n6sfyn-MenuList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 150px;
+        font-size: 12px;
+    }
+
+    .css-t3ipsp-control {
+        height: 25px;
+        width: 150px;
+        background: rgba(255, 255, 255, 0.4); 
+        border-radius: 10px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border: none;
+        font-size: 12px;
+    }
+
+    .css-qbdosj-Input {
+        width: 0px;
+        height: 0px;
+        display: none;
+    }
 `;

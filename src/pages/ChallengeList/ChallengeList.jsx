@@ -7,6 +7,7 @@ import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 import * as S from './ChallengeListStyle';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
+import { PiPlusSquareLight } from "react-icons/pi";
 
 function ChallengeList(props) {
     const queyrClient = useQueryClient();
@@ -103,11 +104,14 @@ function ChallengeList(props) {
         <BaseLayout>
             <div css={S.Layout}>
                 <div css={S.searchContainer}>
-                    <div css={S.selectBox}>
-                        <ReactSelect options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect} />
+                    <b>공지를 확인해주세요 !</b>
+                    <div css={S.selectContainer}>
+                        <div css={S.selectBox}>
+                            <ReactSelect css={S.SelectSt} options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect} />
+                        </div>
+                        <input css={S.InputBox} type="text" onChange={handleSearchInputChange} />
+                        <button css={S.ButtonBox} onClick={handleSearchButtonClick}>검색</button>
                     </div>
-                    <input type="text" onChange={handleSearchInputChange} />
-                    <button onClick={handleSearchButtonClick}>검색</button>
                 </div>
                     <ul css={S.SChallengeList}>
                     <div css={S.SChallengeListHeader}>
@@ -135,6 +139,7 @@ function ChallengeList(props) {
                     </div>
                 </ul>
             </div>
+            <PiPlusSquareLight css={S.Plus}/>
         </BaseLayout>
     );
 }
