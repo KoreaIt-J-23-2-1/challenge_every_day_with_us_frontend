@@ -33,7 +33,9 @@ function CategoryPage(props) {
 
     return (
         <BaseLayout>
-            <h2>카테고리 선택</h2>
+            <div css={S.Header}>
+                <b>생성할 챌린지의 카테고리를 골라주세요 ! </b>
+            </div>
             <div css={S.CategoryBox}>
                 {categoryData.map((category) => (
                     <button css={S.SProductContainer} key={category.name}

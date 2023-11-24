@@ -5,9 +5,8 @@ import { css } from '@emotion/react';
 export const calendarLayout = css`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin: 0 auto;
+    margin-top: 30px;
     height: 100%;
 `;
 

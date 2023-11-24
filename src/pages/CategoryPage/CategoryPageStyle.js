@@ -71,3 +71,17 @@ export const imgBox = (imgUrl) => css`
         transform: scale(1.1);
     }
 `;
+
+export const Header = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    margin: 20px 0px;
+    border-bottom: 2px solid #dbdbdb;
+    
+    & b {
+        width: 100%;
+    }
+`;

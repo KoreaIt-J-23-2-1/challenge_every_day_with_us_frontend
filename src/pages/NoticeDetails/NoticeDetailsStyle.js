@@ -6,7 +6,6 @@ export const Header = css`
     align-items: center;
     height: 50px;
     width: 100%;
-    margin-top: 20px;
     border-bottom: 2px solid #dbdbdb;
     
     & b {
@@ -18,7 +17,6 @@ export const Box = css`
     display: flex;
     flex-direction: column;
     align-items: start;
-    margin-top: 20px;
     padding: 20px;
     background: rgba(255, 255, 255, 0.4); 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
