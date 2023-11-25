@@ -166,6 +166,10 @@ function Feed(props) {
             await instance.post(`/api/feed/${feedId}/comment`, {commentContent: commentInputList[`commentInput${feedId}`]}, option);
             alert("댓글 등록 성공! -> " + feedId + "피드");
             getFeedList.refetch();
+            setCommentInputList({
+                ...commentInputList,
+                [`commentInput${feedId}`]: ''
+            });
             
         }catch(error) {
             console.error(error);
@@ -284,7 +288,7 @@ function Feed(props) {
                                         <div css={S.SFeedBottomBody}>
                                             <div css={S.WriteCommentBox}>
                                                 <b>{principal.nickname}</b>
-                                                <input css={S.CommentInputBox} type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput} onKeyDown={(e) => {if(e.keyCode === 13) {handleCommentSubmit(feed.feedId);}}}/>
+                                                <input css={S.CommentInputBox} value={commentInputList?.[`commentInput${feed.feedId}`]} type="text" name={`commentInput${feed.feedId}`} onChange={handleCommentInput} onKeyDown={(e) => {if(e.keyCode === 13) {handleCommentSubmit(feed.feedId);}}}/>
                                                 <button css={S.Btn} onClick={() => {handleCommentSubmit(feed.feedId)}}>댓글달기</button>
                                             </div>
                                         </div>
