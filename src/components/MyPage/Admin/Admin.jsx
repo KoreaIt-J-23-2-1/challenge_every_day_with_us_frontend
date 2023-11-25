@@ -59,69 +59,87 @@ function Admin() {
         }
     });
 
-    const getChartData = useQuery(["getChartData"], async () => {
-        try {
-            const dailyChallengesResponse = await instance.get('/api/admin/challengers/count', option);
-            const dailyMembersResponse = await instance.get('/api/admin/members/count', option);
-            const dailyFeedResponse = await instance.get('/api/admin/feed/count', option);
-            const dailyChallengeCompletedResponse = await instance.get('/api/admin/challenges/completed/count', option);
-            const dailyChallengeDeletedResponse = await instance.get('/api/admin/challenges/deleted/count', option);
+    // const getChartData = useQuery(["getChartData"], async () => {
+    //     try {
+    //         const [
+    //             dailyChallengesResponse,
+    //             dailyMembersResponse,
+    //             dailyFeedResponse,
+    //             dailyChallengeCompletedResponse,
+    //             dailyChallengeDeletedResponse,
+    //         ] = await Promise.all([
+    //             instance.get('/api/admin/challengers/count', option),
+    //             instance.get('/api/admin/members/count', option),
+    //             instance.get('/api/admin/feed/count', option),
+    //             instance.get('/api/admin/challenges/completed/count', option),
+    //             instance.get('/api/admin/challenges/deleted/count', option),
+    //         ]);
     
-            if (
-                dailyChallengesResponse.data &&
-                dailyMembersResponse.data &&
-                dailyFeedResponse.data&&
-                dailyChallengeCompletedResponse.data&&
-                dailyChallengeDeletedResponse.data
-            ) {
-                setChartData(prevData => [
-                    ...prevData,
-                    {
-                        id: "총 회원 수",
-                        data: dailyMembersResponse.data.map(data => ({
-                            x: data.date,
-                            y: data.count
-                        })),
-                    },
-                    {
-                        id: "총 피드 수",
-                        data: dailyFeedResponse.data.map(data => ({
-                            x: data.date,
-                            y: data.count
-                        })),
-                    },
-                    {
-                        id: "삭제된 챌린지 수",
-                        data: dailyChallengeDeletedResponse.data.map(data => ({
-                            x: data.date,
-                            y: data.count
-                        })),
-                    },
-                    {
-                        id: "종료된 챌린지 수",
-                        data: dailyChallengeCompletedResponse.data.map(data => ({
-                            x: data.date,
-                            y: data.count
-                        })),
-                    },
-                    {
-                        id: "총 챌린지 수",
-                        data: dailyChallengesResponse.data.map(data => ({
-                            x: data.date,
-                            y: data.count
-                        })),
-                    },
-                ]);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }, {
-        retry: 0,
-        refetchOnWindowFocus: false,
-        onSuccess: (response) => {
-        }
-    });
+    //         const sortDataByDate = (data) => data.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    //         if (
+    //             dailyChallengesResponse.data &&
+    //             dailyMembersResponse.data &&
+    //             dailyFeedResponse.data&&
+    //             dailyChallengeCompletedResponse.data&&
+    //             dailyChallengeDeletedResponse.data
+    //         ) {
+    //             console.log(dailyMembersResponse.data)
+    //             const transformedDataMembers = sortDataByDate(dailyMembersResponse.data).map(data => ({
+    //                 id: "총 회원 수",
+    //                 x: data.date,
+    //                 y: data.count
+    //             }));
+
+    //             console.log(transformedDataMembers)
+
+    //             const transformedDataFeed = sortDataByDate(dailyChallengesResponse.data).map(data => ({
+    //                 id: "총 피드 수",
+    //                 x: data.date,
+    //                 y: data.count
+    //             }));
+
+    //             const transformedDeleteChallenge = sortDataByDate(dailyChallengeDeletedResponse.data).map(data => ({
+    //                 id: "삭제된 챌린지 수",
+    //                 x: data.date,
+    //                 y: data.count
+    //             }));
+
+    //             const transformedChallengeEnd = sortDataByDate(dailyChallengeCompletedResponse.data).map(data => ({
+    //                 id: "종료된 챌린지 수",
+    //                 x: data.date,
+    //                 y: data.count
+    //             }));
+
+    //             const transformedTotalChallenge = sortDataByDate(dailyChallengesResponse.data).map(data => ({
+    //                 id: "총 챌린 수",
+    //                 x: data.date,
+    //                 y: data.count
+    //             }));
+
+    //             const allTransformData = [
+    //                 ...transformedDataMembers,
+    //                 ...transformedDataFeed,
+    //                 ...transformedDeleteChallenge,
+    //                 ...transformedChallengeEnd,
+    //                 ...transformedTotalChallenge
+    //             ]
+
+    //         return sortDataByDate(allTransformData);
+    //     } else {
+    //         console.error("error");
+    //     }
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }, {
+    //     retry: 0,
+    //     refetchOnWindowFocus: false,
+    //     onSuccess: (response) => {
+    //         console.log(response)
+    //         setChartData(response)
+    //     }
+    // });
 
     useEffect(() => {
         if(page === 1) {
@@ -227,15 +245,18 @@ function Admin() {
         setPage(1);
     };
 
+    // const sortDataByDate = (data) => {
+    //     console.log(data)
+    //     const sortedData = data.sort((a, b) => new Date(a.x) - new Date(b.x));
+    //     // console.table(sortedData);
+    //     return sortedData;
+    // };
+
     const MyResponsiveLine = ({ data }) => {
-        const sortedData = data.map(item => ({
-            id: item.id,
-            data: item.data.sort((a, b) => new Date(a.x) - new Date(b.x))
-        }));
 
         return (
             <ResponsiveLine
-                data={sortedData}
+                data={data}
                 height={200}
                 width={1000}
                 margin={{ top: 50, right: 180, bottom: 50, left: 80 }}
@@ -243,7 +264,7 @@ function Admin() {
                 yScale={{
                     type: 'linear',
                     min: 0,
-                    max: 50,
+                    max: 15,
                 }}
                 yFormat=" >-.2f"
                 gridYValues={[0, 5, 10, 15, 20, 25, 30]}
