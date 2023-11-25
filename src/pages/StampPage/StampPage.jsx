@@ -40,6 +40,7 @@ function StampPage(props) {
                 const response = await instance.post('/api/attendance', {
                     attendance: moment(value).format('YYYY-MM-DD'),
                 }, option);
+                alert("50포인트가 적립되었습니다.")
                 if (response.data) {
                     setCheckedDates([...checkedDates, moment(value).toDate()]);
                     window.location.reload();
@@ -95,7 +96,7 @@ function StampPage(props) {
                                             return attendanceDate === formattedDate;
                                         }
                                     );
-                                    return matchingDates.length > 0 ? "checked-circle" : "";
+                                    return matchingDates.length > 0 ? "checked-star" : "";
                                 }
                             }
                         />

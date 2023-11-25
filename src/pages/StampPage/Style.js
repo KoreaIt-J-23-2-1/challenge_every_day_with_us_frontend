@@ -1,4 +1,4 @@
-// Style.js
+/* Style.js */
 
 import { css } from '@emotion/react';
 
@@ -12,10 +12,9 @@ export const calendarLayout = css`
 
 export const calendar = css`
     padding: 20px;
-    background: rgba(255, 255, 255, 0.5); 
-    border-radius: 15px; 
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
 `;
 
 export const calendarHeader = css`
@@ -27,7 +26,6 @@ export const calendarHeader = css`
 export const calendarContainer = css`
     width: 1000px;
     background: linear-gradient(135deg, #f0e7d4, #efd1c5, #dadde2, #d5e4df);
-    
 
     .react-calendar .react-calendar__navigation {
         display: flex;
@@ -35,6 +33,7 @@ export const calendarContainer = css`
         align-items: center;
         position: relative;
         z-index: 1;
+
         & button {
             height: 40px;
             position: relative;
@@ -60,9 +59,8 @@ export const calendarContainer = css`
     }
 
     & button {
-
         height: 80px;
-        background-color: rgba(255, 255, 255, 0.3); 
+        background-color: rgba(255, 255, 255, 0.3);
         border: 1px solid #fafafa;
         font-size: 15px;
         cursor: pointer;
@@ -84,28 +82,24 @@ export const calendarContainer = css`
         position: relative;
     }
 
-    & .checked-circle {
+    & .checked-star {
         position: relative;
-        background-color: rgba(255, 255, 255, 0.1);
+        display: inline-block;
     }
 
-    & .checked-circle::before {
-        content: '';
+    & .checked-star::before {
+        content: '★';
         position: absolute;
         display: block;
         z-index: 2;
+        border-radius: 50%;
+        border: 1px solid orange;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        border: 2px solid orange;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
+        font-size: 50px;
+        color: orange; 
     }
-
-    /* & .react-calendar__tile--active {
-        background-color: rgba(255, 255, 255, 0.1);  
-    } */
 `;
 
 export const checkInButtonContainer = css`
@@ -113,11 +107,11 @@ export const checkInButtonContainer = css`
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-    
 `;
 
 export const checkInButton = css`
     display: flex;
+
     & button {
         padding: 0.6em 2em;
         border: none;
@@ -132,46 +126,45 @@ export const checkInButton = css`
         touch-action: manipulation;
         font-weight: 600;
     }
-    
 
     button:before {
-    content: "";
-    background: linear-gradient(135deg, #f0e7d4, #efd1c5, #dadde2, #d5e4df);
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    -webkit-filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing-button-85 20s linear infinite;
-    transition: opacity 0.3s ease-in-out;
-    border-radius: 10px;
+        content: "";
+        background: linear-gradient(135deg, #f0e7d4, #efd1c5, #dadde2, #d5e4df);
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        -webkit-filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glowing-button-85 20s linear infinite;
+        transition: opacity 0.3s ease-in-out;
+        border-radius: 10px;
     }
 
     @keyframes glowing-button-85 {
-    0% {
-        background-position: 0 0;
-    }
-    50% {
-        background-position: 400% 0;
-    }
-    100% {
-        background-position: 0 0;
-    }
+        0% {
+            background-position: 0 0;
+        }
+        50% {
+            background-position: 400% 0;
+        }
+        100% {
+            background-position: 0 0;
+        }
     }
 
     button:after {
-    z-index: -1;
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #f0e7d4, #efd1c5, #dadde2, #d5e4df);
-    left: 0;
-    top: 0;
-    border-radius: 10px;
+        z-index: -1;
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f0e7d4, #efd1c5, #dadde2, #d5e4df);
+        left: 0;
+        top: 0;
+        border-radius: 10px;
     }
 `;
