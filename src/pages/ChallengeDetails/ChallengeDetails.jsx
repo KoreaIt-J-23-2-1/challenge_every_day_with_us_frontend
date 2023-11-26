@@ -124,7 +124,10 @@ function ChallengeDetails(props) {
         retry: 0
     })
 
-
+    useEffect(async () => {
+        const response = await instance.get(`/api/challenge/${challengeId}/userlike?userId=${userId}`, option);
+        setIsLike(response.data)
+    }, [])
 
     // const getUserLikeState = useQuery(["getUserLikeState"], async () => {
     //     try {
