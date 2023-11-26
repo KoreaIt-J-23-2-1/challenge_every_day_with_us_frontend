@@ -304,6 +304,7 @@ function Admin() {
         )
     }
 
+
     return (
         <BaseLayout>
             <div css={S.Layout}>
@@ -363,8 +364,8 @@ function Admin() {
                                 <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.name}</div>
                                 <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{calculateDaysElapsed(myChallenge.startDate)}일차</div>
                                 <div onClick={() => handleChallengeClick(myChallenge.challengeId)}>{myChallenge.likeCount}</div>
-                                <button css={S.StopButton} onClick={() => handleChallengeStopClick(myChallenge.challengeId)}><IoStopCircleOutline /></button>
-                                <button css={S.Deletebutton} onClick={() => handleChallengeDeleteClick(myChallenge.challengeId)}><MdDeleteOutline /></button>
+                                {(!myChallenge.isDeadline && !myChallenge.isHidden) && <button css={S.StopButton} onClick={() => handleChallengeStopClick(myChallenge.challengeId)}><IoStopCircleOutline /></button>}
+                                {!myChallenge.isHidden && <button css={S.Deletebutton} onClick={() => handleChallengeDeleteClick(myChallenge.challengeId)}><MdDeleteOutline /></button>}
                             </li>
                         ))}
                         <li ref={lastChallengeRef}></li>
