@@ -88,9 +88,8 @@ function Header() {
 
                     {/* 로고 */}
                     <div css={S.LogoBox}>
-                        <div css={S.LogoBtn} onClick={GoStartPage}>
-                    </div>
-                        
+                        <div css={S.LogoBtn} onClick={GoStartPage}></div>
+                    
                     </div>
 
                     {/* 오른쪽버튼 */}
