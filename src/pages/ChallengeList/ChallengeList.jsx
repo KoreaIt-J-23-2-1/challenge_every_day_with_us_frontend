@@ -103,6 +103,10 @@ function ChallengeList(props) {
         }
     };
 
+    const handleChallengeCreateClike = () => {
+        navigate("/challenge/category");
+    }
+
     return (
         <BaseLayout>
             <div css={S.Layout}>
@@ -142,7 +146,7 @@ function ChallengeList(props) {
                     </div>
                 </ul>
             </div>
-            <PiPlusSquareLight css={S.Plus}/>
+            <PiPlusSquareLight css={S.Plus} onClick={handleChallengeCreateClike}/>
         </BaseLayout>
     );
 }

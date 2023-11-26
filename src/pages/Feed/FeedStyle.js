@@ -258,6 +258,7 @@ export const Btn = css`
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 
     &:hover{
         background: rgba(80, 80, 80, 0.2);

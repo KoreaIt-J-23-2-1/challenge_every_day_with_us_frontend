@@ -16,11 +16,7 @@ import img08 from '../../img/학습.png';
 import img09 from '../../img/일기.png';
 import img10 from '../../img/기타.png';
 import MypageDetailSideBar from '../../components/MypageDetailSideBar/MypageDetailSideBar';
-
-
 /** @jsxImportSource @emotion/react */
-
-
 
 function RealMain(props) {
     const [currentImage, setCurrentImage] = useState(0);

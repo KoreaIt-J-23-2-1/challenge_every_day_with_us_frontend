@@ -63,7 +63,7 @@ export const Title = css`
 
     & b {
         font-weight: 700;
-        font-size: 30px;
+        font-size: 29px;
         margin-right: 15px;
         color: gray;
     }
@@ -158,6 +158,11 @@ export const modalContent = css`
     overflow: hidden;
     font-size: 15px;
     line-height: 20px;
+
+    & img {
+        width: 150px;
+        height: 100%;
+    }
     
 `;
 
