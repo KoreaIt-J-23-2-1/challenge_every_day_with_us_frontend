@@ -4,13 +4,13 @@ import { instance } from '../../api/config/instance';
 import Calendar from 'react-calendar';
 /** @jsxImportSource @emotion/react */
 import * as S from './MainCalendarStyle';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 
 function MainCalendar(props) {
-
+    const queyrClient = useQueryClient().getQueryState("getPrincipal");
+    const principal = queyrClient?.data?.data;
     const [ checkedDates, setCheckedDates ] = useState([]);
-    const [ isCheckedIn, setIsCheckedIn ] = useState(false);
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
@@ -21,16 +21,15 @@ function MainCalendar(props) {
         const fetchCheckedDates = async () => {
             try {
                 const response = await instance.get("api/attendance", option);
-                if (response.status === 200) {
-                    setCheckedDates(response.data);
-                } else {
-                }
+                const filteredDates = response.data.filter(item => item.userId !== 1 && item.userId !== 2);
+                setCheckedDates(filteredDates);
             } catch (error) {
                 console.error(error);
             }
         };
         fetchCheckedDates();
     }, []);
+
 
     return (
         <div css={S.calendarContainer}>
