@@ -10,7 +10,7 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
     const navigate = useNavigate();
     const queyrClient = useQueryClient();
     const principalState = queyrClient.getQueryState("getPrincipal");
-    const principal = principalState.data.data; 
+    const principal = principalState?.data?.data; 
     const profileFileRef = useRef();
     const [ profileImgSrc, setProfileImgSrc ] = useState("");
     const [ intro, setIntro ] = useState("");
@@ -23,7 +23,7 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
     }
 
     useEffect(() => {
-        setProfileImgSrc(principal.profileUrl);
+        setProfileImgSrc(principal?.profileUrl);
     }, [])
 
     const handleProfileUploadClick = () => {
@@ -86,13 +86,13 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
                     <input css={S.file} type="file" onChange={handleProfileChange} ref={profileFileRef}/>
                 </div>
                 <div css={S.profile}>
-                    <b>{principal.nickname}</b>
-                    <p>{principal.email}</p>
-                    <p>{principal.membership}</p>
-                    <p>{principal.point}<b>포인트</b></p>
+                    <b>{principal?.nickname}</b>
+                    <p>{principal?.email}</p>
+                    <p>{principal?.membership}</p>
+                    <p>{principal?.point}<b>포인트</b></p>
                     <div css={S.IntroBox}>
                         <h5>자기 소개</h5>
-                        <textarea id="introText" rows="3" cols="40" maxLength={50} defaultValue={principal.intro} onChange={handleIntroChange}></textarea>
+                        <textarea id="introText" rows="3" cols="40" maxLength={50} defaultValue={principal?.intro} onChange={handleIntroChange}></textarea>
                         <div>
                             <button onClick={handleIntroSubmit}>저장</button>
                             <button>취소</button>
