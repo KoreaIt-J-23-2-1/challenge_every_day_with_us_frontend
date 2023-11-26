@@ -93,55 +93,63 @@ function RealMain(props) {
                             {principal ? <InfoSideBar/> : <LogoutState/>}
                     </div>
                     <div css={S.part5}>
-                        <div css={S.box02}>
-                            <div css={S.BestChallenge} onClick={() => handleChallengeClick(navigate(`/challenge/${getPopularChallenge?.data?.data?.challengeId}`))}>
-                                <div>챌린지 이름: <b>{getPopularChallenge?.data?.data?.challengeName}</b></div>
-                                <div>참여인원: <b>{getPopularChallenge?.data?.data?.challenger}명</b></div>
-                                <div>기간: <b>{getPopularChallenge?.data?.data?.startDate} ~ {getPopularChallenge?.data?.data?.endDate}</b></div>
-                                <div css={S.Content}>
-                                    <b>챌린지 소개: <p>{getPopularChallenge?.data?.data?.introduction}</p></b>
+                        <div css={S.LabelBox}>
+                            <label>가장 인기있는 챌린지</label>
+                            <div css={S.box02}>
+                                <div css={S.BestChallenge} onClick={() => handleChallengeClick(navigate(`/challenge/${getPopularChallenge?.data?.data?.challengeId}`))}>
+                                    <div>챌린지 이름: <b>{getPopularChallenge?.data?.data?.challengeName}</b></div>
+                                    <div>참여인원: <b>{getPopularChallenge?.data?.data?.challenger}명</b></div>
+                                    <div>기간: <b>{getPopularChallenge?.data?.data?.startDate} ~ {getPopularChallenge?.data?.data?.endDate}</b></div>
+                                    <div css={S.Content}>
+                                        <b>챌린지 소개: <p>{getPopularChallenge?.data?.data?.introduction}</p></b>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
-                        <div css={S.box02}>
-                            <div css={S.BestFeed} onClick={() => handleChallengeClick(navigate("/challenge/feed"))}>
-                                <div css={S.FeedHeader}>
-                                    <div css={S.userInfo}>
-                                        <img css={S.InfoImg} src={getBestFeed?.data?.data?.profileUrl} alt="" />
-                                        <b>{getBestFeed?.data?.data?.nickname}</b>  
-                                    </div>
-                                    <div css={S.ChInfo}>
-                                        <div>
-                                            <p>[{getBestFeed?.data?.data?.categoryName}]</p>
-                                            <b>{getBestFeed?.data?.data?.challengeName}</b>
+                        <div css={S.LabelBox}>
+                            <label><b>가장 인기있는 피드</b></label>
+                            <div css={S.box02}>
+                                <div css={S.BestFeed} onClick={() => handleChallengeClick(navigate("/challenge/feed"))}>
+                                    <div css={S.FeedHeader}>
+                                        <div css={S.userInfo}>
+                                            <img css={S.InfoImg} src={getBestFeed?.data?.data?.profileUrl} alt="" />
+                                            <b>{getBestFeed?.data?.data?.nickname}</b>  
                                         </div>
-                                    </div>
-                                </div>   
-                                <div css={S.SFeedBody}>
-                                    {getBestFeed?.data?.data?.img && <img css={S.FeedImg} src={getBestFeed?.data?.data?.img} alt="" />}
-                                    <div css={S.FeedContentBox(!!getBestFeed?.data?.data?.img)} imgexists={(!!getBestFeed?.data?.data?.img).toString()}>
-                                        <a>{getTimeDifference(getBestFeed?.data?.data?.dateTime)}</a>
-                                        <div css={S.FeedContent}>{getBestFeed?.data?.data?.feedContent}</div>
-                                    </div>                                 
-                                </div>  
+                                        <div css={S.ChInfo}>
+                                            <div>
+                                                <p>[{getBestFeed?.data?.data?.categoryName}]</p>
+                                                <b>{getBestFeed?.data?.data?.challengeName}</b>
+                                            </div>
+                                        </div>
+                                    </div>   
+                                    <div css={S.SFeedBody}>
+                                        {getBestFeed?.data?.data?.img && <img css={S.FeedImg} src={getBestFeed?.data?.data?.img} alt="" />}
+                                        <div css={S.FeedContentBox(!!getBestFeed?.data?.data?.img)} imgexists={(!!getBestFeed?.data?.data?.img).toString()}>
+                                            <a>{getTimeDifference(getBestFeed?.data?.data?.dateTime)}</a>
+                                            <div css={S.FeedContent}>{getBestFeed?.data?.data?.feedContent}</div>
+                                        </div>                                 
+                                    </div>  
+                                </div>
                             </div>
-
                         </div>
 
                     </div>
                     <div>
                         <div css={S.part2}>
-                            <div css={S.box03}>
-                                <div css={S.ListBox}>
-                                    {myChallenge?.map((myChallenge, index) => (
-                                        <li key={index}  onClick={() => handleChallengeClick(navigate(`/challenge/${myChallenge.challengeId}`))}>
-                                            {myChallenge.challengeName}
-                                        </li>
-                                    ))}
+                            <div css={S.LabelBox}>
+                                <label><b>참여중인 챌린지 리스트</b></label>
+                                <div css={S.box03}>
+                                    <div css={S.ListBox}>
+                                        {myChallenge?.map((myChallenge, index) => (
+                                            <li key={index}  onClick={() => handleChallengeClick(navigate(`/challenge/${myChallenge.challengeId}`))}>
+                                                {myChallenge.challengeName}
+                                            </li>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                            <div css={S.box03} onClick={() => handleChallengeClick(navigate("/challenge/category"))}>
+                            
+                            <div css={S.box031} onClick={() => handleChallengeClick(navigate("/challenge/category"))}>
                                 챌린지생성
                             </div>
                             <div css={S.CategoryImgBox}>

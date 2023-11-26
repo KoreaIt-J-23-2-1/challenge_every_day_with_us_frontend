@@ -109,6 +109,8 @@ export const box01 = css`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.4s ease-out; 
+    cursor: pointer;
+
 
     &:hover{
         opacity: 0.9;    
@@ -118,16 +120,18 @@ export const box01 = css`
         opacity: 1;    
     }    
 `;
-export const box02 = css`
 
-    width: 100%;
-    height: 200px;
-    height: 315px;
-    margin-bottom: 10px;
-    background: rgba(255, 255, 255, 0.5); 
-    border-radius: 15px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+export const LabelBox = css`
     transition: transform 0.4s ease-out; 
+
+    &>label{
+        height: 15px;
+        color: #2f2f2f;
+        font-size: 13px;
+        font-weight: 700;
+        margin-left: 15px;
+        margin-bottom: 2px;
+    }
 
     &:hover{
         opacity: 0.9;    
@@ -137,6 +141,58 @@ export const box02 = css`
         opacity: 1;    
     }
 `;
+export const box02 = css`
+
+    width: 100%;
+    height: 298px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.4s ease-out; 
+
+`;
+
+export const BestChallenge = css`
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-top: 30px;
+    cursor: pointer;
+    
+
+    &>label{
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    & div {
+        padding-bottom: 20px;
+        font-size: 13px;
+
+        & b {
+            padding-left: 5px;
+            font-size: 16px;
+        }
+    }
+`;
+
+export const Content = css`
+    padding: 15px;
+    width: 90%;
+    height: 130px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.7); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    & p {
+        padding-left: 5px;
+        font-size: 12px;
+    }
+`;
+
 
 export const BestFeed = css`
     padding: 10px;
@@ -197,7 +253,7 @@ export const FeedHeader = css`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    height: 60px;
 
     &>div>div{
         display: flex;
@@ -227,39 +283,21 @@ export const InfoImg = css`
 `;
 
 
-export const BestChallenge = css`
-    display: flex;
-    flex-direction: column;
-    padding: 50px 0px 0px 20px;
+export const box03 = css`
     cursor: pointer;
-
-    & div {
-        padding-bottom: 20px;
-        font-size: 13px;
-
-        & b {
-            padding-left: 5px;
-            font-size: 16px;
-        }
-    }
-`;
-
-export const Content = css`
-    padding: 15px;
-    width: 90%;
-    height: 130px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.7); 
+    width: 300px;    
+    height: 180px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-    & p {
-        padding-left: 5px;
-        font-size: 12px;
-    }
+    transition: transform 0.4s ease-out; 
+    cursor: pointer; 
 `;
-
-export const box03 = css`
+export const box031 = css`
     cursor: pointer;
     width: 300px;    
     height: 200px;
@@ -271,6 +309,7 @@ export const box03 = css`
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease-out; 
+    cursor: pointer;
 
     &:hover{
         opacity: 0.9;    
@@ -292,6 +331,7 @@ export const box04 = css`
     flex-direction: column;
     align-items: center;
     transition: transform 0.4s ease-out; 
+    cursor: pointer;
 
 
     &:hover{
@@ -327,6 +367,7 @@ export const box05 = css`
     margin: 0px 10px;
     width: 700px;
     transition: transform 0.4s ease-out; 
+    cursor: pointer;
 
     &:hover{
         opacity: 0.9;    
