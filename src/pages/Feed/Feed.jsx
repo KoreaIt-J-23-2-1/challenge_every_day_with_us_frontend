@@ -116,7 +116,8 @@ function Feed(props) {
             feedId: feedId,
             title: "신고가 들어왔습니다.",
             challengeId: feedChallengeId,
-            content: `${feedId}번의 피드의 신고가 들어왔으니 확인바랍니다.`
+            content: `${feedId}번의 피드의 신고가 들어왔으니 확인바랍니다.`,
+            targetUrl:`http://localhost:3000/challenge/${feedChallengeId}`
         };
         const response = await instance.post("/api/challenge/report", data, option)
             if(response) {
@@ -211,6 +212,8 @@ function Feed(props) {
         }
     };
 
+    console.log(feedList);
+
     return (
         <BaseLayout>
             <div css={S.SLayout}>
@@ -262,7 +265,7 @@ function Feed(props) {
                                 <div css={S.SFeedBody}>
                                     {feed.img && <img css={S.FeedImg} src={feed.img} alt="" />}
                                     <div css={S.FeedContentBox(!!feed.img)} imgexists={(!!feed.img).toString()}>
-                                        <a>{getTimeDifference(feed.dateTime)}</a>
+                                        <a>{feed.feedId}번 피드 {getTimeDifference(feed.dateTime)}</a>
                                         <div css={S.FeedContent}>{feed.feedContent}</div>
                                     </div>                                 
                                 </div>                                
