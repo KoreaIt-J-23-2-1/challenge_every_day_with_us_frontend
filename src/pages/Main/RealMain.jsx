@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './MainStyle';
 import { css } from '@emotion/react';
-import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import {TbSeeding} from 'react-icons/tb';
 import Header from '../../components/Header/Header';
@@ -15,7 +14,10 @@ import img07 from '../../img/취미2.png';
 import img08 from '../../img/학습.png';
 import img09 from '../../img/일기.png';
 import img10 from '../../img/기타.png';
-import MypageDetailSideBar from '../../components/MypageDetailSideBar/MypageDetailSideBar';
+import InfoSideBar from '../../components/InfoSideBar/InfoSideBar';
+import LogoutState from '../../components/InfoSideBar/LogoutState';
+import {useQueryClient } from 'react-query';
+
 
 
 /** @jsxImportSource @emotion/react */
@@ -25,6 +27,16 @@ import MypageDetailSideBar from '../../components/MypageDetailSideBar/MypageDeta
 function RealMain(props) {
     const [currentImage, setCurrentImage] = useState(0);
     const images = [img03, img04, img05, img06, img07, img08, img09, img10];
+    const queyrClient = useQueryClient().getQueryState("getPrincipal");
+    const principal = queyrClient?.data?.data;
+
+
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
+    }    
+
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -44,7 +56,7 @@ function RealMain(props) {
 
                 <div css={S.part1}>
                     <div css={S.box01}>
-                        <MypageDetailSideBar/>
+                            {principal ? <InfoSideBar/> : <LogoutState/>}
                     </div>
                     <div css={S.part5}>
                         <div css={S.box02}>

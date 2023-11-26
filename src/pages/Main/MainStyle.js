@@ -11,6 +11,7 @@ export const MainBase = css`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    
 `;
 
 export const MainBox = css`
@@ -85,10 +86,11 @@ export const box01 = css`
     display: flex;
     align-items: center;
     justify-content: center;    
-    background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    transition: transform 0.4s ease-out; 
+
     &:hover{
         opacity: 0.9;    
         transform: scale(0.9);
@@ -106,6 +108,7 @@ export const box02 = css`
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease-out; 
 
     &:hover{
         opacity: 0.9;    
@@ -126,6 +129,8 @@ export const box03 = css`
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease-out; 
+
     &:hover{
         opacity: 0.9;    
         transform: scale(0.9);
@@ -145,6 +150,8 @@ export const box04 = css`
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: transform 0.4s ease-out; 
+
 
     &:hover{
         opacity: 0.9;    
@@ -183,6 +190,8 @@ export const box05 = css`
 
     margin: 0px 10px;
     width: 600px;
+    transition: transform 0.4s ease-out; 
+
     &:hover{
         opacity: 0.9;    
         transform: scale(0.9);
@@ -197,6 +206,8 @@ export const box06 = css`
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease-out; 
+
 
     &:hover{
         opacity: 0.9;    
