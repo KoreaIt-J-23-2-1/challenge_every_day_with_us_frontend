@@ -39,6 +39,7 @@ export const textBox = css`
         resize: none;
         transition: width 0.3s;
         border: none;
+        font-size: 17px;
     }    
     &>textarea:focus{
         outline: none;

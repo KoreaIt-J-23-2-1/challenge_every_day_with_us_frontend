@@ -40,6 +40,9 @@ export const InputBox = css`
         border-radius: 5px;
         border: 1px solid #dbdbdb;
     }
+    &>input:focus {
+        outline: 1px solid #8e8e8e;
+    }
 
     & p {
         margin: 10px 0px 0px 30px;
@@ -101,7 +104,10 @@ export const CheckBox2 = css`
 `;
 
 export const Introduction = css`
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     & div {
         margin-bottom: 20px;
         font-size: 12px;
@@ -110,6 +116,12 @@ export const Introduction = css`
     & textarea {
         resize: none;
         border-radius: 10px;
+        padding: 10px;
+        border: 1px solid #dbdbdb;
+
+    }
+    &>textarea:focus {
+        outline: 1px solid #8e8e8e;
     }
 
     & p {
