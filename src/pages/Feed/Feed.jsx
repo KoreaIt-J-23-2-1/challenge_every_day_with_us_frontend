@@ -114,10 +114,14 @@ function Feed(props) {
     const handleReportClick = async (feedId, feedChallengeId) => {
         const data = {
             feedId: feedId,
+            title: "신고가 들어왔습니다.",
             challengeId: feedChallengeId,
             content: `${feedId}번의 피드의 신고가 들어왔으니 확인바랍니다.`
         };
-        await instance.post("/api/challenge/report", data, option)
+        const response = await instance.post("/api/challenge/report", data, option)
+            if(response) {
+                alert(`${feedId}번의 피드를 신고하였습니다.`);
+            }
     };
 
     const handleLikebuttonClick = async (feedId) => {

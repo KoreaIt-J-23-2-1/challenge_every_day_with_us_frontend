@@ -173,7 +173,9 @@ function LetterSideBar(props) {
                             <div css={S.modalFrom}><b>From </b>{selectedLetter.senderNickname}</div>
                             <div css={S.modalDate}><b>Date </b>{selectedLetter.sendDateTime}</div>
                         </div>
-                        <div css={S.modalContent}><div dangerouslySetInnerHTML={{ __html: selectedLetter.content }}></div></div>
+                        <div css={S.modalContent}><div dangerouslySetInnerHTML={{ __html: selectedLetter.content }}></div>
+                            <img src={selectedLetter.targetUrl} alt="" />
+                        </div>
                         <div css={S.modalBottom}>
                             {selectedLetter.letterTitle === "챌린지 승인 요청" && (
                                 selectedLetter.acceptState === 0 ?
@@ -186,7 +188,7 @@ function LetterSideBar(props) {
                                         <b>Accept-State: </b>{selectedLetter.acceptState === 1 ? "수락 완료" : "거절 완료"}
                                     </div>
                                 )}
-                            {selectedLetter.letterTitle === "공지" && (
+                            {(selectedLetter.letterTitle === "공지" || selectedLetter.letterTitle === "상점구매") && (
                                 <div>
                                     <button onClick={() => {window.location.replace(selectedLetter.targetUrl);}}>바로가기</button>
                                 </div>

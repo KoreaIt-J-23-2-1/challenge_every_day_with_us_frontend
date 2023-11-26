@@ -14,15 +14,13 @@ import img07 from '../../img/취미2.png';
 import img08 from '../../img/학습.png';
 import img09 from '../../img/일기.png';
 import img10 from '../../img/기타.png';
+
 import InfoSideBar from '../../components/InfoSideBar/InfoSideBar';
 import LogoutState from '../../components/InfoSideBar/LogoutState';
 import {useQueryClient } from 'react-query';
-
-
+import MypageDetailSideBar from '../../components/MypageDetailSideBar/MypageDetailSideBar';
 
 /** @jsxImportSource @emotion/react */
-
-
 
 function RealMain(props) {
     const [currentImage, setCurrentImage] = useState(0);
@@ -119,21 +117,3 @@ function RealMain(props) {
 }
 
 export default RealMain;
-
-
-// 로고 띄우고 새싹모양으로 햄버거 메뉴 만들지,,,
-// 아니면 중앙에 인기순 챌린지 4개 정도 이미지 넣어서
-// 홍보용 느낌으로 보여줄지....
-// 어렵넹
-
-// 메인.... 중요한가............................................
-
-/* <BaseLayout>
-    <div css={S.MainBase}>
-        <div css={S.LogoImg}></div>
-        <div css={S.IconBox}>
-            <div><TbSeeding /></div>   
-        </div>
-    </div>
-</BaseLayout> */
-// <div css={S.box01}></div>

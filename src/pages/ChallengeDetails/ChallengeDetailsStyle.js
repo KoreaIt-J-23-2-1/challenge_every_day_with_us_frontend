@@ -102,6 +102,7 @@ export const CommentInputBox = css`
     background: rgba(250, 250, 250, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
     &:focus{
         outline: none;
     }
@@ -184,12 +185,12 @@ export const SFeedBody = css`
     margin: 10px 0px;
     height: 200px;
     gap: 10px;
-
 `;
 
 export const FeedImg = css`
+    margin-top: 20px;
     width: 200px;
-    height: 200px;
+    height: 180px;
     border-radius: 10px;
 `;
 
@@ -246,6 +247,7 @@ export const FeedLikeBtn = css`
     justify-content: end;
     width: 180px;
     font-size: 13px;
+    cursor: pointer;
 
     &>div{
         margin-left: 5px;
@@ -271,6 +273,7 @@ export const Btn = css`
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 
     &:hover{
         background: rgba(80, 80, 80, 0.2);
@@ -358,13 +361,28 @@ export const ListBox = css`
 export const ListContainer = css`
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     margin: 4px 0px;
 
     &>a{
         font-weight: 400;
     }
     
+`;
+
+export const ImgBox = css`
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+
+    & img {
+        border: 2px solid white;
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+    }
 `;
 
 export const DeleteChallengerButton = css`

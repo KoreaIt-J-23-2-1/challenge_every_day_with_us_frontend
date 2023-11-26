@@ -87,9 +87,9 @@ export const imgBox = css`
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
     &>img{
         width: 100%;
-        height: 100%;
     }
     &>:active{
         box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
@@ -110,6 +110,7 @@ export const SaveBtn = css`
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background: rgba(255, 255, 255, 0.5); 
+    cursor: pointer;
     &:hover {
         background: rgba(200, 200, 200, 0.5); 
     }
