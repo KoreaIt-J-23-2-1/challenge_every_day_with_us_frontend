@@ -38,8 +38,27 @@ export const part2 = css`
     align-items: center;
     height: 200px;
     width: 900px;
-
 `;
+
+
+export const ListBox = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+
+    & li {
+        cursor: pointer;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #555;
+
+        &:hover {
+            color: darkgray;
+        }
+    }
+`;
+
 export const part3 = css`
     height: 440px;
     display: flex;
@@ -118,6 +137,128 @@ export const box02 = css`
         opacity: 1;    
     }
 `;
+
+export const BestFeed = css`
+    padding: 10px;
+    font-size: 12px;
+    cursor: pointer;
+`;
+
+export const SFeedBody = css`
+    display: flex;
+    margin: 10px 0px;
+    height: 200px;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.7); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+`;
+
+export const FeedImg = css`
+    width: 200px;
+    height: 150px;
+    border-radius: 10px;
+    margin-top: 20px;
+`;
+
+export const FeedContentBox = (imgExists) => css`
+    margin: 0px auto;
+    border-radius: 10px;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+
+    &>div{
+        width: 100%;
+        border-radius: 10px;
+        height: 180px;
+    }
+    &>a{
+        display: flex;
+        justify-content:end;
+        /* height: 15px; */
+        font-size: 13px;
+        margin: auto 0px ;
+    }
+
+    ${!imgExists && `img { display: none; }`}
+`;
+
+export const FeedContent = css`
+    display: flex;
+    padding: 15px;
+    word-wrap: break-word;
+    white-space: pre-line; 
+`;
+
+export const FeedHeader = css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+
+    &>div>div{
+        display: flex;
+        align-items: center;
+    }
+`;
+export const userInfo = css`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+`;
+export const ChInfo = css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &>div{
+        gap: 10px;
+    }
+`;
+
+export const InfoImg = css`
+    width: 50px;
+    height: 50px;
+    border: 1px solid #dbdbdb;
+    border-radius: 50%;
+`;
+
+
+export const BestChallenge = css`
+    display: flex;
+    flex-direction: column;
+    padding: 50px 0px 0px 20px;
+    cursor: pointer;
+
+    & div {
+        padding-bottom: 20px;
+        font-size: 13px;
+
+        & b {
+            padding-left: 5px;
+            font-size: 16px;
+        }
+    }
+`;
+
+export const Content = css`
+    padding: 15px;
+    width: 90%;
+    height: 130px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.7); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    & p {
+        padding-left: 5px;
+        font-size: 12px;
+    }
+`;
+
 export const box03 = css`
     cursor: pointer;
     width: 300px;    
@@ -183,9 +324,8 @@ export const MiniContent = css`
 `;
 
 export const box05 = css`
-
     margin: 0px 10px;
-    width: 600px;
+    width: 700px;
     transition: transform 0.4s ease-out; 
 
     &:hover{
@@ -197,13 +337,13 @@ export const box05 = css`
     }
 `;
 export const box06 = css`
-
-    width: 810px;
+    padding: 10px 20px 10px 20px;
+    width: 710px;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease-out; 
-
+    cursor: pointer;
 
     &:hover{
         opacity: 0.9;    
@@ -214,8 +354,36 @@ export const box06 = css`
     }
 `;
 
+export const Notice = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
+    & td {
+        cursor: pointer;
+        font-size: 14px;
+        color: #555;
 
+        &:hover {
+            color: darkgray;
+        }
+    }
+`;
+
+export const NoticeTb = css`
+    padding: 20px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+export const noticeTitle = css`
+    width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+`;
 
 export const LogoImg1 = css`
     background-image: url(${Logo3});
@@ -239,38 +407,4 @@ export const IconBox = css`
     }
 `;
 
-export const calendarContainer = css`
-    width: 1000px;
-    background: linear-gradient(135deg, #f0e7d4, #efd1c5, #dadde2, #d5e4df);
 
-    .react-calendar .react-calendar__navigation {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        z-index: 1;
-
-        & button {
-            height: 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        & span {
-            font-weight: 600;
-        }
-    }
-
-    .react-calendar__month-view__weekdays {
-        z-index: 11;
-
-        & abbr {
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            height: 50px;
-        }
-    }
-`;
