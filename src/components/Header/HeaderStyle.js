@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 /** @jsxImportSource @emotion/react */
-import logo3 from '../../img/로고3.png';
-import logo4 from '../../img/로고4.png';
+import logo1 from '../../img/상단로고01.png';
+import logo2 from '../../img/상단로고02.png';
 
 
 export const Layout = css`
@@ -50,15 +50,15 @@ export const LogoBox = css`
 
 export const LogoBtn = css`
     cursor: pointer;
-    background-image: url(${logo3});
+    background-image: url(${logo1});
     background-repeat: no-repeat;
     width: 550px;
     height: 100%;
     margin-left: 9%;
 
     &:hover{
-        background-image: url(${logo4});
-        opacity: 0.5;
+        background-image: url(${logo2});
+        opacity: 0.7;
 
     }
 `;

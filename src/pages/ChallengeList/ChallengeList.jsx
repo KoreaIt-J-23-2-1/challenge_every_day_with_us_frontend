@@ -107,7 +107,7 @@ function ChallengeList(props) {
         <BaseLayout>
             <div css={S.Layout}>
                 <div css={S.searchContainer}>
-                    <b>공지를 확인해주세요 !</b>
+                    <b> 여러분들의 도전을 응원합니다 !</b>
                     <div css={S.selectContainer}>
                         <div css={S.selectBox}>
                             <ReactSelect css={S.SelectSt} options={options} defaultValue={options[0]} onChange={handleSearchOptionSelect} />
