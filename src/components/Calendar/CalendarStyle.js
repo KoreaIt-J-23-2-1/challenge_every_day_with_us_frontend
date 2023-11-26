@@ -1,12 +1,12 @@
 /* Style.js */
 
 import { css } from '@emotion/react';
+import attendanceCheckImg from "../../img/출석체크.png";
 
 export const calendarLayout = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 30px;
     height: 100%;
 `;
 
@@ -82,22 +82,23 @@ export const calendarContainer = css`
         position: relative;
     }
 
-    & .checked-star {
+    & .checked-attendance {
         position: relative;
         display: inline-block;
     }
 
-    & .checked-star::before {
-        content: '★';
+    & .checked-attendance::before {
+        content: '';
         position: absolute;
         display: block;
         z-index: 2;
-        border-radius: 50%;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 50px;
-        color: orange; 
+        background-image: url(${attendanceCheckImg});
+        background-size: cover;
+        width: 100px;
+        height: 55px;
     }
 `;
 

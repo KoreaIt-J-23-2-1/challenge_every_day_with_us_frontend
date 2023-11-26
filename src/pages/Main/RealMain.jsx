@@ -16,6 +16,7 @@ import img08 from '../../img/학습.png';
 import img09 from '../../img/일기.png';
 import img10 from '../../img/기타.png';
 import MypageDetailSideBar from '../../components/MypageDetailSideBar/MypageDetailSideBar';
+import MainCalendar from '../../components/MainCalendar/MainCalendar';
 
 
 /** @jsxImportSource @emotion/react */
@@ -36,6 +37,9 @@ function RealMain(props) {
 
     const navigate = useNavigate();
     
+    const stampCalendarClick = () => {
+        navigate("/stamp")
+    }
     return (
         <div css={S.MainBase}>    
             <Header />
@@ -71,14 +75,9 @@ function RealMain(props) {
                         </div>
                         <div css={S.part3}>
                             <div css={S.box04}>
-                                
-                                <b css={S.MiniTitle}>
-                                    당신의 도전을 응원합니다 !
-                                </b>
-
-                                <div css={S.MiniContent}>
+                                <div css={S.MiniContent} onClick={() => {stampCalendarClick()}}>
+                                    <MainCalendar />
                                 </div>
-
                             </div>
                         </div>
                     </div>

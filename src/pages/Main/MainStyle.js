@@ -168,16 +168,12 @@ export const MiniTitle = css`
 `;
 
 export const MiniContent = css`
-    width: 90%;
-    height: 300px;
-    margin-top: 20px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.5); 
-    border-radius: 15px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 `;
-
-
 
 export const box05 = css`
 
@@ -232,4 +228,38 @@ export const IconBox = css`
     }
 `;
 
+export const calendarContainer = css`
+    width: 1000px;
+    background: linear-gradient(135deg, #f0e7d4, #efd1c5, #dadde2, #d5e4df);
 
+    .react-calendar .react-calendar__navigation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+
+        & button {
+            height: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        & span {
+            font-weight: 600;
+        }
+    }
+
+    .react-calendar__month-view__weekdays {
+        z-index: 11;
+
+        & abbr {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            height: 50px;
+        }
+    }
+`;

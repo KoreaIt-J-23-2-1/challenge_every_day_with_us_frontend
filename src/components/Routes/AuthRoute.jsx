@@ -8,7 +8,7 @@ function AuthRoute({ element }) {
 
     if(!principal) {
         alert("로그인 후 사용하세요.");
-        return <Navigate to={"/"} />
+        return <Navigate to={"/auth/signin"} />
     }
 
     return element;
