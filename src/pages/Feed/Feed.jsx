@@ -242,14 +242,13 @@ function Feed(props) {
                                     </div>
                                     <div css={S.ChInfo}>
                                         <div css={S.BtnBox}>
-                                            <button css={S.Btn} onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
                                             {principal.userId === feed.userId ?
                                                 <div>
                                                     <button css={S.Btn} onClick={() => {handleFeedEditClick(feed.feedId)}}>수정</button>
                                                     <button css={S.Btn} onClick={() => {handleFeedDeleteClick(feed.feedId)}}>삭제</button>
                                                 </div>
                                             :
-                                            <></>
+                                            <button css={S.Btn} onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
                                             }
                                         </div>
                                                                         
