@@ -100,7 +100,7 @@ function Challengedefault() {
         }
     
         const today = new Date().toISOString().split('T')[0];
-        const userFeedToday = getFeedList.data.data.find(feed =>
+        const userFeedToday = getFeedList?.data?.data.find(feed =>
             feed.userId === principal.data.data.userId &&
             new Date(feed.dateTime).toISOString().split('T')[0] === today);
     
@@ -133,7 +133,7 @@ function Challengedefault() {
             if (response) {
                 alert("피드 등록 성공");
 
-                instance.post(`/api/challenge/feed/${challengeUserId}/point`, option)
+                instance.post(`/api/challenge/feed/${challengeUserId}/point`, {}, option)
                 
                 setIsChallengeFeedRefetch(true);
                 navigate(-1);
