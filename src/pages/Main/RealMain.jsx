@@ -13,9 +13,9 @@ import img10 from '../../img/기타.png';
 import InfoSideBar from '../../components/InfoSideBar/InfoSideBar';
 import LogoutState from '../../components/InfoSideBar/LogoutState';
 import {useQuery, useQueryClient } from 'react-query';
-import MypageDetailSideBar from '../../components/MypageDetailSideBar/MypageDetailSideBar';
 import { instance } from '../../api/config/instance';
 import MainCalendar from '../../components/MainCalendar/MainCalendar'
+import { PiPlusSquareLight } from "react-icons/pi";
 
 /** @jsxImportSource @emotion/react */
 
@@ -82,6 +82,11 @@ function RealMain(props) {
     const stampCalendarClick = () => {
         navigate("/stamp")
     }
+
+    const handleChallengeCreateClike = () => {
+        navigate("/challenge/category");
+    }
+
     return (
         <div css={S.MainBase}>    
             <Header />
@@ -95,6 +100,31 @@ function RealMain(props) {
                     <div css={S.part5}>
                         <div css={S.LabelBox}>
                             <label>가장 인기있는 챌린지</label>
+                        <div css={S.box02}>
+                            <div css={S.BestChallenge} onClick={() => handleChallengeClick(navigate(`/challenge/${getPopularChallenge?.data?.data?.challengeId}`))}>
+                                <div>챌린지 이름: <b>{getPopularChallenge?.data?.data?.challengeName}</b></div>
+                                <div>참여인원: <b>{getPopularChallenge?.data?.data?.challenger}명</b></div>
+                                <div>기간: <b>{getPopularChallenge?.data?.data?.startDate} ~ {getPopularChallenge?.data?.data?.endDate}</b></div>
+                                <div css={S.Content}>
+                                    <b>챌린지 소개: <p>{getPopularChallenge?.data?.data?.introduction}</p></b>
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
+                        <div css={S.LabelBox}>
+                            <label>가장 인기있는 피드</label>
+                        <div css={S.box02}>
+                            <div css={S.BestFeed} onClick={() => handleChallengeClick(navigate("/challenge/feed"))}>
+                                <div css={S.FeedHeader}>
+                                    <div css={S.userInfo}>
+                                        <img css={S.InfoImg} src={getBestFeed?.data?.data?.profileUrl} alt="" />
+                                        <b>{getBestFeed?.data?.data?.nickname}</b>  
+                                    </div>
+                                    <div css={S.ChInfo}>
+                                        <div>
+                                            <p>[{getBestFeed?.data?.data?.categoryName}]</p>
+                                            <b>{getBestFeed?.data?.data?.challengeName}</b>
                             <div css={S.box02}>
                                 <div css={S.BestChallenge} onClick={() => handleChallengeClick(navigate(`/challenge/${getPopularChallenge?.data?.data?.challengeId}`))}>
                                     <div>챌린지 이름: <b>{getPopularChallenge?.data?.data?.challengeName}</b></div>
@@ -133,9 +163,30 @@ function RealMain(props) {
                             </div>
                         </div>
 
+                        </div>
+
                     </div>
                     <div>
                         <div css={S.part2}>
+                            <div css={S.LabelBox2}>
+                                <label><b>참여중인 챌린지 리스트</b></label>
+                                    <div css={S.box03}>
+                                    {principal ? (
+                                            <div css={S.ListBox}>
+                                                {myChallenge?.map((myChallenge, index) => (
+                                                    <li key={index} onClick={() => handleChallengeClick(navigate(`/challenge/${myChallenge.challengeId}`))}>
+                                                        {myChallenge.challengeName}
+                                                    </li>
+                                                ))}
+                                            </div>
+                                    ) : (
+                                        <p>로그인 후 사용하세요</p>
+                                        )}
+                                </div>
+                            </div>
+
+                            <div css={S.box031} onClick={() => handleChallengeClick(navigate("/challenge/category"))}>
+                                <b>챌린지생성</b> <PiPlusSquareLight onClick={handleChallengeCreateClike}/>
                             <div css={S.LabelBox}>
                                 <label><b>참여중인 챌린지 리스트</b></label>
                                 <div css={S.box03}>
@@ -174,7 +225,7 @@ function RealMain(props) {
                         <div css={S.LogoImg1}></div>
                     </div>
                     <div css={S.box06}>
-                        <h4>공지사항</h4>
+                        <h4 onClick={() => { navigate("/notice/page/1") }} >공지사항</h4>
                         <table css={S.NoticeTb}>
                             <tbody>
                                 {!getNoticeList.isLoading && getNoticeList?.data?.data?.map(notice => {

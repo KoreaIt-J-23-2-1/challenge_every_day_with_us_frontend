@@ -48,9 +48,9 @@ function NoticeList(props) {
         }
 
         const totalNoticeCount = getNoticesCount?.data?.data;
-        const lastPage = totalNoticeCount % 10 === 0
-            ? totalNoticeCount / 10
-            : Math.floor(totalNoticeCount / 10) + 1;
+        const lastPage = totalNoticeCount % 13 === 0
+            ? totalNoticeCount / 13
+            : Math.floor(totalNoticeCount / 13) + 1;
         const startIndex = parseInt(page) % 5 === 0 ? parseInt(page) - 4 : parseInt(page) - (parseInt(page) % 5) + 1;
         const endIndex = startIndex + 4 <= lastPage ? startIndex + 4 : lastPage;
         const pageNumbers = [];
