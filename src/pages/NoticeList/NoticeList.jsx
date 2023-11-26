@@ -21,7 +21,7 @@ function NoticeList(props) {
     }
 
     const getNoticeList = useQuery(["getNoticeList", page], async () => {
-        return await instance.get(`/api/notices/${page}` )
+        return await instance.get(`/api/notices/${page}?pageSize=13`)
     }, {
         retry: 0,
         refetchOnWindowFocus: false
