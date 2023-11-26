@@ -173,7 +173,9 @@ function LetterSideBar(props) {
                             <div css={S.modalFrom}><b>From </b>{selectedLetter.senderNickname}</div>
                             <div css={S.modalDate}><b>Date </b>{selectedLetter.sendDateTime}</div>
                         </div>
-                        <div css={S.modalContent}><div dangerouslySetInnerHTML={{ __html: selectedLetter.content }}></div></div>
+                        <div css={S.modalContent}><div dangerouslySetInnerHTML={{ __html: selectedLetter.content }}></div>
+                            <img src={selectedLetter.targetUrl} alt="" />
+                        </div>
                         <div css={S.modalBottom}>
                             {selectedLetter.letterTitle === "챌린지 승인 요청" && (
                                 selectedLetter.acceptState === 0 ?
