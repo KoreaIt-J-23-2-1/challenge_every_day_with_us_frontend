@@ -150,6 +150,7 @@ export const InfoImg = css`
     height: 50px;
     border: 1px solid #dbdbdb;
     border-radius: 50%;
+    
 `;
 
 export const SFeedBody = css`
@@ -162,8 +163,9 @@ export const SFeedBody = css`
 
 export const FeedImg = css`
     width: 200px;
-    height: 200px;
+    height: 180px;
     border-radius: 10px;
+    margin-top: 20px;
 `;
 
 export const FeedContentBox = (imgExists) => css`
