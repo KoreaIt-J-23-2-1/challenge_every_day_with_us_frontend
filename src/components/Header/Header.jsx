@@ -94,20 +94,20 @@ function Header() {
 
                     {/* 오른쪽버튼 */}
                     <div css={S.RightIconBox}>
-                    {(!getLettersCount.isLoading && principal ) && (
+                        {(!getLettersCount.isLoading && principal) && (
                             <> 
-                        <div css={S.BtnBackground} onClick={GoStorePage} ><BsFillGiftFill css={S.Icon} /></div>
-                        
-                        <div css={S.BtnBackground} onClick={handleStampOpen}><BsCalendarCheck css={S.Icon} /></div>
-                        
-                                <div css={S.BtnBackground} onClick={handleLetterOpen}  >
+                                {(principal.data.isAdmin !== 1) && (
+                                    <>
+                                        <div css={S.BtnBackground} onClick={GoStorePage}><BsFillGiftFill css={S.Icon} /></div>
+                                        <div css={S.BtnBackground} onClick={handleStampOpen}><BsCalendarCheck css={S.Icon} /></div>
+                                    </>
+                                )}
+                                <div css={S.BtnBackground} onClick={handleLetterOpen}>
                                     {getUnreadLettersCount.data !== 0 ? <BsBellFill  css={S.Icon}/> : <BsBell  css={S.Icon}/>}
                                 </div>
                                 {!getUnreadLettersCount.isLoading && getUnreadLettersCount.data === 0 ? <></> : <div css={S.LetterCountBox}>{getUnreadLettersCount.data}</div>}
                             </>
-                            )
-                        }
-                        
+                        )}
                         <div css={S.BtnBackground}><MenuBtn/></div>
                     </div>
                 </div>

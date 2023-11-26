@@ -366,6 +366,7 @@ export const ListContainer = css`
 
     &>a{
         font-weight: 400;
+        margin-right: 10px;
     }
     
 `;

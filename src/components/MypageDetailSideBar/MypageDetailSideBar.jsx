@@ -106,7 +106,6 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
                         <li onClick={() => navigate("/account/mypage/detail")}>내 정보수정</li>
                         <li onClick={() => navigate("/store/:userId/orders")}>상점물품 구매내역</li>
                         <li onClick={() => {handlePurchasePointClick()}}>포인트 충전</li>
-                        {/* <li onClick={() => navigate("/user")}>참여중인 리스트</li> */}
                     </ul>
                 </div>
             </div>
