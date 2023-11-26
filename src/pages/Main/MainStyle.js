@@ -158,27 +158,6 @@ export const LabelBox = css`
     }
 `;
 
-export const LabelBox = css`
-    transition: transform 0.4s ease-out; 
-
-    &>label{
-        height: 15px;
-        color: #2f2f2f;
-        font-size: 13px;
-        font-weight: 700;
-        margin-left: 15px;
-        margin-bottom: 2px;
-    }
-
-    &:hover{
-        opacity: 0.9;    
-        transform: scale(0.9);
-    }
-    &:active {
-        opacity: 1;    
-    }
-`;
-
 export const box02 = css`
 
     width: 100%;
@@ -215,22 +194,6 @@ export const BestChallenge = css`
         }
     }
 `;
-
-export const Content = css`
-    padding: 15px;
-    width: 90%;
-    height: 130px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.7); 
-    border-radius: 15px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-    & p {
-        padding-left: 5px;
-        font-size: 12px;
-    }
-`;
-
 
 export const BestFeed = css`
     padding: 10px;
@@ -332,6 +295,7 @@ export const Content = css`
         padding-left: 5px;
         font-size: 12px;
     }
+`;
 
 
 export const box03 = css`
@@ -347,6 +311,15 @@ export const box03 = css`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease-out; 
     cursor: pointer; 
+
+    &:hover {
+        *::-webkit-scrollbar {
+            width: 2px;
+        }
+        *::-webkit-scrollbar-thumb {
+            background-color: #dbdbdb
+        }
+    }
 `;
 
 export const box031 = css`
@@ -362,31 +335,6 @@ export const box031 = css`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease-out; 
 
-    &:hover {
-        *::-webkit-scrollbar {
-            width: 2px;
-        }
-        *::-webkit-scrollbar-thumb {
-            background-color: #dbdbdb
-        }
-    }
-    cursor: pointer; 
-`;
-
-export const box031 = css`
-    cursor: pointer;
-    width: 300px;    
-    height: 200px;
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.5); 
-    border-radius: 15px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.4s ease-out; 
-    cursor: pointer;
-
     & b {
         margin-right: 5px;
     }
@@ -397,24 +345,9 @@ export const box031 = css`
     }
     &:active {
         opacity: 1;    
-    }    
-`;
-
-export const Plus = css`
-    position: absolute;
-    bottom: 20px;
-    right: 30px;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-
-    & * {
-        color: #999;
-
-        &:active {
-            color: #444;
-        }
     }
+
+    cursor: pointer; 
 `;
 
 export const box04 = css`
