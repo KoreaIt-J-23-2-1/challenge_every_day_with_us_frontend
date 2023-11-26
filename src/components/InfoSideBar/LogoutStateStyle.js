@@ -47,6 +47,8 @@ export const LoginBtn = css`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: none;
     margin: 25px;
+    cursor: pointer;
+    
     &:hover{
         background: rgba(80, 80, 80, 0.2);
         font-weight: 700;
