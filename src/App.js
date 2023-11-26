@@ -58,8 +58,8 @@ function App() {
       <Global styles={SReset, Common}/>
 
       <Routes>
-        <Route path='/maain' element={<RealMain/>}/>
-        <Route path='/main' element={<Main />} />
+        <Route path='/main' element={<RealMain/>}/>
+        <Route path='/maain' element={<Main />} />
         <Route path='/' element={<LogoPage/>}/>
         <Route path='/account/*' element={ <AuthRoute element={ <AccountRoute /> } /> } />
         <Route path='/auth/signup' element={ <SignUp/> } />

@@ -153,7 +153,7 @@ function Challengedefault() {
                 <div css={S.textBox}>
                     <b>Write Text</b>
                     <textarea ref={textareaRef}
-                        id="challengeText" rows="32" cols="70" maxLength={1000} />
+                        id="challengeText" rows="32" cols="52" maxLength={1000} />
                 </div>
 
                 <div>

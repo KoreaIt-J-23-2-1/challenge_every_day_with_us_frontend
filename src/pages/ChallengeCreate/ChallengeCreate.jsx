@@ -5,7 +5,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
-import * as S from './Style';
+import * as S from './ChallengeCreateStyle';
 import TitleComponent from '../../components/TitleComponent/TitleComponent';
 
 function ChallengeCreate({ children }) {

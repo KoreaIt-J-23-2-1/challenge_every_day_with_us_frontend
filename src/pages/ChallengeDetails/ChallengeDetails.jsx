@@ -296,17 +296,26 @@ function ChallengeDetails(props) {
         }
     };
 
+
     const handleDeleteClick = async () => {
-        if(principal.data.data.name === challenge.name){
-            await instance.delete(`/api/challenge/${challengeId}`, option)
-            alert("삭제완료!");
-            navigate("/");
-        }else {
-            alert("작성자만 삭제할 수 있습니다.");
+        /* eslint-disable no-restricted-globals */ 
+        const userConfirmed = window.confirm("정말로 삭제하시겠습니까?");
+
+        if (userConfirmed) {
+            if (principal.data.data.name === challenge.name) {
+                await instance.delete(`/api/challenge/${challengeId}`, option);
+                alert("삭제완료!");
+                navigate("/");
+            } else {
+                alert("작성자만 삭제할 수 있습니다.");
+            }
+            getLikeState.refetch();
+            getChallenge.refetch();
+        } else {
+            console.log("삭제가 취소되었습니다.");
         }
-        getLikeState.refetch();
-        getChallenge.refetch();
-    }
+    };    
+
 
     const requestData = {
         senderUserId: principal.data.data.userId,

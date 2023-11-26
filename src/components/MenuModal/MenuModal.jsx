@@ -39,20 +39,13 @@ function MenuModal(props) {
 
             <div>
                 <div css={S.BtnBox}>
+                    <button onClick={() => { checkLoginBeforeNavigate("/main") }}>홈</button>
                     <button onClick={() => { checkLoginBeforeNavigate("/notice/page/1") }}>공지</button>
-                    <button onClick={() => { checkLoginBeforeNavigate("/store/items") }}>상점</button>
-
-
                 </div>
                 <div css={S.BtnBox}>
-                    <button onClick={() => { checkLoginBeforeNavigate("/challenge/category") }}>챌린지카테고리</button>
-                    <button onClick={() => { checkLoginBeforeNavigate("/challenges") }}>챌린지리스트조회</button>
+                    <button onClick={() => { checkLoginBeforeNavigate("/challenges") }}>챌린지리스트</button>
+                    <button onClick={() => { checkLoginBeforeNavigate("/challenge/category") }}>챌린지생성</button>
                     <button onClick={() => { checkLoginBeforeNavigate("/challenge/feed") }}>Feed</button>
-                </div>
-                <div css={S.BtnBox}>
-                    <button>룰루랄라</button>
-                    <button>닐니리야</button>
-                    <button>추가할것</button>
                 </div>
             </div>
         </div>

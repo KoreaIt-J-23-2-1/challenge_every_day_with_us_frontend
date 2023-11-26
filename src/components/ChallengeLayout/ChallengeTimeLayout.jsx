@@ -168,7 +168,7 @@ function ChallengeTimeLayout() {
             <div css={S.contentBox}>
                 <div css={S.textBox}>
                     <b>Write Text</b>
-                    <textarea  id="challengeText" rows="12" cols="70" maxLength={1000}/>
+                    <textarea  id="challengeText" rows="12" cols="52" maxLength={1000}/>
                 </div>
 
                 <div>
