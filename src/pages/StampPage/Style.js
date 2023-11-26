@@ -93,7 +93,6 @@ export const calendarContainer = css`
         display: block;
         z-index: 2;
         border-radius: 50%;
-        border: 1px solid orange;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
