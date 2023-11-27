@@ -189,7 +189,7 @@ function RealMain(props) {
                         <div css={S.LogoImg1}></div>
                     </div>
                     <div css={S.box06}>
-                        <h4>공지사항</h4>
+                        <h4 onClick={() => handleChallengeClick(navigate("/notice/page/1"))}>공지사항</h4>
                         <table css={S.NoticeTb}>
                             <tbody>
                                 {!getNoticeList.isLoading && getNoticeList?.data?.data?.map(notice => {
