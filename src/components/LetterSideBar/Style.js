@@ -115,7 +115,7 @@ export const modalTitle = css`
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    margin-bottom: 50px;
+    margin-bottom: 15px;
     font-size: 24px;
 `;
 
@@ -128,7 +128,6 @@ export const fromAndDate = css`
 `;
 
 export const modalFrom = css`
-    margin-right: 60px;
     & b {
         font-size: 15px;
         margin-right: 5px;

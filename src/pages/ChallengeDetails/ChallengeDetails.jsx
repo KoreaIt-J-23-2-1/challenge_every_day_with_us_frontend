@@ -13,6 +13,7 @@ import ProgressBar from '@ramonak/react-progress-bar';
 import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
 import FeedCommentSee from '../../components/FeedCommentSee/FeedCommentSee';
 import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
+import FeedEditModal from '../../components/FeedEditModal/FeedEditModal';
 
 function ChallengeDetails(props) {
     const navigate = useNavigate();
@@ -26,7 +27,6 @@ function ChallengeDetails(props) {
     const [ latestComments, setLatestComments ] = useState({});
     const [ commentInputList, setCommentInputList ] = useState();
     const [ isLikeList, setIsLikeList ] = useState({});
-    const { feedId } = useParams();
     const [ challenge, setChallenge ] = useState({});
     const [ challengers, setChallengers ] = useState({});
     const [ dateDifference, setDateDifference ] = useState(null);
@@ -38,8 +38,9 @@ function ChallengeDetails(props) {
     const [ page, setPage ] = useState(1);
     const [ feedProgress, setFeedProgress ] = useState(0);
     const lastChallengeRef = useRef();
+    const [ selectedFeed, setSelectedFeed ] = useState(0);
+    const [ isModalOpen, setModalOpen ] = useState(false);
     const userId = principal.data.data.userId;
-
     const option = {
         headers: {
             Authorization: localStorage.getItem("accessToken")
@@ -63,7 +64,6 @@ function ChallengeDetails(props) {
             const response = await instance.get(`/api/challenge/${challengeId}`, option);
             const challenge = response.data;
 
-            console.log(challenge);
             if (challenge.isDeadline === 1) {
                 setIsJoined("종료된 챌린지");
                 setButton(true);
@@ -318,19 +318,19 @@ function ChallengeDetails(props) {
         targetId: challenge.challengeId
     };
     
-    const handleParticipationButton = () => {
+    const handleParticipationButton = async () => {
         if(isJoined === "챌린지 인증하기") {
             navigate(`/challenge/certification/${challengeId}`)
         }else if(isJoined === "대기중") {
             setButton(true);
         }else {
             if(challenge.isApplicable === "0"){
-                const response = instance.post(`/api/challenge/join/${challengeId}`, {}, option);
+                const response = await instance.post(`/api/challenge/join/${challengeId}`, {}, option);
                 if(response) {
                     alert("챌린지 참여가 가능합니다!")
                 }
             }else {
-                const response = instance.post(`/api/challenge/join/${challengeId}`, {}, option);
+                const response = await instance.post(`/api/challenge/join/${challengeId}`, {}, option);
                 if(response) {
                     alert("신청완료! 승인까지 1~2일이 소요됩니다.");
                     instance.post("/api/challenge/atmosphere/letter", requestData, option);
@@ -386,6 +386,46 @@ function ChallengeDetails(props) {
         }
     };
 
+    const handleFeedEditClick = (feedId) => {
+        setSelectedFeed(feedId);
+        setModalOpen(true);
+    };
+
+    const handleFeedDeleteClick = async (feedId) => {
+        try {
+            const confirmed = window.confirm("피드를 삭제 시키겠습니까?")
+            
+            if (confirmed) {
+                await instance.delete(`/api/challenge/feed/${feedId}`, option);
+                alert("피드가 삭제되었습니다.");
+                getFeedList.refetch({ force: true });
+            }
+        }catch(error) {
+            console.error(error);
+        }
+    };
+
+    const handleReportClick = async (feedId, feedChallengeId) => {
+        const data = {
+            feedId: feedId,
+            title: "신고가 들어왔습니다.",
+            challengeId: feedChallengeId,
+            content: `${feedId}번의 피드의 신고가 들어왔으니 확인바랍니다.`,
+            targetUrl:`http://localhost:3000/challenge/${feedChallengeId}`
+        };
+        const response = await instance.post("/api/challenge/report", data, option)
+            if(response) {
+                alert(`${feedId}번의 피드를 신고하였습니다.`);
+            }
+    };
+
+    const handleFeedEditCloseModal = () => {
+        setSelectedFeed(null);
+        setModalOpen(false);
+        window.location.reload()
+        
+    };
+
     return (
         <BaseLayout>
             <div css={S.Layout}>
@@ -430,6 +470,18 @@ function ChallengeDetails(props) {
                                         <b>{feed.nickname}</b>  
                                     </div>
                                     <div  css={S.ChInfo}>
+                                        {userId === feed.userId ?
+                                            <div>
+                                                <button css={S.Btn} onClick={() => {handleFeedEditClick(feed.feedId)}}>수정</button>
+                                                <button css={S.Btn} onClick={() => {handleFeedDeleteClick(feed.feedId)}}>삭제</button>
+                                            </div>
+                                        :
+                                            <div>
+                                                {(userId === 1 || userId === 2 || userId === getChallenge.challengeId) && 
+                                                <button css={S.Btn} onClick={() => {handleFeedDeleteClick(feed.feedId)}}>삭제</button>}
+                                                <button css={S.Btn} onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
+                                            </div>
+                                        }
                                         <div>
                                             <p>[{feed.categoryName}]</p>
                                             <b>{feed.challengeName}</b>
@@ -532,6 +584,13 @@ function ChallengeDetails(props) {
                             ))}
                         </div>
                     </div>
+                    {isModalOpen && (
+                        <div css={S.ModalOverlay}>
+                            <div css={S.ModalContent}>
+                                <FeedEditModal onClose={handleFeedEditCloseModal} feedDetail={selectedFeed} />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </BaseLayout>
