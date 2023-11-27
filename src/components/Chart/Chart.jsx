@@ -58,7 +58,6 @@ function Chart(props) {
                         id: "목록",
                         data: xDatas.map(data => ({
                             x: data,
-                            y: 0
                         }))
                     },
                     {

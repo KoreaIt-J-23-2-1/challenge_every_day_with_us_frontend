@@ -78,9 +78,6 @@ const AdminModal = ({ onClose, challengeDetails }) => {
         <p><b>Category: </b>{challenge.categoryName}</p>
         <p><b>Founder: </b>{challenge.name}</p>
         <p><b>introduction: </b>{challenge.introduction}</p>
-        <p><b>isApplicable: </b>{challenge.isApplicable}</p>
-        <p><b>isOpen: </b>{challenge.isOpen}</p>
-        <p><b>layout: </b>{challenge.layout}</p>
         <p><b>Challenge startDate: </b>{challenge.startDate}</p>
         <p><b>Challenge endDate: </b>{challenge.endDate}</p>
         <p><b>LikeCount: </b>{challenge.challengeLikeCount}</p>
