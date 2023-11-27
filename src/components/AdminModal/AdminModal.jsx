@@ -72,26 +72,28 @@ const AdminModal = ({ onClose, challengeDetails }) => {
 
     return (
     <div ref={modalRef}>
-        <h2>Challenge Details</h2>
-        <p><b>Challenge ID: </b>{challenge.challengeId}</p>
-        <p><b>Challenge Name: </b>{challenge.challengeName}</p>
-        <p><b>Category: </b>{challenge.categoryName}</p>
-        <p><b>Founder: </b>{challenge.name}</p>
-        <p><b>introduction: </b>{challenge.introduction}</p>
-        <p><b>Challenge startDate: </b>{challenge.startDate}</p>
-        <p><b>Challenge endDate: </b>{challenge.endDate}</p>
-        <p><b>LikeCount: </b>{challenge.challengeLikeCount}</p>
-        <p css={S.Challenger}><b onClick={handleChallengerClick}>Challenger: </b><span onClick={handleChallengerClick}>{challenge.challenger}</span></p>
-            {challengerModalOpen && (
-                <div css={S.SubModal}>
-                    <h2>Challenger</h2>
-                    <ul>
-                        {challengers?.map((challenger, index) => (
-                            <li key={index}>{challenger.nickname}</li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+        <div css={S.Layout}>
+            <h2>Challenge Details</h2>
+            <div><b>Challenge ID: </b>{challenge.challengeId}</div>
+            <div><b>Challenge Name: </b>{challenge.challengeName}</div>
+            <div><b>Category: </b>{challenge.categoryName}</div>
+            <div><b>Founder: </b>{challenge.name}</div>
+            <div><b>introduction: </b>{challenge.introduction}</div>
+            <div><b>Challenge startDate: </b>{challenge.startDate}</div>
+            <div><b>Challenge endDate: </b>{challenge.endDate}</div>
+            <div><b>LikeCount: </b>{challenge.challengeLikeCount}</div>
+            <div css={S.Challenger}><b onClick={handleChallengerClick}>Challenger: </b><span onClick={handleChallengerClick}>{challenge.challenger}</span></div>
+                {challengerModalOpen && (
+                    <div css={S.SubModal}>
+                        <h2>Challenger</h2>
+                        <ul>
+                            {challengers?.map((challenger, index) => (
+                                <li key={index}>{challenger.nickname}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+        </div>
     </div>
     );
 };

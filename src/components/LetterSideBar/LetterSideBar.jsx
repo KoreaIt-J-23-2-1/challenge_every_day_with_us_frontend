@@ -7,9 +7,12 @@ import LetterModal from '../LetterModal/LetterModal';
 import * as S from './LetterSideBarStyle';
 import { IoMdCloseCircle } from 'react-icons/io';
 import noticeIcon from '../../img/공지알람.png'
+import ImgModal from '../LetterModal/ImgModal';
 
 function LetterSideBar(props) {
     const [ isModalOpen, setIsModalOpen] = useState(false);
+    const [ isImgModalOpen, setIsImgModalOpen ] = useState(false);
+    const [ selectedImgUrl, setSelectedImgUrl ] = useState('');
     const [ letterViewType, setLetterViewType ] = useState("unread");
     const [ selectedLetter, setSelectedLetter ] = useState(null);
     const [ letterList, setLetterList ] = useState([]);
@@ -123,6 +126,11 @@ function LetterSideBar(props) {
         }
     }
 
+    const handleImgModalOpen = (imgUrl) => {
+        setSelectedImgUrl(imgUrl);
+        setIsImgModalOpen(true);
+    }
+
     return (
         <div css={S.LetterSideBarLayout}>
             <div css={S.Layout}>
@@ -191,10 +199,18 @@ function LetterSideBar(props) {
                                         <b>Accept-State: </b>{selectedLetter.acceptState === 1 ? "수락 완료" : "거절 완료"}
                                     </div>
                                 )}
-                            {(selectedLetter.letterTitle === "공지" || selectedLetter.letterTitle === "상점구매") && (
+                            {selectedLetter.letterTitle === "공지" && (
                                 <div>
                                     <button css={S.Btn} onClick={() => {window.location.replace(selectedLetter.targetUrl);}}>바로가기</button>
                                 </div>
+                            )}
+                            {selectedLetter.letterTitle === "상점구매"  && (
+                                <div>
+                                    <button css={S.Btn} onClick={() => { handleImgModalOpen(selectedLetter.targetUrl); }}>바로가기</button>
+                                </div>
+                            )}
+                            {isImgModalOpen && (
+                                <ImgModal imgUrl={selectedImgUrl} onClose={() => setIsImgModalOpen(false)} />
                             )}
                         </div>
                     </div>
