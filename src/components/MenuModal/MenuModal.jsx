@@ -25,6 +25,7 @@ function MenuModal({ isActive }) {
     };
 
 
+
     return (
         <div css={S.Background(isActive)}>
             <div css={S.MenuBody(isActive)}>
@@ -32,21 +33,28 @@ function MenuModal({ isActive }) {
                     <h3></h3>
                     <div css={S.MyBox}>
                         {principal ? <button onClick={handleLogoutButton}>로그아웃</button>
-                        : <button onClick={() => { navigate("/auth/signin") }}>로그인</button>}
-                        <button onClick={() => { checkLoginBeforeNavigate("/account/mypage") }}>마이페이지</button>
+                            : <button onClick={() => { navigate("/auth/signin") }}>로그인</button>}
+                        {principal?.data?.isAdmin === 1 ?
+                            <button onClick={() => { checkLoginBeforeNavigate("/account/mypage") }}>관리자페이지</button>
+                            :
+                            <button onClick={() => { checkLoginBeforeNavigate("/account/mypage") }}>마이페이지</button>
+                        }
                         <button onClick={() => { checkLoginBeforeNavigate("/account/mypage/detail") }}>내정보수정</button>
                     </div>
                 </div>
 
-                <div>
-                    <div css={S.BtnBox(isActive)}>
-                        <button onClick={() => { checkLoginBeforeNavigate("/main") }}>홈</button>
-                        <button onClick={() => { checkLoginBeforeNavigate("/notice/page/1") }}>공지</button>
+                <div  css={S.BtnBox(isActive)}>
+                    <div>
+                        <button onClick={() => { checkLoginBeforeNavigate("/main") }}>HOME</button>
                     </div>
-                    <div css={S.BtnBox(isActive)}>
-                        <button onClick={() => { checkLoginBeforeNavigate("/challenges") }}>챌린지리스트</button>
-                        <button onClick={() => { checkLoginBeforeNavigate("/challenge/category") }}>챌린지생성</button>
-                        <button onClick={() => { checkLoginBeforeNavigate("/challenge/feed") }}>Feed</button>
+                    <div >
+                        <button onClick={() => { checkLoginBeforeNavigate("/challenges") }}>CHALLENGE</button>
+                        <button onClick={() => { checkLoginBeforeNavigate("/challenge/feed") }}>FEED</button>
+
+                    </div>
+                    <div >
+                        <button onClick={() => { checkLoginBeforeNavigate("/notice/page/1") }}>NOTICE</button>
+                        <button onClick={() => { checkLoginBeforeNavigate("/stamp") }}>STAMP</button>
                     </div>
                 </div>
             </div>
