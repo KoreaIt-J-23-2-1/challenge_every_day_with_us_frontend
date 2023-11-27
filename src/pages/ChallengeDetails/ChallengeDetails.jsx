@@ -12,11 +12,8 @@ import { FaStar } from "react-icons/fa";
 import ProgressBar from '@ramonak/react-progress-bar';
 import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
 import FeedCommentSee from '../../components/FeedCommentSee/FeedCommentSee';
-<<<<<<< Updated upstream
 import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 import FeedEditModal from '../../components/FeedEditModal/FeedEditModal';
-=======
->>>>>>> Stashed changes
 
 function ChallengeDetails(props) {
     const navigate = useNavigate();
@@ -128,31 +125,9 @@ function ChallengeDetails(props) {
     })
 
     useEffect(() => {
-<<<<<<< Updated upstream
-        const response = instance.get(`/api/challenge/${challengeId}/userlike?userId=${userId}`, option);
-        response.then((data) => {
-            setIsLike(data)
-        });
-    }, [])
-
-    // const getUserLikeState = useQuery(["getUserLikeState"], async () => {
-    //     try {
-    //         return await instance.get(`/api/challenge/${challengeId}/${userId}`, option);
-    //     }catch(error) {
-    //         console.erroe(error);
-    //     }
-    // }, {
-    //     refetchOnWindowFocus: false,
-    //     retry: 0,
-    //     onSuccess: (response) => {
-    //         setIsLike(response?.data)
-    //     }
-    // })
-=======
         instance.get(`/api/challenge/${challengeId}/userlike?userId=${userId}`, option)
             .then(response => setIsLike(response.data));
     }, []);
->>>>>>> Stashed changes
 
     useEffect(() => {
         feedList.forEach(feed => {
@@ -347,13 +322,8 @@ function ChallengeDetails(props) {
         }else if(isJoined === "대기중") {
             setButton(true);
         }else {
-<<<<<<< Updated upstream
             if(challenge.isApplicable === "0"){
                 const response = await instance.post(`/api/challenge/join/${challengeId}`, {}, option);
-=======
-            if(challenge.isApplicable === 0){
-                const response = instance.post(`/api/challenge/join/${challengeId}`, {}, option);
->>>>>>> Stashed changes
                 if(response) {
                     alert("챌린지 참여가 가능합니다!")
                 }
