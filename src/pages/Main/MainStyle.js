@@ -319,6 +319,8 @@ export const box03 = css`
     transition: transform 0.4s ease-out; 
     cursor: pointer; 
 
+
+
     &:hover {
         *::-webkit-scrollbar {
             width: 2px;
