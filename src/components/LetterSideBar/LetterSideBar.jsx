@@ -183,8 +183,8 @@ function LetterSideBar(props) {
                             {selectedLetter.letterTitle === "챌린지 승인 요청" && (
                                 selectedLetter.acceptState === 0 ?
                                     <div>
-                                            <button onClick={handleAcceptChallenge}>수락</button>
-                                            <button onClick={handleRejectChallenge}>거절</button>
+                                            <button css={S.Btn}  onClick={handleAcceptChallenge}>수락</button>
+                                            <button css={S.Btn}  onClick={handleRejectChallenge}>거절</button>
                                     </div>
                                     :
                                     <div>
@@ -193,7 +193,7 @@ function LetterSideBar(props) {
                                 )}
                             {(selectedLetter.letterTitle === "공지" || selectedLetter.letterTitle === "상점구매") && (
                                 <div>
-                                    <button onClick={() => {window.location.replace(selectedLetter.targetUrl);}}>바로가기</button>
+                                    <button css={S.Btn} onClick={() => {window.location.replace(selectedLetter.targetUrl);}}>바로가기</button>
                                 </div>
                             )}
                         </div>

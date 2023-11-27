@@ -318,7 +318,12 @@ export const box03 = css`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease-out; 
     cursor: pointer; 
-
+    *::-webkit-scrollbar {
+        width: 2px;
+    }
+    *::-webkit-scrollbar-thumb {
+        opacity: 0;
+    }
     &:hover {
         *::-webkit-scrollbar {
             width: 2px;
