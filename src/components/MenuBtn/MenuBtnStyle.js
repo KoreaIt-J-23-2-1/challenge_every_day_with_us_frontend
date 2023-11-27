@@ -51,18 +51,3 @@ export const active = css`
     }
 `;
 
-export const background = (isActive) => css`
-    top: 10px;
-    right: 3px;
-    width: ${isActive ? '600px' : '0'};
-    height: ${isActive ? '300px' : '0'};
-    /* opacity: ${isActive? '1':'0'}; */
-    background-color: #F7F4EC;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    position: fixed;
-    z-index: 3;
-    border-radius: 400px 20px 400px 400px;
-    transition: width 0.7s ease-in, height 0.7s ease-in;
-    display: flex;
-    justify-content: end;
-`;

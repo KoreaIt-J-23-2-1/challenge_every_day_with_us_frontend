@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 import LetterModal from '../LetterModal/LetterModal';
-import * as S from './Style';
+import * as S from './LetterSideBarStyle';
 import { IoMdCloseCircle } from 'react-icons/io';
 import noticeIcon from '../../img/공지알람.png'
 
@@ -162,6 +162,7 @@ function LetterSideBar(props) {
                     }
                 </div>
             </div>
+
             <LetterModal isOpen={isModalOpen} onClose={closeModal} selectedLetter={selectedLetter}>
                 <div css={S.modalCloseBtnContainer}><IoMdCloseCircle  css={S.modalCloseBtn} onClick={closeModal}/></div>
                 {!letterList.isLoading && selectedLetter && (

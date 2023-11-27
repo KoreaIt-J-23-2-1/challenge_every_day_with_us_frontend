@@ -11,7 +11,6 @@ const LetterModal = ({ isOpen,selectedLetter, children }) => {
     return (
         <div css={S.modalContainer}>
             <div css={S.modalContent}>
-                {/* <div onClick={onClose}>닫기</div> */}
                 {children}
             </div>
         </div>
