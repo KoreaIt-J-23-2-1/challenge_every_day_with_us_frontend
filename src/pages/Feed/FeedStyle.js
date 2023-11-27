@@ -154,6 +154,13 @@ export const FeedContentBox = (imgExists) => css`
         margin: auto 0px ;
     }
 
+    & > a > b {
+        display: flex;
+        justify-content: end;
+        font-size: 12px;
+        padding-right: 10px;
+    }
+
     ${!imgExists && `img { display: none; }`}
 `;
 

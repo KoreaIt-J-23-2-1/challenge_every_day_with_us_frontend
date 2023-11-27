@@ -163,7 +163,9 @@ export const userInfo = css`
     display: flex;
     align-items: center;
     gap: 10px;
+
 `;
+
 export const ChInfo = css`
     display: flex;
     flex-direction: column;
@@ -183,7 +185,6 @@ export const InfoImg = css`
 
 export const SFeedBody = css`
     display: flex;
-    margin: 10px 0px;
     height: 200px;
     gap: 10px;
 `;
@@ -215,6 +216,13 @@ export const FeedContentBox = (imgExists) => css`
         /* height: 15px; */
         font-size: 13px;
         margin: auto 0px ;
+    }
+
+    & > a > b {
+        display: flex;
+        justify-content: end;
+        font-size: 12px;
+        padding-right: 10px;
     }
 
     ${!imgExists && `img { display: none; }`}

@@ -44,6 +44,7 @@ export const ListBox = css`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 10px 0px 0px 0px;
     overflow-y: auto;
     width: 80%;
     height: 150px;
@@ -318,6 +319,7 @@ export const box03 = css`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease-out; 
     cursor: pointer; 
+
     *::-webkit-scrollbar {
         width: 2px;
     }

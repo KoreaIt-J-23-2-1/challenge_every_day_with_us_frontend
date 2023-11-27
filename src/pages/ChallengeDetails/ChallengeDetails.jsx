@@ -434,7 +434,7 @@ function ChallengeDetails(props) {
                     <div>
                         <div>[{challenge.categoryName}]</div>
                         {dateDifference !== null && (
-                            <div>{dateDifference+1}일 중 <b css={S.Pointfont}>{todayDifference}일차 <SiApachespark /></b></div>
+                            <div>{dateDifference+1}일 중 <b css={S.Pointfont}>{todayDifference+1}일차 <SiApachespark /></b></div>
                         )}
                     </div>
                     {queryClient.data}
@@ -466,8 +466,10 @@ function ChallengeDetails(props) {
 
                                 <div css={S.FeedHeader}>
                                     <div css={S.userInfo}>
-                                        <img css={S.InfoImg} src={feed.profileUrl} alt="" />
-                                        <b>{feed.nickname}</b>  
+                                        <div>
+                                            <img css={S.InfoImg} src={feed.profileUrl} alt="" />
+                                            <b>{feed.nickname}</b>
+                                        </div>
                                     </div>
                                     <div  css={S.ChInfo}>
                                         {userId === feed.userId ?
@@ -497,7 +499,7 @@ function ChallengeDetails(props) {
                                 <div css={S.SFeedBody}>
                                     {feed.img && <img css={S.FeedImg} src={feed.img} alt="" />}
                                     <div css={S.FeedContentBox(!!feed.img)} imgexists={(!!feed.img).toString()}>
-                                        <a>{getTimeDifference(feed.dateTime)}</a>
+                                        <a><b>{feed.feedId}번 Feed</b>{getTimeDifference(feed.dateTime)}</a>
                                         <div css={S.FeedContent}>{feed.feedContent}</div>
                                     </div>                                 
                                 </div>

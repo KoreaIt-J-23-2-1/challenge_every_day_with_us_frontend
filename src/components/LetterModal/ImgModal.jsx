@@ -1,45 +1,30 @@
-import React from 'react';
-import { css } from '@emotion/react';
+import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
+import * as S from './LetterModalStyle';
 import ChallusQRImg from '../../img/챌어스큐알.jpeg';
+import { IoMdCloseCircle } from 'react-icons/io';
 
+function ImgModal({ onClose }) {
+    const modalRef = useRef();
+    const [ isImgModalOpen, setIsImgModalOpen ] = useState(true);
+    const [ selectedImgUrl, setSelectedImgUrl ] = useState('');
 
-const modalContainer = css`
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.5);
-`;
+    const closeModal = () => {
+        setSelectedImgUrl(null);
+        setIsImgModalOpen(false);
+        onClose();
+    };
 
-const modalContent = css`
-    padding: 20px;
-    width: 400px;
-    max-width: 500px;
-    background: rgba(255, 255, 255, 0.9); 
-    border-radius: 15px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: none;
-`;
-
-const Img = css`
-    background-image: url(${ChallusQRImg});
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-`;
-
-
-function ImgModal(props) {
     return (
-        <div css={modalContainer}>
-            <div css={modalContent}>
-                <div css={Img}></div>
+        <div ref={modalRef}>
+            <div css={S.modalContainer}>
+                <div css={S.modalContent}>
+                <div css={S.modalCloseBtnContainer}>
+                    <IoMdCloseCircle  css={S.modalCloseBtn} onClick={closeModal}/>
+                </div>
+                    <img css={S.Img} src={ChallusQRImg} alt="" />
+
+                </div>
             </div>
         </div>
     );

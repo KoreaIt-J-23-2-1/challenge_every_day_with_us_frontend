@@ -13,7 +13,6 @@ import img10 from '../../img/기타.png';
 import InfoSideBar from '../../components/InfoSideBar/InfoSideBar';
 import LogoutState from '../../components/InfoSideBar/LogoutState';
 import {useQuery, useQueryClient } from 'react-query';
-import MypageDetailSideBar from '../../components/MypageDetailSideBar/MypageDetailSideBar';
 import { instance } from '../../api/config/instance';
 import MainCalendar from '../../components/MainCalendar/MainCalendar'
 import { PiPlusSquareLight } from "react-icons/pi";

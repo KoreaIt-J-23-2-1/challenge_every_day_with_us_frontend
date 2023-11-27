@@ -265,7 +265,7 @@ function Feed(props) {
                                 <div css={S.SFeedBody}>
                                     {feed.img && <img css={S.FeedImg} src={feed.img} alt="" />}
                                     <div css={S.FeedContentBox(!!feed.img)} imgexists={(!!feed.img).toString()}>
-                                        <a>{feed.feedId}번 피드 {getTimeDifference(feed.dateTime)}</a>
+                                        <a><b><b>{feed.feedId}번</b> Feed</b>{getTimeDifference(feed.dateTime)}</a>
                                         <div css={S.FeedContent}>{feed.feedContent}</div>
                                     </div>                                 
                                 </div>                                
