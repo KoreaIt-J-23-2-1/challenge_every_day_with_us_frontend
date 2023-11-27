@@ -169,3 +169,22 @@ export const modalBottom = css`
     display: flex;
     justify-content: center;
 `;
+
+
+export const Btn = css`
+    width: 150px;
+    height: 30px;
+    border: none;
+    background-color: transparent;
+    border-radius: 15px; 
+    cursor: pointer;
+    
+    &:hover{
+        font-weight: 700;
+        background: rgba(80, 80, 80, 0.2);
+    }
+    &:active{
+        background: rgba(80, 80, 80, 0.3);
+    }
+
+`;
