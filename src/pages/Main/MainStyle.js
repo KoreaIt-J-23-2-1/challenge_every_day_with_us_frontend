@@ -203,6 +203,7 @@ export const BestFeed = css`
 
 export const SFeedBody = css`
     display: flex;
+    flex-direction: column;
     margin: 10px 0px;
     height: 200px;
     gap: 10px;
@@ -210,13 +211,21 @@ export const SFeedBody = css`
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
+
+    &>a{
+        display: flex;
+        justify-content:end;
+        /* height: 15px; */
+        font-size: 13px;
+        margin: auto 0px ;
+    }
 `;
 
 export const FeedImg = css`
-    width: 200px;
-    height: 150px;
+    width: 180px;
+    height: 130px;
     border-radius: 10px;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 `;
 
 export const FeedContentBox = (imgExists) => css`
@@ -226,18 +235,12 @@ export const FeedContentBox = (imgExists) => css`
     height: 200px;
     display: flex;
     flex-direction: column;
+    white-space: normal;
 
     &>div{
         width: 100%;
         border-radius: 10px;
         height: 180px;
-    }
-    &>a{
-        display: flex;
-        justify-content:end;
-        /* height: 15px; */
-        font-size: 13px;
-        margin: auto 0px ;
     }
 
     ${!imgExists && `img { display: none; }`}
@@ -245,7 +248,6 @@ export const FeedContentBox = (imgExists) => css`
 
 export const FeedContent = css`
     display: flex;
-    padding: 15px;
     word-wrap: break-word;
     white-space: pre-line; 
 `;
@@ -264,8 +266,11 @@ export const FeedHeader = css`
 export const userInfo = css`
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
+    white-space: nowrap;
+
 `;
+
 export const ChInfo = css`
     display: flex;
     flex-direction: column;
@@ -274,11 +279,15 @@ export const ChInfo = css`
     &>div{
         gap: 10px;
     }
+
+    & p {
+        white-space: nowrap;
+    }
 `;
 
 export const InfoImg = css`
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     border: 1px solid #dbdbdb;
     border-radius: 50%;
 `;
