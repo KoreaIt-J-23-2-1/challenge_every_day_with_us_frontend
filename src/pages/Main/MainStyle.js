@@ -334,7 +334,7 @@ export const box03 = css`
 export const box031 = css`
     cursor: pointer;
     width: 300px;    
-    height: 180px;
+    height: 200px;
     margin-right: 10px;
     display: flex;
     align-items: center;

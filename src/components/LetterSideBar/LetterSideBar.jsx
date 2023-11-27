@@ -170,8 +170,10 @@ function LetterSideBar(props) {
                             <h3 css={S.modalTitle} onClick={GoTargetLetterUrl}><img src={noticeIcon} css={S.noticeIcon} />{selectedLetter.title}</h3>
                         </div>
                         <div css={S.fromAndDate}>
-                            <div css={S.modalFrom}><b>From </b>{selectedLetter.senderNickname}</div>
-                            <div css={S.modalDate}><b>Date </b>{selectedLetter.sendDateTime}</div>
+                            <div>
+                                <div css={S.modalFrom}><b>From </b>{selectedLetter.senderNickname}</div>
+                                <div css={S.modalDate}><b>Date </b>{selectedLetter.sendDateTime}</div>
+                            </div>
                         </div>
                         <div css={S.modalContent}><div dangerouslySetInnerHTML={{ __html: selectedLetter.content }}></div>
                         {selectedLetter.letterTitle === "상점구매" && <img src={selectedLetter.targetUrl} alt="" />}

@@ -33,7 +33,7 @@ export const Comment = css`
 `;
 export const InputComment = css`
     font-size: 14px;
-    margin: 0px 2px;
+    margin: 0px 2px 5px 2px;
     padding: 0px 5px;
     width: 100%;
     height: 30px;
@@ -57,6 +57,7 @@ export const FixBtn = css`
     margin: 0px 2px;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
+    cursor: pointer;
 
     &:hover{
         background: rgba(80, 80, 80, 0.2);
