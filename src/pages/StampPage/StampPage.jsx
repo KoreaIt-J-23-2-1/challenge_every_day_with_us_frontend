@@ -1,5 +1,5 @@
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
-import StampCalendar from '../../components/Calendar/StampCalendar';
+import StampCalendar from '../../components/StampCalendar/StampCalendar';
 import TitleComponent from '../../components/TitleComponent/TitleComponent';
 
 

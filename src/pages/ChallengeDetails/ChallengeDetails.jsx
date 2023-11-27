@@ -125,9 +125,11 @@ function ChallengeDetails(props) {
     })
 
     useEffect(() => {
-        instance.get(`/api/challenge/${challengeId}/userlike?userId=${userId}`, option)
-            .then(response => setIsLike(response.data));
-    }, []);
+        const response = instance.get(`/api/challenge/${challengeId}/userlike?userId=${userId}`, option);
+        response.then((data) => {
+            setIsLike(data)
+        });
+    }, [])
 
     useEffect(() => {
         feedList.forEach(feed => {

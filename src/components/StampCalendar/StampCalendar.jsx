@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { instance } from '../../api/config/instance';
 import Calendar from 'react-calendar';
 /** @jsxImportSource @emotion/react */
-import * as S from './CalendarStyle';
+import * as S from './StampCalendarStyle';
 import { useQuery } from 'react-query';
 
 

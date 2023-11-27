@@ -23,6 +23,12 @@ function ChallengeCreate({ children }) {
     const principal = principalState.data.data;
     const navigete = useNavigate();
     
+    const option = {
+        headers: {
+            Authorization: localStorage.getItem("accessToken")
+        }
+    }
+
     useEffect(() => {
         const today = new Date();
         const formattedDate = today.toISOString().substr(0, 10);
@@ -79,17 +85,13 @@ function ChallengeCreate({ children }) {
         if(window.confirm("챌린지 생성시 1000 Point가 소요됩니다. 동의하시나요?")) {
             try {
                 if(principal.point >= 1000){
-                    const principalPoint = {
-                        point: 1000,
-                        userId: userId
-                    };
-                    const createResponse = await instance.post(`/api/challenge/create`, requestData);
-                    await instance.post(`/api/challenge/create/point`, principalPoint);
+                    
+                    const createResponse = await instance.post(`/api/challenge/create`, requestData, option);
                     
                     if (createResponse.data === true) {
                         alert("챌린지 등록 !! ");
+                        queyrClient.refetchQueries(["getPrincipal"]);
                         navigete("/main");
-
                     } else {
                         console.log("챌린지 생성 실패");
                     }
