@@ -126,13 +126,11 @@ function ChallengeDetails(props) {
         retry: 0
     })
 
-    useEffect(() => {
-
+    useEffect(() => 
         const response = instance.get(`/api/challenge/${challengeId}/userlike?userId=${userId}`, option);
         response.then((data) => {
             setIsLike(data)
         });
-
     }, [])
 
     // const getUserLikeState = useQuery(["getUserLikeState"], async () => {
