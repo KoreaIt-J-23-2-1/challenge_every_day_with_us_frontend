@@ -1,7 +1,5 @@
 import { css } from '@emotion/react';
-import Logo1 from '../../img/메인로고1.png';
-import Logo2 from '../../img/메인로고2.png';
-import Logo3 from '../../img/메인로고3.png';
+import LogoImg from '../../img/메인로고.png';
 
 
 export const MainBase = css`
@@ -477,7 +475,7 @@ export const noticeTitle = css`
 `;
 
 export const LogoImg1 = css`
-    background-image: url(${Logo3});
+    background-image: url(${LogoImg});
     background-size: cover;
     width: 100%;
     height: 100%;

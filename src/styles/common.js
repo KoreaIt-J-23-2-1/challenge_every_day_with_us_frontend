@@ -1,6 +1,5 @@
 import { css } from "@emotion/react"
-import img2 from '../img/배경2.jpg'
-import img3 from '../img/배경3.jpg'
+import backgroundImg from '../img/배경.jpg'
 
 
 
@@ -28,7 +27,7 @@ export const Common = css`
     
     html{
         background-color: white;
-        background-image: url(${img2});
+        background-image: url(${backgroundImg});
         background-size: cover; 
         /* background-repeat: no-repeat; */
         height: 100%;

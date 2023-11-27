@@ -17,9 +17,7 @@ function MenuBtn() {
                 <span></span>
                 <span></span>
             </div>
-            <div css={S.background(isActive)}>
-                {isActive && <MenuModal />}
-            </div>
+            <MenuModal isActive={isActive} />
         </>
     );
 }

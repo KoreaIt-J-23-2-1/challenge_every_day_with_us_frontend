@@ -5,7 +5,8 @@ import { ResponsiveLine } from '@nivo/line';
 import { useLocation } from 'react-router-dom/dist/umd/react-router-dom.development';
 
 function Chart(props) {
-    const [ chartData, setChartData ] = useState([]);
+    const [chartData, setChartData] = useState([]);
+    const [xLabel, setXLabel] = useState([]);
     const queyrClient = useQueryClient().getQueryState("getPrincipal");
     const principal = queyrClient?.data?.data;
     const location = useLocation();
@@ -49,10 +50,12 @@ function Chart(props) {
                     return aDate > bDate ? 1 : -1;
                 });
 
+                setXLabel(xDatas);
+
                 setChartData(prevData => [
                     ...prevData,
                     {
-                        id: "",
+                        id: "목록",
                         data: xDatas.map(data => ({
                             x: data,
                             y: 0
@@ -176,7 +179,6 @@ function Chart(props) {
                 axisTop={null}
                 axisRight={null}
                 axisBottom={{
-                    tickSize: 5,
                     tickPadding: 5,
                     tickRotation: 0,
                     legendOffset: 36,
@@ -225,12 +227,14 @@ function Chart(props) {
         )
     }
 
+
+    //메인화면 통계
     const MainResponsiveLine = ({ data }) => {
         return (
             <ResponsiveLine
                 data={data}
                 height={400}
-                width={1000}
+                width={900}
                 margin={{ top: 50, right: 300, bottom: 50, left: 50 }}
                 xScale={{ type: 'point', format: '%Y-%m-%d', precision: 'day' }}
                 yScale={{
@@ -244,6 +248,7 @@ function Chart(props) {
                 axisRight={null}
                 x
                 axisBottom={{
+                    tickValues: xLabel,
                     tickSize: 5,
                     tickPadding: 5,
                     tickRotation: 0,
@@ -265,6 +270,7 @@ function Chart(props) {
                 useMesh={true}
                 legends={[
                     {
+                        // data: [...chartData?.map(data => { label: data.id, color: 'rgba(255, 15, 15, 0.03)' })],
                         anchor: 'bottom-right',
                         direction: 'column',
                         justify: false,
@@ -277,7 +283,7 @@ function Chart(props) {
                         itemOpacity: 0.75,
                         symbolSize: 12,
                         symbolShape: 'circle',
-                        symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                        symbolBorderColor: 'rgba(0, 0, 0, 0)',
                         effects: [
                             {
                                 on: 'hover',

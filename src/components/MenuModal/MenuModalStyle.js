@@ -2,15 +2,30 @@
 
 import { css } from '@emotion/react';
 
-export const Background = css`
-    padding-top: 10px;
+export const Background = (isActive) => css`
+    position: absolute;
+    top: 10px;
+    right: 3px;
+    width: ${isActive ? '600px' : '0'};
+    height: ${isActive ? '400px' : '0'};
+    border-radius: 400px 20px 400px 400px;
+    transition: width 0.7s ease-in, height 0.7s ease-in;
+    overflow: hidden;
+    background-color: #F7F4EC;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+`;
+
+
+export const MenuBody = (isActive) => css`
+    width: 600px;
+    height: 400px;
+    padding: 10px 40px;
     display: flex;
     flex-direction: column;
-    width: 570px;
-    height: 300px;
-    border-radius: 400px 20px 400px 400px;
-    /* background-color: aliceblue; */
+    /* transition: opacity 0.7s ease; */
+    opacity: ${isActive ? 1 : 0};
 `;
+
 
 export const MenuHeader = css`
     height: 65px;
@@ -40,9 +55,10 @@ export const MyBox = css`
 `;
 
 export const BtnBox = (isActive) => css`
+
     padding-bottom: 20px;
     opacity: ${isActive ? '1' : '0'};
-    transition: all 0.7s ease-in;
+    transition: opacity 0.7s ease-in;
 
     & > button {
         margin-top: 10px;
