@@ -129,11 +129,10 @@ function RealMain(props) {
                                         </div>
                                     </div>   
                                     <div css={S.SFeedBody}>
+                                        <a>{getTimeDifference(getBestFeed?.data?.data?.dateTime)}</a>
                                         {getBestFeed?.data?.data?.img && <img css={S.FeedImg} src={getBestFeed?.data?.data?.img} alt="" />}
-                                        <div css={S.FeedContentBox(!!getBestFeed?.data?.data?.img)} imgexists={(!!getBestFeed?.data?.data?.img).toString()}>
-                                            <a>{getTimeDifference(getBestFeed?.data?.data?.dateTime)}</a>
-                                            <div css={S.FeedContent}>{getBestFeed?.data?.data?.feedContent}</div>
-                                        </div>                                 
+                                        <div css={S.FeedContentBox(!!getBestFeed?.data?.data?.img)} imgexists={(!!getBestFeed?.data?.data?.img).toString()}></div>  
+                                        <div css={S.FeedContent}>{getBestFeed?.data?.data?.feedContent}</div>
                                     </div>  
                                 </div>
                             </div>
