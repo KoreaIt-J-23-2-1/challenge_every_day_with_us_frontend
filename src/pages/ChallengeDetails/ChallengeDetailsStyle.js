@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { SubModal } from '../../components/FeedEditModal/Style';
 
 export const Layout = css`
     display: flex;
@@ -418,4 +419,27 @@ export const ProgressBar = css`
     top: 13px;
     width: 100%;
     padding: 0px 5px;
+`;
+
+
+export const ModalOverlay = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+`;
+
+export const ModalContent = css`
+    height: 500px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+
+    ${SubModal} 
 `;
