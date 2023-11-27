@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import * as S from './MainStyle';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import Header from '../../components/Header/Header';
@@ -17,6 +17,7 @@ import MypageDetailSideBar from '../../components/MypageDetailSideBar/MypageDeta
 import { instance } from '../../api/config/instance';
 import MainCalendar from '../../components/MainCalendar/MainCalendar'
 import { PiPlusSquareLight } from "react-icons/pi";
+import Chart from '../../components/Chart/Chart';
 
 /** @jsxImportSource @emotion/react */
 
@@ -26,6 +27,7 @@ function RealMain(props) {
     const queyrClient = useQueryClient().getQueryState("getPrincipal");
     const principal = queyrClient?.data?.data;
     const [ myChallenge, setMyChallenge ] = useState([]);
+    const [ chart, setChart ] = useState(<></>);
     const navigate = useNavigate();
     const option = {
         headers: {
@@ -74,7 +76,11 @@ function RealMain(props) {
         }, 1300); 
 
         return () => clearInterval(intervalId);
-    }, [currentImage]);
+    }, []);
+
+    useEffect(() => {
+        setChart(<Chart />);
+    }, [])
 
     const handleChallengeClick = () => {
 
@@ -163,9 +169,13 @@ function RealMain(props) {
                         </div>
                         <div css={S.part3}>
                             <div css={S.box04}>
+                                {principal?.isAdmin === 1 ?
+                                    chart
+                                :
                                 <div css={S.MiniContent} onClick={() => {stampCalendarClick()}}>
                                     <MainCalendar />
                                 </div>
+                                }
                             </div>
                         </div>
                     </div>

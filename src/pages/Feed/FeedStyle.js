@@ -274,6 +274,7 @@ export const FeedLikeBtn = css`
     justify-content: end;
     width: 180px;
     font-size: 13px;
+    cursor: pointer;
 
     &>div{
         margin-left: 5px;
