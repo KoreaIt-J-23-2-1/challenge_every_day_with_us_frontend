@@ -61,11 +61,11 @@ export const BtnBox = (isActive) => css`
     }
 `;
 
-export const show = css`
-    width: 400px !important;
-    height: 400px !important;
+// export const show = css`
+//     width: 400px !important;
+//     height: 400px !important;
 
-    & ~ ${MyBox}, & ~ ${BtnBox} {
-        opacity: 1 !important;
-    }
-`;
+//     & ~ ${MyBox}, & ~ ${BtnBox} {
+//         opacity: 1 !important;
+//     }
+// `;

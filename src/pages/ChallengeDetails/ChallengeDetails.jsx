@@ -131,20 +131,6 @@ function ChallengeDetails(props) {
         });
     }, [])
 
-    // const getUserLikeState = useQuery(["getUserLikeState"], async () => {
-    //     try {
-    //         return await instance.get(`/api/challenge/${challengeId}/${userId}`, option);
-    //     }catch(error) {
-    //         console.erroe(error);
-    //     }
-    // }, {
-    //     refetchOnWindowFocus: false,
-    //     retry: 0,
-    //     onSuccess: (response) => {
-    //         setIsLike(response?.data)
-    //     }
-    // })
-
     useEffect(() => {
         feedList.forEach(feed => {
             getLatestComment(feed);
