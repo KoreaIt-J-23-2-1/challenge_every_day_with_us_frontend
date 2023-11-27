@@ -126,8 +126,8 @@ function ChallengeDetails(props) {
 
     useEffect(() => {
         const response = instance.get(`/api/challenge/${challengeId}/userlike?userId=${userId}`, option);
-        response.then((data) => {
-            setIsLike(data)
+        response.then((response) => {
+            setIsLike(response.data)
         });
     }, [])
 
