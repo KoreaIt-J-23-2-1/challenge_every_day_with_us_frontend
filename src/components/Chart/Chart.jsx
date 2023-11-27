@@ -57,8 +57,7 @@ function Chart(props) {
                     {
                         id: "목록",
                         data: xDatas.map(data => ({
-                            x: data,
-                            y: 0
+                            x: data
                         }))
                     },
                     {
@@ -73,7 +72,7 @@ function Chart(props) {
                         }),
                     },
                     {
-                        id: "총 피드 수",
+                        id: "작성된 피드 수",
                         data: dailyFeedResponse.data.map(data => ({
                             x: data.date,
                             y: data.count
@@ -235,7 +234,7 @@ function Chart(props) {
                 data={data}
                 height={400}
                 width={900}
-                margin={{ top: 50, right: 300, bottom: 50, left: 50 }}
+                margin={{ top: 40, right: 200, bottom: 50, left: 50 }}
                 xScale={{ type: 'point', format: '%Y-%m-%d', precision: 'day' }}
                 yScale={{
                     type: 'linear',
@@ -270,7 +269,6 @@ function Chart(props) {
                 useMesh={true}
                 legends={[
                     {
-                        // data: [...chartData?.map(data => { label: data.id, color: 'rgba(255, 15, 15, 0.03)' })],
                         anchor: 'bottom-right',
                         direction: 'column',
                         justify: false,
