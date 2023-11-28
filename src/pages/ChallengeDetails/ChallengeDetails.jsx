@@ -432,7 +432,7 @@ function ChallengeDetails(props) {
                     <div>
                         <div>[{challenge.categoryName}]</div>
                         {dateDifference !== null && (
-                            <div>{dateDifference+1}일 중 <b css={S.Pointfont}>{todayDifference+1}일차 <SiApachespark /></b></div>
+                            <div>{dateDifference+1}일 중 <b css={S.Pointfont}>{todayDifference}일차 <SiApachespark /></b></div>
                         )}
                     </div>
                     {queryClient.data}
