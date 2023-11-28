@@ -42,9 +42,9 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
                     <ul css={S.leftMenu}>
                         {principal?.isAdmin !== 1 && (
                             <>
-                                <li onClick={() => navigate("/user")}>참여 현황</li>
-                                <li onClick={() => navigate("/account/mypage/detail")}>내 정보수정</li>
-                                <li onClick={() => navigate("/store/:userId/orders")}>상점물품 구매내역</li>
+                                <li onClick={() => navigate("/user")}>마이페이지</li>
+                                <li onClick={() => navigate("/account/mypage/detail")}>내정보수정</li>
+                                <li onClick={() => navigate("/store/:userId/orders")}>구매내역</li>
                                 <li onClick={handleLogoutButton}>로그아웃</li>
                             </>
                         )}
