@@ -370,6 +370,13 @@ export const ListBox = css`
     & scrollable-container {
         height: 100%;
     }
+
+    ::-webkit-scrollbar {
+    width: 2px;
+    }
+    ::-webkit-scrollbar-thumb {
+    background-color: #dbdbdb
+    }
 `;
 
 export const ListContainer = css`
