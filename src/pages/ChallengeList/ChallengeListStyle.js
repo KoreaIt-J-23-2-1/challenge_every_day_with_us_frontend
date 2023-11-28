@@ -89,11 +89,11 @@ export const SChallengeListHeader = css`
             justify-content: center;
             align-items: center;
         }
-        & > div:nth-of-type(1) {width: 7%;}
-        & > div:nth-of-type(2) {width: 53%;}
-        & > div:nth-of-type(3) {width: 5%;}
-        & > div:nth-of-type(4) {width: 24%;}
-        & > div:nth-of-type(5) {width: 11%;}
+        & > div:nth-of-type(1) {width: 33%;}
+        & > div:nth-of-type(2) {width: 25%;}
+        & > div:nth-of-type(3) {width: 7%;}
+        & > div:nth-of-type(4) {width: 25%;}
+        & > div:nth-of-type(5) {width: 7%;}
     }
 `;
 
@@ -113,11 +113,11 @@ export const SChallengeListBody = css`
             justify-content: center;
             align-items: center;
         }
-        & > div:nth-of-type(1) {width: 15%;}
-        & > div:nth-of-type(2) {width: 40%;}
+        & > div:nth-of-type(1) {width: 40%;}
+        & > div:nth-of-type(2) {width: 15%;}
         & > div:nth-of-type(3) {width: 15%;}
-        & > div:nth-of-type(4) {width: 14%;}
-        & > div:nth-of-type(5) {width: 16%;}
+        & > div:nth-of-type(4) {width: 15%;}
+        & > div:nth-of-type(5) {width: 15%;}
     }
 `;
 

@@ -113,6 +113,6 @@ export const LetterSideBarCss = css`
     width: 400px;
     height: 92vh;
     transition: right 0.8s ease;
-    
+    bottom: 0px;
 `;
 
