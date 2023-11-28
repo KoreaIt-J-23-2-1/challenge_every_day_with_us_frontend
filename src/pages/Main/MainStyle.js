@@ -85,6 +85,7 @@ export const CategoryImgBox = css`
     align-items: center;
     justify-content: center;
     transition: transform 0.4s ease-out; 
+    cursor: pointer;
     
     /* &:hover{
         opacity: 0.9;    
