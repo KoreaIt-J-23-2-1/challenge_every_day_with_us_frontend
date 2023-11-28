@@ -45,16 +45,16 @@ function MenuModal({ isActive }) {
 
                 <div  css={S.BtnBox(isActive)}>
                     <div>
-                        <button onClick={() => { checkLoginBeforeNavigate("/main") }}>HOME</button>
+                        <div css={S.BtnMotion} onClick={() => { checkLoginBeforeNavigate("/main") }}>HOME <b>도전자의 집🛖</b> </div>
                     </div>
                     <div >
-                        <button onClick={() => { checkLoginBeforeNavigate("/challenges") }}>CHALLENGE</button>
-                        <button onClick={() => { checkLoginBeforeNavigate("/challenge/feed") }}>FEED</button>
+                        <div  css={S.BtnMotion}  onClick={() => { checkLoginBeforeNavigate("/challenges") }}>CHALLENGE  <b>도전 🚩</b> </div>
+                        <div css={S.BtnMotion}  onClick={() => { checkLoginBeforeNavigate("/challenge/feed") }}>FEED<b>인증 ⭐</b></div>
 
                     </div>
                     <div >
-                        <button onClick={() => { checkLoginBeforeNavigate("/notice/page/1") }}>NOTICE</button>
-                        <button onClick={() => { checkLoginBeforeNavigate("/stamp") }}>STAMP</button>
+                        <div css={S.BtnMotion}  onClick={() => { checkLoginBeforeNavigate("/notice/page/1") }}>NOTICE<b>공지 📢</b></div>
+                        <div css={S.BtnMotion}  onClick={() => { checkLoginBeforeNavigate("/stamp") }}>STAMP<b>출석 ♨️</b></div>
                     </div>
                 </div>
             </div>

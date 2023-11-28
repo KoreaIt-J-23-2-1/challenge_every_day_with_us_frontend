@@ -8,7 +8,7 @@ function StampPage(props) {
 
     return (
         <BaseLayout>
-            <TitleComponent title="출석체크 !" />
+            <TitleComponent title="출석체크 시 50 포인트를 지급합니다 !" />
             <StampCalendar />
         </BaseLayout>
     );

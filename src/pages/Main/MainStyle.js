@@ -43,7 +43,6 @@ export const part2 = css`
 export const ListBox = css`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     padding: 10px 0px 0px 0px;
     overflow-y: auto;
     width: 80%;
@@ -114,14 +113,6 @@ export const box01 = css`
     transition: transform 0.4s ease-out; 
     cursor: pointer;
 
-
-    /* &:hover{
-        opacity: 0.9;    
-        transform: scale(0.9);
-    }
-    &:active {
-        opacity: 1;    
-    }     */
 `;
 
 export const LabelBox2 = css`
