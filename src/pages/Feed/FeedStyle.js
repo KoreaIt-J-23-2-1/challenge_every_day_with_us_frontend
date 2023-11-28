@@ -68,7 +68,12 @@ export const userInfo = css`
     display: flex;
     align-items: center;
     gap: 10px;
+
+    & > b {
+        font-size: 20px;
+    }
 `;
+
 export const ChInfo = css`
     display: flex;
     flex-direction: column;
@@ -76,17 +81,16 @@ export const ChInfo = css`
 
     &>div{
         gap: 10px;
+        font-size: 18px;
     }
 `;
 
 export const InfoImg = css`
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border: 1px solid #dbdbdb;
     border-radius: 50%;
 `;
-
-
 
 export const SFeedLayout = css`
     display: flex;
@@ -294,4 +298,99 @@ export const FeedLikeBtn = css`
         margin-left: 5px;
     }
 
+`;
+
+export const box02 = css`
+    width: 700px;
+    height: 700px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease-out; 
+    cursor: pointer;
+
+`;
+
+export const BestChallenge = css`
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-top: 30px;
+    cursor: pointer;
+    
+    &>label{
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    & div {
+        padding-bottom: 20px;
+        font-size: 13px;
+
+        & b {
+            padding-left: 5px;
+            font-size: 16px;
+        }
+    }
+`;
+
+export const BestFeed = css`
+    padding: 10px;
+    font-size: 12px;
+    cursor: pointer;
+`;
+
+export const FeedBody = css`
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+    height: 330px;
+    gap: 10px;
+    padding: 10px;
+
+    &>a{
+        display: flex;
+        justify-content:end;
+        /* height: 15px; */
+        font-size: 13px;
+        margin: auto 0px ;
+    }
+`;
+
+export const TimeBox = css`
+    display: flex;
+    justify-content: space-between;
+`;
+
+export const SFeedImg = css`
+    width: 600px;
+    height: 500px;
+    border-radius: 10px;
+    /* margin-top: 20px; */
+`;
+
+export const SFeedContentBox = (imgExists) => css`
+    margin: 0px auto;
+    border-radius: 10px;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    white-space: normal;
+
+    &>div{
+        width: 100%;
+        border-radius: 10px;
+        height: 180px;
+    }
+
+    ${!imgExists && `img { display: none; }`}
+`;
+
+export const SFeedContent = css`
+    display: flex;
+    word-wrap: break-word;
+    white-space: pre-line; 
+    font-size: 20px;
 `;

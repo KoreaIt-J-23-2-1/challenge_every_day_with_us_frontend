@@ -17,6 +17,7 @@ import { instance } from '../../api/config/instance';
 import MainCalendar from '../../components/MainCalendar/MainCalendar'
 import { PiPlusSquareLight } from "react-icons/pi";
 import Chart from '../../components/Chart/Chart';
+import BestFeedModal from '../Feed/BestFeedModal';
 
 /** @jsxImportSource @emotion/react */
 
@@ -27,6 +28,7 @@ function RealMain(props) {
     const principal = queyrClient?.data?.data;
     const [ myChallenge, setMyChallenge ] = useState([]);
     const [ chart, setChart ] = useState(<></>);
+    const [ isModalOpen, setModalOpen ] = useState(false);
     const navigate = useNavigate();
     const option = {
         headers: {
@@ -93,7 +95,13 @@ function RealMain(props) {
         navigate("/challenge/category");
     }
 
-    console.log(getBestFeed)
+    const handlePurchasePointClick = () => {
+        setModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalOpen(false);
+    };
 
     return (
         <div css={S.MainBase}>    
@@ -135,7 +143,7 @@ function RealMain(props) {
                                             </div>
                                         </div>
                                     </div>   
-                                    <div css={S.SFeedBody}>
+                                    <div css={S.SFeedBody} onClick={handlePurchasePointClick}>
                                         {getBestFeed?.data?.data?.stopWatch !== 0 ? (
                                             <div css={S.TimeBox}>
                                                 <b>진행 시간 : {convertSecondsToTime(getBestFeed?.data?.data?.stopWatch)}</b>
@@ -148,6 +156,13 @@ function RealMain(props) {
                                     </div>  
                                 </div>
                             </div>
+                            {isModalOpen && (
+                                <div css={S.modalOverlay}>
+                                    <div css={S.modalContent}>
+                                        <BestFeedModal onClose={handleCloseModal} getBestFeed={getBestFeed}/>
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                     </div>

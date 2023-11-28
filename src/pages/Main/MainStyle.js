@@ -257,6 +257,33 @@ export const FeedContent = css`
     white-space: pre-line; 
 `;
 
+export const modalOverlay = css`
+    position: fixed;
+    margin: 0 auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(200, 200, 200, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+`;
+
+
+
+export const modalContent = css`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 8px;
+    background: linen;
+    z-index: 1001;
+`;
+
 export const FeedHeader = css`
     display: flex;
     align-items: center;

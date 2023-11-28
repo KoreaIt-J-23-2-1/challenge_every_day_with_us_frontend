@@ -14,7 +14,7 @@ export const SOrderHeader = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 30px 0px 0px 150px;
+  margin-top: 30px;
   font-size: 24px;
   font-weight: bold;
   color: #333;
