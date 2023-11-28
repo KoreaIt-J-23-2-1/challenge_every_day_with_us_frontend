@@ -259,7 +259,7 @@ function Feed(props) {
                                             <button css={S.Btn} onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
                                             }
                                         </div>
-                                        <div>
+                                        <div css={S.GoChallenge} onClick={() => {navigate("/challenge/" + feed.challengeId)}}>
                                             <p>[{feed.categoryName}]</p>
                                             <b>{feed.challengeName}</b>
                                         </div>
