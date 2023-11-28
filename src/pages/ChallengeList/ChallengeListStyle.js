@@ -84,6 +84,8 @@ export const SChallengeListHeader = css`
     & > li {
         display: flex;
         height: 20px;
+        font-weight: 700;
+        cursor: context-menu;
         & > div {
             display: flex;
             justify-content: center;
@@ -119,6 +121,24 @@ export const SChallengeListBody = css`
         & > div:nth-of-type(4) {width: 15%;}
         & > div:nth-of-type(5) {width: 15%;}
     }
+`;
+
+export const OneRow = css`
+    &:hover{
+        background-color: #efd1c550;
+        font-style: italic;
+    }
+`;
+
+export const Type01 = css`
+    color: #3e3e3e;
+`;
+
+export const Type02 = css`
+    color: #8e8e8e;
+    font-weight: 700;
+
+
 `;
 
 export const Plus = css`

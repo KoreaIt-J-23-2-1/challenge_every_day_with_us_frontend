@@ -144,14 +144,14 @@ function ChallengeList(props) {
                     <div css={S.SChallengeListBody}>
                         {/* <li ref={topChallengeRef}></li> */}
                         {challengeList?.map((challenge) => {
-                            return (<li key={challenge.challengeId} onClick={() => handleChallengeClick(challenge.challengeId)}>
+                            return (<li css={S.OneRow} key={challenge.challengeId} onClick={() => handleChallengeClick(challenge.challengeId)}>
                                         {/* <div>{challenge.challengeId}</div> */}
                                         <div>{challenge.challengeName}</div>
                                         <div>{challenge.categoryName}</div>
                                         {challenge.isApplicable === "1" ?
-                                        <div>승인필요</div>
+                                        <div css={S.Type01}>승인필요</div>
                                         :
-                                        <div>자율참가</div>
+                                        <div css={S.Type02}>자율참가</div>
                                         }
                                         <div>{challenge.startDate}</div>
                                         <div>{challenge.likeCount}</div>
