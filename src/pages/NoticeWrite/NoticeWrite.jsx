@@ -33,6 +33,11 @@ function NoticeWrite(props) {
 
     const handleWriteSubmit = async () => {
         try {
+            if (noticeContent.title.length > 50) {
+                alert("제목을 50자 내외로 입력해주세요.")
+                return;
+            }
+
             if (!noticeContent.title || !noticeContent.content) {
                 alert("제목과 내용을 모두 입력해주세요.");
                 return;

@@ -168,6 +168,11 @@ function Feed(props) {
 
     const handleCommentSubmit = async (feedId) => {
         try {
+            if (commentInputList[`commentInput${feedId}`].length > 180) {
+                alert("댓글을 180자 내외로 입력해주세요.")
+                return;
+            }
+
             await instance.post(`/api/feed/${feedId}/comment`, {commentContent: commentInputList[`commentInput${feedId}`]}, option);
             alert("댓글 등록 성공! -> " + feedId + "피드");
             getFeedList.refetch();
