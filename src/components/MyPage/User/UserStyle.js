@@ -142,6 +142,11 @@ export const ChInfo = css`
 
     &>div{
         gap: 10px;
+        cursor: pointer;
+
+        &:hover {
+        opacity: 0.5;
+        }
     }
 `;
 

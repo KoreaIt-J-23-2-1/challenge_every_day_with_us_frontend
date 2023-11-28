@@ -6,8 +6,10 @@ import BaseLayout from '../../BaseLayout/BaseLayout';
 import * as S from './UserStyle';
 import MypageDetailSideBar from '../../MypageDetailSideBar/MypageDetailSideBar';
 import { CircularProgressBar } from '@tomickigrzegorz/react-circular-progress-bar';
+import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 
 function User() {
+    const navigate = useNavigate();
     const [ myChallenge, setMyChallenge ] = useState([]);
     const [ myEndChallenge, setMyEndChallenge ] = useState([]);
     const [ selectedChallenge, setSelectedChallenge ] = useState(null);
@@ -93,6 +95,8 @@ function User() {
             console.error(error);
         }
     };
+    
+    console.log(myFeedList);
 
     return (
         <BaseLayout>
@@ -140,9 +144,8 @@ function User() {
                                             <b>{feed.nickname}</b>  
                                         </div>
                                         <div  css={S.ChInfo}>
-                                            <div>
+                                            <div onClick={() => {navigate("/challenge/" + feed.challengeId)}}>
                                                 <p>[{feed.categoryName}]</p>
-                                                <b>{feed.challengeName}</b>
                                             </div>
                                             <div>
                                                 {feed.stopWatch !== 0 ? (
