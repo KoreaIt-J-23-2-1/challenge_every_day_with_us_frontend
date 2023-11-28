@@ -91,7 +91,7 @@ function NoticeList(props) {
                     <table css={S.listTable}>
                         <thead>
                             <tr css={S.TitleBox}>
-                                <th>번호</th>
+                                {/* <th>번호</th> */}
                                 <th css={S.noticeTitle}>제목</th>
                                 <th>작성자</th>
                                 <th>작성일</th>
@@ -102,7 +102,7 @@ function NoticeList(props) {
                             {!getNoticeList.isLoading && getNoticeList?.data?.data?.map(notice => {
                                 return (
                                     <tr key={notice.noticeId} onClick={() => { navigate(`/notice/${notice.noticeId}`) }}>
-                                        <td>{notice.noticeId}</td>
+                                        {/* <td>{notice.noticeId}</td> */}
                                         <td css={S.noticeTitle}>{notice.noticeTitle}</td>
                                         <td>{notice.nickname}</td>
                                         <td>{notice.noticeDate}</td>
