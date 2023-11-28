@@ -84,7 +84,7 @@ function NoticeDetails(props) {
                     </b>
 
                     <div css={S.ContentBox}>
-                        <div>{notice.noticeContent} </div>
+                        <pre>{notice.noticeContent} </pre>
                     </div>
 
                 </div>
