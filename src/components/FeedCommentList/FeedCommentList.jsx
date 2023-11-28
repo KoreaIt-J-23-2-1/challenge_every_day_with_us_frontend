@@ -65,7 +65,7 @@ function FeedCommentList({ feed, comments }) {
                         </div>
                         <div css={S.part2}>
                             <div css={S.CommentTime}>{comment.commentDatetime}</div>
-
+                            {/* comment 쿼리문에서 enabled를 principal이 없을때는 동작하지 않도록 설정해두면 좋을듯! */}
                             {principal && comment.userId === principal.userId &&
                                 <div>
                                     <button css={S.FixBtn} onClick={() => { handleDeleteCommentButtonClick(feed.feedId, comment.commentId) }}>삭제</button>

@@ -19,6 +19,7 @@ function Chart(props) {
 
     const getChartData = useQuery(["getChartData"], async () => {
         try {
+            // 요청을 날리는건 5번을 날려도 서버에서 하나의 로직에서 해결하고 싶음!
             const dailyChallengesResponse = await instance.get('/api/admin/challengers/count', option);
             const dailyMembersResponse = await instance.get('/api/admin/members/count', option);
             const dailyFeedResponse = await instance.get('/api/admin/feed/count', option);
