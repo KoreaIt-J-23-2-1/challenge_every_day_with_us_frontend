@@ -67,6 +67,11 @@ function ChallengeCreate({ children }) {
     }
 
     const handleSubmitButton = async () => {
+        if (challengeTitle.length > 50) {
+            alert("제목을 50자 내외로 입력해주세요.")
+            return;
+        }
+
         if (!challengeTitle || !startDate || !endDate || !introduction) {
             alert("모든 필수 항목을 입력해주세요.");
             return;

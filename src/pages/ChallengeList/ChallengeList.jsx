@@ -32,6 +32,8 @@ function ChallengeList(props) {
     });
 
     const getChallengeList = useQuery(["getChallengeList", page], async () => {
+        console.log(searchParams);
+        console.log(page);
         const option = {
             params: {...searchParams, sort}
         }
@@ -87,6 +89,12 @@ function ChallengeList(props) {
 
     const handleSearchButtonClick = () => {
         setChallengeList([]);
+
+        setSearchParams({
+            ...searchParams,
+            searchValue: searchParams.searchValue.trim()
+        });
+
         if(page === 1) {
             getChallengeList.refetch();
         }
