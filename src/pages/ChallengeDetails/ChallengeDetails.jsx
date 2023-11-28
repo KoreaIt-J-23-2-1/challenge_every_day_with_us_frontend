@@ -287,7 +287,6 @@ function ChallengeDetails(props) {
         }
     };
 
-
     const handleDeleteClick = async () => {
         /* eslint-disable no-restricted-globals */ 
         const userConfirmed = window.confirm("정말로 삭제하시겠습니까?");
@@ -306,7 +305,6 @@ function ChallengeDetails(props) {
             console.log("삭제가 취소되었습니다.");
         }
     };    
-
 
     const requestData = {
         senderUserId: principal.data.data.userId,

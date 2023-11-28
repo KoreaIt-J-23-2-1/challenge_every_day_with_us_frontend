@@ -7,10 +7,8 @@ import { IoMdCloseCircle } from 'react-icons/io';
 function ImgModal({ onClose }) {
     const modalRef = useRef();
     const [ isImgModalOpen, setIsImgModalOpen ] = useState(true);
-    const [ selectedImgUrl, setSelectedImgUrl ] = useState('');
 
     const closeModal = () => {
-        setSelectedImgUrl(null);
         setIsImgModalOpen(false);
         onClose();
     };

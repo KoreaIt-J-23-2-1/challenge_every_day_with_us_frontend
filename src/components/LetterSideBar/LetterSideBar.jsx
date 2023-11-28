@@ -12,7 +12,6 @@ import ImgModal from '../LetterModal/ImgModal';
 function LetterSideBar(props) {
     const [ isModalOpen, setIsModalOpen] = useState(false);
     const [ isImgModalOpen, setIsImgModalOpen ] = useState(false);
-    const [ selectedImgUrl, setSelectedImgUrl ] = useState('');
     const [ letterViewType, setLetterViewType ] = useState("unread");
     const [ selectedLetter, setSelectedLetter ] = useState(null);
     const [ letterList, setLetterList ] = useState([]);
@@ -126,10 +125,11 @@ function LetterSideBar(props) {
         }
     }
 
-    const handleImgModalOpen = (imgUrl) => {
-        setSelectedImgUrl(imgUrl);
+    const handleImgModalOpen = () => {
         setIsImgModalOpen(true);
     }
+
+    console.log(selectedLetter)
 
     return (
         <div css={S.LetterSideBarLayout}>
@@ -190,15 +190,15 @@ function LetterSideBar(props) {
                         <div css={S.modalBottom}>
                             {selectedLetter.letterTitle === "챌린지 승인 요청" && (
                                 selectedLetter.acceptState === 0 ?
-                                    <div>
+                                    (<div>
                                             <button css={S.Btn}  onClick={handleAcceptChallenge}>수락</button>
                                             <button css={S.Btn}  onClick={handleRejectChallenge}>거절</button>
-                                    </div>
+                                    </div>)
                                     :
-                                    <div>
+                                    (<div>
                                         <b>Accept-State: </b>{selectedLetter.acceptState === 1 ? "수락 완료" : "거절 완료"}
-                                    </div>
-                                )}
+                                    </div>)
+                            )}
                             {selectedLetter.letterTitle === "공지" && (
                                 <div>
                                     <button css={S.Btn} onClick={() => {window.location.replace(selectedLetter.targetUrl);}}>바로가기</button>
@@ -206,11 +206,11 @@ function LetterSideBar(props) {
                             )}
                             {selectedLetter.letterTitle === "상점구매"  && (
                                 <div>
-                                    <button css={S.Btn} onClick={() => { handleImgModalOpen(selectedLetter.targetUrl); }}>바로가기</button>
+                                    <button css={S.Btn} onClick={handleImgModalOpen}>바로가기</button>
                                 </div>
                             )}
                             {isImgModalOpen && (
-                                <ImgModal imgUrl={selectedImgUrl} onClose={() => setIsImgModalOpen(false)} />
+                                <ImgModal onClose={() => setIsImgModalOpen(false)} />
                             )}
                         </div>
                     </div>
