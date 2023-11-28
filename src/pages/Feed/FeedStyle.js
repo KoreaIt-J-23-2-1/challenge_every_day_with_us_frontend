@@ -276,6 +276,13 @@ export const Btn = css`
     }
 `;
 
+export const GoChallenge = css`
+    cursor: pointer;
+    &:hover {
+        opacity: 0.7;
+    }
+`;
+
 export const FeedLikeBtn = css`
     display: flex;
     justify-content: end;
