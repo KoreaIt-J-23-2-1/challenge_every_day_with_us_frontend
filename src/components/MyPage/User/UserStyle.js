@@ -42,6 +42,8 @@ export const ListBox = css`
         &:hover {
             color: darkgray;
         }
+
+
     }
 `;
 

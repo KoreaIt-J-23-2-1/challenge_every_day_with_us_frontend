@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BaseLayout from '../../../components/BaseLayout/BaseLayout';
 import MypageDetailSideBar from '../../../components/MypageDetailSideBar/MypageDetailSideBar';
 import { useQuery } from 'react-query';
@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
 /** @jsxImportSource @emotion/react */
 import * as S from "./Style";
+import ImgModal from '../../../components/LetterModal/ImgModal';
 
 function MyPageOrder(props) {
     const navigate = useNavigate();
+    const [ isImgModalOpen, setIsImgModalOpen ] = useState(false);
 
     const option = {
         headers: {
@@ -48,6 +50,10 @@ function MyPageOrder(props) {
         }
     );
 
+    const handleOpenModal = () => {
+        setIsImgModalOpen(true);
+    }
+
     return (
         <BaseLayout>
             <MypageDetailSideBar>
@@ -58,7 +64,7 @@ function MyPageOrder(props) {
                     <div css={S.SBaseLayout}>
                         {!getMyOrders.isLoading &&
                             getMyOrders?.data?.data.map(order => {
-                                return <div css={S.SItemContainer} key={order.orderId}>
+                                return <div css={S.SItemContainer} key={order.orderId} onClick={handleOpenModal}>
                                         <div css={S.SItemHeader}>주문번호 : {order.orderId}</div>
                                         <div css={S.SItemDetail}>상품번호 : {order.itemId}</div>
                                         <div css={S.SItemDetail}>상품이름 : {order.itemName}</div>
@@ -66,6 +72,9 @@ function MyPageOrder(props) {
                                         <div css={S.SItemDetail}>주문일시 : {order.orderTime}</div>
                                     </div>
                         })}
+                        {isImgModalOpen && (
+                            <ImgModal onClose={() => setIsImgModalOpen(false)} />
+                        )}
                     </div>
                 </div>
             </MypageDetailSideBar>

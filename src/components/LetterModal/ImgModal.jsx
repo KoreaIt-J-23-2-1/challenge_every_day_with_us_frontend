@@ -9,9 +9,21 @@ function ImgModal({ onClose }) {
     const [ isImgModalOpen, setIsImgModalOpen ] = useState(true);
 
     const closeModal = () => {
-        setIsImgModalOpen(false);
         onClose();
     };
+
+    const handleOutsideClick = (e) => {
+        if (modalRef.current && !modalRef.current.contains(e.target)) {
+            onClose();
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, [handleOutsideClick]);
 
     return (
         <div ref={modalRef}>

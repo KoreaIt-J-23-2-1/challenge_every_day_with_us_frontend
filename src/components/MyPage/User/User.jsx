@@ -17,7 +17,6 @@ function User() {
     const [ challengeStartDate, setChallengeStartDate ] = useState(null);
     const [ challengeEndDate, setChallengeEndDate ] = useState(null);
     const [ myFeedList, setMyFeedList ] = useState([]);
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
     const [ title, setTitle ] = useState("");
     const option = {
         headers: {
@@ -96,8 +95,6 @@ function User() {
         }
     };
     
-    console.log(myFeedList);
-
     return (
         <BaseLayout>
             <MypageDetailSideBar>
