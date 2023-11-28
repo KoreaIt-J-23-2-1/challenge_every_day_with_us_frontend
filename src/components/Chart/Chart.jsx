@@ -83,8 +83,8 @@ function Chart(props) {
                         }),
                     },
                     {
-                        id: "삭제된 챌린지 수",
-                        data: dailyChallengeDeletedResponse.data.map(data => ({
+                        id: "종료된 챌린지 수",
+                        data: dailyChallengeCompletedResponse.data.map(data => ({
                             x: data.date,
                             y: data.count
                         })).sort((a, b) => {
@@ -94,8 +94,8 @@ function Chart(props) {
                         }),
                     },
                     {
-                        id: "종료된 챌린지 수",
-                        data: dailyChallengeCompletedResponse.data.map(data => ({
+                        id: "삭제된 챌린지 수",
+                        data: dailyChallengeDeletedResponse.data.map(data => ({
                             x: data.date,
                             y: data.count
                         })).sort((a, b) => {

@@ -424,6 +424,8 @@ function ChallengeDetails(props) {
         
     };
 
+    console.log(getChallenge)
+
     return (
         <BaseLayout>
             <div css={S.Layout}>
@@ -477,7 +479,7 @@ function ChallengeDetails(props) {
                                             </div>
                                         :
                                             <div>
-                                                {(userId === 1 || userId === 2 || userId === getChallenge.challengeId) && 
+                                                {(userId === 1 || userId === 2 || userId === getChallenge?.data?.data?.userId) && 
                                                 <button css={S.Btn} onClick={() => {handleFeedDeleteClick(feed.feedId)}}>삭제</button>}
                                                 <button css={S.Btn} onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
                                             </div>
