@@ -199,7 +199,7 @@ function LetterSideBar(props) {
                                         <b>Accept-State: </b>{selectedLetter.acceptState === 1 ? "수락 완료" : "거절 완료"}
                                     </div>)
                             )}
-                            {selectedLetter.letterTitle === "공지" && (
+                            {(selectedLetter.letterTitle === "공지" || selectedLetter.letterTitle === "인사") && (
                                 <div>
                                     <button css={S.Btn} onClick={() => {window.location.replace(selectedLetter.targetUrl);}}>바로가기</button>
                                 </div>
