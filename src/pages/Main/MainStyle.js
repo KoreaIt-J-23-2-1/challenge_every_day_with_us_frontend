@@ -222,7 +222,7 @@ export const SFeedBody = css`
 
 export const FeedImg = css`
     width: 180px;
-    height: 130px;
+    height: 100px;
     border-radius: 10px;
     /* margin-top: 20px; */
 `;

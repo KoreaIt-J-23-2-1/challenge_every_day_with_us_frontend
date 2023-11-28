@@ -93,6 +93,8 @@ function RealMain(props) {
         navigate("/challenge/category");
     }
 
+    console.log(getBestFeed)
+
     return (
         <div css={S.MainBase}>    
             <Header />
@@ -134,6 +136,9 @@ function RealMain(props) {
                                         </div>
                                     </div>   
                                     <div css={S.SFeedBody}>
+                                        {getBestFeed?.data?.data?.stopWatch !== 0 ? (
+                                            <b>진행 시간 : {convertSecondsToTime(getBestFeed?.data?.data?.stopWatch)}</b>
+                                        ) : (null)}
                                         <a>{getTimeDifference(getBestFeed?.data?.data?.dateTime)}</a>
                                         {getBestFeed?.data?.data?.img && <img css={S.FeedImg} src={getBestFeed?.data?.data?.img} alt="" />}
                                         <div css={S.FeedContentBox(!!getBestFeed?.data?.data?.img)} imgexists={(!!getBestFeed?.data?.data?.img).toString()}></div>  
@@ -235,4 +240,13 @@ function getTimeDifference(feedDateTime) {
         const days = Math.floor(timeDifferenceInSeconds / 86400);
         return `${days}일 전`;
     }
+}
+
+function convertSecondsToTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedTime = `${hours > 0 ? hours + '시간 ' : ''}${minutes > 0 ? minutes + '분 ' : ''}${remainingSeconds}초`;
+    return formattedTime.trim();
 }
