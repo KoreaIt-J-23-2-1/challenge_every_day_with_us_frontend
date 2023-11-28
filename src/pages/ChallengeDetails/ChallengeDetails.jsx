@@ -49,6 +49,7 @@ function ChallengeDetails(props) {
 
     const checkUserJoinStatus = useQuery(["checkUserJoinStatus"], async () => {
         try {
+            // 요청 하나로 합치면 좋을거같은 쿼리문
             const joinResponse = await instance.get(`/api/challenge/join/${challengeId}`, option);
             if (!joinResponse.data) {
                 const atmospherResponse = await instance.get(`/api/challenge/atmospher/${challengeId}`, option);
@@ -480,7 +481,8 @@ function ChallengeDetails(props) {
                                         :
                                             <div>
                                                 {(userId === 1 || userId === 2 || userId === getChallenge?.data?.data?.userId) && 
-                                                <button css={S.Btn} onClick={() => {handleFeedDeleteClick(feed.feedId)}}>삭제</button>}
+                                                <button css={S.Btn} onClick={() => {handleFeedDeleteClick(feed.feedId)}}>삭제</button>
+                                                }
                                                 <button css={S.Btn} onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
                                             </div>
                                         }
