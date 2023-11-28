@@ -61,7 +61,7 @@ function ChallengeDetails(props) {
             } else {
                 setIsJoined("챌린지 인증하기");
             }
-
+            
             const response = await instance.get(`/api/challenge/${challengeId}`, option);
             const challenge = response.data;
 
