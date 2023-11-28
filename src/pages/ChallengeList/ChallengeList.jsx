@@ -115,6 +115,8 @@ function ChallengeList(props) {
         navigate("/challenge/category");
     }
 
+    console.log(challengeList)
+
     return (
         <BaseLayout>
             <div css={S.Layout}>
@@ -131,20 +133,26 @@ function ChallengeList(props) {
                     <ul css={S.SChallengeList}>
                     <div css={S.SChallengeListHeader}>
                         <li>
-                            <div>번호</div>
+                            {/* <div>번호</div> */}
                             <div>챌린지제목</div>
                             <div>카테고리이름</div>
+                            <div>참가유형</div>
                             <div>시작일</div>
-                            <div>좋아요 수</div>
+                            <div>좋아요</div>
                         </li>
                     </div>
                     <div css={S.SChallengeListBody}>
                         {/* <li ref={topChallengeRef}></li> */}
                         {challengeList?.map((challenge) => {
                             return (<li key={challenge.challengeId} onClick={() => handleChallengeClick(challenge.challengeId)}>
-                                        <div>{challenge.challengeId}</div>
+                                        {/* <div>{challenge.challengeId}</div> */}
                                         <div>{challenge.challengeName}</div>
                                         <div>{challenge.categoryName}</div>
+                                        {challenge.isApplicable === "1" ?
+                                        <div>승인필요</div>
+                                        :
+                                        <div>자율참가</div>
+                                        }
                                         <div>{challenge.startDate}</div>
                                         <div>{challenge.likeCount}</div>
                                     </li>
