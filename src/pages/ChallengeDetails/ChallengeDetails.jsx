@@ -571,10 +571,13 @@ function ChallengeDetails(props) {
                         <div css={S.ListBox}>
                             {Object.values(challengers).map((item, index) => (
                                 <div key={index} css={S.ListContainer}>
-                                    <div css={S.ImgBox}>
-                                        <img src={item.profileUrl} alt="" />
+                                    <div>
+                                        <div css={S.ImgBox}>
+                                            <img src={item.profileUrl} alt="" />
+                                        </div>
+                                        <a>{item.nickname}</a>
+
                                     </div>
-                                    <a>{item.nickname}</a>
 
                                     {(item.userId !== challenge.userId &&
                                         isOwner(principal.data.data.userId, challenge.userId)) &&

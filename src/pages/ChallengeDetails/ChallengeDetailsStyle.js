@@ -169,7 +169,9 @@ export const userInfo = css`
 export const ChInfo = css`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: end;
+    /* align-items: center; */
+    /* justify-content: end ; */
 
     &>div{
         gap: 10px;
@@ -181,6 +183,7 @@ export const InfoImg = css`
     height: 50px;
     border: 1px solid #dbdbdb;
     border-radius: 50%;
+    margin-right: 10px;
 `;
 
 export const SFeedBody = css`
@@ -278,10 +281,10 @@ export const CommentHeader = css`
 export const Btn = css`
     border: none;
     padding: 5px 10px;
-    margin: 0px 2px;
+    margin: 4px 1px;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
     cursor: pointer;
 
     &:hover{
@@ -382,12 +385,17 @@ export const ListBox = css`
 export const ListContainer = css`
     display: flex;
     align-items: center;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     margin: 4px 0px;
 
     &>a{
         font-weight: 400;
         margin-right: 10px;
+    }
+
+    &>div{
+        display: flex;
+        align-items: center;
     }
     
 `;
