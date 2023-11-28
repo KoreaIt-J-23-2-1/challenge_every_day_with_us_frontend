@@ -292,6 +292,11 @@ export const Btn = css`
     }
 `;
 
+export const StopWatch = css`
+    display: flex;
+    justify-content: flex-start;
+`;
+
 export const CommentBox = css`
     margin: 10px 0px;
     padding: 10px;

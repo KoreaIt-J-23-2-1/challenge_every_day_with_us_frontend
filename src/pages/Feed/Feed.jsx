@@ -254,7 +254,6 @@ function Feed(props) {
                                             <button css={S.Btn} onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
                                             }
                                         </div>
-                                                                        
                                         <div>
                                             <p>[{feed.categoryName}]</p>
                                             <b>{feed.challengeName}</b>
@@ -265,6 +264,9 @@ function Feed(props) {
                                 <div css={S.SFeedBody}>
                                     {feed.img && <img css={S.FeedImg} src={feed.img} alt="" />}
                                     <div css={S.FeedContentBox(!!feed.img)} imgexists={(!!feed.img).toString()}>
+                                        {feed.stopWatch !== 0 ? (
+                                            <b>진행 시간 : {convertSecondsToTime(feed.stopWatch)}</b>
+                                        ) : (null)}
                                         <a><b><b>{feed.feedId}번</b> Feed</b>{getTimeDifference(feed.dateTime)}</a>
                                         <div css={S.FeedContent}>{feed.feedContent}</div>
                                     </div>                                 
@@ -347,4 +349,13 @@ function getTimeDifference(feedDateTime) {
         const days = Math.floor(timeDifferenceInSeconds / 86400);
         return `${days}일 전`;
     }
+}
+
+function convertSecondsToTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedTime = `${hours > 0 ? hours + '시간 ' : ''}${minutes > 0 ? minutes + '분 ' : ''}${remainingSeconds}초`;
+    return formattedTime.trim();
 }

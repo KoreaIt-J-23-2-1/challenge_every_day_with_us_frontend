@@ -486,17 +486,15 @@ function ChallengeDetails(props) {
                                             <p>[{feed.categoryName}]</p>
                                             <b>{feed.challengeName}</b>
                                         </div>
-                                        <div>
-                                            {feed.stopWatch !== 0 ? (
-                                                <div>진행 시간 : {convertSecondsToTime(feed.stopWatch)}</div>
-                                            ) : (null)}
-                                        </div>
                                     </div>
                                 </div>
 
                                 <div css={S.SFeedBody}>
                                     {feed.img && <img css={S.FeedImg} src={feed.img} alt="" />}
                                     <div css={S.FeedContentBox(!!feed.img)} imgexists={(!!feed.img).toString()}>
+                                        {feed.stopWatch !== 0 ? (
+                                            <b>진행 시간 : {convertSecondsToTime(feed.stopWatch)}</b>
+                                        ) : (null)}
                                         <a><b>{feed.feedId}번 Feed</b>{getTimeDifference(feed.dateTime)}</a>
                                         <div css={S.FeedContent}>{feed.feedContent}</div>
                                     </div>                                 
