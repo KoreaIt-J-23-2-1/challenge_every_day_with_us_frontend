@@ -119,10 +119,10 @@ function RealMain(props) {
                                 </div>
                             </div>
                         </div>
-                        <div css={S.LabelBox}>
+                        <div css={S.LabelBox2}>
                             <label><b>가장 인기있는 피드</b></label>
                             <div css={S.box02}>
-                                <div css={S.BestFeed} onClick={() => handleChallengeClick(navigate("/challenge/feed"))}>
+                                <div css={S.BestFeed}>
                                     <div css={S.FeedHeader}>
                                         <div css={S.userInfo}>
                                             <img css={S.InfoImg} src={getBestFeed?.data?.data?.profileUrl} alt="" />
@@ -169,7 +169,7 @@ function RealMain(props) {
                             <div css={S.box031} onClick={() => handleChallengeClick(navigate("/challenge/category"))}>
                                 <b>챌린지생성</b> <PiPlusSquareLight onClick={handleChallengeCreateClike}/>
                             </div>
-                            <div css={S.CategoryImgBox}>
+                            <div css={S.CategoryImgBox} onClick={() => handleChallengeClick(navigate("/challenges"))}>
                                 <img src={images[currentImage]} alt="Main Image" css={S.CategoryImg} />
                             </div> 
                         </div>

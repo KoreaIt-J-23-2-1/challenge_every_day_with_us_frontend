@@ -259,7 +259,7 @@ export const ModalContent = css`
 
 export const Chart = css`
     display: flex;
-    margin-top: 20px;
+    margin: 0px;
 
     & h2 {
         margin-left: 50px;

@@ -31,6 +31,7 @@ import MyPage from './pages/MyPage/MyPage';
 
 
 function App() {
+
   const getPrincipal = useQuery(["getPrincipal"], async () => {
     try{
       const option = {

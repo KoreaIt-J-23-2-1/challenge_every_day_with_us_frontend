@@ -234,7 +234,7 @@ function Admin() {
                     </div>
                 )}
                 <div css={S.Chart}>
-                    <h2>Challenge Chart</h2>
+                    <h3>Challenge Chart</h3>
                     {chart}
                 </div>
             </div>

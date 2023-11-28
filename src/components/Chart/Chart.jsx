@@ -19,7 +19,7 @@ function Chart(props) {
 
     const getChartData = useQuery(["getChartData"], async () => {
         try {
-            // 요청을 날리는건 5번을 날려도 서버에서 하나의 로직에서 해결하고 싶음!
+            // 요청을 날리는건 5번을 날려도 서버에서 
             const dailyChallengesResponse = await instance.get('/api/admin/challengers/count', option);
             const dailyMembersResponse = await instance.get('/api/admin/members/count', option);
             const dailyFeedResponse = await instance.get('/api/admin/feed/count', option);
@@ -165,14 +165,14 @@ function Chart(props) {
         return (
             <ResponsiveLine
                 data={data}
-                height={200}
+                height={300}
                 width={1000}
-                margin={{ top: 50, right: 180, bottom: 50, left: 80 }}
+                margin={{ top: 20, right: 180, bottom: 100, left: 80 }}
                 xScale={{ type: 'point', format: '%Y-%m-%d', precision: 'day' }}
                 yScale={{
                     type: 'linear',
                     min: 0,
-                    max: 15,
+                    max: 20,
                 }}
                 yFormat=" >-.2f"
                 gridYValues={[0, 5, 10, 15, 20, 25, 30]}
@@ -240,7 +240,7 @@ function Chart(props) {
                 yScale={{
                     type: 'linear',
                     min: 0,
-                    max: 15,
+                    max: 20,
                 }}
                 yFormat=" >-.2f"
                 gridYValues={[0, 5, 10, 15, 20, 25, 30]}
