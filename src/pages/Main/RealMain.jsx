@@ -137,9 +137,11 @@ function RealMain(props) {
                                     </div>   
                                     <div css={S.SFeedBody}>
                                         {getBestFeed?.data?.data?.stopWatch !== 0 ? (
-                                            <b>진행 시간 : {convertSecondsToTime(getBestFeed?.data?.data?.stopWatch)}</b>
-                                        ) : (null)}
-                                        <a>{getTimeDifference(getBestFeed?.data?.data?.dateTime)}</a>
+                                            <div css={S.TimeBox}>
+                                                <b>진행 시간 : {convertSecondsToTime(getBestFeed?.data?.data?.stopWatch)}</b>
+                                                <a>{getTimeDifference(getBestFeed?.data?.data?.dateTime)}</a>
+                                            </div>
+                                        ) : (<a>{getTimeDifference(getBestFeed?.data?.data?.dateTime)}</a>)}
                                         {getBestFeed?.data?.data?.img && <img css={S.FeedImg} src={getBestFeed?.data?.data?.img} alt="" />}
                                         <div css={S.FeedContentBox(!!getBestFeed?.data?.data?.img)} imgexists={(!!getBestFeed?.data?.data?.img).toString()}></div>  
                                         <div css={S.FeedContent}>{getBestFeed?.data?.data?.feedContent}</div>

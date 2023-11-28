@@ -220,9 +220,14 @@ export const SFeedBody = css`
     }
 `;
 
+export const TimeBox = css`
+    display: flex;
+    justify-content: space-between;
+`;
+
 export const FeedImg = css`
     width: 180px;
-    height: 100px;
+    height: 120px;
     border-radius: 10px;
     /* margin-top: 20px; */
 `;
