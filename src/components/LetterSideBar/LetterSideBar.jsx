@@ -134,15 +134,17 @@ function LetterSideBar(props) {
     return (
         <div css={S.LetterSideBarLayout}>
             <div css={S.Layout}>
-                <h2>알림</h2>
-                <h4>전체 알림 수 : {lettersCount.data}</h4>
-                <div css={S.LadioBox}>
-                    <input type="radio" id="unread-letter-radio-button" name="letterViewType" checked={letterViewType === "unread"} onChange={() => {setLetterViewType("unread");}}/>
-                    <label htmlFor="unread-letter-radio-button" >읽지 않은 메시지</label>
-                    <input type="radio" id="read-letter-radio-button" name="letterViewType" checked={letterViewType === "read"} onChange={() => {setLetterViewType("read");}}/>
-                    <label htmlFor="read-letter-radio-button" >읽은 메시지</label>
+                <div css={S.LetterTitle}>
+                    <h2>알림</h2>
+                    <h4>전체 알림 수 : {lettersCount.data}</h4>
+                    <div css={S.LadioBox}>
+                        <input type="radio" id="unread-letter-radio-button" name="letterViewType" checked={letterViewType === "unread"} onChange={() => {setLetterViewType("unread");}}/>
+                        <label htmlFor="unread-letter-radio-button" >읽지 않은 메시지</label>
+                        <input type="radio" id="read-letter-radio-button" name="letterViewType" checked={letterViewType === "read"} onChange={() => {setLetterViewType("read");}}/>
+                        <label htmlFor="read-letter-radio-button" >읽은 메시지</label>
+                    </div>
                 </div>
-                <div css={S.SLetterScroll}>
+                <div css={S.LetterScroll}>
                     {letterViewType === "unread" ?
                         getLetterList?.data?.map((letter) => (
                             letter.isRead === 0 ? 

@@ -69,7 +69,7 @@ export const SChallengeList = css`
     border: 1px solid #dbdbdb;
     padding: 0px;
     margin-top: 30px;
-    background: rgba(255, 255, 255, 0.7); 
+    background: #fafafa;
     border-radius: 10px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 

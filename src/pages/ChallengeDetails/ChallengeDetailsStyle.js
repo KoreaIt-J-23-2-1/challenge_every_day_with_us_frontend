@@ -103,6 +103,8 @@ export const CommentInputBox = css`
     background: rgba(250, 250, 250, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fafafa;
+
     cursor: pointer;
     &:focus{
         outline: none;
@@ -129,7 +131,7 @@ export const FeedContainer = css`
     border-radius: 10px;
     overflow: hidden;
     overflow-y: auto;
-    background: rgba(255, 255, 255, 0.7); 
+    background: #fafafa;
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
@@ -306,6 +308,7 @@ export const CommentBox = css`
     width: 100%;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fafafa;
 `;
 
 
@@ -336,9 +339,9 @@ export const ParticipationButton = css`
     width: 100%;
     height: 40px;
     border: none;
-    background: rgba(255, 255, 255, 0.5); 
+    background-color: #fafafa; 
     border-radius: 15px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     &:active {
         background-color: #eee;
