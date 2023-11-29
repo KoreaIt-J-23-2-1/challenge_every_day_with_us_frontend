@@ -4,13 +4,13 @@ import { css } from '@emotion/react';
 import attendanceCheckImg from "../../img/출석체크.png";
 
 export const calendarContainer = css`
-    background: linear-gradient(135deg, #f0e7d4, #efd1c5, #dadde2, #d5e4df);
 
     .react-calendar .react-calendar__navigation {
         display: flex;
         justify-content: center;
         align-items: center;
         position: relative;
+        background-color: #fafafa;
         z-index: 1;
 
         & button {
@@ -33,6 +33,7 @@ export const calendarContainer = css`
             align-items: center;
             justify-content: center;
             color: white;
+            background-color: #FFD1B7; 
             height: 30px;
         }
     }
@@ -40,7 +41,8 @@ export const calendarContainer = css`
     & button {
         height: 60px;
         background-color: rgba(255, 255, 255, 0.3);
-        border: 1px solid #fafafa;
+        border: 1px solid white;
+        background-color: #fafafa;
         font-size: 14px;
         cursor: pointer;
         transition: background-color 0.3s, border-color 0.3s;

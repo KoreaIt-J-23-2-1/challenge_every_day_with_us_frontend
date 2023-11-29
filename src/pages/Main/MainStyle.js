@@ -405,9 +405,8 @@ export const box031 = css`
 `;
 
 export const box04 = css`
-
     width: 900px;
-    background: #F7F0F0; 
+    background-color: #f7f0f0;
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 10px;
