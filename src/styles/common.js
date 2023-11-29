@@ -26,10 +26,9 @@ export const Common = css`
     
     
     html{
-        background-color: white;
-        background-image: url(${backgroundImg});
+        background-color: #fafafa;
+        /* background-image: url(${backgroundImg}); */
         background-size: cover; 
-        /* background-repeat: no-repeat; */
         height: 100%;
         width: 100%;
         box-sizing: border-box;
@@ -37,3 +36,6 @@ export const Common = css`
     }
 
 `;
+
+// #E8A789 #E9D3C9 #F7F0F0 #f2f2f2 #fafafa
+

@@ -106,13 +106,15 @@ export const LetterCountBox = css`
 
 export const LetterSideBarCss = css`
     z-index: 10;
-    right: -400px;
+    right: -440px;
     overflow: hidden;
     display: flex;
+    justify-content: end;
     position: fixed;
-    width: 400px;
-    height: 92vh;
+    width: 450px;
+    height: 900px;
     transition: right 0.8s ease;
-    bottom: 0px;
+    top: 80px;
+    bottom: 20px;
 `;
 

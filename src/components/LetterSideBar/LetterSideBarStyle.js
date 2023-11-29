@@ -3,12 +3,14 @@ import { css } from '@emotion/react';
 export const LetterSideBarLayout = css`
     overflow: hidden;
     position: relative;
-    width: 400px;
-    border-radius: 10px 0px 0px 10px;
+    width: 440px;
+    height: 850px;
+    border-radius: 30px 0px 0px 30px;
     padding: 0px 10px;
     border: none;
-    background: linen;
-    border: 5px solid antiquewhite;
+    background: #F7F0F0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
 `;
 
 export const Layout = css`
@@ -28,19 +30,25 @@ export const Layout = css`
     }
 `;
 
+export const LetterTitle = css`
+
+
+`;
+
 export const LadioBox = css`
     display: flex;
     align-items: center;
     padding-bottom: 20px;
-    border-bottom: 5px solid antiquewhite;
+    border-bottom: 5px solid #eaeaea;
 
     & label {
         font-size: 13px;
     }
 `;
 
-export const SLetterScroll = css`
-    height: 800px;
+export const LetterScroll = css`
+    margin-top: 15px;
+    height: 650px;
     width: 800px;
     overflow-y: scroll;
 `;
@@ -49,7 +57,7 @@ export const miniLetter = css`
     word-wrap: break-word;
     cursor: pointer;
     width: 380px;
-    border-bottom: 3px solid antiquewhite;
+    border-bottom: 3px solid #f2f2f2;
     padding: 5px;
 `;
 
