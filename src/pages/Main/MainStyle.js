@@ -118,14 +118,7 @@ export const box01 = css`
 export const LabelBox2 = css`
     transition: transform 0.4s ease-out; 
 
-    &>label{
-        height: 15px;
-        color: #2f2f2f;
-        font-size: 13px;
-        font-weight: 700;
-        margin-left: 15px;
-        margin-bottom: 2px;
-    }
+
 `;
 
 export const LabelBox = css`
@@ -134,7 +127,7 @@ export const LabelBox = css`
     &>label{
         height: 15px;
         color: #2f2f2f;
-        font-size: 13px;
+        font-size: 16px;
         font-weight: 700;
         margin-left: 15px;
         margin-bottom: 2px;
@@ -150,16 +143,26 @@ export const LabelBox = css`
 `;
 
 export const box02 = css`
-
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 298px;
+    height: 315px;
     margin-bottom: 10px;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: transform 0.4s ease-out; 
-
+    
+    &>label{
+        display: flex;
+        justify-content: center;
+        height: 15px;
+        color: #2f2f2f;
+        font-size: 16px;
+        font-weight: 700;
+        margin-top: 10px;
+    }
 `;
 
 export const BestChallenge = css`
@@ -196,7 +199,7 @@ export const SFeedBody = css`
     display: flex;
     flex-direction: column;
     margin: 10px 0px;
-    height: 200px;
+    height: 195px;
     gap: 10px;
     background: rgba(255, 255, 255, 0.7); 
     border-radius: 15px; 
@@ -270,8 +273,8 @@ export const modalContent = css`
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
-    border-radius: 8px;
-    background: linen;
+    border-radius: 15px;
+    background: #eee;
     z-index: 1001;
 `;
 
@@ -291,13 +294,14 @@ export const userInfo = css`
     align-items: center;
     gap: 5px;
     white-space: nowrap;
-
+    font-size: 15px;
 `;
 
 export const ChInfo = css`
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 15px;
 
     &>div{
         gap: 10px;
@@ -333,16 +337,24 @@ export const Content = css`
 export const box03 = css`
     cursor: pointer;
     width: 300px;    
-    height: 180px;
+    height: 200px;
     margin-right: 10px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease-out; 
     cursor: pointer; 
+
+    &>label{
+        height: 15px;
+        color: #2f2f2f;
+        font-size: 16px;
+        font-weight: 700;
+        margin: 10px;
+    }
 
     *::-webkit-scrollbar {
         width: 2px;
@@ -368,7 +380,7 @@ export const box031 = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.5); 
+    background: #F7F0F0;
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease-out; 
@@ -391,7 +403,7 @@ export const box031 = css`
 export const box04 = css`
 
     width: 900px;
-    background: rgba(255, 255, 255, 0.5); 
+    background: #F7F0F0; 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 10px;

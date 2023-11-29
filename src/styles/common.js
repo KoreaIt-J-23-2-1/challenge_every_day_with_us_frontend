@@ -26,8 +26,8 @@ export const Common = css`
     
     
     html{
-        background-color: white;
-        background-image: url(${backgroundImg});
+        background-color: #fafafa;
+        /* background-image: url(${backgroundImg}); */
         background-size: cover; 
         /* background-repeat: no-repeat; */
         height: 100%;
