@@ -44,6 +44,81 @@ export const btnBox = css`
     }
 `;
 
+export const GoogleButton = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 13px;
+    border: none;
+    border-radius: 10px;
+    width: 214px;
+    height: 41px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: rgb(232,234,237);
+    color: black;
+
+    & > :nth-of-type(1) {
+        margin-right: 3px;
+        width: 20px;
+        height: 20px;
+    }
+
+    & * {
+        color: #FFFFFF;
+    }
+`;
+
+export const KakaoButton = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 13px;
+    border: none;
+    border-radius: 10px;
+    width: 214px;
+    height: 41px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #fee500;
+    color: black;
+
+    & > :nth-of-type(1) {
+        margin-right: 3px;
+        width: 20px;
+        height: 20px;
+    }
+
+    & * {
+        color: black;
+    }
+`;
+
+export const NaverButton = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 13px;
+    border: none;
+    border-radius: 10px;
+    width: 214px;
+    height: 41px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #03c75a;
+    color: #FFFFFF;
+
+    & > :nth-of-type(1) {
+        margin-right: 3px;
+        width: 20px;
+        height: 20px;
+    }
+
+    & * {
+        color: #FFFFFF;
+    }
+`;
+
 export const AdminButton = css`
     position: absolute;
     bottom: 0px;
