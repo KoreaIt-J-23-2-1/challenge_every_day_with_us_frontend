@@ -115,8 +115,8 @@ function RealMain(props) {
                     </div>
                     <div css={S.part5}>
                         <div css={S.LabelBox}>
-                            <label>가장 인기있는 챌린지</label>
                             <div css={S.box02}>
+                                <label>가장 인기있는 챌린지</label>
                                 <div css={S.BestChallenge} onClick={() => handleChallengeClick(navigate(`/challenge/${getPopularChallenge?.data?.data?.challengeId}`))}>
                                     <div>챌린지 이름: <b>{getPopularChallenge?.data?.data?.challengeName}</b></div>
                                     <div>참여인원: <b>{getPopularChallenge?.data?.data?.challenger}명</b></div>
@@ -128,8 +128,8 @@ function RealMain(props) {
                             </div>
                         </div>
                         <div css={S.LabelBox2}>
-                            <label><b>가장 인기있는 피드</b></label>
                             <div css={S.box02}>
+                                <label><b>가장 인기있는 피드</b></label>
                                 <div css={S.BestFeed}>
                                     <div css={S.FeedHeader}>
                                         <div css={S.userInfo}>
@@ -169,8 +169,8 @@ function RealMain(props) {
                     <div>
                         <div css={S.part2}>
                             <div css={S.LabelBox2}>
-                                <label><b>참여중인 챌린지 리스트</b></label>
                                 <div css={S.box03}>
+                                    <label><b>참여중인 챌린지 리스트</b></label>
                                     <div css={S.ListBox}>
                                         {myChallenge?.map((myChallenge, index) => (
                                             <li key={index}  onClick={() => handleChallengeClick(navigate(`/challenge/${myChallenge.challengeId}`))}>
