@@ -25,13 +25,13 @@ export const calendarHeader = css`
 
 export const calendarContainer = css`
     width: 1000px;
-    background: linear-gradient(135deg, #f0e7d4, #efd1c5, #dadde2, #d5e4df);
 
     .react-calendar .react-calendar__navigation {
         display: flex;
         justify-content: center;
         align-items: center;
         position: relative;
+        background-color: #fafafa;
         z-index: 1;
 
         & button {
@@ -54,14 +54,16 @@ export const calendarContainer = css`
             align-items: center;
             justify-content: center;
             color: white;
-            height: 50px;
+            background-color: #FFBDA3;
+            height: 40px;
         }
     }
 
     & button {
         height: 80px;
         background-color: rgba(255, 255, 255, 0.3);
-        border: 1px solid #fafafa;
+        border: 1px solid white;
+        background-color: #fafafa;
         font-size: 15px;
         cursor: pointer;
         transition: background-color 0.3s, border-color 0.3s;
@@ -110,61 +112,56 @@ export const checkInButtonContainer = css`
 `;
 
 export const checkInButton = css`
-    display: flex;
+    align-items: center;
+    appearance: none;
+    background-color: #FFBDA3;
+    border: 0;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395A;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono",monospace;
+    height: 40px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s,transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    font-size: 18px;
 
     & button {
-        padding: 0.6em 2em;
         border: none;
-        outline: none;
-        color: #333;
-        cursor: pointer;
-        position: relative;
-        z-index: 0;
-        border-radius: 10px;
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-        font-weight: 600;
+        background-color: transparent;
+        color: white;
+        font-size: 14px;
+        font-weight: 500;
     }
 
-    button:before {
-        content: "";
-        background: linear-gradient(135deg, #f0e7d4, #efd1c5, #dadde2, #d5e4df);
-        position: absolute;
-        top: -2px;
-        left: -2px;
-        background-size: 400%;
-        z-index: -1;
-        filter: blur(5px);
-        -webkit-filter: blur(5px);
-        width: calc(100% + 4px);
-        height: calc(100% + 4px);
-        animation: glowing-button-85 20s linear infinite;
-        transition: opacity 0.3s ease-in-out;
-        border-radius: 10px;
-    }
+.checkInButton:focus {
 
-    @keyframes glowing-button-85 {
-        0% {
-            background-position: 0 0;
-        }
-        50% {
-            background-position: 400% 0;
-        }
-        100% {
-            background-position: 0 0;
-        }
-    }
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
 
-    button:after {
-        z-index: -1;
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, #f0e7d4, #efd1c5, #dadde2, #d5e4df);
-        left: 0;
-        top: 0;
-        border-radius: 10px;
-    }
+.checkInButton:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.checkInButton:active {
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
+}
 `;
