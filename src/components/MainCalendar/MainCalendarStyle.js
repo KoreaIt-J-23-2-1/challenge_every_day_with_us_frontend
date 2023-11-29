@@ -33,7 +33,7 @@ export const calendarContainer = css`
             align-items: center;
             justify-content: center;
             color: white;
-            background-color: #FFD1B7; 
+            background-color: #FFBDA3; 
             height: 30px;
         }
     }
