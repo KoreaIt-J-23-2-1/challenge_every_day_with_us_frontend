@@ -56,7 +56,7 @@ export const LetterScroll = css`
 export const miniLetter = css`
     word-wrap: break-word;
     cursor: pointer;
-    width: 380px;
+    width: 420px;
     border-bottom: 3px solid #f2f2f2;
     padding: 5px;
 `;
