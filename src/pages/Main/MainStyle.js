@@ -380,7 +380,7 @@ export const box031 = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #F7F0F0;
+    background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease-out; 
