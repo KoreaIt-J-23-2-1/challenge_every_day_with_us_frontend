@@ -353,9 +353,13 @@ export const box031 = css`
     &:hover{
         opacity: 0.9;    
         transform: scale(0.9);
+        background: #FFF8F8; 
+
     }
     &:active {
-        opacity: 1;    
+        opacity: 1;   
+        color: #fafafa;
+
     }
 
     cursor: pointer; 
