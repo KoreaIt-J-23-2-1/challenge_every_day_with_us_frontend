@@ -7,18 +7,18 @@ export const Background = (isActive) => css`
     top: 10px;
     right: 3px;
     width: ${isActive ? '440px' : '0'};
-    height: ${isActive ? '230px' : '0'};
+    height: ${isActive ? '260px' : '0'};
     border-radius: 40px 20px 40px 40px;
     transition: width 0.5s ease-in, height 0.4s ease-in;
     overflow: hidden;
-    background-color: #efd1c5;
+    background-color: #FFF8F8;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 `;
 
 
 export const MenuBody = (isActive) => css`
     width: 400px;
-    height: 250px;
+    height: 300px;
     padding-top: 5px;
     display: flex;
     flex-direction: column;
@@ -43,7 +43,7 @@ export const MyBox = css`
         margin: 0px 5px;
         border: none;
         background: none;
-        border-bottom: 3px solid #efd1c5;
+        border-bottom: 3px solid #FFF8F8;
         font-size: 15px;
     }
     
@@ -66,7 +66,7 @@ export const BtnBox = (isActive) => css`
         /* justify-content: center; */
         margin-bottom: 20px;
         padding-left: 10px;
-        height: 35px;
+        height: 40px;
     }
     & > div> div {
         margin-top: 10px;
@@ -74,7 +74,7 @@ export const BtnBox = (isActive) => css`
         margin: 0px 5px;
         border: none;
         background: none;
-        border-bottom: 3px solid #efd1c5;
+        border-bottom: 3px solid #FFF8F8;
         font-size: 25px;
         display: flex;
         align-items: center;
@@ -82,8 +82,6 @@ export const BtnBox = (isActive) => css`
 
     & >div> div:hover {
         font-weight: 700;
-        font-style: italic;
-        border-bottom: 3px solid #dadde2;
     }
 `;
 
@@ -92,6 +90,9 @@ export const BtnMotion = css`
         margin-left: 9px;
         opacity: 0;
         width: 0px;
+        height: 0px;
+        display: flex;
+        align-items: center;
 
     }
     &:hover{
