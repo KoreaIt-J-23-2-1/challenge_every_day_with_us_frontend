@@ -5,6 +5,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import * as S from './NoticeDetailsStyle';
 import TitleComponent from '../../components/TitleComponent/TitleComponent';
+import { showAlert } from '../../styles/common';
 /** @jsxImportSource @emotion/react */
 
 function NoticeDetails(props) {
@@ -53,7 +54,7 @@ function NoticeDetails(props) {
         try {
             if(deleteNotice) {
                 await instance.delete(`/api/notice/${noticeId}`, option);
-                alert("게시글 삭제 완료.");
+                showAlert("게시글 삭제 완료.", "success");
                 window.location.replace("/notice/page/1");
             }
         } catch (error) {

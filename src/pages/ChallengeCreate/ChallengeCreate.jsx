@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import * as S from './ChallengeCreateStyle';
 import TitleComponent from '../../components/TitleComponent/TitleComponent';
+import { showAlert, showConfirmation } from '../../styles/common';
+import { useQueryClient } from 'react-query';
 
 function ChallengeCreate({ children }) {
     const [ challengeTitle, setChallengeTitle ] = useState("");
@@ -68,12 +68,12 @@ function ChallengeCreate({ children }) {
 
     const handleSubmitButton = async () => {
         if (challengeTitle.length > 50) {
-            alert("제목을 50자 내외로 입력해주세요.")
+            showAlert("제목을 50자 내외로 입력해주세요.", "error")
             return;
         }
 
         if (!challengeTitle || !startDate || !endDate || !introduction) {
-            alert("모든 필수 항목을 입력해주세요.");
+            showAlert("모든 필수 항목을 입력해주세요.", "error");
             return;
         }
 
@@ -87,29 +87,31 @@ function ChallengeCreate({ children }) {
             categoryName: categoryName,
             userId: userId
         };
-        if(window.confirm("챌린지 생성시 1000 Point가 소요됩니다. 동의하시나요?")) {
+        const confirmationResult = await showConfirmation("챌린지 생성", "챌린지 생성시 1000 Point가 소요됩니다. 동의하시나요?", "question");
+
+        if (confirmationResult) {
             try {
-                if(principal.point >= 1000){
-                    
+                if (principal.point >= 1000) {
                     const createResponse = await instance.post(`/api/challenge/create`, requestData, option);
-                    
                     if (createResponse.data === true) {
-                        alert("챌린지 등록 !! ");
+                        showAlert("챌린지 등록 !! ", "success");
                         queyrClient.refetchQueries(["getPrincipal"]);
                         navigete("/main");
                     } else {
                         console.log("챌린지 생성 실패");
                     }
                 } else {
-                    if (window.confirm("해당 잔여 포인트가 부족합니다. Point 충전소로 이동하시겠습니까?")) {
+                    const pointShortageConfirmation = await showConfirmation("포인트 부족", "해당 잔여 포인트가 부족합니다. Point 충전소로 이동하시겠습니까?", "error");
+        
+                    if (pointShortageConfirmation) {
                         navigete("/store/items");
                     } else {
-                        alert("포인트 충전 후 챌린지를 개설해주세요.");
+                        showAlert("포인트 충전 후 챌린지를 개설해주세요.", "error");
                     }
                 }
             } catch (error) {
                 console.log(error);
-                alert(error.response.data);
+                showAlert(error.response.data, "error");
             }
         }
     };

@@ -12,6 +12,7 @@ import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
 import { HiOutlineMail } from "react-icons/hi";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import MypageDetailSideBar from '../../../components/MypageDetailSideBar/MypageDetailSideBar';
+import { showAlert, showConfirmation } from '../../../styles/common';
 
 function MyPageDetails(props) {
     const navegate = useNavigate();
@@ -71,7 +72,7 @@ function MyPageDetails(props) {
                     }
                 }
                 instance.put(`/api/account/mypage/${principal.userId}`, modifyMypageDetail, option);
-                alert("프로필 정보가 변경되었습니다.");
+                showAlert("프로필 정보가 변경되었습니다.", "success");
                 window.location.reload();
             }catch(error) {
                 console.error(error);
@@ -85,22 +86,28 @@ function MyPageDetails(props) {
 
     const handleIsWithdrawn = async () => {
         const userId = principal?.userId;
-        console.log(principal.userId);
-        if(window.confirm("정말 탈퇴하시겠습니까?")) {
-            if(window.confirm("진짜로 떠나시겠습니까?")) {
-                try{
+    
+        const firstConfirmation = await showConfirmation("탈퇴", "정말 탈퇴하시겠습니까?", "question");
+        
+        if (firstConfirmation) {
+            const secondConfirmation = await showConfirmation("탈퇴", "진짜로 떠나시겠습니까?", "question");
+    
+            if (secondConfirmation) {
+                try {
                     const response = await instance.delete(`/api/account/${userId}`, option);
-                    if(response) {
+    
+                    if (response) {
                         localStorage.removeItem("accessToken");
                         queyrClient.refetchQueries("getPrincipal");
+                        showAlert("탈퇴 완료 !!", "success");
                         navegate("/");
                     }
-                }catch(error) {
+                } catch (error) {
                     console.error(error);
                 }
             }
         }
-    }
+    };
 
     return (
         <BaseLayout>

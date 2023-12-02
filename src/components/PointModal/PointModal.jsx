@@ -5,6 +5,7 @@ import * as S from "./Style";
 import { instance } from '../../api/config/instance';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
+import { showAlert } from '../../styles/common';
 
 function PointStore({ onClose }) {
     const navigate = useNavigate();
@@ -74,12 +75,12 @@ function PointStore({ onClose }) {
                     },
                 };
                 instance.post("/api/point", orderData, option).then((response) => {
-                    alert(`포인트 충전이 완료되었습니다. +${product.points} Point 지급됨`);
+                    showAlert(`포인트 충전이 완료되었습니다. +${product.points} Point 지급됨`, "success");
                     queryClient.refetchQueries(["getProducts"]);
                     navigate("/account/mypage");
                 });
             } else {
-                alert(error_msg);
+                showAlert(error_msg , "error");
             }
         });
     }

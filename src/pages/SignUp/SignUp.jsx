@@ -4,6 +4,7 @@ import { instance } from '../../api/config/instance';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
+import { showAlert } from '../../styles/common';
 
 function SignUp(props) {
     const navigate = useNavigate();
@@ -21,18 +22,19 @@ function SignUp(props) {
 
     const [ signupUser, setSignupUser ] = useState(user);
 
-    console.log(signupUser.profileUrl);
-
     const handleSignupSubmit = async () => {
         try {
             const response = await instance.post("/api/auth/sign-up", signupUser);
-            if(response){
-                console.log(response);
-                alert("회원가입 완료");
-                navigate("/auth/signin")
+    
+            if (response.data === true) {
+                showAlert("회원가입 완료", "success").then(() => {
+                    navigate("/auth/signin");
+                });
+            } else {
+                showAlert("회원가입 실패", "error");
             }
         } catch (error) {
-            alert("모든 항목을 채워주세요");
+            showAlert(error.message || "회원가입 실패", "warning");
         }
     };
 
@@ -47,15 +49,15 @@ function SignUp(props) {
         try {
             const response = await instance.get(`/api/auth/duplicate/${signupUser.email}`);
             if (response.data === true) {
-                alert("이미 존재하는 이메일 입니다.");
+                showAlert("이미 존재하는 이메일 입니다.", "error");
                 setIsEmailChecked(true);
                 return;
             }
-            alert("사용 가능한 이메일 입니다.");
+            showAlert("사용 가능한 이메일 입니다.", "success");
             setIsEmailChecked(false);
         } catch (error) {
             console.error(error);
-            alert("확인 실패");
+            showAlert("확인 실패", "error");
         }
     }
 

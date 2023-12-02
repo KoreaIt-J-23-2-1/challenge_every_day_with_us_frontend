@@ -11,6 +11,7 @@ import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
 import FeedCommentSee from '../../components/FeedCommentSee/FeedCommentSee';
 import { FcLike } from "react-icons/fc";
 import { IoIosHeartEmpty } from "react-icons/io";
+import { showAlert } from '../../styles/common';
 
 function Feed(props) {
     const { challengeId } = useParams();
@@ -121,7 +122,7 @@ function Feed(props) {
         };
         const response = await instance.post("/api/challenge/report", data, option)
             if(response) {
-                alert(`${feedId}번의 피드를 신고하였습니다.`);
+                showAlert(`${feedId}번의 피드를 신고하였습니다.`, "warning");
             }
     };
 
@@ -169,12 +170,12 @@ function Feed(props) {
     const handleCommentSubmit = async (feedId) => {
         try {
             if (commentInputList[`commentInput${feedId}`].length > 180) {
-                alert("댓글을 180자 내외로 입력해주세요.")
+                showAlert("댓글을 180자 내외로 입력해주세요.", "warning")
                 return;
             }
 
             await instance.post(`/api/feed/${feedId}/comment`, {commentContent: commentInputList[`commentInput${feedId}`]}, option);
-            alert("댓글 등록 성공! -> " + feedId + "피드");
+            showAlert("댓글 등록 성공! -> " + feedId + "피드", "success");
             getFeedList.refetch();
             setCommentInputList({
                 ...commentInputList,
@@ -205,19 +206,17 @@ function Feed(props) {
     
     const handleFeedDeleteClick = async (feedId) => {
         try {
-            const confirmed = window.confirm("피드를 삭제 시키겠습니까?")
+            const confirmed = showAlert("Feed삭제", "피드를 삭제 시키겠습니까?", "question")
             
             if (confirmed) {
                 await instance.delete(`/api/challenge/feed/${feedId}`, option);
-                alert("피드가 삭제되었습니다.");
+                showAlert("피드가 삭제되었습니다.", "success");
                 getFeedList.refetch({ force: true });
             }
         }catch(error) {
             console.error(error);
         }
     };
-
-    console.log(feedList);
 
     return (
         <BaseLayout>

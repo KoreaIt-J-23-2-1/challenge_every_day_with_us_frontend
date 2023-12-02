@@ -9,7 +9,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import MenuBtn from '../MenuBtn/MenuBtn';
 import { IoMdArrowRoundBack } from 'react-icons/io';
-
+import { showAlert } from '../../styles/common';
 
 function Header() {
     const navigate = useNavigate();
@@ -67,7 +67,7 @@ function Header() {
 
     const GoStorePage = () => {
         if(!principal) {
-            alert("로그인을 먼저 진행해주세요");
+            showAlert("로그인을 먼저 진행해주세요", "warning");
             return;
         }
         navigate("/store/items");

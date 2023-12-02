@@ -3,6 +3,7 @@ import React from 'react';
 import * as S from './MenuModalStyle';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
+import { showAlert } from '../../styles/common';
 
 function MenuModal({ isActive }) {
     const navigate = useNavigate(); 
@@ -11,16 +12,16 @@ function MenuModal({ isActive }) {
     const principal = principalState.data;
 
     const checkLoginBeforeNavigate = (path) => {
-        if(!principal) {
-            alert("로그인을 먼저 진행해주세요");
-            return;
-        }
+        // if(!principal) {
+        //     showAlert("로그인을 먼저 진행해주세요", "warning");
+        //     return;
+        // }
         navigate(path);
     };
     
     const handleLogoutButton = async () => {
         localStorage.removeItem("accessToken");
-        alert("로그아웃 되었습니다.");
+        showAlert("로그아웃 되었습니다.", "success");
         window.location.replace("/");
     };
 

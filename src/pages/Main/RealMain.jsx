@@ -2,14 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import * as S from './MainStyle';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import Header from '../../components/Header/Header';
-import img03 from '../../img/운동.png';
-import img04 from '../../img/일상.png';
-import img05 from '../../img/재태크.png';
-import img06 from '../../img/취미.png';
-import img07 from '../../img/취미2.png';
-import img08 from '../../img/학습.png';
-import img09 from '../../img/일기.png';
-import img10 from '../../img/기타.png';
 import InfoSideBar from '../../components/InfoSideBar/InfoSideBar';
 import LogoutState from '../../components/InfoSideBar/LogoutState';
 import {useQuery, useQueryClient } from 'react-query';
@@ -18,7 +10,6 @@ import MainCalendar from '../../components/MainCalendar/MainCalendar'
 import { PiPlusSquareLight } from "react-icons/pi";
 import Chart from '../../components/Chart/Chart';
 import BestFeedModal from '../Feed/BestFeedModal';
-
 import img1 from '../../img/a운동.png';
 import img2 from '../../img/a산책.png';
 import img3 from '../../img/a재태크.png';
@@ -27,9 +18,6 @@ import img5 from '../../img/a취미.png';
 import img6 from '../../img/a일기.png';
 import img7 from '../../img/a기타01.png';
 import img8 from '../../img/a기타02.png';
-
-
-
 /** @jsxImportSource @emotion/react */
 
 function RealMain(props) {

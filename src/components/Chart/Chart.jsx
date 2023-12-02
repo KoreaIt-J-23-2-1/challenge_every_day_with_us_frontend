@@ -128,7 +128,6 @@ function Chart(props) {
         refetchOnWindowFocus: false,
         enabled:principal?.isAdmin === 1,
         onSuccess: (response) => {
-            console.log("실행?")
         }
     });
 

@@ -8,6 +8,7 @@ import * as S from './CertificationStyle';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { instance } from '../../api/config/instance';
 import { useQuery } from 'react-query';
+import { showAlert } from '../../styles/common';
 
 function Certification(props) {
     const { challengeId } = useParams();
@@ -24,7 +25,7 @@ function Certification(props) {
         try {
             return await instance.get(`/api/challenge/${challengeId}`, option);
         }catch(error) {
-            alert("해당 챌린지를 불러올 수 없습니다.");
+            showAlert("해당 챌린지를 불러올 수 없습니다.", "error");
             navigate("/");
         }
     }, {

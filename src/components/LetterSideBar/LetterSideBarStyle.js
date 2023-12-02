@@ -46,6 +46,26 @@ export const LadioBox = css`
     }
 `;
 
+export const activeButton = css`
+    height: 20px;
+    background-color: #eaeaea;
+    border: none;
+    border-radius: 10px;
+    margin-left: 5px;
+    font-size: 13px;
+    cursor: pointer;
+`;
+
+export const inactiveButton = css`
+    height: 20px;
+    background-color: #F7F0F0;
+    border: none;
+    border-radius: 10px;
+    margin-left: 5px;
+    font-size: 10px;
+    cursor: pointer;
+`;
+
 export const LetterScroll = css`
     margin-top: 15px;
     height: 650px;

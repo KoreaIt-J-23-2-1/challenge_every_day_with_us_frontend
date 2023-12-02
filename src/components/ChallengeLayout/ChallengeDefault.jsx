@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-d
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../../api/firebase/firebase';
 import * as S from './DefaultStyle';
+import { showAlert } from '../../styles/common';
 
 function Challengedefault() {
     const queryClient = useQueryClient();
@@ -32,7 +33,7 @@ function Challengedefault() {
         try {
             return await instance.get(`/api/challenge/${challengeId}`, option);
         }catch(error) {
-            alert("해당 챌린지를 불러올 수 없습니다.");
+            showAlert("해당 챌린지를 불러올 수 없습니다.", "error");
             navigate("/");
         }
     }, {
@@ -95,7 +96,7 @@ function Challengedefault() {
     const handleSave = async () => {
         const textValue = document.getElementById('challengeText').value;
         if (!textValue.trim()) {
-            alert('텍스트를 입력하세요.');
+            showAlert('텍스트를 입력하세요.', "warning");
             return;
         }
     
@@ -105,7 +106,7 @@ function Challengedefault() {
             new Date(feed.dateTime).toISOString().split('T')[0] === today);
     
         if (userFeedToday) {
-            alert('오늘 이미 피드를 작성하셨습니다.');
+            showAlert('오늘 이미 피드를 작성하셨습니다.', "error");
             return;
         }
         let imageUrl = "";
@@ -131,14 +132,14 @@ function Challengedefault() {
                 },
             });
             if (response) {
-                alert("피드 등록 성공");
+                showAlert("피드 등록 성공", "success");
 
                 instance.post(`/api/challenge/feed/${challengeUserId}/point`, {}, option)
                 
                 setIsChallengeFeedRefetch(true);
                 navigate(-1);
             } else {
-                alert("피드 등록 실패");
+                showAlert("피드 등록 실패", "error");
             }
         } catch (error) {
             console.error(error);

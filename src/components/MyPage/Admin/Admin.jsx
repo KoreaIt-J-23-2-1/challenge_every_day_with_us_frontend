@@ -9,6 +9,7 @@ import ReactSelect from 'react-select';
 import { MdDeleteOutline } from "react-icons/md";
 import { IoStopCircleOutline } from "react-icons/io5";
 import Chart from '../../Chart/Chart';
+import { showAlert, showConfirmation } from '../../../styles/common';
 
 function Admin() {
     const queyrClient = useQueryClient();
@@ -91,15 +92,15 @@ function Admin() {
 
         setSelectedChallenge(prevChallenge => {
             const challengeId = prevChallenge
-            const stop = window.confirm(`${challengeId}번 챌린지를 정말 중단 시키겠습니까?`);
+            const stop = showConfirmation("챌린지 중단", `${challengeId}번 챌린지를 정말 중단 시키겠습니까?`, "question");
             
             if(stop){
                 const response = instance.put(`/api/challenge/stop/${challengeId}`)
                 if(response){
-                    alert("중단 되었습니다.");
+                    showAlert("중단 되었습니다.", "success");
                     setPage(1);
                 }else {
-                    alert("error")
+                    showAlert("error", "error")
                 }
             }
         });    
@@ -110,7 +111,7 @@ function Admin() {
 
         setSelectedChallenge(prevChallenge => {
             const challengeId = prevChallenge
-            const stop = window.confirm(`${challengeId}번 챌린지를 삭제 시키겠습니까?`);
+            const stop = showConfirmation("챌린지 삭제", `${challengeId}번 챌린지를 삭제 시키겠습니까?`, "question");
             
             if(stop){
                 const response = instance.put(`/api/challenge/hidden/${challengeId}`)
