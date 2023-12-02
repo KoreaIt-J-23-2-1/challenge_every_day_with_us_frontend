@@ -8,7 +8,7 @@ export const LetterSideBarLayout = css`
     border-radius: 30px 0px 0px 30px;
     padding: 0px 10px;
     border: none;
-    background: #F7F0F0;
+    background: #F7F4F0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 
 `;

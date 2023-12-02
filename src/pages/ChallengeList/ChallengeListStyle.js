@@ -125,8 +125,11 @@ export const SChallengeListBody = css`
 
 export const OneRow = css`
     &:hover{
-        background-color: #efd1c550;
-        font-style: italic;
+        background-color: #F7F4F0;
+        font-weight: 700;
+        color: #616673;
+
+        /* font-style: italic; */
     }
 `;
 

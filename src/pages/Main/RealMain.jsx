@@ -19,11 +19,22 @@ import { PiPlusSquareLight } from "react-icons/pi";
 import Chart from '../../components/Chart/Chart';
 import BestFeedModal from '../Feed/BestFeedModal';
 
+import img1 from '../../img/a운동.png';
+import img2 from '../../img/a산책.png';
+import img3 from '../../img/a재태크.png';
+import img4 from '../../img/a학습.png';
+import img5 from '../../img/a취미.png';
+import img6 from '../../img/a일기.png';
+import img7 from '../../img/a기타01.png';
+import img8 from '../../img/a기타02.png';
+
+
+
 /** @jsxImportSource @emotion/react */
 
 function RealMain(props) {
     const [currentImage, setCurrentImage] = useState(0);
-    const images = [img03, img04, img05, img06, img07, img08, img09, img10];
+    const images = [img1, img2, img3, img8, img4, img5, img6, img7];
     const queyrClient = useQueryClient().getQueryState("getPrincipal");
     const principal = queyrClient?.data?.data;
     const [ myChallenge, setMyChallenge ] = useState([]);
@@ -117,7 +128,8 @@ function RealMain(props) {
                         <div css={S.LabelBox}>
                             <div css={S.box02}>
                                 <label>가장 인기있는 챌린지</label>
-                                <div css={S.BestChallenge} onClick={() => handleChallengeClick(navigate(`/challenge/${getPopularChallenge?.data?.data?.challengeId}`))}>
+                                <div css={S.BestChallenge} onClick={() =>
+                                    handleChallengeClick(navigate(`/challenge/${getPopularChallenge?.data?.data?.challengeId}`))}>
                                     <div>챌린지 이름: <b>{getPopularChallenge?.data?.data?.challengeName}</b></div>
                                     <div>참여인원: <b>{getPopularChallenge?.data?.data?.challenger}명</b></div>
                                     <div>기간: <b>{getPopularChallenge?.data?.data?.startDate} ~ {getPopularChallenge?.data?.data?.endDate}</b></div>
@@ -129,7 +141,7 @@ function RealMain(props) {
                         </div>
                         <div css={S.LabelBox2}>
                             <div css={S.box02}>
-                                <label><b>가장 인기있는 피드</b></label>
+                                <label>가장 인기있는 피드</label>
                                 <div css={S.BestFeed}>
                                     <div css={S.FeedHeader}>
                                         <div css={S.userInfo}>
