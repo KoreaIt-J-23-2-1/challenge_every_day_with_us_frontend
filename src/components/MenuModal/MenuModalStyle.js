@@ -7,7 +7,7 @@ export const Background = (isActive) => css`
     top: 10px;
     right: 3px;
     width: ${isActive ? '440px' : '0'};
-    height: ${isActive ? '260px' : '0'};
+    height: ${isActive ? '250px' : '0'};
     border-radius: 40px 20px 40px 40px;
     transition: width 0.5s ease-in, height 0.4s ease-in;
     overflow: hidden;
@@ -18,7 +18,7 @@ export const Background = (isActive) => css`
 
 export const MenuBody = (isActive) => css`
     width: 400px;
-    height: 300px;
+    height: 250px;
     padding-top: 5px;
     display: flex;
     flex-direction: column;
@@ -33,6 +33,7 @@ export const MenuHeader = css`
     align-items: center;
     justify-content: end;
     margin: 0px 10%;
+    margin-bottom: 10px;
 `;
 
 export const MyBox = css`
@@ -66,7 +67,7 @@ export const BtnBox = (isActive) => css`
         /* justify-content: center; */
         margin-bottom: 20px;
         padding-left: 10px;
-        height: 40px;
+        height: 35px;
     }
     & > div> div {
         margin-top: 10px;
@@ -82,6 +83,7 @@ export const BtnBox = (isActive) => css`
 
     & >div> div:hover {
         font-weight: 700;
+        font-style: italic;
     }
 `;
 

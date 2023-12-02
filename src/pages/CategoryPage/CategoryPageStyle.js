@@ -3,28 +3,27 @@ import { css } from '@emotion/react';
 
 export const CategoryBox = css`
     height:100%;
+    width: 1150px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
     
 `;
 
 
-export const SProductContainer =  css`
+export const SProductContainer = css`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     position: relative;
-    /* margin: 10px; */
-    width: calc(30% - 10px);
-    min-width: 280px;
-    height: 230px;
-    background-color: transparent;
-    border-radius: 15%;
+    width: calc(33% - 15px);
+    height: calc(33% - 20px);
+    min-width: 250px;
+    min-height: 170px;
+    border-radius: 15px;
     border: none;
-    font-size: 20px;
-    font-weight: 600;
     overflow: hidden;
     cursor: pointer;   
     transition: transform 0.5s ease-out; 
@@ -32,6 +31,7 @@ export const SProductContainer =  css`
     &:hover{
         opacity: 0.7;
         transform: scale(1.07);
+        
     }
     &:active {
         transform: scale(0.8);
@@ -39,20 +39,29 @@ export const SProductContainer =  css`
 `;
 
 export const imgName = css`
+    /* background-color: aliceblue; */
     position: absolute;
+    display: flex;
+    align-items: end;
+    justify-content: end;
     width: 100%;
-    height: 100%;
+    height: 180px;
     white-space: nowrap;
+    padding-right: 20px;
+    padding-bottom: 10px;
     left: 0;
-    font-size: 30px;
+    top: 0;
+    bottom: 0;
+    font-size: 35px;
     font-weight: 700;
-    color: #fff;
+    letter-spacing :1px;
     z-index: 3;
-    text-shadow: -1px 0px #444, 0px 1px #444, 1px 0px #444, 0px -1px #444;
-
+    color: #444;
+    text-shadow: -2px 0px #fff, 0px 2px #fff, 2px 0px #fff, 0px -2px #fff;
+    
     &:hover{
-        color: #000;
-        text-shadow: -1px 0px #fff, 0px 1px #fff, 1px 0px #fff, 0px -1px #fff;
+        color: #fff;
+        text-shadow: -2px 0px #444, 0px 2px #444, 2px 0px #444, 0px -2px #444;
     }
 `;
 
@@ -63,7 +72,7 @@ export const imgBox = (imgUrl) => css`
     width: 100%;  
     height: 100%; 
     background-image: url(${imgUrl});
-    background-size: 100% 100%;
+    background-size: 100%;
     background-repeat: no-repeat;
     background-position: center center; 
 

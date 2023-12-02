@@ -33,7 +33,7 @@ export const calendarContainer = css`
             align-items: center;
             justify-content: center;
             color: white;
-            background-color: #FFBDA3; 
+            background-color:#DDC0A5; 
             height: 30px;
         }
     }
@@ -49,8 +49,10 @@ export const calendarContainer = css`
         box-sizing: border-box;
 
         &:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: #fafafa;
+            /* background-color:  #e7e7e7; */
+            background-color:  #F2E4D1;
+            color: #F7F4F0;
+            border-color: #f7f4f4;
         }
     }
 

@@ -78,7 +78,7 @@ export const part5 = css`
 
 export const CategoryImgBox = css`
     height: 200px;
-    border-radius: 15%;
+    border-radius: 15px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -156,9 +156,11 @@ export const box02 = css`
     
     &>label{
         display: flex;
-        justify-content: center;
+        /* justify-content: center; */
+        padding-top: 10px;
+        padding-left: 20px;
         height: 15px;
-        color: #2f2f2f;
+        color: #616673;
         font-size: 16px;
         font-weight: 700;
         margin-top: 10px;
@@ -180,7 +182,7 @@ export const BestChallenge = css`
 
     & div {
         padding-bottom: 20px;
-        font-size: 13px;
+        font-size: 16px;
 
         & b {
             padding-left: 5px;
@@ -191,7 +193,7 @@ export const BestChallenge = css`
 
 export const BestFeed = css`
     padding: 10px;
-    font-size: 12px;
+    font-size: 16px;
     cursor: pointer;
 `;
 
@@ -380,19 +382,19 @@ export const box031 = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.5); 
+    background-color: #F7F4F0;
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease-out; 
-
+    
     & b {
         margin-right: 5px;
     }
-
+    
     &:hover{
         opacity: 0.9;    
         transform: scale(0.9);
-        background: #FFF8F8; 
+        background: #F7F4F070; 
 
     }
     &:active {
@@ -406,7 +408,7 @@ export const box031 = css`
 
 export const box04 = css`
     width: 900px;
-    background-color: #f7f0f0;
+    background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 10px;
@@ -421,6 +423,8 @@ export const box04 = css`
     &:hover{
         opacity: 0.9;    
         transform: scale(0.9);
+        background-color: #F7F4F0;
+
     }
     &:active {
         opacity: 1;    
