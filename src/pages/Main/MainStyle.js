@@ -193,7 +193,7 @@ export const BestChallenge = css`
 
 export const BestFeed = css`
     padding: 10px;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
 `;
 
