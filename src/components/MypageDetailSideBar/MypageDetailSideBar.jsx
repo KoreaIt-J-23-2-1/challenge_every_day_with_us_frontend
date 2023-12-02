@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from "./Style";
 import { instance } from '../../api/config/instance';
 import PointModal from '../../components/PointModal/PointModal';
+import { showAlert, showConfirmation } from '../../styles/common';
 
 function MypageDetailSideBar({ setUploadFiles, children }) {
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
     }, [])
 
     const handleProfileUploadClick = () => {
-        if(window.confirm("프로필 사진을 변경하시겠습니까?")) {
+        if(showConfirmation("프로필 변경", "프로필 사진을 변경하시겠습니까?", "question")) {
             profileFileRef.current.click();
         }
     }
@@ -61,7 +62,7 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
             };
             const response = instance.put('/api/account/intro', requestConfig, option);
             if(response){
-                alert("수정완료");
+                showAlert("수정완료", "success");
             }
         }catch(error) {
             console.error(error);

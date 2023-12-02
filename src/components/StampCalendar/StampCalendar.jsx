@@ -5,7 +5,7 @@ import Calendar from 'react-calendar';
 /** @jsxImportSource @emotion/react */
 import * as S from './StampCalendarStyle';
 import { useQuery } from 'react-query';
-
+import { showAlert } from '../../styles/common';
 
 function StampCalendar(props) {
 
@@ -39,14 +39,14 @@ function StampCalendar(props) {
                 const response = await instance.post('/api/attendance', {
                     attendance: moment(value).format('YYYY-MM-DD'),
                 }, option);
-                alert("50포인트가 적립되었습니다.")
+                showAlert("50포인트가 적립되었습니다.", "success")
                 if (response.data) {
                     setCheckedDates([...checkedDates, moment(value).toDate()]);
                     window.location.reload();
                 } else {
                 }
             }else {
-                alert("하루에 한번만 출석 가능합니다.");
+                showAlert("하루에 한번만 출석 가능합니다.", "warning");
             }
         } catch (error) {
             console.error(error);

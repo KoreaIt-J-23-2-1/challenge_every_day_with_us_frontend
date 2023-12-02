@@ -4,6 +4,7 @@ import {useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import * as S from "./InfoSideBarStyle";
 import PointModal from '../PointModal/PointModal';
+import { showAlert } from '../../styles/common';
 
 function MypageDetailSideBar({ setUploadFiles, children }) {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ function MypageDetailSideBar({ setUploadFiles, children }) {
 
     const handleLogoutButton = async () => {
         localStorage.removeItem("accessToken");
-        alert("로그아웃 되었습니다.");
+        showAlert("로그아웃 되었습니다.", "success");
         window.location.replace("/main");
     };
 

@@ -7,8 +7,7 @@ import * as S from './TimeLayoutStyle';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../../api/firebase/firebase';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
-
-
+import { showAlert } from '../../styles/common';
 
 function ChallengeTimeLayout() {
     const [time, setTime] = useState(0);
@@ -123,7 +122,7 @@ function ChallengeTimeLayout() {
     const handleSave = async () => {
         const textValue = document.getElementById('challengeText').value;
         if (!textValue.trim()) {
-            alert('텍스트를 입력하세요.');
+            showAlert('텍스트를 입력하세요.', "warning");
             return;
         }
         
@@ -149,7 +148,7 @@ function ChallengeTimeLayout() {
             if(response) {
                 navigate(-1);
             }else {
-                alert("피드 등록 실패!")
+                showAlert("피드 등록 실패!", "error")
             }
         } catch (error) {
             console.error(error);

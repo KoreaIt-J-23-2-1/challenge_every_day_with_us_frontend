@@ -7,6 +7,7 @@ import { instance } from '../../api/config/instance';
 import { useQuery } from 'react-query';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
+import { showAlert } from '../../styles/common';
 
 function NoticeEdit(props) {
     const textareaRef = useRef(null);
@@ -28,7 +29,7 @@ function NoticeEdit(props) {
         try {
             return await instance.get(`/api/notice/${noticeId}`,option);
         }catch(error) {
-            alert("해당 게시글을 불러올 수 없습니다.");
+            showAlert("해당 게시글을 불러올 수 없습니다.", "error");
         }
     }, {
         refetchOnWindowFocus: false,
@@ -67,11 +68,11 @@ function NoticeEdit(props) {
                 }
             }
             await instance.put(`/api/notice/${noticeId}`, noticeContent, option);
-            alert("게시글 수정 완료.");
+            showAlert("게시글 수정 완료.", "success");
             window.history.back();
         } catch(error) {
             console.error(error);
-            alert("게시글 수정 오류.");
+            showAlert("게시글 수정 오류.", "error");
             window.history.back();
         }
     }

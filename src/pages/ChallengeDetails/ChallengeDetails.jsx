@@ -14,6 +14,7 @@ import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
 import FeedCommentSee from '../../components/FeedCommentSee/FeedCommentSee';
 import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 import FeedEditModal from '../../components/FeedEditModal/FeedEditModal';
+import { showAlert, showConfirmation } from '../../styles/common';
 
 function ChallengeDetails(props) {
     const navigate = useNavigate();
@@ -82,7 +83,7 @@ function ChallengeDetails(props) {
         try {
             return await instance.get(`/api/challenge/${challengeId}`, option);
         }catch(error) {
-            alert("해당 챌린지를 불러올 수 없습니다.");
+            showAlert("해당 챌린지를 불러올 수 없습니다.", "error");
             navigate("/");
         }
     }, {
@@ -92,9 +93,6 @@ function ChallengeDetails(props) {
             setChallenge(response.data);
         }
     })
-
-    console.log(challenge);
-
 
     const getChallengers = useQuery(["getChallengers"], async () => {
         try {
@@ -290,15 +288,15 @@ function ChallengeDetails(props) {
 
     const handleDeleteClick = async () => {
         /* eslint-disable no-restricted-globals */ 
-        const userConfirmed = window.confirm("정말로 삭제하시겠습니까?");
+        const userConfirmed = showConfirmation("Challenge삭제", "정말로 삭제하시겠습니까?", "question");
 
         if (userConfirmed) {
             if (principal.data.data.name === challenge.name) {
                 await instance.delete(`/api/challenge/${challengeId}`, option);
-                alert("삭제완료!");
+                showAlert("삭제완료!", "success");
                 navigate("/");
             } else {
-                alert("작성자만 삭제할 수 있습니다.");
+                showAlert("작성자만 삭제할 수 있습니다.", "error");
             }
             getLikeState.refetch();
             getChallenge.refetch();
@@ -326,12 +324,12 @@ function ChallengeDetails(props) {
             if(challenge.isApplicable === "0"){
                 const response = await instance.post(`/api/challenge/join/${challengeId}`, {}, option);
                 if(response) {
-                    alert("챌린지 참여가 가능합니다!")
+                    showAlert("챌린지 참여가 가능합니다!", "success")
                 }
             }else {
                 const response = await instance.post(`/api/challenge/join/${challengeId}`, {}, option);
                 if(response) {
-                    alert("신청완료! 승인까지 1~2일이 소요됩니다.");
+                    showAlert("신청완료! 승인까지 1~2일이 소요됩니다.", "success");
                     instance.post("/api/challenge/atmosphere/letter", requestData, option);
                 }
             }
@@ -350,7 +348,7 @@ function ChallengeDetails(props) {
                 params: {"userId": userId}
             });
             await queryClient.refetchQueries(["getChallengers"]);
-            alert("삭제완료!");
+            showAlert("삭제완료!", "success");
         } else {
 
         }
@@ -373,7 +371,7 @@ function ChallengeDetails(props) {
     const handleCommentSubmit = async (feedId) => {
         try {
             await instance.post(`/api/feed/${feedId}/comment`, {commentContent: commentInputList[`commentInput${feedId}`]}, option);
-            alert("댓글 등록 성공! -> " + feedId + "피드");
+            showAlert("댓글 등록 성공! -> " + feedId + "피드", "success");
             getFeedList.refetch();
             setCommentInputList({
                 ...commentInputList,
@@ -392,11 +390,11 @@ function ChallengeDetails(props) {
 
     const handleFeedDeleteClick = async (feedId) => {
         try {
-            const confirmed = window.confirm("피드를 삭제 시키겠습니까?")
+            const confirmed = showConfirmation("Feed삭제", "피드를 삭제 시키겠습니까?", "question")
             
             if (confirmed) {
                 await instance.delete(`/api/challenge/feed/${feedId}`, option);
-                alert("피드가 삭제되었습니다.");
+                showAlert("피드가 삭제되었습니다.", "success");
                 getFeedList.refetch({ force: true });
             }
         }catch(error) {
@@ -414,7 +412,7 @@ function ChallengeDetails(props) {
         };
         const response = await instance.post("/api/challenge/report", data, option)
             if(response) {
-                alert(`${feedId}번의 피드를 신고하였습니다.`);
+                showAlert(`${feedId}번의 피드를 신고하였습니다.`, "warning");
             }
     };
 

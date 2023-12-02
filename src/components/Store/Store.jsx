@@ -3,12 +3,10 @@ import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
-import Header from '../../components/Header/Header';
-import { css } from '@emotion/react';
 /** @jsxImportSource @emotion/react */
 import * as S from "./Style";
 import PointModal from '../../components/PointModal/PointModal';
-
+import { showAlert } from '../../styles/common';
 
 function Store(props) {
     const navigate = useNavigate();
@@ -42,13 +40,13 @@ function Store(props) {
         try{
 
             await instance.post("/api/store/item", {itemId}, option);
-            alert("구매 성공");
+            showAlert("구매 성공", "success");
             await queryClient.refetchQueries(["getPrincipal"]);
             navigate("/store/:userId/orders")
 
         }catch(error) {
             console.error(error);
-            alert("구매 실패");
+            showAlert("구매 실패", "error");
         }
     };
 

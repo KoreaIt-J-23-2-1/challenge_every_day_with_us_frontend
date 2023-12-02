@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
+import { showAlert } from '../../styles/common';
 
 function NoticeWrite(props) {
     const textareaRef = useRef(null);
@@ -34,12 +35,12 @@ function NoticeWrite(props) {
     const handleWriteSubmit = async () => {
         try {
             if (noticeContent.title.length > 50) {
-                alert("제목을 50자 내외로 입력해주세요.")
+                showAlert("제목을 50자 내외로 입력해주세요.", "warning")
                 return;
             }
 
             if (!noticeContent.title || !noticeContent.content) {
-                alert("제목과 내용을 모두 입력해주세요.");
+                showAlert("제목과 내용을 모두 입력해주세요.", "warning");
                 return;
             }
             const option = {
@@ -49,11 +50,11 @@ function NoticeWrite(props) {
             };
 
             await instance.post("/api/notice", noticeContent, option);
-            alert("공지가 작성되었습니다.");
+            showAlert("공지가 작성되었습니다.", "success");
             window.history.back();
         } catch (error) {
             console.error(error);
-            alert("작성에 실패하였습니다.");
+            showAlert("작성에 실패하였습니다.", "error");
         }
     };
 

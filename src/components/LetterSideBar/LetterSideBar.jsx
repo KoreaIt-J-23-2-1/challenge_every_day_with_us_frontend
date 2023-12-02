@@ -8,6 +8,7 @@ import * as S from './LetterSideBarStyle';
 import { IoMdCloseCircle } from 'react-icons/io';
 import noticeIcon from '../../img/공지알람.png'
 import ImgModal from '../LetterModal/ImgModal';
+import { showAlert } from '../../styles/common';
 
 function LetterSideBar(props) {
     const [ isModalOpen, setIsModalOpen] = useState(false);
@@ -78,7 +79,7 @@ function LetterSideBar(props) {
                 }
             }, option);
             if(response) {
-                alert("승인 완료");
+                showAlert("승인 완료", "success");
                 instance.post("/api/challenge/atmosphere/letter", {
                     receiverUserId: selectedLetter.senderUserId,
                     senderUserId: principal.data.data.userId,
@@ -106,7 +107,7 @@ function LetterSideBar(props) {
                 }
             }, option);
             if(response) {
-                alert("거절 완료");
+                showAlert("거절 완료", "warning");
                 instance.post("/api/challenge/atmosphere/letter", {
                     receiverUserId: selectedLetter.senderUserId,
                     senderUserId: principal.data.data.userId,
@@ -138,10 +139,20 @@ function LetterSideBar(props) {
                     <h2>알림</h2>
                     <h4>전체 알림 수 : {lettersCount.data}</h4>
                     <div css={S.LadioBox}>
-                        <input type="radio" id="unread-letter-radio-button" name="letterViewType" checked={letterViewType === "unread"} onChange={() => {setLetterViewType("unread");}}/>
-                        <label htmlFor="unread-letter-radio-button" >읽지 않은 메시지</label>
-                        <input type="radio" id="read-letter-radio-button" name="letterViewType" checked={letterViewType === "read"} onChange={() => {setLetterViewType("read");}}/>
-                        <label htmlFor="read-letter-radio-button" >읽은 메시지</label>
+                        <button
+                            type="button"
+                            css={letterViewType === "unread" ? S.activeButton : S.inactiveButton}
+                            onClick={() => {setLetterViewType("unread");}}
+                        >
+                            읽지 않은 메시지
+                        </button>
+                        <button
+                            type="button"
+                            css={letterViewType === "read" ? S.activeButton : S.inactiveButton}
+                            onClick={() => {setLetterViewType("read");}}
+                        >
+                            읽은 메시지
+                        </button>
                     </div>
                 </div>
                 <div css={S.LetterScroll}>

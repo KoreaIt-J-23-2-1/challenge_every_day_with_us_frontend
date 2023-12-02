@@ -3,6 +3,7 @@ import * as S from './FeedCommentListStyle';
 import { useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { css } from '@emotion/react';
+import { showAlert } from '../../styles/common';
 /** @jsxImportSource @emotion/react */
 
 function FeedCommentList({ feed, comments }) {
@@ -25,11 +26,11 @@ function FeedCommentList({ feed, comments }) {
                 ...isCommentModifiableList,
                 [commentId]: 0
             });
-            alert("댓글이 수정되었습니다.");
+            showAlert("댓글이 수정되었습니다.", "success");
 
         } catch (error) {
             console.error(error);
-            alert("댓글 수정 실패");
+            showAlert("댓글 수정 실패", "error");
         }
     };
 
@@ -43,12 +44,12 @@ function FeedCommentList({ feed, comments }) {
     const handleDeleteCommentButtonClick = async (feedId, commentId) => {
         instance.delete(`/api/feed/${feedId}/comment/${commentId}`, option)
             .then((response) => {
-                alert("댓글 삭제 성공");
+                showAlert("댓글 삭제 성공", "success");
                 queryClient.refetchQueries(["getFeedList"]);
 
             }).catch((error) => {
                 console.error(error);
-                alert("댓글 삭제 실패");
+                showAlert("댓글 삭제 실패", "error");
 
             });
     };

@@ -186,7 +186,7 @@ export const BestChallenge = css`
 
         & b {
             padding-left: 5px;
-            font-size: 16px;
+            font-size: 14px;
         }
     }
 `;

@@ -8,6 +8,7 @@ import { instance } from '../../api/config/instance';
 import * as S from './ChallengeListStyle';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { PiPlusSquareLight } from "react-icons/pi";
+import { showConfirmation } from '../../styles/common';
 
 function ChallengeList(props) {
     const queyrClient = useQueryClient();
@@ -32,8 +33,6 @@ function ChallengeList(props) {
     });
 
     const getChallengeList = useQuery(["getChallengeList", page], async () => {
-        console.log(searchParams);
-        console.log(page);
         const option = {
             params: {...searchParams, sort}
         }
@@ -101,9 +100,11 @@ function ChallengeList(props) {
         setPage(1);
     }
 
-    const handleChallengeClick = (challengeId) => {
+    const handleChallengeClick = async (challengeId) => {
         if (!principal) {
-            if(window.confirm("로그인 후 열람 가능합니다. 로그인 하시겠습니까?")){
+            const confirmed = await showConfirmation("로그인 필요", "로그인 후 열람 가능합니다. 로그인 하시겠습니까?", "question");
+    
+            if (confirmed) {
                 navigate("/auth/signin");
             }
         } else {
@@ -114,8 +115,6 @@ function ChallengeList(props) {
     const handleChallengeCreateClike = () => {
         navigate("/challenge/category");
     }
-
-    console.log(challengeList)
 
     return (
         <BaseLayout>

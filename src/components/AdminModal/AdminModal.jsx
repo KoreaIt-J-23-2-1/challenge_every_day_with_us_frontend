@@ -4,6 +4,7 @@ import { instance } from '../../api/config/instance';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
+import { showAlert } from '../../styles/common';
 
 const AdminModal = ({ onClose, challengeDetails }) => {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ const AdminModal = ({ onClose, challengeDetails }) => {
         try {
             return await instance.get(`/api/challenge/${challengeDetails}`, option);
         }catch(error) {
-            alert("해당 챌린지를 불러올 수 없습니다.");
+            showAlert("해당 챌린지를 불러올 수 없습니다.", "error");
             navigate("/");
         }
     }, {
