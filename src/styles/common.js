@@ -10,21 +10,33 @@ export const Common = css`
         color: #090909;
         
     }
-    background-color: white;
 
-    @font-face {
-        font-family: "font1";
-        font-weight: normal;
-        src: url("/fonts/font1.ttf");
-        font-size: 27px;
-    }
     @font-face {
         font-family: "NanumSquareNeo-Variable";
         font-weight: normal;
         src: url("/fonts/NanumSquareNeo-Variable.ttf");
     }
-    
-    
+
+    @font-face {
+    font-family: 'KIMM_700';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'KIMM_300';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+    font-family: 'IBMPlexSansKR-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
     html{
         background-color: #fafafa;
         /* background-image: url(${backgroundImg}); */
@@ -74,4 +86,5 @@ export const showConfirmation = async (title, text, icon ) => {
 };
 
 // #E8A789 #E9D3C9 #F7F0F0 #f2f2f2 #fafafa
+// #F7F4F0
 

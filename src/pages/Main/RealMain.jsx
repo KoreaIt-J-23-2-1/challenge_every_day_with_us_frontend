@@ -118,11 +118,11 @@ function RealMain(props) {
                                 <label>가장 인기있는 챌린지</label>
                                 <div css={S.BestChallenge} onClick={() =>
                                     handleChallengeClick(navigate(`/challenge/${getPopularChallenge?.data?.data?.challengeId}`))}>
-                                    <div>챌린지 이름: <b>{getPopularChallenge?.data?.data?.challengeName}</b></div>
-                                    <div>참여인원: <b>{getPopularChallenge?.data?.data?.challenger}명</b></div>
-                                    <div>기간: <b>{getPopularChallenge?.data?.data?.startDate} ~ {getPopularChallenge?.data?.data?.endDate}</b></div>
+                                    <div>챌린지 이름 <b>{getPopularChallenge?.data?.data?.challengeName}</b></div>
+                                    <div>참여인원 <b>{getPopularChallenge?.data?.data?.challenger}명</b></div>
+                                    <div>기간 <b>{getPopularChallenge?.data?.data?.startDate} ~ {getPopularChallenge?.data?.data?.endDate}</b></div>
                                     <div css={S.Content}>
-                                        <b>챌린지 소개: <p>{getPopularChallenge?.data?.data?.introduction}</p></b>
+                                        <b>챌린지 소개<p>{getPopularChallenge?.data?.data?.introduction}</p></b>
                                     </div>
                                 </div>
                             </div>
@@ -144,15 +144,17 @@ function RealMain(props) {
                                         </div>
                                     </div>   
                                     <div css={S.SFeedBody} onClick={handlePurchasePointClick}>
-                                        {getBestFeed?.data?.data?.stopWatch !== 0 ? (
-                                            <div css={S.TimeBox}>
-                                                <b>진행 시간 : {convertSecondsToTime(getBestFeed?.data?.data?.stopWatch)}</b>
-                                                <a>{getTimeDifference(getBestFeed?.data?.data?.dateTime)}</a>
-                                            </div>
-                                        ) : (<a>{getTimeDifference(getBestFeed?.data?.data?.dateTime)}</a>)}
                                         {getBestFeed?.data?.data?.img && <img css={S.FeedImg} src={getBestFeed?.data?.data?.img} alt="" />}
                                         <div css={S.FeedContentBox(!!getBestFeed?.data?.data?.img)} imgexists={(!!getBestFeed?.data?.data?.img).toString()}></div>  
-                                        <div css={S.FeedContent}>{getBestFeed?.data?.data?.feedContent}</div>
+                                        <div css={S.smallFeedBody}>
+                                            {getBestFeed?.data?.data?.stopWatch !== 0 ? (
+                                                <div css={S.TimeBox}>
+                                                    <b>진행 시간 : {convertSecondsToTime(getBestFeed?.data?.data?.stopWatch)}</b>
+                                                    <a>{getTimeDifference(getBestFeed?.data?.data?.dateTime)}</a>
+                                                </div>
+                                            ) : (<a>{getTimeDifference(getBestFeed?.data?.data?.dateTime)}</a>)}
+                                            <div css={S.FeedContent}>{getBestFeed?.data?.data?.feedContent}</div>
+                                        </div>
                                     </div>  
                                 </div>
                             </div>
@@ -170,7 +172,7 @@ function RealMain(props) {
                         <div css={S.part2}>
                             <div css={S.LabelBox2}>
                                 <div css={S.box03}>
-                                    <label><b>참여중인 챌린지 리스트</b></label>
+                                    <label>참여중인 챌린지 리스트</label>
                                     <div css={S.ListBox}>
                                         {myChallenge?.map((myChallenge, index) => (
                                             <li key={index}  onClick={() => handleChallengeClick(navigate(`/challenge/${myChallenge.challengeId}`))}>
