@@ -40,25 +40,7 @@ export const part2 = css`
 `;
 
 
-export const ListBox = css`
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0px 0px 0px;
-    overflow-y: auto;
-    width: 80%;
-    height: 150px;
 
-    & li {
-        cursor: pointer;
-        margin-bottom: 10px;
-        font-size: 14px;
-        color: #555;
-
-        &:hover {
-            color: darkgray;
-        }
-    }
-`;
 
 export const part3 = css`
     height: 440px;
@@ -85,14 +67,6 @@ export const CategoryImgBox = css`
     justify-content: center;
     transition: transform 0.4s ease-out; 
     cursor: pointer;
-    
-    /* &:hover{
-        opacity: 0.9;    
-        transform: scale(0.9);
-    }
-    &:active {
-        opacity: 1;    
-    } */
 `;
 
 export const CategoryImg = css`
@@ -156,11 +130,10 @@ export const box02 = css`
     
     &>label{
         display: flex;
-        /* justify-content: center; */
+        font-family: 'IBMPlexSansKR-Regular';
         padding-top: 10px;
         padding-left: 20px;
         height: 15px;
-        color: #616673;
         font-size: 16px;
         font-weight: 700;
         margin-top: 10px;
@@ -171,23 +144,32 @@ export const BestChallenge = css`
     display: flex;
     flex-direction: column;
     padding-left: 20px;
-    padding-top: 30px;
+    padding-top: 30px; 
     cursor: pointer;
     
-
-    &>label{
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-
     & div {
         padding-bottom: 20px;
-        font-size: 16px;
-
+        
         & b {
             padding-left: 5px;
-            font-size: 14px;
+            font-size: 15px;
         }
+    }
+`;
+
+export const Content = css`
+    padding: 15px;
+    width: 97%;
+    height: 130px;
+    overflow: hidden;
+    background: rgba(255, 255  , 255, 0.7); 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    & p {
+        font-family: 'IBMPlexSansKR-Regular';
+        font-weight: normal;
+        padding-left: 5px;
+        font-size: 16px;
     }
 `;
 
@@ -199,41 +181,51 @@ export const BestFeed = css`
 
 export const SFeedBody = css`
     display: flex;
-    flex-direction: column;
-    margin: 10px 0px;
-    height: 195px;
-    gap: 10px;
+    height: 210px;
     background: rgba(255, 255, 255, 0.7); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    padding: 8px;
 
+`;
+
+export const smallFeedBody = css`
+    display: flex;
+    flex-direction: column;
+    width:150px;
     &>a{
         display: flex;
         justify-content:end;
-        /* height: 15px; */
         font-size: 13px;
-        margin: auto 0px ;
+        height: 20px;
+        width: 150px;
     }
+
 `;
 
+
 export const TimeBox = css`
-    display: flex;
-    justify-content: space-between;
+    width: 150px;
+    &>a{
+        display: flex;
+        justify-content:end;
+        font-size: 13px;
+        width: 200px;
+        height: 20px;
+    }
+
 `;
 
 export const FeedImg = css`
-    width: 180px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
     border-radius: 10px;
-    /* margin-top: 20px; */
 `;
 
 export const FeedContentBox = (imgExists) => css`
-    margin: 0px auto;
     border-radius: 10px;
     width: 100%;
-    height: 200px;
+    height: 10px;
     display: flex;
     flex-direction: column;
     white-space: normal;
@@ -248,9 +240,14 @@ export const FeedContentBox = (imgExists) => css`
 `;
 
 export const FeedContent = css`
+    font-family: 'IBMPlexSansKR-Regular';
+    font-weight: normal;
+    padding-left: 5px;
+    font-size: 15px;
     display: flex;
     word-wrap: break-word;
     white-space: pre-line; 
+
 `;
 
 export const modalOverlay = css`
@@ -321,29 +318,13 @@ export const InfoImg = css`
     border-radius: 50%;
 `;
 
-export const Content = css`
-    padding: 15px;
-    width: 90%;
-    height: 130px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.7); 
-    border-radius: 15px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    & p {
-        padding-left: 5px;
-        font-size: 12px;
-    }
-`;
-
-
 export const box03 = css`
     cursor: pointer;
     width: 300px;    
     height: 200px;
-    margin-right: 10px;
     display: flex;
+    margin-right: 10px;
     flex-direction: column;
-    align-items: center;
     background: rgba(255, 255, 255, 0.5); 
     border-radius: 15px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -351,12 +332,12 @@ export const box03 = css`
     cursor: pointer; 
 
     &>label{
+        font-family: 'IBMPlexSansKR-Regular';
+        margin: 15px;
         height: 15px;
-        color: #2f2f2f;
         font-size: 16px;
         font-weight: 700;
-        margin: 10px;
-    }
+    }    
 
     *::-webkit-scrollbar {
         width: 2px;
@@ -370,6 +351,27 @@ export const box03 = css`
         }
         *::-webkit-scrollbar-thumb {
             background-color: #dbdbdb
+        }
+    }
+`;
+
+export const ListBox = css`
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    padding: 10px 0px 0px 0px;
+    overflow-y: auto;
+    width: 90%;
+    height: 150px;
+
+    & li {
+        cursor: pointer;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #555;
+
+        &:hover {
+            color: darkgray;
         }
     }
 `;

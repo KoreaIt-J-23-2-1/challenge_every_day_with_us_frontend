@@ -126,10 +126,11 @@ export const SChallengeListBody = css`
 export const OneRow = css`
     &:hover{
         background-color: #F7F4F0;
-        font-weight: 700;
-        color: #616673;
-
-        /* font-style: italic; */
+        &>div{
+            font-family: 'KIMM_700';
+            color: #3e3e3e;
+            font-size: 18px;
+        }
     }
 `;
 

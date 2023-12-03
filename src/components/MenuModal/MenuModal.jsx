@@ -31,8 +31,7 @@ function MenuModal({ isActive }) {
         <div css={S.Background(isActive)}>
             <div css={S.MenuBody(isActive)}>
                 <div css={S.MenuHeader}>
-                    <h3></h3>
-                    <div css={S.MyBox}>
+                    <div css={S.HeaderBtnBox}>
                         {principal ? <button onClick={handleLogoutButton}>로그아웃</button>
                             : <button onClick={() => { navigate("/auth/signin") }}>로그인</button>}
                         {principal?.data?.isAdmin === 1 ?

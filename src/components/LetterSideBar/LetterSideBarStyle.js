@@ -3,12 +3,12 @@ import { css } from '@emotion/react';
 export const LetterSideBarLayout = css`
     overflow: hidden;
     position: relative;
-    width: 440px;
+    width: 400px;
     height: 850px;
     border-radius: 30px 0px 0px 30px;
     padding: 0px 10px;
     border: none;
-    background: #F7F4F0;
+    background: #fafafa;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 
 `;
