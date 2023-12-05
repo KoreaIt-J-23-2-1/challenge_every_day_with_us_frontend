@@ -25,16 +25,14 @@ function SignUp(props) {
     const handleSignupSubmit = async () => {
         try {
             const response = await instance.post("/api/auth/sign-up", signupUser);
-    
             if (response.data === true) {
-                showAlert("회원가입 완료", "success").then(() => {
-                    navigate("/auth/signin");
-                });
+                showAlert("회원가입 완료", "success")
+                navigate("/auth/signin");
             } else {
                 showAlert("회원가입 실패", "error");
             }
         } catch (error) {
-            showAlert(error.message || "회원가입 실패", "warning");
+            showAlert("회원가입 오류", "warning");
         }
     };
 
