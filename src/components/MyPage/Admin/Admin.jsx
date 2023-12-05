@@ -89,37 +89,42 @@ function Admin() {
 
     const handleChallengeStopClick = async (challenge) => {
         setSelectedChallenge(challenge);
-
-        setSelectedChallenge(prevChallenge => {
-            const challengeId = prevChallenge
-            const stop = showConfirmation("챌린지 중단", `${challengeId}번 챌린지를 정말 중단 시키겠습니까?`, "question");
-            
-            if(stop){
-                const response = instance.put(`/api/challenge/stop/${challengeId}`)
-                if(response){
-                    showAlert("중단 되었습니다.", "success");
-                    setPage(1);
-                }else {
-                    showAlert("error", "error")
+    
+        setSelectedChallenge(async (prevChallenge) => {
+            const challengeId = prevChallenge;
+            const stop = await showConfirmation("챌린지 중단", `${challengeId}번 챌린지를 정말 중단 시키겠습니까?`, "question");
+    
+            if (stop === true) {
+                try {
+                    const response = instance.put(`/api/challenge/stop/${challengeId}`);
+                    if (response) {
+                        showAlert("중단 되었습니다.", "success");
+                        setPage(1);
+                    } else {
+                        showAlert("error", "error");
+                    }
+                } catch (error) {
+                    console.error("Error stopping challenge:", error);
+                    showAlert("error", "error");
                 }
             }
-        });    
+        });
     };
 
-    const handleChallengeDeleteClick = (challenge) => {
+    const handleChallengeDeleteClick = async (challenge) => {
         setSelectedChallenge(challenge);
 
-        setSelectedChallenge(prevChallenge => {
+        setSelectedChallenge(async prevChallenge => {
             const challengeId = prevChallenge
-            const stop = showConfirmation("챌린지 삭제", `${challengeId}번 챌린지를 삭제 시키겠습니까?`, "question");
+            const stop = await showConfirmation("챌린지 삭제", `${challengeId}번 챌린지를 정말 삭제 시키겠습니까?`, "question");
             
             if(stop){
                 const response = instance.put(`/api/challenge/hidden/${challengeId}`)
                 if(response){
-                    alert("삭제 되었습니다.");
+                    showAlert("삭제 되었습니다.", "success");
                     setPage(1);
                 }else {
-                    alert("error")
+                    showAlert("error", "error")
                 }
             }
         });    
