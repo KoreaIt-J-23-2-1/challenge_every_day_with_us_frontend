@@ -58,16 +58,8 @@ function ChallengeDetails(props) {
                     setIsJoined("대기중");
 
                 } else {
-                    const rejectedResponse = await instance.get(`/api/challenge/rejected/${challengeId}`, option);
-  
-                    if (rejectedResponse.data) {
-                        setIsJoined("챌린지 참여 불가");
-
-                    }else{
-                        setIsJoined("챌린지 신청 하기");
-
-                    }
-
+                    // const rejectedResponse = await instance.get(`/api/challenge/rejected/${challengeId}`, option);
+                    setIsJoined("챌린지 신청 하기");
                 }
             } else {
                 setIsJoined("챌린지 인증하기");
@@ -333,10 +325,6 @@ function ChallengeDetails(props) {
 
         }else if(isJoined === "대기중") {
             setButton(true);
-
-        }else if(isJoined === "챌리지 참여 불가") {
-            setButton(true);
-
         }else {
             if(challenge.isApplicable === "0"){
                 const response = await instance.post(`/api/challenge/join/${challengeId}`, {}, option);
