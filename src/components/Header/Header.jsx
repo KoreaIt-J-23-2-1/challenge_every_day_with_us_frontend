@@ -12,9 +12,7 @@ import { showAlert } from '../../styles/common';
 
 function Header() {
     const navigate = useNavigate();
-    const [getLetter, setGetLetter] = useState(false);
     const [isLetterSideBarOpen, setLetterSideBarOpen] = useState(false);
-
     const queryClient = useQueryClient();
     const principalState = queryClient.getQueryState("getPrincipal");
     const principal = principalState.data;
