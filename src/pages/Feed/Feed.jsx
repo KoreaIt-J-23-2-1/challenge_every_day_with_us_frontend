@@ -11,7 +11,7 @@ import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
 import FeedCommentSee from '../../components/FeedCommentSee/FeedCommentSee';
 import { FcLike } from "react-icons/fc";
 import { IoIosHeartEmpty } from "react-icons/io";
-import { showAlert } from '../../styles/common';
+import { showAlert, showConfirmation } from '../../styles/common';
 
 function Feed(props) {
     const { challengeId } = useParams();
@@ -206,7 +206,7 @@ function Feed(props) {
     
     const handleFeedDeleteClick = async (feedId) => {
         try {
-            const confirmed = showAlert("Feed삭제", "피드를 삭제 시키겠습니까?", "question")
+            const confirmed = await showConfirmation("Feed삭제", "피드를 삭제 시키겠습니까?", "question")
             
             if (confirmed) {
                 await instance.delete(`/api/challenge/feed/${feedId}`, option);
