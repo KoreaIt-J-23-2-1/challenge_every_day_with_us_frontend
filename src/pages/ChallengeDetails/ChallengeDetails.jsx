@@ -51,15 +51,27 @@ function ChallengeDetails(props) {
         try {
             // 요청 하나로 합치면 좋을거같은 쿼리문
             const joinResponse = await instance.get(`/api/challenge/join/${challengeId}`, option);
+
             if (!joinResponse.data) {
                 const atmospherResponse = await instance.get(`/api/challenge/atmospher/${challengeId}`, option);
                 if (atmospherResponse.data) {
                     setIsJoined("대기중");
+
                 } else {
-                    setIsJoined("챌린지 신청 하기");
+                    const rejectedResponse = await instance.get(`/api/challenge/rejected/${challengeId}`, option);
+  
+                    if (rejectedResponse.data) {
+                        setIsJoined("챌린지 참여 불가");
+
+                    }else{
+                        setIsJoined("챌린지 신청 하기");
+
+                    }
+
                 }
             } else {
                 setIsJoined("챌린지 인증하기");
+
             }
             
             const response = await instance.get(`/api/challenge/${challengeId}`, option);
@@ -315,22 +327,30 @@ function ChallengeDetails(props) {
     };
     
     const handleParticipationButton = async () => {
+
         if(isJoined === "챌린지 인증하기") {
             navigate(`/challenge/certification/${challengeId}`)
+
         }else if(isJoined === "대기중") {
             setButton(true);
+
+        }else if(isJoined === "챌리지 참여 불가") {
+            setButton(true);
+
         }else {
             if(challenge.isApplicable === "0"){
                 const response = await instance.post(`/api/challenge/join/${challengeId}`, {}, option);
                 if(response) {
-                    showAlert("챌린지 참여가 가능합니다!", "success")
+                    showAlert("챌린지 참여가 가능합니다!", "success");
                 }
+
             }else {
                 const response = await instance.post(`/api/challenge/join/${challengeId}`, {}, option);
                 if(response) {
                     showAlert("신청완료! 승인까지 1~2일이 소요됩니다.", "success");
                     instance.post("/api/challenge/atmosphere/letter", requestData, option);
                 }
+
             }
             checkUserJoinStatus.refetch();
         }
