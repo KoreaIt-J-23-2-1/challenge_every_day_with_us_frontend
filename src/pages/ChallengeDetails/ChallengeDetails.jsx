@@ -12,7 +12,6 @@ import { FaStar } from "react-icons/fa";
 import ProgressBar from '@ramonak/react-progress-bar';
 import FeedCommentList from '../../components/FeedCommentList/FeedCommentList';
 import FeedCommentSee from '../../components/FeedCommentSee/FeedCommentSee';
-import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 import FeedEditModal from '../../components/FeedEditModal/FeedEditModal';
 import { showAlert, showConfirmation } from '../../styles/common';
 

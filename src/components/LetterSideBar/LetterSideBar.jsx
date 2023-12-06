@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { css } from '@emotion/react';
+import React, { useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 /** @jsxImportSource @emotion/react */

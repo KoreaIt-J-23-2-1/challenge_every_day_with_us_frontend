@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './MainStyle';
-import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
+import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import Header from '../../components/Header/Header';
 import InfoSideBar from '../../components/InfoSideBar/InfoSideBar';
 import LogoutState from '../../components/InfoSideBar/LogoutState';

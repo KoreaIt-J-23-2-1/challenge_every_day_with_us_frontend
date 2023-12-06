@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { css } from '@emotion/react';
 /** @jsxImportSource @emotion/react */
 import * as S from './HeaderStyle';
 import {BsBell, BsBellFill,BsCalendarCheck, BsFillGiftFill} from 'react-icons/bs';

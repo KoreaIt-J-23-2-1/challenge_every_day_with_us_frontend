@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { css } from '@emotion/react';
-import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
+import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import ReactSelect from 'react-select';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';

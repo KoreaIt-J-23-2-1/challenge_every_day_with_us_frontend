@@ -3,7 +3,6 @@ import React, { useEffect, useRef } from 'react';
 import * as S from "./FeedStyle";
 
 
-
 function BestFeedModal({ onClose, getBestFeed}) {
     const modalRef = useRef();
 

@@ -4,7 +4,7 @@ import { instance } from '../../api/config/instance';
 import Calendar from 'react-calendar';
 /** @jsxImportSource @emotion/react */
 import * as S from './MainCalendarStyle';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQueryClient } from 'react-query';
 
 
 function MainCalendar(props) {

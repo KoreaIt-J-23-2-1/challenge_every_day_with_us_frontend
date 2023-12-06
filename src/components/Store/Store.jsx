@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';

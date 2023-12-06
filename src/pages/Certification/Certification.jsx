@@ -3,7 +3,6 @@ import Challengedefault from '../../components/ChallengeLayout/ChallengeDefault'
 import ChallengeTimeLayout from '../../components/ChallengeLayout/ChallengeTimeLayout';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import * as S from './CertificationStyle';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { instance } from '../../api/config/instance';

@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import * as S from "./Style";
 import { instance } from '../../api/config/instance';
 import { useNavigate } from 'react-router-dom';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQueryClient } from 'react-query';
 import { showAlert } from '../../styles/common';
 
 function PointStore({ onClose }) {

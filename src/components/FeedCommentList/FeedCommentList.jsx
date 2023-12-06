@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import * as S from './FeedCommentListStyle';
 import { useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
-import { css } from '@emotion/react';
 import { showAlert } from '../../styles/common';
 /** @jsxImportSource @emotion/react */
 

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
-import { css } from '@emotion/react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
 import { useParams } from 'react-router-dom/dist/umd/react-router-dom.development';

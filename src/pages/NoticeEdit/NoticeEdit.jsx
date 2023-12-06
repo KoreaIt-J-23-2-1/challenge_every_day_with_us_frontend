@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
-import { css } from '@emotion/react';
-import ReactQuill from 'react-quill';
 import { useNavigate, useParams } from 'react-router-dom';
 import { instance } from '../../api/config/instance';
 import { useQuery } from 'react-query';
