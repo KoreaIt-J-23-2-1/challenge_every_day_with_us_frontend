@@ -25,13 +25,13 @@ gantt
 ```
 <br>
 
-## 🫂 팀 소개 -> 로고로 변경할 예정
+## 🫂 팀 소개
 
 <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/137988363/bee42c18-a309-4307-88c2-ccb32e490b6c" width="40%"/>
 
 |<span style="font-size:16px">🤖 박지영 (팀장)</span>|<span style="font-size:16px">🔥 정혜성</span>|<span style="font-size:16px">🏅 김영훈</span>|<span style="font-size:16px">🦁 문근해</span>|
 |:-:|:-:|:-:|:-:|
-|<a href="https://github.com/gzero1016"><img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/137988363/886ccf3b-514b-48c8-b93e-a9dbcec62075" height=150 width=150></a>|<a href="https://github.com/comet7406"><img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/137988363/289ab043-6bd8-43ec-ab5a-de24cbe1e9ba" height=150 width=150></a>|<a href="https://github.com/younghk37"><img src="https://avatars.githubusercontent.com/sjkymy" height=150 width=150></a>|<a href="https://github.com/hyejee0504"><img src="https://avatars.githubusercontent.com/hyejee0504" height=150 width=150></a>|
+|<a href="https://github.com/gzero1016"><img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/137988363/886ccf3b-514b-48c8-b93e-a9dbcec62075" height=150 width=150></a>|<a href="https://github.com/comet7406"><img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/137988363/289ab043-6bd8-43ec-ab5a-de24cbe1e9ba" height=150 width=150></a>|<a href="https://github.com/younghk37"><img src="https://avatars.githubusercontent.com/sjkymy" height=150 width=150></a>|<a href="https://github.com/geunhaemoon"><img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/93970980/d8eacff5-01eb-4f6d-8455-b5f48086586f" height=150 width=150></a>|
 
 - 코리아IT 부산 23-2기 프로젝트 1조 `강아지와 호랑이 세마리`입니다.
 - 호랑이 띠 셋과 개띠 하나라는 조합이 개성있어 보여 다음과 같은 팀명을 짓게 되었습니다.
@@ -445,6 +445,17 @@ gantt
         <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/34512ed7-cf1e-4307-a9b6-f22a7a75b5d8" width="30%" />
         <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/4a492629-5916-47fe-b08e-1e541b567aa5" width="30%" />
         <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/759a08f2-08a2-498e-a7ce-d30ca66f9ff6" width="30%" />
+    </p>
+    <br>
+</div>
+
+<div align="center">
+    <div>
+        <b>공지 작성&취소</b>
+    </div>
+    <p align="center">
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/1edb2632-40c8-4eec-8f56-0b8ca9b7eb24" width="50%" />
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/d8d5f3eb-08cc-4845-96a5-d942eed8a73d" width="50%" />
     </p>
     <br>
 </div>
