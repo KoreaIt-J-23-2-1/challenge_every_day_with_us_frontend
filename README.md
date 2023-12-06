@@ -178,7 +178,7 @@ gantt
 <p align="right"><a href="#top">TOP 🔼</a></p>
 <br>
 
-## <a href="https://github.com/nailedReact/bokgungom-market/wiki/%F0%9F%A4%9D-%ED%98%91%EC%97%85-&-%EB%B8%8C%EB%9E%9C%EC%B9%98-%EC%83%9D%EC%84%B1-%EA%B0%80%EC%9D%B4%EB%93%9C" target="_blank">🤝 협업 방식</a>
+## <a>🤝 협업 방식</a>
 
 1. 프로젝트 노션 페이지 내 남은 작업 목록에서 원하는 작업을 분담합니다.
     <a href="https://www.notion.so/1-Challenge_With_Us-d22613d1d7b647888e32ee191920aa7f"> [Notion]</a>
