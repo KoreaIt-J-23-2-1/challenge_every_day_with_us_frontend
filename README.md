@@ -184,13 +184,13 @@ gantt
 
 ## 📊 프로젝트 진행 상황 관리
 
-- <a href="https://github.com/orgs/KoreaIt-J-23-2-1/projects/2" target="_blank">🔘 GitHub Issues</a>
+- <a href="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_frontend/issues?q=is%3Aissue+is%3Aclosed" target="_blank">🔘 GitHub Issues</a>
     - 간편한 이슈 생성을 위해 이슈 템플릿을 만들어 사용했습니다.
     - 이슈 템플릿으로 어떤 이슈인지, 어떤 페이지에 해당하는 지, 구현 해야 하는 내용이 무엇인지를 적도록 했습니다.
-    <img style="margin: 10px" width=80% src="./preview/issue example.png" alt="이슈 예시"/>
+    <img style="margin: 10px" width=80% href="https://github.com/orgs/nailedReact/projects/1/views/1" alt="이슈 예시"/>
 
     - 팀원이 현재 어떤 작업을 진행하고 있는지를 바로 알 수 있어 의사소통 비용을 줄일 수 있었습니다. 
-- <a href="https://github.com/orgs/nailedReact/projects/1/views/1" target="_blank">🗂️ GitHub Projects</a>
+- <a href="https://github.com/orgs/KoreaIt-J-23-2-1/projects/2" target="_blank">🗂️ GitHub Projects</a>
     - 칸반 보드로 프로젝트 진행 상황을 한 눈에 확인할 수 있어 일정을 관리하기 수월했습니다.
     <img style="margin: 10px" width=80% src="./preview/project.png" alt="깃허브 프로젝트 캡쳐"/>
 
