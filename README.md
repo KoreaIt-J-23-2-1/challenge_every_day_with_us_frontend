@@ -451,16 +451,27 @@ gantt
 
 <div align="center">
     <div>
-        <b>공지 작성&취소</b>
+        <b>관리자 공지 작성&취소</b>
     </div>
     <p align="center">
-        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/1edb2632-40c8-4eec-8f56-0b8ca9b7eb24" width="50%" />
-        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/d8d5f3eb-08cc-4845-96a5-d942eed8a73d" width="50%" />
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/41bd4ba6-eec8-41f8-9b04-a039788c37ef" width="40%" />
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/1d2c8f73-fcc9-4a82-b0ba-49965b376e38" width="40%" />
     </p>
     <br>
 </div>
 
-
+<div align="center">
+    <div>
+        <b>일반회원및비로그인공지&관리자 공지디테일및수정취소</b>
+    </div>
+    <p align="center">
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/ab7a8319-7f17-418e-9c53-367e5c3dc968" width="40%" />
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/59191760-59cb-430e-b6d3-3d74b5097173" width="40%" />
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/931c02a9-6af5-4a6e-bd6d-c5953900b231" width="40%" />
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/30e400da-6e2e-4d7d-8eb4-f58ef141ff61" width="40%" />
+    </p>
+    <br>
+</div>
 
 ## 로컬 환경에서 프로젝트 구동 - 백엔드
 
