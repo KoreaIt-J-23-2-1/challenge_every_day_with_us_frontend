@@ -3,13 +3,11 @@ import BaseLayout from '../../../components/BaseLayout/BaseLayout';
 import MypageDetailSideBar from '../../../components/MypageDetailSideBar/MypageDetailSideBar';
 import { useQuery } from 'react-query';
 import { instance } from '../../../api/config/instance';
-import { useNavigate } from 'react-router-dom';
 /** @jsxImportSource @emotion/react */
 import * as S from "./Style";
 import ImgModal from '../../../components/LetterModal/ImgModal';
 
 function MyPageOrder(props) {
-    const navigate = useNavigate();
     const [ isImgModalOpen, setIsImgModalOpen ] = useState(false);
 
     const option = {

@@ -1,20 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
-import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../../api/firebase/firebase';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
 
 const FeedEditModal = ({ onClose, feedDetail }) => {
-    const navigate = useNavigate();
     const [ selectedImage, setSelectedImage ] = useState(null);
     const [feedContent, setFeedContent] = useState("");
     const [ uploadFiles, setUploadFiles ] = useState([]);
-    const [ isChallengeFeedRefetch, setIsChallengeFeedRefetch ] = useState(false);
-    const principalState = useQueryClient().getQueryState("getPrincipal");
-    const principal = principalState?.data?.data;
     const feedFileRef = useRef();
 
     const modalRef = useRef();

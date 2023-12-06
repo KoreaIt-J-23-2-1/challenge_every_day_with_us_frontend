@@ -4,12 +4,9 @@ import { instance } from '../../api/config/instance';
 import Calendar from 'react-calendar';
 /** @jsxImportSource @emotion/react */
 import * as S from './MainCalendarStyle';
-import { useQueryClient } from 'react-query';
 
 
 function MainCalendar(props) {
-    const queyrClient = useQueryClient().getQueryState("getPrincipal");
-    const principal = queyrClient?.data?.data;
     const [ checkedDates, setCheckedDates ] = useState([]);
     const option = {
         headers: {

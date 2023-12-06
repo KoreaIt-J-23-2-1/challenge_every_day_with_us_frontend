@@ -10,7 +10,6 @@ import { useQueryClient } from 'react-query';
 
 function ChallengeCreate({ children }) {
     const [ challengeTitle, setChallengeTitle ] = useState("");
-    const [ isPrivate, setIsPrivate ] = useState(false);
     const [ applicable, setApplicable ] = useState(false);
     const [ startDate, setStartDate ] = useState("");
     const [ endDate, setEndDate ] = useState("");

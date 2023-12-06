@@ -13,7 +13,6 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { showAlert, showConfirmation } from '../../styles/common';
 
 function Feed(props) {
-    const { challengeId } = useParams();
     const navigate = useNavigate();
     const principalState = useQueryClient().getQueryState("getPrincipal");
     const principal = principalState?.data?.data;
