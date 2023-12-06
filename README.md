@@ -397,6 +397,58 @@ gantt
     <br>
 </div>
 
+<div align="center">
+    <div>
+        <b>피드 정렬순</b>
+    </div>
+    <p align="center">
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/9cebb5b3-9f94-4ad3-ba81-24671eca57f3" width="60%" />
+    </p>
+    <br>
+</div>
+
+<div align="center">
+    <div>
+        <b>피드 좋아요</b>
+    </div>
+    <p align="center">
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/7b884c2d-e513-4247-8699-80c42b0de331" width="60%" />
+    </p>
+    <br>
+</div>
+
+<div align="center">
+    <div>
+        <b>피드 수정삭제</b>
+    </div>
+    <p align="center">
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/79422dea-29be-4692-8420-8064ba01337e" width="60%" />
+    </p>
+    <br>
+</div>
+
+<div align="center">
+    <div>
+        <b>피드 신고</b>
+    </div>
+    <p align="center">
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/7b1976e5-5b19-4da5-a5eb-3a26d4fd73c1" width="60%" />
+    </p>
+    <br>
+</div>
+
+<div align="center">
+    <div>
+        <b>피드 댓글</b>
+    </div>
+    <p align="center">
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/34512ed7-cf1e-4307-a9b6-f22a7a75b5d8" width="30%" />
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/4a492629-5916-47fe-b08e-1e541b567aa5" width="30%" />
+        <img src="https://github.com/KoreaIt-J-23-2-1/challenge_with_us_backend/assets/121538196/759a08f2-08a2-498e-a7ce-d30ca66f9ff6" width="30%" />
+    </p>
+    <br>
+</div>
+
 
 
 ## 로컬 환경에서 프로젝트 구동 - 백엔드
