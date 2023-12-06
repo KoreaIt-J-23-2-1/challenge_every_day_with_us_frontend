@@ -184,7 +184,7 @@ gantt
 
 ## 📊 프로젝트 진행 상황 관리
 
-- <a href="https://github.com/nailedReact/bokgungom-market/issues?q=is%3Aissue+is%3Aclosed" target="_blank">🔘 GitHub Issues</a>
+- <a href="https://github.com/orgs/KoreaIt-J-23-2-1/projects/2" target="_blank">🔘 GitHub Issues</a>
     - 간편한 이슈 생성을 위해 이슈 템플릿을 만들어 사용했습니다.
     - 이슈 템플릿으로 어떤 이슈인지, 어떤 페이지에 해당하는 지, 구현 해야 하는 내용이 무엇인지를 적도록 했습니다.
     <img style="margin: 10px" width=80% src="./preview/issue example.png" alt="이슈 예시"/>
