@@ -256,7 +256,7 @@ function Feed(props) {
                                             </div>
                                         :
                                             <div>
-                                                {(principal.userId === 1 || principal.userId === 2 || principal.userId) && 
+                                                {(principal.userId === 1 || principal.userId === 2 || principal.userId === feed.userId) && 
                                                 <button css={S.Btn} onClick={() => {handleFeedDeleteClick(feed.feedId)}}>삭제</button>
                                                 }
                                                 <button css={S.Btn} onClick={() => {handleReportClick(feed.feedId, feed.challengeId)}}>신고</button>
