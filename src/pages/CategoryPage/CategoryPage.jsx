@@ -1,22 +1,12 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
-import img1 from '../../img/운동.png';
-import img2 from '../../img/일상.png';
-import img3 from '../../img/재태크.png';
-import img4 from '../../img/학습.png';
-import img5 from '../../img/취미.png';
-import img6 from '../../img/일기.png';
-import img7 from '../../img/기타.png';
-
 import img01 from '../../img/a운동.png';
 import img02 from '../../img/a산책.png';
 import img03 from '../../img/a재태크.png';
 import img04 from '../../img/a학습.png';
 import img05 from '../../img/a취미.png';
 import img06 from '../../img/a일기.png';
-import img07 from '../../img/a기타01.png';
 import img08 from '../../img/a기타02.png';
-
 import { Link, useNavigate } from 'react-router-dom';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import * as S from './CategoryPageStyle';

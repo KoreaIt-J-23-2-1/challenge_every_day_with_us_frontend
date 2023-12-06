@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import { useQuery, useQueryClient } from 'react-query';

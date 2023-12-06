@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 /** @jsxImportSource @emotion/react */
-import {useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import * as S from "./LogoutStateStyle";
 

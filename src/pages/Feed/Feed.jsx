@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as S from './FeedStyle';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../api/config/instance';
-import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { useNavigate, useParams } from 'react-router-dom/dist/umd/react-router-dom.development';
 import FeedEditModal from '../../components/FeedEditModal/FeedEditModal';

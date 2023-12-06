@@ -1,7 +1,6 @@
 import { css } from "@emotion/react"
 import backgroundImg from '../img/배경.jpg'
 import Swal from "sweetalert2";
-import swal from "sweetalert";
 
 export const Common = css`
     *{

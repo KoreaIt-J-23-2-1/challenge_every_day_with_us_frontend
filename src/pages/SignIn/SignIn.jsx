@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import SignLayout from '../../components/SignLayout/SignLayout';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 /** @jsxImportSource @emotion/react */
 import * as S from './Style';
 import LoginModal from '../../components/LoginModal/LoginModal';
 import TitleComponent from '../../components/TitleComponent/TitleComponent';
 import { SiNaver } from 'react-icons/si';
-import { FaGoogle } from 'react-icons/fa';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 const googleLogo = "https://firebasestorage.googleapis.com/v0/b/challengewithus-1ffef.appspot.com/o/button%2F%EA%B5%AC%EA%B8%80%EB%A1%9C%EA%B3%A0.png?alt=media&token=a91d106b-65cc-49c5-9dd0-546dcda82b18";
 

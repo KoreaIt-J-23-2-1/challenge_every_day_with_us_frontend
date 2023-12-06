@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom/dist/umd/react-router-dom.development';
 import BaseLayout from '../../components/BaseLayout/BaseLayout';
 import { css } from '@emotion/react';

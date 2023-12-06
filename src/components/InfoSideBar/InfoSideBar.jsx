@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import {useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import * as S from "./InfoSideBarStyle";
-import PointModal from '../PointModal/PointModal';
 import { showAlert } from '../../styles/common';
 
 function MypageDetailSideBar({ setUploadFiles, children }) {
