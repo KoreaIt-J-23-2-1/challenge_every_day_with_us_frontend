@@ -211,7 +211,7 @@ gantt
 
 - 이슈를 생성하면 GitHub Action으로 해당 이슈에 해당하는 브랜치가 자동으로 생성되도록 설정하여 브랜치명을 고민하고 브랜치를 생성하는 시간을 줄였습니다.
 - 예) 자동 생성된 브랜치를 pull 하고 ```git fetch ```한뒤 ```git checkout -t origin/feat/issue-81```하여 해당 브랜치로 이동합니다.
-- [브랜치 history]([https://github.com/nailedReact/react-app/blob/main/preview/git%20branch%20history.png](https://firebasestorage.googleapis.com/v0/b/challengewithus-1ffef.appspot.com/o/files%2Fgithub%20branch%2F%ED%94%84%EB%A1%A0%ED%8A%B8%20%EB%B8%8C%EB%9E%9C%EC%B9%98%ED%9E%88%EC%8A%A4%ED%86%A0%EB%A6%AC.png?alt=media&token=b7100661-178d-4372-8d2a-9d1f29a0ca37))
+- [브랜치 history](https://github.com/KoreaIt-J-23-2-1/challenge_with_us_frontend/blob/main/%ED%94%84%EB%A1%A0%ED%8A%B8%20%EB%B8%8C%EB%9E%9C%EC%B9%98%ED%9E%88%EC%8A%A4%ED%86%A0%EB%A6%AC.png)
 
 <p align="right"><a href="#top">TOP 🔼</a></p>
 <br>
