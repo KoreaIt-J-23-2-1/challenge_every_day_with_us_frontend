@@ -43,6 +43,7 @@ gantt
 
 ### 🤖 박지영
 
+- OAuth2 구글 간편로그인 및 회원가입 jwt 토큰발행
 - 참여중인 ChallengeList 조회
 - 참여한 Challenge 개수 조회
 - 자기소개 CRUD
