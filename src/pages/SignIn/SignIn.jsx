@@ -12,19 +12,19 @@ function SignIn(props) {
     const [ isModalOpen, setModalOpen ] = useState(false);
         
     const handleNaverSignin = () => {
-        window.location.replace("http://localhost:8080/oauth2/authorization/naver");
+        window.location.replace("http://3.39.36.97:8080/oauth2/authorization/naver");
     }
 
     const handleKakaoSignin = () => {
         try {
-            window.location.replace("http://localhost:8080/oauth2/authorization/kakao");
+            window.location.replace("http://3.39.36.97:8080/oauth2/authorization/kakao");
         } catch (error) {
             console.error("Kakao login error:", error);
         }
     }
 
     const handleGoogleSignin = () => {
-        window.location.replace("http://localhost:8080/oauth2/authorization/google");
+        window.location.replace("http://3.39.36.97:8080/oauth2/authorization/google");
     }
 
     const handleAdminLoginModalOpenClick = () => {
