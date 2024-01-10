@@ -116,7 +116,7 @@ function Feed(props) {
             title: "신고가 들어왔습니다.",
             challengeId: feedChallengeId,
             content: `${feedId}번의 피드의 신고가 들어왔으니 확인바랍니다.`,
-            targetUrl:`http://localhost:3000/challenge/${feedChallengeId}`
+            targetUrl:`http://challenge-with-us.s3-website.ap-northeast-2.amazonaws.com/challenge/${feedChallengeId}`
         };
         const response = await instance.post("/api/challenge/report", data, option)
             if(response) {
