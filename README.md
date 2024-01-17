@@ -1,5 +1,5 @@
 
-[🔗 Challenge_With_Us 바로가기](https://bokgungom-market.vercel.app/)
+[🔗 Challenge_With_Us 바로가기](http://challenge-with-us.s3-website.ap-northeast-2.amazonaws.com/)
 
 ## 💪 프로젝트 소개
 
